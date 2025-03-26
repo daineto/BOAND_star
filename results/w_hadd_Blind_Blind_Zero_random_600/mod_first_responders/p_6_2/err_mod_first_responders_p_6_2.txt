@@ -1,0 +1,32 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/pyperplan/pyperplan/task.py", line 63, in apply
+    return (state - self.del_effects) | self.add_effects
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 205, in update_g_values
+    update_g_brute(policy, task)
+  File "/home/daineto/CostFOND/planner/planner.py", line 220, in update_g_brute
+    reached_states = {det_action.apply(state) for det_action in action[1]}
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 371.41
+user 361.00
+sys 12.69

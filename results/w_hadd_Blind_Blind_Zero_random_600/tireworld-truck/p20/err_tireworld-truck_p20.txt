@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 31, in get_f_value
+    f_best = min([policy.get_best_g(state) for state in Out], default=math.inf)
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 268.58
+user 260.78
+sys 10.94

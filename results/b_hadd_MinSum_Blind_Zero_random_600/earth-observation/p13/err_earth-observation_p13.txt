@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 647, in <module>
+    main(sys.argv, len(sys.argv))
+  File "/home/daineto/CostFOND/planner/planner.py", line 622, in main
+    solution = boand_star(domain_file, problem_file, solution_folder, use_metric=metric, use_cp_heuristic=heuristic, use_best_case_heuristic=best_heuristic, use_worst_case_heuristic=worst_heuristic, use_size_heuristic=size_heuristic, use_selector=selector)
+  File "/home/daineto/CostFOND/planner/planner.py", line 369, in boand_star
+    task = get_alloutcome_determinization(domain, problem)
+  File "/home/daineto/CostFOND/planner/preprocessing.py", line 28, in get_alloutcome_determinization
+    pddl_problem = reader.parse_problem("aux_domain.pddl", "aux_problem.pddl")
+  File "/home/daineto/.local/lib/python3.10/site-packages/unified_planning/io/pddl_reader.py", line 1650, in parse_problem
+    return self.parse_problem_string(domain_str, problem_str)
+  File "/home/daineto/.local/lib/python3.10/site-packages/unified_planning/io/pddl_reader.py", line 1678, in parse_problem_string
+    return self._parse_problem(domain_res, domain_str, problem_res, problem_str)
+  File "/home/daineto/.local/lib/python3.10/site-packages/unified_planning/io/pddl_reader.py", line 1256, in _parse_problem
+    problem.add_action(act)
+  File "/home/daineto/.local/lib/python3.10/site-packages/unified_planning/model/mixins/actions_set.py", line 144, in add_action
+    raise UPProblemDefinitionError(msg)
+unified_planning.exceptions.UPProblemDefinitionError: Name slew already defined! Different elements of a problem can have the same name if the environment flag error_used_name is disabled.
+real 2.52
+user 5.78
+sys 0.23

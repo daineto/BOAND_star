@@ -1,0 +1,13 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 647, in <module>
+    main(sys.argv, len(sys.argv))
+  File "/home/daineto/CostFOND/planner/planner.py", line 622, in main
+    solution = boand_star(domain_file, problem_file, solution_folder, use_metric=metric, use_cp_heuristic=heuristic, use_best_case_heuristic=best_heuristic, use_worst_case_heuristic=worst_heuristic, use_size_heuristic=size_heuristic, use_selector=selector)
+  File "/home/daineto/CostFOND/planner/planner.py", line 544, in boand_star
+    openListSorter.push(open_list,f_best,f_worst,f_size,new_policy)
+  File "/home/daineto/CostFOND/planner/planner.py", line 162, in push
+    heapq.heappush(open_list, ((f_best,0,f_size),policy))
+MemoryError
+real 267.33
+user 260.10
+sys 11.02

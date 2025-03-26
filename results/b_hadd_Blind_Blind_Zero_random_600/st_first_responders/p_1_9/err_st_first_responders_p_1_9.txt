@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 647, in <module>
+    main(sys.argv, len(sys.argv))
+  File "/home/daineto/CostFOND/planner/planner.py", line 622, in main
+    solution = boand_star(domain_file, problem_file, solution_folder, use_metric=metric, use_cp_heuristic=heuristic, use_best_case_heuristic=best_heuristic, use_worst_case_heuristic=worst_heuristic, use_size_heuristic=size_heuristic, use_selector=selector)
+  File "/home/daineto/CostFOND/planner/planner.py", line 527, in boand_star
+    new_policy = extend_policy(current_policy, state, nondet_action, nondet_to_det_action[nondet_action], nondet_action_to_successors[nondet_action], task)
+  File "/home/daineto/CostFOND/planner/planner.py", line 274, in extend_policy
+    update_g_values(new_policy,state,successors, task)
+  File "/home/daineto/CostFOND/planner/planner.py", line 199, in update_g_values
+    policy.worst_ancestors[reached_state] = state
+MemoryError
+real 230.70
+user 218.18
+sys 16.14

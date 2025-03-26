@@ -1,0 +1,33 @@
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 205, in update_g_values
+    update_g_brute(policy, task)
+  File "/home/daineto/CostFOND/planner/planner.py", line 220, in update_g_brute
+    reached_states = {det_action.apply(state) for det_action in action[1]}
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 325.55
+user 319.34
+sys 9.46

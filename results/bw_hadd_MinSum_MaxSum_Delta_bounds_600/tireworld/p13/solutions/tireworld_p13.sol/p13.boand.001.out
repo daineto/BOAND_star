@@ -1,0 +1,15 @@
+If holds: (spare_in n9)/(spare_in n30)/(spare_in n3)/(spare_in n34)/(spare_in n17)/(spare_in n27)/(spare_in n2)/(spare_in n26)/(spare_in n22)/(not_flattire)/(spare_in n28)/(spare_in n32)/(spare_in n13)/(spare_in n12)/(spare_in n25)/(spare_in n21)/(spare_in n11)/(spare_in n35)/(spare_in n23)/(vehicle_at n20)/(spare_in n40)/(spare_in n6)/(spare_in n7)/(spare_in n38)
+Execute: (move_car n20 n21)
+
+If holds: (spare_in n9)/(spare_in n25)/(spare_in n30)/(spare_in n3)/(spare_in n21)/(spare_in n34)/(spare_in n17)/(spare_in n11)/(spare_in n27)/(spare_in n35)/(vehicle_at n21)/(spare_in n23)/(spare_in n2)/(spare_in n26)/(spare_in n22)/(spare_in n40)/(not_flattire)/(spare_in n28)/(spare_in n6)/(spare_in n32)/(spare_in n7)/(spare_in n13)/(spare_in n12)/(spare_in n38)
+Execute: (move_car n21 n4)
+
+If holds: (spare_in n9)/(spare_in n25)/(spare_in n30)/(spare_in n3)/(spare_in n21)/(spare_in n34)/(spare_in n17)/(spare_in n11)/(spare_in n27)/(spare_in n35)/(vehicle_at n21)/(spare_in n23)/(spare_in n2)/(spare_in n26)/(spare_in n22)/(spare_in n40)/(spare_in n28)/(spare_in n6)/(spare_in n32)/(spare_in n7)/(spare_in n13)/(spare_in n12)/(spare_in n38)
+Execute: (loadtire n21)
+
+If holds: (spare_in n9)/(spare_in n25)/(spare_in n30)/(spare_in n3)/(spare_in n34)/(spare_in n17)/(hasspare)/(spare_in n11)/(spare_in n27)/(spare_in n35)/(vehicle_at n21)/(spare_in n23)/(spare_in n2)/(spare_in n26)/(spare_in n22)/(spare_in n40)/(spare_in n28)/(spare_in n6)/(spare_in n32)/(spare_in n7)/(spare_in n13)/(spare_in n12)/(spare_in n38)
+Execute: (changetire)
+
+If holds: (spare_in n9)/(spare_in n25)/(spare_in n30)/(spare_in n3)/(spare_in n34)/(spare_in n17)/(spare_in n11)/(spare_in n27)/(spare_in n35)/(vehicle_at n21)/(spare_in n23)/(spare_in n2)/(spare_in n26)/(spare_in n22)/(spare_in n40)/(spare_in n28)/(not_flattire)/(spare_in n6)/(spare_in n32)/(spare_in n7)/(spare_in n13)/(spare_in n12)/(spare_in n38)
+Execute: (move_car n21 n4)
+

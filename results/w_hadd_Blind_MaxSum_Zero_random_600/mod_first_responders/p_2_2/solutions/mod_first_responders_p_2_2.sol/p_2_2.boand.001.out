@@ -1,0 +1,15 @@
+If holds: (victim_status v1 hurt)/(victim_at v1 l2)/(victim_at v2 l1)/(victim_status v2 hurt)/(medical_unit_at m1 l2)/(medical_unit_at m2 l1)
+Execute: (load_victim m1 l2 v1)
+
+If holds: (victim_status v1 hurt)/(victim_at v2 l1)/(victim_status v2 hurt)/(medical_unit_at m1 l2)/(medical_unit_at m2 l1)/(have_victim_in_unit v1 m1)
+Execute: (drive_medical_unit m1 l2 l1)
+
+If holds: (victim_status v1 hurt)/(victim_at v2 l1)/(victim_status v2 hurt)/(medical_unit_at m2 l1)/(medical_unit_at m1 l1)/(have_victim_in_unit v1 m1)
+Execute: (treat_victim_at_hospital v2 l1)
+
+If holds: (victim_status v1 hurt)/(victim_at v2 l1)/(medical_unit_at m1 l1)/(medical_unit_at m2 l1)/(have_victim_in_unit v1 m1)/(victim_status v2 healthy)
+Execute: (unload_victim m1 l1 v1)
+
+If holds: (victim_status v1 hurt)/(victim_at v2 l1)/(medical_unit_at m1 l1)/(victim_status v2 healthy)/(medical_unit_at m2 l1)/(victim_at v1 l1)
+Execute: (treat_victim_at_hospital v1 l1)
+

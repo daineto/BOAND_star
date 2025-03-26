@@ -1,0 +1,21 @@
+If holds: (up_0)/(position p0)
+Execute: (climb p0)
+
+If holds: (up)/(position p0)
+Execute: (walk_on_beam p0 p1)
+
+If holds: (up_0)/(position p1)
+Execute: (walk p1 p0)
+
+If holds: (up)/(position p1)
+Execute: (walk_on_beam p1 p2)
+
+If holds: (up)/(position p2)
+Execute: (walk_on_beam p2 p3)
+
+If holds: (position p3)/(up_0)
+Execute: (walk p3 p2)
+
+If holds: (up_0)/(position p2)
+Execute: (walk p2 p1)
+

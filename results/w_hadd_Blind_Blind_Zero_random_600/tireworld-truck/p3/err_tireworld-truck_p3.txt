@@ -1,0 +1,27 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 235, in update_g_brute
+    new_ancestors.append(state)
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 322.99
+user 313.12
+sys 12.04

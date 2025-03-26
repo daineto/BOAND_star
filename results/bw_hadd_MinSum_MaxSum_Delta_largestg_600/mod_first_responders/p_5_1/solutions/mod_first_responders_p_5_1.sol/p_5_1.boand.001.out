@@ -1,0 +1,3 @@
+If holds: (medical_unit_at m1 l1)/(medical_unit_at m2 l5)/(medical_unit_at m4 l2)/(victim_at v1 l2)/(medical_unit_at m3 l4)/(victim_status v1 dying)/(medical_unit_at m5 l1)
+Execute: (treat_victim_at_hospital v1 l2)
+

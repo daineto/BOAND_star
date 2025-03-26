@@ -1,0 +1,24 @@
+If holds: (coin_at c2 f2 p1)/(in e1 f1)/(coin_at c3 f2 p2)/(at_ f1 p1)/(coin_at c1 f2 p1)/(in e2 f1)
+Execute: (move_right_nogate f1 p1 p2)
+
+If holds: (in e1 f1)/(coin_at c2 f2 p1)/(coin_at c3 f2 p2)/(at_ f1 p2)/(coin_at c1 f2 p1)/(in e2 f1)
+Execute: (step_in e1 f1 p2)
+
+If holds: (in e1 f1)/(coin_at c2 f2 p1)/(coin_at c3 f2 p2)/(inside e1)/(coin_at c1 f2 p1)/(in e2 f1)
+Execute: (go_up e1 f1 f2)
+
+If holds: (coin_at c2 f2 p1)/(coin_at c3 f2 p2)/(in e1 f2)/(inside e1)/(coin_at c1 f2 p1)/(in e2 f1)
+Execute: (step_out e1 f2 p2)
+
+If holds: (coin_at c2 f2 p1)/(in e1 f2)/(coin_at c3 f2 p2)/(at_ f2 p2)/(coin_at c1 f2 p1)/(in e2 f1)
+Execute: (collect c3 f2 p2)
+
+If holds: (coin_at c2 f2 p1)/(in e1 f2)/(have c3)/(at_ f2 p2)/(coin_at c1 f2 p1)/(in e2 f1)
+Execute: (move_left_nogate f2 p2 p1)
+
+If holds: (coin_at c2 f2 p1)/(in e1 f2)/(have c3)/(at_ f2 p1)/(coin_at c1 f2 p1)/(in e2 f1)
+Execute: (collect c1 f2 p1)
+
+If holds: (coin_at c2 f2 p1)/(have c1)/(in e1 f2)/(have c3)/(at_ f2 p1)/(in e2 f1)
+Execute: (collect c2 f2 p1)
+

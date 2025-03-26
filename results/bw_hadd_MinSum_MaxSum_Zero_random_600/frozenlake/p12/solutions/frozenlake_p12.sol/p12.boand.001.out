@@ -1,0 +1,6 @@
+If holds: (at_ tile_4_4)
+Execute: (down_to_wall tile_4_4 tile_4_3 tile_4_2)
+
+If holds: (at_ tile_4_3)
+Execute: (right_to_wall tile_4_3 tile_5_3 rightwall_3)
+

@@ -1,0 +1,21 @@
+If holds: (victim_at v1 l1)/(victim_status v1 hurt)/(fire_unit_at f1 l1)/(medical_unit_at m1 l1)/(fire l1)
+Execute: (treat_victim_on_scene_fire f1 l1 v1)
+
+If holds: (fire_unit_at f1 l1)/(medical_unit_at m1 l1)/(victim_status v1 dying)/(fire l1)/(victim_at v1 l1)
+Execute: (load_medical_unit m1 l1 v1)
+
+If holds: (fire_unit_at f1 l1)/(have_victim_in_unit v1 m1)/(medical_unit_at m1 l1)/(victim_status v1 dying)/(fire l1)
+Execute: (load_fire_unit f1 l1)
+
+If holds: (fire_unit_at f1 l1)/(have_victim_in_unit v1 m1)/(medical_unit_at m1 l1)/(victim_status v1 dying)/(fire l1)/(have_water f1)
+Execute: (unload_medical_unit m1 l1 v1)
+
+If holds: (fire_unit_at f1 l1)/(medical_unit_at m1 l1)/(victim_status v1 dying)/(fire l1)/(victim_at v1 l1)/(have_water f1)
+Execute: (treat_victim_at_hospital v1 l1)
+
+If holds: (fire_unit_at f1 l1)/(medical_unit_at m1 l1)/(fire l1)/(victim_at v1 l1)/(victim_status v1 healthy)/(have_water f1)
+Execute: (unload_fire_unit f1 l1 l1)
+
+If holds: (fire_unit_at f1 l1)/(medical_unit_at m1 l1)/(fire l1)/(victim_at v1 l1)/(victim_status v1 healthy)
+Execute: (load_fire_unit f1 l1)
+

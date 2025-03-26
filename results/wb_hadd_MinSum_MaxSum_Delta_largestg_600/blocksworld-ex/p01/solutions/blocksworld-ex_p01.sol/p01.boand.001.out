@@ -1,0 +1,42 @@
+If holds: (no_detonated b1)/(clear b3)/(on b5 b1)/(on b4 b2)/(on b3 b5)/(on_table b1)/(no_destroyed b3)/(no_destroyed_table)/(no_destroyed b2)/(no_destroyed b4)/(clear b4)/(no_destroyed b5)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(emptyhand)/(no_detonated b4)/(on_table b2)/(no_detonated b3)
+Execute: (pick_up b4 b2)
+
+If holds: (no_detonated b1)/(no_destroyed_table)/(no_destroyed b2)/(no_destroyed b4)/(clear b4)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(on b5 b1)/(clear b2)/(holding b4)/(on b3 b5)/(no_detonated b4)/(on_table b2)/(on_table b1)/(no_detonated b3)/(no_destroyed b3)
+Execute: (put_down_nodet b4)
+
+If holds: (no_detonated b1)/(detonated b4)/(no_destroyed b2)/(clear b4)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(emptyhand)/(on b5 b1)/(clear b2)/(on_table b4)/(on b3 b5)/(no_destroyed b4)/(on_table b2)/(on_table b1)/(no_detonated b3)/(no_destroyed b3)
+Execute: (pick_up b3 b5)
+
+If holds: (no_detonated b4)/(no_detonated b1)/(no_destroyed_table)/(no_destroyed b2)/(clear b4)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(emptyhand)/(on b5 b1)/(clear b2)/(on_table b4)/(on b3 b5)/(no_destroyed b4)/(on_table b2)/(on_table b1)/(no_detonated b3)/(no_destroyed b3)
+Execute: (pick_up b3 b5)
+
+If holds: (on_table b1)/(no_detonated b1)/(no_destroyed_table)/(no_destroyed b2)/(no_destroyed b4)/(clear b4)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(holding b3)/(on b5 b1)/(clear b2)/(no_detonated b4)/(on_table b2)/(on_table b4)/(no_detonated b3)/(no_destroyed b3)
+Execute: (put_on_block_nodet b3 b4)
+
+If holds: (no_detonated b1)/(no_destroyed_table)/(no_destroyed b2)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(emptyhand)/(on b5 b1)/(clear b2)/(on b3 b4)/(on_table b4)/(detonated b3)/(no_detonated b4)/(on_table b2)/(on_table b1)/(no_destroyed b3)
+Execute: (pick_up b5 b1)
+
+If holds: (on_table b1)/(no_detonated b1)/(no_destroyed_table)/(holding b5)/(clear b1)/(no_destroyed b2)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(on b3 b4)/(clear b2)/(detonated b3)/(no_detonated b4)/(on_table b2)/(on_table b4)/(no_destroyed b3)
+Execute: (put_on_block_nodet b5 b2)
+
+If holds: (no_detonated b4)/(no_detonated b1)/(no_destroyed_table)/(no_destroyed b2)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(emptyhand)/(on b5 b1)/(clear b2)/(on b3 b4)/(on_table b4)/(no_destroyed b4)/(on_table b2)/(on_table b1)/(no_detonated b3)/(no_destroyed b3)
+Execute: (pick_up b5 b1)
+
+If holds: (on_table b1)/(no_detonated b1)/(no_destroyed_table)/(holding b5)/(clear b1)/(no_destroyed b2)/(no_destroyed b4)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(on b3 b4)/(clear b2)/(no_detonated b4)/(on_table b2)/(on_table b4)/(no_detonated b3)/(no_destroyed b3)
+Execute: (put_on_block_nodet b5 b2)
+
+If holds: (on_table b1)/(no_detonated b1)/(detonated b4)/(no_destroyed b2)/(clear b4)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(holding b3)/(on b5 b1)/(clear b2)/(no_destroyed b4)/(on_table b2)/(on_table b4)/(no_detonated b3)/(no_destroyed b3)
+Execute: (put_on_block_nodet b3 b4)
+
+If holds: (on b5 b1)/(clear b2)/(no_detonated b5)/(on_table b4)/(no_destroyed b3)/(on b3 b4)/(no_detonated b1)/(detonated b4)/(emptyhand)/(no_destroyed b2)/(detonated b3)/(no_destroyed b5)/(on_table b2)/(clear b3)/(on_table b1)/(no_detonated b2)/(no_destroyed b1)/(clear b5)
+Execute: (pick_up b5 b1)
+
+If holds: (no_detonated b1)/(detonated b4)/(holding b5)/(clear b1)/(no_destroyed b2)/(no_destroyed b5)/(clear b3)/(no_detonated b5)/(no_destroyed b1)/(no_detonated b2)/(clear b5)/(on b3 b4)/(clear b2)/(on_table b4)/(detonated b3)/(on_table b2)/(on_table b1)/(no_destroyed b3)
+Execute: (put_on_block_nodet b5 b2)
+
+If holds: (no_detonated b1)/(detonated b4)/(no_destroyed b2)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(emptyhand)/(on b5 b1)/(clear b2)/(on b3 b4)/(on_table b4)/(no_destroyed b4)/(on_table b2)/(on_table b1)/(no_detonated b3)/(no_destroyed b3)
+Execute: (pick_up b5 b1)
+
+If holds: (on_table b1)/(no_detonated b1)/(detonated b4)/(holding b5)/(clear b1)/(no_destroyed b2)/(no_destroyed b5)/(clear b3)/(no_destroyed b1)/(no_detonated b5)/(no_detonated b2)/(clear b5)/(on b3 b4)/(clear b2)/(no_destroyed b4)/(on_table b2)/(on_table b4)/(no_detonated b3)/(no_destroyed b3)
+Execute: (put_on_block_nodet b5 b2)
+

@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/policy.py", line 20, in copy
+    new_policy = Policy(dict(),set(),set())
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 227.13
+user 220.54
+sys 10.11

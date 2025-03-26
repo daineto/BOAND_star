@@ -1,0 +1,765 @@
+If holds: (position p0)/(up_0)
+Execute: (climb p0)
+
+If holds: (position p0)/(up)
+Execute: (walk_on_beam p0 p1)
+
+If holds: (position p1)/(up)
+Execute: (walk_on_beam p1 p2)
+
+If holds: (position p1)/(up_0)
+Execute: (walk p1 p0)
+
+If holds: (up)/(position p2)
+Execute: (walk_on_beam p2 p3)
+
+If holds: (up)/(position p3)
+Execute: (walk_on_beam p3 p4)
+
+If holds: (up)/(position p4)
+Execute: (walk_on_beam p4 p5)
+
+If holds: (up_0)/(position p3)
+Execute: (walk p3 p2)
+
+If holds: (up_0)/(position p4)
+Execute: (walk p4 p3)
+
+If holds: (position p5)/(up_0)
+Execute: (walk p5 p4)
+
+If holds: (up_0)/(position p2)
+Execute: (walk p2 p1)
+
+If holds: (position p5)/(up)
+Execute: (walk_on_beam p5 p6)
+
+If holds: (up)/(position p6)
+Execute: (walk_on_beam p6 p7)
+
+If holds: (position p7)/(up)
+Execute: (walk_on_beam p7 p8)
+
+If holds: (position p7)/(up_0)
+Execute: (walk p7 p6)
+
+If holds: (up_0)/(position p8)
+Execute: (walk p8 p7)
+
+If holds: (up_0)/(position p6)
+Execute: (walk p6 p5)
+
+If holds: (up)/(position p8)
+Execute: (walk_on_beam p8 p9)
+
+If holds: (up)/(position p9)
+Execute: (walk_on_beam p9 p10)
+
+If holds: (up)/(position p10)
+Execute: (walk_on_beam p10 p11)
+
+If holds: (up)/(position p11)
+Execute: (walk_on_beam p11 p12)
+
+If holds: (up_0)/(position p11)
+Execute: (walk p11 p10)
+
+If holds: (position p12)/(up_0)
+Execute: (walk p12 p11)
+
+If holds: (position p12)/(up)
+Execute: (walk_on_beam p12 p13)
+
+If holds: (position p13)/(up)
+Execute: (walk_on_beam p13 p14)
+
+If holds: (up_0)/(position p9)
+Execute: (walk p9 p8)
+
+If holds: (position p13)/(up_0)
+Execute: (walk p13 p12)
+
+If holds: (position p14)/(up)
+Execute: (walk_on_beam p14 p15)
+
+If holds: (up_0)/(position p15)
+Execute: (walk p15 p14)
+
+If holds: (position p14)/(up_0)
+Execute: (walk p14 p13)
+
+If holds: (up)/(position p15)
+Execute: (walk_on_beam p15 p16)
+
+If holds: (up)/(position p16)
+Execute: (walk_on_beam p16 p17)
+
+If holds: (up)/(position p17)
+Execute: (walk_on_beam p17 p18)
+
+If holds: (up_0)/(position p17)
+Execute: (walk p17 p16)
+
+If holds: (position p18)/(up_0)
+Execute: (walk p18 p17)
+
+If holds: (position p18)/(up)
+Execute: (walk_on_beam p18 p19)
+
+If holds: (up)/(position p19)
+Execute: (walk_on_beam p19 p20)
+
+If holds: (up_0)/(position p16)
+Execute: (walk p16 p15)
+
+If holds: (up_0)/(position p19)
+Execute: (walk p19 p18)
+
+If holds: (up_0)/(position p20)
+Execute: (walk p20 p19)
+
+If holds: (up)/(position p20)
+Execute: (walk_on_beam p20 p21)
+
+If holds: (up_0)/(position p21)
+Execute: (walk p21 p20)
+
+If holds: (up)/(position p21)
+Execute: (walk_on_beam p21 p22)
+
+If holds: (up)/(position p22)
+Execute: (walk_on_beam p22 p23)
+
+If holds: (up_0)/(position p22)
+Execute: (walk p22 p21)
+
+If holds: (position p23)/(up)
+Execute: (walk_on_beam p23 p24)
+
+If holds: (position p23)/(up_0)
+Execute: (walk p23 p22)
+
+If holds: (position p24)/(up_0)
+Execute: (walk p24 p23)
+
+If holds: (position p24)/(up)
+Execute: (walk_on_beam p24 p25)
+
+If holds: (up_0)/(position p25)
+Execute: (walk p25 p24)
+
+If holds: (up_0)/(position p10)
+Execute: (walk p10 p9)
+
+If holds: (up)/(position p25)
+Execute: (walk_on_beam p25 p26)
+
+If holds: (up)/(position p26)
+Execute: (walk_on_beam p26 p27)
+
+If holds: (position p27)/(up)
+Execute: (walk_on_beam p27 p28)
+
+If holds: (position p27)/(up_0)
+Execute: (walk p27 p26)
+
+If holds: (up_0)/(position p28)
+Execute: (walk p28 p27)
+
+If holds: (up_0)/(position p26)
+Execute: (walk p26 p25)
+
+If holds: (up)/(position p28)
+Execute: (walk_on_beam p28 p29)
+
+If holds: (up)/(position p29)
+Execute: (walk_on_beam p29 p30)
+
+If holds: (up)/(position p30)
+Execute: (walk_on_beam p30 p31)
+
+If holds: (up_0)/(position p30)
+Execute: (walk p30 p29)
+
+If holds: (up_0)/(position p31)
+Execute: (walk p31 p30)
+
+If holds: (up)/(position p31)
+Execute: (walk_on_beam p31 p32)
+
+If holds: (position p32)/(up)
+Execute: (walk_on_beam p32 p33)
+
+If holds: (position p32)/(up_0)
+Execute: (walk p32 p31)
+
+If holds: (up)/(position p33)
+Execute: (walk_on_beam p33 p34)
+
+If holds: (position p34)/(up)
+Execute: (walk_on_beam p34 p35)
+
+If holds: (up)/(position p35)
+Execute: (walk_on_beam p35 p36)
+
+If holds: (up_0)/(position p35)
+Execute: (walk p35 p34)
+
+If holds: (up_0)/(position p33)
+Execute: (walk p33 p32)
+
+If holds: (up_0)/(position p29)
+Execute: (walk p29 p28)
+
+If holds: (position p36)/(up)
+Execute: (walk_on_beam p36 p37)
+
+If holds: (up_0)/(position p37)
+Execute: (walk p37 p36)
+
+If holds: (up)/(position p37)
+Execute: (walk_on_beam p37 p38)
+
+If holds: (position p38)/(up)
+Execute: (walk_on_beam p38 p39)
+
+If holds: (position p39)/(up_0)
+Execute: (walk p39 p38)
+
+If holds: (position p34)/(up_0)
+Execute: (walk p34 p33)
+
+If holds: (position p36)/(up_0)
+Execute: (walk p36 p35)
+
+If holds: (position p38)/(up_0)
+Execute: (walk p38 p37)
+
+If holds: (position p39)/(up)
+Execute: (walk_on_beam p39 p40)
+
+If holds: (up_0)/(position p40)
+Execute: (walk p40 p39)
+
+If holds: (up)/(position p40)
+Execute: (walk_on_beam p40 p41)
+
+If holds: (position p41)/(up_0)
+Execute: (walk p41 p40)
+
+If holds: (position p41)/(up)
+Execute: (walk_on_beam p41 p42)
+
+If holds: (position p42)/(up)
+Execute: (walk_on_beam p42 p43)
+
+If holds: (position p42)/(up_0)
+Execute: (walk p42 p41)
+
+If holds: (up)/(position p43)
+Execute: (walk_on_beam p43 p44)
+
+If holds: (up)/(position p44)
+Execute: (walk_on_beam p44 p45)
+
+If holds: (up_0)/(position p44)
+Execute: (walk p44 p43)
+
+If holds: (up_0)/(position p43)
+Execute: (walk p43 p42)
+
+If holds: (up)/(position p45)
+Execute: (walk_on_beam p45 p46)
+
+If holds: (position p46)/(up)
+Execute: (walk_on_beam p46 p47)
+
+If holds: (position p47)/(up)
+Execute: (walk_on_beam p47 p48)
+
+If holds: (up_0)/(position p45)
+Execute: (walk p45 p44)
+
+If holds: (position p47)/(up_0)
+Execute: (walk p47 p46)
+
+If holds: (position p46)/(up_0)
+Execute: (walk p46 p45)
+
+If holds: (position p48)/(up_0)
+Execute: (walk p48 p47)
+
+If holds: (position p48)/(up)
+Execute: (walk_on_beam p48 p49)
+
+If holds: (position p49)/(up)
+Execute: (walk_on_beam p49 p50)
+
+If holds: (up_0)/(position p50)
+Execute: (walk p50 p49)
+
+If holds: (up)/(position p50)
+Execute: (walk_on_beam p50 p51)
+
+If holds: (position p49)/(up_0)
+Execute: (walk p49 p48)
+
+If holds: (up_0)/(position p51)
+Execute: (walk p51 p50)
+
+If holds: (up)/(position p51)
+Execute: (walk_on_beam p51 p52)
+
+If holds: (up)/(position p52)
+Execute: (walk_on_beam p52 p53)
+
+If holds: (up)/(position p53)
+Execute: (walk_on_beam p53 p54)
+
+If holds: (up_0)/(position p53)
+Execute: (walk p53 p52)
+
+If holds: (position p54)/(up_0)
+Execute: (walk p54 p53)
+
+If holds: (up_0)/(position p52)
+Execute: (walk p52 p51)
+
+If holds: (position p54)/(up)
+Execute: (walk_on_beam p54 p55)
+
+If holds: (up)/(position p55)
+Execute: (walk_on_beam p55 p56)
+
+If holds: (up_0)/(position p55)
+Execute: (walk p55 p54)
+
+If holds: (position p56)/(up_0)
+Execute: (walk p56 p55)
+
+If holds: (position p56)/(up)
+Execute: (walk_on_beam p56 p57)
+
+If holds: (up_0)/(position p57)
+Execute: (walk p57 p56)
+
+If holds: (up)/(position p57)
+Execute: (walk_on_beam p57 p58)
+
+If holds: (up)/(position p58)
+Execute: (walk_on_beam p58 p59)
+
+If holds: (up_0)/(position p58)
+Execute: (walk p58 p57)
+
+If holds: (up)/(position p59)
+Execute: (walk_on_beam p59 p60)
+
+If holds: (position p60)/(up)
+Execute: (walk_on_beam p60 p61)
+
+If holds: (up)/(position p61)
+Execute: (walk_on_beam p61 p62)
+
+If holds: (up_0)/(position p59)
+Execute: (walk p59 p58)
+
+If holds: (position p62)/(up)
+Execute: (walk_on_beam p62 p63)
+
+If holds: (position p63)/(up)
+Execute: (walk_on_beam p63 p64)
+
+If holds: (position p64)/(up)
+Execute: (walk_on_beam p64 p65)
+
+If holds: (position p65)/(up_0)
+Execute: (walk p65 p64)
+
+If holds: (position p62)/(up_0)
+Execute: (walk p62 p61)
+
+If holds: (position p64)/(up_0)
+Execute: (walk p64 p63)
+
+If holds: (position p65)/(up)
+Execute: (walk_on_beam p65 p66)
+
+If holds: (position p66)/(up_0)
+Execute: (walk p66 p65)
+
+If holds: (position p66)/(up)
+Execute: (walk_on_beam p66 p67)
+
+If holds: (up)/(position p67)
+Execute: (walk_on_beam p67 p68)
+
+If holds: (position p68)/(up)
+Execute: (walk_on_beam p68 p69)
+
+If holds: (up_0)/(position p69)
+Execute: (walk p69 p68)
+
+If holds: (position p68)/(up_0)
+Execute: (walk p68 p67)
+
+If holds: (up_0)/(position p67)
+Execute: (walk p67 p66)
+
+If holds: (up)/(position p69)
+Execute: (walk_on_beam p69 p70)
+
+If holds: (position p60)/(up_0)
+Execute: (walk p60 p59)
+
+If holds: (position p70)/(up)
+Execute: (walk_on_beam p70 p71)
+
+If holds: (up_0)/(position p61)
+Execute: (walk p61 p60)
+
+If holds: (up_0)/(position p71)
+Execute: (walk p71 p70)
+
+If holds: (up)/(position p71)
+Execute: (walk_on_beam p71 p72)
+
+If holds: (up_0)/(position p72)
+Execute: (walk p72 p71)
+
+If holds: (up)/(position p72)
+Execute: (walk_on_beam p72 p73)
+
+If holds: (up)/(position p73)
+Execute: (walk_on_beam p73 p74)
+
+If holds: (up_0)/(position p74)
+Execute: (walk p74 p73)
+
+If holds: (up_0)/(position p73)
+Execute: (walk p73 p72)
+
+If holds: (up)/(position p74)
+Execute: (walk_on_beam p74 p75)
+
+If holds: (up)/(position p75)
+Execute: (walk_on_beam p75 p76)
+
+If holds: (position p76)/(up_0)
+Execute: (walk p76 p75)
+
+If holds: (position p76)/(up)
+Execute: (walk_on_beam p76 p77)
+
+If holds: (up)/(position p77)
+Execute: (walk_on_beam p77 p78)
+
+If holds: (up_0)/(position p78)
+Execute: (walk p78 p77)
+
+If holds: (position p70)/(up_0)
+Execute: (walk p70 p69)
+
+If holds: (up)/(position p78)
+Execute: (walk_on_beam p78 p79)
+
+If holds: (up)/(position p79)
+Execute: (walk_on_beam p79 p80)
+
+If holds: (up)/(position p80)
+Execute: (walk_on_beam p80 p81)
+
+If holds: (position p81)/(up_0)
+Execute: (walk p81 p80)
+
+If holds: (up_0)/(position p80)
+Execute: (walk p80 p79)
+
+If holds: (position p81)/(up)
+Execute: (walk_on_beam p81 p82)
+
+If holds: (position p82)/(up_0)
+Execute: (walk p82 p81)
+
+If holds: (up_0)/(position p79)
+Execute: (walk p79 p78)
+
+If holds: (up_0)/(position p75)
+Execute: (walk p75 p74)
+
+If holds: (position p82)/(up)
+Execute: (walk_on_beam p82 p83)
+
+If holds: (up)/(position p83)
+Execute: (walk_on_beam p83 p84)
+
+If holds: (up)/(position p84)
+Execute: (walk_on_beam p84 p85)
+
+If holds: (position p85)/(up)
+Execute: (walk_on_beam p85 p86)
+
+If holds: (up_0)/(position p86)
+Execute: (walk p86 p85)
+
+If holds: (position p85)/(up_0)
+Execute: (walk p85 p84)
+
+If holds: (up)/(position p86)
+Execute: (walk_on_beam p86 p87)
+
+If holds: (up)/(position p87)
+Execute: (walk_on_beam p87 p88)
+
+If holds: (up_0)/(position p87)
+Execute: (walk p87 p86)
+
+If holds: (position p88)/(up)
+Execute: (walk_on_beam p88 p89)
+
+If holds: (position p88)/(up_0)
+Execute: (walk p88 p87)
+
+If holds: (position p63)/(up_0)
+Execute: (walk p63 p62)
+
+If holds: (up)/(position p89)
+Execute: (walk_on_beam p89 p90)
+
+If holds: (up_0)/(position p89)
+Execute: (walk p89 p88)
+
+If holds: (up)/(position p90)
+Execute: (walk_on_beam p90 p91)
+
+If holds: (up_0)/(position p91)
+Execute: (walk p91 p90)
+
+If holds: (up_0)/(position p90)
+Execute: (walk p90 p89)
+
+If holds: (up)/(position p91)
+Execute: (walk_on_beam p91 p92)
+
+If holds: (position p92)/(up)
+Execute: (walk_on_beam p92 p93)
+
+If holds: (position p92)/(up_0)
+Execute: (walk p92 p91)
+
+If holds: (position p93)/(up)
+Execute: (walk_on_beam p93 p94)
+
+If holds: (up)/(position p94)
+Execute: (walk_on_beam p94 p95)
+
+If holds: (up)/(position p95)
+Execute: (walk_on_beam p95 p96)
+
+If holds: (up_0)/(position p96)
+Execute: (walk p96 p95)
+
+If holds: (up_0)/(position p94)
+Execute: (walk p94 p93)
+
+If holds: (up)/(position p96)
+Execute: (walk_on_beam p96 p97)
+
+If holds: (up_0)/(position p97)
+Execute: (walk p97 p96)
+
+If holds: (up_0)/(position p95)
+Execute: (walk p95 p94)
+
+If holds: (position p93)/(up_0)
+Execute: (walk p93 p92)
+
+If holds: (up_0)/(position p83)
+Execute: (walk p83 p82)
+
+If holds: (up)/(position p97)
+Execute: (walk_on_beam p97 p98)
+
+If holds: (position p98)/(up)
+Execute: (walk_on_beam p98 p99)
+
+If holds: (position p98)/(up_0)
+Execute: (walk p98 p97)
+
+If holds: (up)/(position p99)
+Execute: (walk_on_beam p99 p100)
+
+If holds: (up_0)/(position p99)
+Execute: (walk p99 p98)
+
+If holds: (up_0)/(position p100)
+Execute: (walk p100 p99)
+
+If holds: (up)/(position p100)
+Execute: (walk_on_beam p100 p101)
+
+If holds: (up)/(position p101)
+Execute: (walk_on_beam p101 p102)
+
+If holds: (up_0)/(position p101)
+Execute: (walk p101 p100)
+
+If holds: (up)/(position p102)
+Execute: (walk_on_beam p102 p103)
+
+If holds: (position p103)/(up_0)
+Execute: (walk p103 p102)
+
+If holds: (up_0)/(position p102)
+Execute: (walk p102 p101)
+
+If holds: (up_0)/(position p84)
+Execute: (walk p84 p83)
+
+If holds: (up_0)/(position p77)
+Execute: (walk p77 p76)
+
+If holds: (position p103)/(up)
+Execute: (walk_on_beam p103 p104)
+
+If holds: (up)/(position p104)
+Execute: (walk_on_beam p104 p105)
+
+If holds: (up)/(position p105)
+Execute: (walk_on_beam p105 p106)
+
+If holds: (up)/(position p106)
+Execute: (walk_on_beam p106 p107)
+
+If holds: (up_0)/(position p106)
+Execute: (walk p106 p105)
+
+If holds: (position p107)/(up)
+Execute: (walk_on_beam p107 p108)
+
+If holds: (up)/(position p108)
+Execute: (walk_on_beam p108 p109)
+
+If holds: (position p107)/(up_0)
+Execute: (walk p107 p106)
+
+If holds: (position p109)/(up)
+Execute: (walk_on_beam p109 p110)
+
+If holds: (position p110)/(up)
+Execute: (walk_on_beam p110 p111)
+
+If holds: (up)/(position p111)
+Execute: (walk_on_beam p111 p112)
+
+If holds: (position p112)/(up_0)
+Execute: (walk p112 p111)
+
+If holds: (position p110)/(up_0)
+Execute: (walk p110 p109)
+
+If holds: (up_0)/(position p111)
+Execute: (walk p111 p110)
+
+If holds: (up_0)/(position p108)
+Execute: (walk p108 p107)
+
+If holds: (up_0)/(position p105)
+Execute: (walk p105 p104)
+
+If holds: (position p112)/(up)
+Execute: (walk_on_beam p112 p113)
+
+If holds: (position p113)/(up_0)
+Execute: (walk p113 p112)
+
+If holds: (position p109)/(up_0)
+Execute: (walk p109 p108)
+
+If holds: (up_0)/(position p104)
+Execute: (walk p104 p103)
+
+If holds: (position p113)/(up)
+Execute: (walk_on_beam p113 p114)
+
+If holds: (position p114)/(up_0)
+Execute: (walk p114 p113)
+
+If holds: (position p114)/(up)
+Execute: (walk_on_beam p114 p115)
+
+If holds: (position p115)/(up_0)
+Execute: (walk p115 p114)
+
+If holds: (position p115)/(up)
+Execute: (walk_on_beam p115 p116)
+
+If holds: (up_0)/(position p116)
+Execute: (walk p116 p115)
+
+If holds: (up)/(position p116)
+Execute: (walk_on_beam p116 p117)
+
+If holds: (up)/(position p117)
+Execute: (walk_on_beam p117 p118)
+
+If holds: (up)/(position p118)
+Execute: (walk_on_beam p118 p119)
+
+If holds: (position p119)/(up)
+Execute: (walk_on_beam p119 p120)
+
+If holds: (position p119)/(up_0)
+Execute: (walk p119 p118)
+
+If holds: (position p120)/(up_0)
+Execute: (walk p120 p119)
+
+If holds: (up_0)/(position p118)
+Execute: (walk p118 p117)
+
+If holds: (position p120)/(up)
+Execute: (walk_on_beam p120 p121)
+
+If holds: (position p121)/(up)
+Execute: (walk_on_beam p121 p122)
+
+If holds: (up)/(position p122)
+Execute: (walk_on_beam p122 p123)
+
+If holds: (up_0)/(position p123)
+Execute: (walk p123 p122)
+
+If holds: (up)/(position p123)
+Execute: (walk_on_beam p123 p124)
+
+If holds: (up_0)/(position p124)
+Execute: (walk p124 p123)
+
+If holds: (up_0)/(position p122)
+Execute: (walk p122 p121)
+
+If holds: (up)/(position p124)
+Execute: (walk_on_beam p124 p125)
+
+If holds: (position p125)/(up_0)
+Execute: (walk p125 p124)
+
+If holds: (position p121)/(up_0)
+Execute: (walk p121 p120)
+
+If holds: (position p125)/(up)
+Execute: (walk_on_beam p125 p126)
+
+If holds: (position p126)/(up)
+Execute: (walk_on_beam p126 p127)
+
+If holds: (position p127)/(up_0)
+Execute: (walk p127 p126)
+
+If holds: (position p126)/(up_0)
+Execute: (walk p126 p125)
+
+If holds: (up_0)/(position p117)
+Execute: (walk p117 p116)
+

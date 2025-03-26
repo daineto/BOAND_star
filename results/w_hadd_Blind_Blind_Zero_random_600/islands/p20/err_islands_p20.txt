@@ -1,0 +1,23 @@
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 527, in boand_star
+    new_policy = extend_policy(current_policy, state, nondet_action, nondet_to_det_action[nondet_action], nondet_action_to_successors[nondet_action], task)
+  File "/home/daineto/CostFOND/planner/planner.py", line 267, in extend_policy
+    new_policy = current_policy.copy()
+  File "/home/daineto/CostFOND/planner/policy.py", line 20, in copy
+    new_policy = Policy(dict(),set(),set())
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 214.13
+user 208.52
+sys 9.14

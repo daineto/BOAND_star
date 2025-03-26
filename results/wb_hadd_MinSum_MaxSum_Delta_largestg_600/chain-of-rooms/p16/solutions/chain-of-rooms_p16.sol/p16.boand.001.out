@@ -1,0 +1,135 @@
+If holds: (light_off r7)/(light_off r14)/(light_off r12)/(light_off r11)/(light_off r2)/(light_off r10)/(light_off r4)/(light_off r13)/(light_off r3)/(light_off r5)/(light_off r9)/(light_off r8)/(agent_position r1)/(light_off r6)/(light_off r1)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r1)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(agent_position r1)/(light_off r14)/(light_off r6)/(light_on r1)/(light_off r12)/(light_off r2)/(light_off r10)/(light_off r13)/(light_off r3)/(light_off r5)/(visited r1)/(light_off r15)
+Execute: (unlock_door r1)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(agent_position r1)/(light_off r14)/(light_off r6)/(light_on r1)/(light_off r12)/(light_off r2)/(light_off r10)/(light_off r13)/(light_off r3)/(light_off r5)/(door_unlocked r1)/(visited r1)/(light_off r15)
+Execute: (move_left_right r1 r2)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(light_off r14)/(light_off r6)/(agent_position r2)/(light_on r1)/(light_off r12)/(light_off r2)/(light_off r10)/(light_off r13)/(light_off r3)/(light_off r5)/(door_unlocked r1)/(visited r2)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r2)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(light_off r14)/(light_off r6)/(agent_position r2)/(light_on r1)/(light_off r12)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r3)/(light_off r5)/(light_on r2)/(visited r2)/(visited r1)/(light_off r15)
+Execute: (unlock_door r2)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(light_off r14)/(light_off r6)/(agent_position r2)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r3)/(light_off r5)/(light_on r2)/(visited r2)/(visited r1)/(light_off r15)
+Execute: (move_left_right r2 r3)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r3)/(light_off r5)/(light_on r2)/(visited r2)/(visited r1)/(light_off r15)/(agent_position r3)
+Execute: (turn_light_on r3)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r5)/(light_on r2)/(visited r2)/(door_unlocked r3)/(visited r1)/(light_off r15)/(agent_position r3)
+Execute: (move_left_right r3 r4)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r5)/(light_on r2)/(visited r2)/(visited r1)/(light_off r15)/(agent_position r3)
+Execute: (unlock_door r3)
+
+If holds: (light_off r7)/(light_off r11)/(light_off r4)/(visited r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(agent_position r4)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r5)/(light_on r2)/(visited r2)/(door_unlocked r3)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r4)
+
+If holds: (light_off r7)/(light_off r11)/(visited r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(agent_position r4)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r5)/(light_on r2)/(visited r2)/(door_unlocked r3)/(light_on r4)/(visited r1)/(light_off r15)
+Execute: (unlock_door r4)
+
+If holds: (light_off r7)/(light_off r11)/(visited r4)/(door_unlocked r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(agent_position r4)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r5)/(light_on r2)/(visited r2)/(door_unlocked r3)/(light_on r4)/(visited r1)/(light_off r15)
+Execute: (move_left_right r4 r5)
+
+If holds: (light_off r7)/(light_off r11)/(visited r4)/(door_unlocked r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_off r5)/(light_on r2)/(agent_position r5)/(visited r5)/(visited r2)/(door_unlocked r3)/(light_on r4)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r5)
+
+If holds: (light_off r7)/(light_off r11)/(visited r4)/(door_unlocked r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(agent_position r5)/(visited r5)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r1)/(light_off r15)
+Execute: (unlock_door r5)
+
+If holds: (light_off r7)/(door_unlocked r5)/(light_off r11)/(visited r4)/(door_unlocked r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(agent_position r5)/(visited r5)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r1)/(light_off r15)
+Execute: (move_left_right r5 r6)
+
+If holds: (light_off r7)/(door_unlocked r5)/(light_off r11)/(visited r4)/(door_unlocked r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_off r6)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(agent_position r6)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r6)
+
+If holds: (light_off r7)/(door_unlocked r5)/(light_off r11)/(visited r4)/(door_unlocked r4)/(light_off r9)/(light_off r8)/(visited r3)/(light_off r14)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(agent_position r6)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (unlock_door r6)
+
+If holds: (light_off r7)/(door_unlocked r5)/(light_off r11)/(visited r4)/(door_unlocked r4)/(light_off r9)/(light_off r8)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(agent_position r6)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (move_left_right r6 r7)
+
+If holds: (light_off r7)/(door_unlocked r5)/(light_off r11)/(visited r4)/(door_unlocked r4)/(agent_position r7)/(light_off r9)/(light_off r8)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(visited r7)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r7)
+
+If holds: (door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(agent_position r7)/(light_off r9)/(light_off r8)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (move_left_right r7 r8)
+
+If holds: (door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(agent_position r7)/(light_off r9)/(light_off r8)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(visited r7)/(door_unlocked r2)/(light_off r12)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (unlock_door r7)
+
+If holds: (door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r8)/(light_off r9)/(light_off r8)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(light_on r3)/(agent_position r8)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r8)
+
+If holds: (door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r8)/(light_off r9)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(light_on r3)/(agent_position r8)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r8)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (unlock_door r8)
+
+If holds: (door_unlocked r8)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r8)/(light_off r9)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(light_on r3)/(agent_position r8)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r8)/(light_on r6)/(visited r2)/(door_unlocked r3)/(light_on r4)/(light_on r5)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (move_left_right r8 r9)
+
+If holds: (door_unlocked r8)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(agent_position r9)/(visited r4)/(visited r8)/(door_unlocked r4)/(light_off r9)/(visited r3)/(door_unlocked r6)/(light_off r14)/(light_on r1)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(visited r5)/(light_on r8)/(light_on r6)/(visited r2)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r6)/(visited r1)/(light_off r15)
+Execute: (turn_light_on r9)
+
+If holds: (door_unlocked r8)/(agent_position r9)/(visited r8)/(door_unlocked r6)/(light_on r1)/(light_on r9)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)
+Execute: (unlock_door r9)
+
+If holds: (door_unlocked r8)/(agent_position r9)/(visited r8)/(door_unlocked r6)/(light_on r1)/(light_on r9)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)
+Execute: (move_left_right r9 r10)
+
+If holds: (door_unlocked r8)/(visited r8)/(door_unlocked r6)/(light_on r1)/(light_on r9)/(agent_position r10)/(light_on r3)/(door_unlocked r1)/(light_off r10)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (turn_light_on r10)
+
+If holds: (door_unlocked r8)/(visited r8)/(door_unlocked r6)/(light_on r10)/(light_on r1)/(light_on r9)/(agent_position r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (unlock_door r10)
+
+If holds: (door_unlocked r8)/(visited r8)/(door_unlocked r6)/(light_on r10)/(light_on r1)/(light_on r9)/(door_unlocked r10)/(agent_position r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (move_left_right r10 r11)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(agent_position r11)/(door_unlocked r6)/(light_on r10)/(light_on r1)/(light_on r9)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_off r11)/(light_on r7)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (turn_light_on r11)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(agent_position r11)/(door_unlocked r6)/(light_on r10)/(light_on r1)/(light_on r9)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (unlock_door r11)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(agent_position r11)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(light_off r15)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (move_left_right r11 r12)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(visited r12)/(light_off r15)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(agent_position r12)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(light_off r12)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (turn_light_on r12)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(visited r6)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(agent_position r12)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (move_left_right r12 r13)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(agent_position r13)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(visited r6)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (turn_light_on r13)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(agent_position r13)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r13)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(visited r6)/(light_on r13)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (move_left_right r13 r14)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r13)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(visited r6)/(light_on r13)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(visited r14)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(agent_position r14)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (turn_light_on r14)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r13)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(visited r6)/(light_on r13)/(light_on r14)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(visited r14)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(agent_position r14)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(door_unlocked r14)/(visited r1)/(visited r10)
+Execute: (move_left_right r14 r15)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r13)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(agent_position r15)/(visited r6)/(light_on r13)/(light_on r14)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(visited r14)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r15)/(visited r3)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(door_unlocked r14)/(visited r1)/(visited r10)
+Execute: (turn_light_on r15)
+
+If holds: (door_unlocked r8)/(visited r11)/(door_unlocked r15)/(visited r8)/(light_on r15)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r13)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(agent_position r15)/(visited r6)/(light_on r13)/(light_on r14)/(visited r12)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(visited r14)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r15)/(visited r3)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(door_unlocked r14)/(visited r1)/(visited r10)
+Execute: (move_left_right r15 r16)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r13)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(visited r6)/(light_on r13)/(light_on r14)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(visited r14)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(agent_position r14)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (unlock_door r14)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(light_on r15)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r13)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(agent_position r15)/(visited r6)/(light_on r13)/(light_on r14)/(visited r12)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(visited r14)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r15)/(visited r3)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(door_unlocked r14)/(visited r1)/(visited r10)
+Execute: (unlock_door r15)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(light_on r9)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_off r13)/(light_on r2)/(light_on r6)/(visited r2)/(visited r6)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(agent_position r12)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (unlock_door r12)
+
+If holds: (door_unlocked r8)/(visited r11)/(visited r8)/(door_unlocked r6)/(light_on r10)/(door_unlocked r11)/(light_on r1)/(agent_position r13)/(light_on r9)/(visited r13)/(door_unlocked r10)/(light_on r3)/(door_unlocked r1)/(light_on r2)/(door_unlocked r12)/(light_on r6)/(visited r2)/(visited r6)/(light_on r13)/(visited r12)/(light_off r15)/(light_on r12)/(door_unlocked r5)/(light_on r7)/(light_on r11)/(visited r4)/(door_unlocked r4)/(visited r3)/(light_off r14)/(visited r7)/(door_unlocked r2)/(door_unlocked r7)/(visited r5)/(door_unlocked r9)/(light_on r8)/(door_unlocked r3)/(visited r9)/(light_on r4)/(light_on r5)/(visited r1)/(visited r10)
+Execute: (unlock_door r13)
+

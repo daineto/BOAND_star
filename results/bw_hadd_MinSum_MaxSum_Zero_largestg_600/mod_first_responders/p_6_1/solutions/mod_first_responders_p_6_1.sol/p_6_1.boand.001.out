@@ -1,0 +1,6 @@
+If holds: (victim_at v1 l2)/(medical_unit_at m1 l2)/(victim_status v1 dying)
+Execute: (reanimate m1 l2 v1)
+
+If holds: (victim_at v1 l2)/(medical_unit_at m1 l2)/(victim_status v1 hurt)
+Execute: (treat_victim_on_scene m1 l2 v1)
+

@@ -1,0 +1,33 @@
+If holds: (clear b3)/(on_table b5)/(clear b5)/(on b2 b4)/(on_table b1)/(on b3 b2)/(on_table b4)/(emptyhand)/(clear b1)
+Execute: (pick_tower b3 b2 b4)
+
+If holds: (clear b3)/(holding b2)/(on_table b5)/(clear b5)/(on_table b1)/(on b3 b2)/(on_table b4)/(clear b1)/(clear b4)
+Execute: (put_on_block b2 b3)
+
+If holds: (on_table b5)/(clear b5)/(on b2 b3)/(on_table b1)/(clear b2)/(on b3 b2)/(on_table b4)/(emptyhand)/(clear b1)/(clear b4)
+Execute: (pick_tower b3 b2 b3)
+
+If holds: (clear b3)/(holding b2)/(on_table b5)/(clear b5)/(on_table b1)/(on b3 b2)/(on_table b4)/(clear b2)/(clear b1)/(clear b4)
+Execute: (put_down b2)
+
+If holds: (clear b3)/(on_table b2)/(on_table b5)/(clear b5)/(on_table b1)/(on b3 b2)/(on_table b4)/(clear b2)/(emptyhand)/(clear b1)/(clear b4)
+Execute: (init_pick_up b3 b2)
+
+If holds: (on_table b2)/(on_table b5)/(clear b5)/(on_table b1)/(on_table b4)/(clear b2)/(at_ b3 l0)/(clear b1)/(clear b4)
+Execute: (move b3 l0 l1)
+
+If holds: (on_table b2)/(on_table b5)/(clear b5)/(on_table b1)/(on_table b4)/(clear b2)/(clear b1)/(at_ b3 l1)/(clear b4)
+Execute: (move b3 l1 l10)
+
+If holds: (on_table b2)/(on_table b5)/(clear b5)/(on_table b1)/(at_ b3 l10)/(on_table b4)/(clear b2)/(clear b1)/(clear b4)
+Execute: (pick_up b3)
+
+If holds: (on_table b2)/(on_table b5)/(clear b5)/(holding b3)/(on_table b1)/(on_table b4)/(clear b2)/(clear b1)/(clear b4)
+Execute: (put_down b3)
+
+If holds: (on_table b2)/(on_table b5)/(faulty b3 l10)/(clear b5)/(on_table b1)/(on_table b4)/(clear b2)/(clear b1)/(clear b4)
+Execute: (fix b3 l10)
+
+If holds: (on_table b2)/(on_table b5)/(clear b5)/(on_table b1)/(on_table b4)/(clear b2)/(clear b1)/(faulty b3 l1)/(clear b4)
+Execute: (fix b3 l1)
+

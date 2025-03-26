@@ -1,0 +1,3 @@
+If holds: (not_flattire)/(spare_in n2)/(vehicle_at n3)/(spare_in n0)/(spare_in n3)
+Execute: (move_car n3 n1)
+

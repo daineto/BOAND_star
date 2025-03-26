@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 267, in extend_policy
+    new_policy = current_policy.copy()
+  File "/home/daineto/CostFOND/planner/policy.py", line 20, in copy
+    new_policy = Policy(dict(),set(),set())
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 372.44
+user 362.83
+sys 12.20

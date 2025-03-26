@@ -1,0 +1,21 @@
+If holds: (coin_at c3 f2 p1)/(at_ f1 p1)/(in e2 f1)/(coin_at c2 f1 p1)/(coin_at c1 f2 p2)/(in e1 f2)
+Execute: (collect c2 f1 p1)
+
+If holds: (coin_at c3 f2 p1)/(at_ f1 p1)/(coin_at c1 f2 p2)/(have c2)/(in e2 f1)/(in e1 f2)
+Execute: (step_in e2 f1 p1)
+
+If holds: (coin_at c3 f2 p1)/(coin_at c1 f2 p2)/(have c2)/(in e2 f1)/(in e1 f2)/(inside e2)
+Execute: (go_up e2 f1 f2)
+
+If holds: (coin_at c3 f2 p1)/(in e2 f2)/(coin_at c1 f2 p2)/(have c2)/(in e1 f2)/(inside e2)
+Execute: (step_out e2 f2 p1)
+
+If holds: (coin_at c3 f2 p1)/(in e2 f2)/(coin_at c1 f2 p2)/(have c2)/(in e1 f2)/(at_ f2 p1)
+Execute: (collect c3 f2 p1)
+
+If holds: (in e2 f2)/(coin_at c1 f2 p2)/(have c2)/(have c3)/(in e1 f2)/(at_ f2 p1)
+Execute: (move_right_nogate f2 p1 p2)
+
+If holds: (in e2 f2)/(coin_at c1 f2 p2)/(have c2)/(in e1 f2)/(have c3)/(at_ f2 p2)
+Execute: (collect c1 f2 p2)
+

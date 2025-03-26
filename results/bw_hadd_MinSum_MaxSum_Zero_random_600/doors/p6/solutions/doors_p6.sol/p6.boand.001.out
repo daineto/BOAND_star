@@ -1,0 +1,762 @@
+If holds: (player_at l1)/(open d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)
+Execute: (pick_key l1)
+
+If holds: (hold_key)/(player_at l1)/(open d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)
+Execute: (move_forward_door_open l1 l2 d2 d3)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d4)/(closed d2)/(open d8)/(player_at l2)
+Execute: (move_forward_door_closed l2 l3 d3 d4)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d4)/(player_at l3)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l3 l4 d4 d5)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d4)/(player_at l4)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(closed d5)/(open d4)/(player_at l4)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l6)/(open d6)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d4)/(player_at l3)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l3 l4 d4 d5)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(closed d5)/(open d4)/(player_at l4)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(player_at l6)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(player_at l6)/(open d6)/(closed d5)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l6)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(closed d5)/(player_at l4)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l6)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(player_at l4)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d5)/(closed d6)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(player_at l6)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(closed d8)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l2)
+Execute: (move_forward_door_closed l2 l3 d3 d4)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(closed d6)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(closed d5)/(closed d6)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(player_at l6)/(open d6)/(closed d5)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(closed d8)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(player_at l6)/(open d6)/(closed d5)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l6)/(open d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(open d6)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d4)/(player_at l4)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(closed d5)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l6)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(player_at l3)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l3 l4 d4 d5)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(player_at l6)/(closed d5)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(player_at l6)/(open d6)/(closed d5)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(closed d5)/(player_at l4)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(player_at l6)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d6)/(player_at l6)/(closed d5)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(closed d8)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(open d4)/(player_at l3)/(open d8)
+Execute: (move_forward_door_open l3 l4 d4 d5)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(open d4)/(player_at l4)/(open d8)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d2)/(open d4)/(closed d6)/(open d8)/(player_at l5)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(open d2)/(closed d5)/(open d4)/(open d8)/(player_at l5)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d6)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d6)/(open d2)/(closed d5)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(closed d8)/(open d2)/(closed d5)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d2)/(closed d5)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l6)/(open d6)/(open d2)/(open d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(open d2)/(closed d5)/(player_at l4)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(player_at l6)/(open d2)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(open d6)/(open d2)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l6)/(open d2)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d5)/(open d2)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(closed d8)/(open d6)/(open d2)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d2)/(closed d5)/(closed d6)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l6)/(open d6)/(open d2)/(open d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(open d2)/(closed d5)/(open d4)/(player_at l4)/(open d8)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(open d7)/(open d3)/(player_at l6)/(open d2)/(closed d5)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(closed d5)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l6)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(player_at l3)/(open d8)
+Execute: (move_forward_door_open l3 l4 d4 d5)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(open d4)/(player_at l4)/(open d8)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(player_at l4)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d2)/(closed d5)/(closed d6)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(player_at l6)/(open d2)/(closed d5)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(player_at l6)/(open d2)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d6)/(open d2)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(open d6)/(open d2)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(player_at l6)/(open d6)/(open d2)/(closed d5)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d2)/(open d4)/(closed d6)/(open d8)/(player_at l5)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l6)/(open d2)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d2)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(open d2)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l6)/(open d6)/(open d2)/(open d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(open d6)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(player_at l6)/(open d6)/(open d2)/(closed d5)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d6)/(open d2)/(closed d5)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l2)
+Execute: (move_forward_door_open l2 l3 d3 d4)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(player_at l4)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l6)/(open d2)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(closed d8)/(open d2)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(open d2)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d2)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(open d4)/(open d8)/(player_at l5)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d2)/(closed d5)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(player_at l3)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l3 l4 d4 d5)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l6)/(open d6)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d5)/(closed d8)/(open d6)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(closed d8)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(open d2)/(closed d5)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(player_at l4)/(open d8)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l6)/(open d2)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(open d2)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(open d2)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l6)/(open d2)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d6)/(player_at l6)/(closed d5)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l6)/(open d6)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(player_at l3)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l3 l4 d4 d5)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d4)/(closed d2)/(open d8)/(player_at l2)
+Execute: (move_forward_door_open l2 l3 d3 d4)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l5)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(player_at l4)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l4 l5 d5 d6)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l6)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l6)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(player_at l6)/(open d2)/(closed d5)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(closed d8)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(open d6)/(open d2)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d6)/(open d2)/(closed d5)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d6)/(open d2)/(closed d5)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l6)/(open d2)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d6)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d2)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d6)/(open d2)/(closed d5)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(player_at l6)/(open d6)/(open d2)/(closed d5)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d2)/(closed d6)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l6)/(open d2)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d6)/(open d2)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d5)/(open d6)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)/(player_at l5)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l5)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(player_at l4)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l4 l5 d5 d6)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(player_at l7)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d5)/(closed d8)/(open d2)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(closed d6)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l6)/(open d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d6)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l6)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l6)/(open d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(closed d8)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(player_at l6)/(open d6)/(closed d5)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(open d6)/(open d2)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(open d2)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(open d7)/(open d3)/(player_at l6)/(closed d5)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d2)/(closed d5)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(player_at l6)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(player_at l6)/(open d6)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d2)/(closed d5)/(open d4)/(closed d6)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d6)/(open d2)/(closed d5)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(player_at l6)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l6)/(open d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d2)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(closed d8)/(open d6)/(open d2)/(closed d5)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(open d6)/(open d2)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d2)/(open d4)/(closed d6)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(player_at l6)/(closed d5)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d2)/(closed d6)/(open d8)/(player_at l5)/(closed d4)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(player_at l6)/(open d6)/(open d2)/(closed d5)/(open d8)/(closed d4)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d2)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(closed d8)/(open d5)/(open d6)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(closed d8)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(player_at l6)/(open d2)/(open d4)/(closed d6)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(open d2)/(player_at l7)/(closed d6)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d6)/(open d2)/(closed d5)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(player_at l6)/(closed d5)/(open d4)/(closed d6)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(player_at l6)/(open d6)/(closed d5)/(open d4)/(closed d2)/(open d8)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d2)/(player_at l7)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(closed d8)/(open d6)/(player_at l7)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(closed d8)/(open d6)/(open d2)/(player_at l7)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d6)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d5)/(open d6)/(closed d2)/(player_at l5)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(player_at l6)/(closed d5)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d5)/(open d6)/(player_at l6)/(open d2)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d8)/(open d5)/(open d6)/(open d2)/(open d4)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(open d7)/(open d3)/(open d2)/(closed d5)/(open d4)/(closed d6)/(open d8)/(player_at l5)
+Execute: (move_forward_door_closed l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(player_at l6)/(open d6)/(open d2)/(open d4)/(open d8)
+Execute: (move_forward_door_open l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(closed d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(open d3)/(open d7)/(open d5)/(closed d8)/(open d4)/(closed d6)/(closed d2)/(player_at l7)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d6)/(closed d5)/(player_at l7)/(closed d2)/(closed d4)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(player_at l6)/(open d2)/(closed d5)/(closed d6)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d6)/(player_at l6)/(open d2)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l6 l7 d7 d8)
+
+If holds: (hold_key)/(closed d7)/(open d3)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l7)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(open d4)/(open d8)/(player_at l5)
+Execute: (move_forward_door_open l5 l6 d6 d7)
+
+If holds: (hold_key)/(closed d3)/(closed d7)/(open d6)/(closed d5)/(open d4)/(closed d2)/(player_at l7)/(open d8)
+Execute: (move_forward_last_door_open l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(closed d8)/(open d5)/(player_at l7)/(closed d6)/(closed d2)/(closed d4)
+Execute: (move_forward_last_door_closed l7 l8 d8)
+
+If holds: (hold_key)/(closed d3)/(open d7)/(open d5)/(open d6)/(open d2)/(player_at l3)/(open d8)/(closed d4)
+Execute: (move_forward_door_closed l3 l4 d4 d5)
+

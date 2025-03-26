@@ -1,0 +1,21 @@
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 647, in <module>
+    main(sys.argv, len(sys.argv))
+  File "/home/daineto/CostFOND/planner/planner.py", line 622, in main
+    solution = boand_star(domain_file, problem_file, solution_folder, use_metric=metric, use_cp_heuristic=heuristic, use_best_case_heuristic=best_heuristic, use_worst_case_heuristic=worst_heuristic, use_size_heuristic=size_heuristic, use_selector=selector)
+  File "/home/daineto/CostFOND/planner/planner.py", line 508, in boand_star
+    op_successors = task.get_successor_states(state)
+  File "/home/daineto/CostFOND/planner/pyperplan/pyperplan/task.py", line 125, in get_successor_states
+    return [(op, op.apply(state)) for op in self.operators if op.applicable(state)]
+MemoryError
+real 243.00
+user 237.28
+sys 9.24

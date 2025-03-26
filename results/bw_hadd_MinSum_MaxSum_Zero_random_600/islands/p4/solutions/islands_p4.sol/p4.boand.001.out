@@ -1,0 +1,9 @@
+If holds: (person_at l22_1)/(monkey_at m3 l11_2)/(monkey_at m2 l12_2)/(monkey_at m1 l12_2)/(person_alive)/(bridge_clear)
+Execute: (move_person l22_1 l21_1)
+
+If holds: (person_alive)/(monkey_at m1 l12_2)/(person_at l21_1)/(bridge_clear)/(monkey_at m3 l11_2)/(monkey_at m2 l12_2)
+Execute: (walk_on_bridge l21_1 l22_2)
+
+If holds: (person_alive)/(monkey_at m1 l12_2)/(person_at l22_2)/(bridge_clear)/(monkey_at m3 l11_2)/(monkey_at m2 l12_2)
+Execute: (move_person l22_2 l21_2)
+

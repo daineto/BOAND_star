@@ -1,0 +1,51 @@
+
+If holds: var61:0 var62:0 var63:0 var64:0 var65:0 var15:0 var16:0 var17:0 var18:0 var19:0 var20:0
+Execute: goal / SC / d=0
+
+If holds: var14:0 var61:0 var62:0 var63:0 var64:0 var15:0 var16:0 var17:0 var18:0
+Execute: pick-up b5 / SC / d=1
+
+If holds: var35:0 var61:0 var62:0 var63:0 var64:0 var15:0 var16:0 var17:0 var18:0
+Execute: put-down b5 / SC / d=1
+
+If holds: var13:0 var61:0 var62:0 var63:0 var64:0 var15:0 var16:0 var17:0 var18:0
+Execute: move b5 l1 l10 / SC / d=2
+
+If holds: var30:0 var61:0 var62:0 var63:0 var64:0 var15:0 var16:0 var17:0 var18:0
+Execute: fix b5 l10 / SC / d=2
+
+If holds: var12:0 var61:0 var62:0 var63:0 var64:0 var15:0 var16:0 var17:0 var18:0
+Execute: move b5 l0 l1 / SC / d=3
+
+If holds: var29:0 var61:0 var62:0 var63:0 var64:0 var15:0 var16:0 var17:0 var18:0
+Execute: fix b5 l1 / SC / d=3
+
+If holds: var59:0 var61:0 var62:0 var63:0 var64:0 var15:0 var16:0 var17:0 var19:0 var20:0
+Execute: init_pick-up b5 b4 / SC / d=4
+
+If holds: var5:0 var59:0 var61:0 var63:0 var64:0 var15:0 var17:0 var19:0
+Execute: pick-up b2 / SC / d=5
+
+If holds: var59:0 var32:0 var61:0 var63:0 var64:0 var15:0 var17:0 var19:0
+Execute: put-down b2 / SC / d=5
+
+If holds: var4:0 var59:0 var61:0 var63:0 var64:0 var15:0 var17:0 var19:0
+Execute: move b2 l1 l10 / SC / d=6
+
+If holds: var24:0 var59:0 var61:0 var63:0 var64:0 var15:0 var17:0 var19:0
+Execute: fix b2 l10 / SC / d=6
+
+If holds: var3:0 var59:0 var61:0 var63:0 var64:0 var15:0 var17:0 var19:0
+Execute: move b2 l0 l1 / SC / d=7
+
+If holds: var23:0 var59:0 var61:0 var63:0 var64:0 var15:0 var17:0 var19:0
+Execute: fix b2 l1 / SC / d=7
+
+If holds: var41:0 var59:0 var61:0 var63:0 var64:0 var16:0 var17:0 var19:0 var20:0
+Execute: init_pick-up b2 b1 / SC / d=8
+
+If holds: var41:0 var59:0 var31:0 var63:0 var64:0 var16:0 var17:0 var19:0
+Execute: put-down b1 / SC / d=9
+
+If holds: var41:0 var38:0 var59:0 var63:0 var64:0 var16:0 var19:0 var20:0
+Execute: pick-tower b2 b1 b3 / SC / d=10

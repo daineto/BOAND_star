@@ -1,0 +1,25 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/policy.py", line 20, in copy
+    new_policy = Policy(dict(),set(),set())
+  File "/home/daineto/CostFOND/planner/policy.py", line 13, in __init__
+    self.worst_ancestors = dict()
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+
+During handling of the above exception, another exception occurred:
+
+MemoryError
+real 407.59
+user 400.42
+sys 10.26

@@ -1,0 +1,21 @@
+If holds: (victim_at v1 l3)/(medical_unit_at m4 l5)/(medical_unit_at m1 l4)/(fire l2)/(fire_0 l1)/(fire l5)/(fire_0 l4)/(victim_status v2 dying)/(medical_unit_at m3 l1)/(victim_at v2 l1)/(medical_unit_at m2 l3)/(fire_unit_at f1 l5)/(fire_0 l3)/(victim_status v1 dying)
+Execute: (treat_victim_at_hospital v2 l1)
+
+If holds: (victim_at v1 l3)/(medical_unit_at m4 l5)/(medical_unit_at m1 l4)/(fire l2)/(fire_0 l1)/(fire l5)/(fire_0 l4)/(medical_unit_at m3 l1)/(victim_at v2 l1)/(medical_unit_at m2 l3)/(fire_unit_at f1 l5)/(fire_0 l3)/(victim_status v2 healthy)/(victim_status v1 dying)
+Execute: (drive_fire_unit f1 l5 l1)
+
+If holds: (victim_at v1 l3)/(medical_unit_at m4 l5)/(medical_unit_at m1 l4)/(fire l2)/(fire_0 l1)/(fire l5)/(fire_0 l4)/(medical_unit_at m3 l1)/(victim_at v2 l1)/(medical_unit_at m2 l3)/(fire_0 l3)/(victim_status v2 healthy)/(victim_status v1 dying)/(fire_unit_at f1 l1)
+Execute: (treat_victim_at_hospital v1 l3)
+
+If holds: (victim_at v1 l3)/(medical_unit_at m4 l5)/(medical_unit_at m1 l4)/(fire l2)/(fire_0 l1)/(fire l5)/(fire_0 l4)/(victim_status v1 healthy)/(medical_unit_at m3 l1)/(victim_at v2 l1)/(medical_unit_at m2 l3)/(fire_0 l3)/(victim_status v2 healthy)/(fire_unit_at f1 l1)
+Execute: (load_fire_unit f1 l1)
+
+If holds: (victim_at v1 l3)/(medical_unit_at m4 l5)/(medical_unit_at m1 l4)/(fire l2)/(fire_0 l1)/(fire l5)/(fire_0 l4)/(victim_status v1 healthy)/(medical_unit_at m3 l1)/(victim_at v2 l1)/(medical_unit_at m2 l3)/(fire_0 l3)/(victim_status v2 healthy)/(have_water f1)/(fire_unit_at f1 l1)
+Execute: (unload_fire_unit f1 l1 l5)
+
+If holds: (victim_at v1 l3)/(fire_0 l5)/(nfire l5)/(medical_unit_at m4 l5)/(medical_unit_at m1 l4)/(fire l2)/(fire_0 l1)/(fire_0 l4)/(fire_unit_at f1 l1)/(medical_unit_at m3 l1)/(victim_at v2 l1)/(medical_unit_at m2 l3)/(fire_0 l3)/(victim_status v2 healthy)/(victim_status v1 healthy)
+Execute: (load_fire_unit f1 l1)
+
+If holds: (victim_at v1 l3)/(fire_0 l5)/(nfire l5)/(medical_unit_at m4 l5)/(medical_unit_at m1 l4)/(fire l2)/(fire_0 l1)/(fire_0 l4)/(fire_unit_at f1 l1)/(medical_unit_at m3 l1)/(victim_at v2 l1)/(medical_unit_at m2 l3)/(fire_0 l3)/(victim_status v2 healthy)/(have_water f1)/(victim_status v1 healthy)
+Execute: (unload_fire_unit f1 l1 l2)
+

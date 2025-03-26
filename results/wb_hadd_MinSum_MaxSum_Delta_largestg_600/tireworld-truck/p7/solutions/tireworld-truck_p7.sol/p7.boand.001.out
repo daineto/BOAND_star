@@ -1,0 +1,30 @@
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t3 n0)/(tire_at t10 n0)/(free n0)/(free ng)/(tire_at t8 n0)/(truck_at n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(car_at n0)/(tire_at t6 n0)/(free n2)/(tire_at t4 n0)/(free n1)
+Execute: (loadtire n0 t6)
+
+If holds: (tire_at t7 n0)/(tire_at t10 n0)/(free n0)/(truck_at n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(free n2)/(tire_at t9 n0)/(loaded t6)/(tire_at t5 n0)/(tire_at t3 n0)/(free ng)/(tire_at t8 n0)/(car_at n0)/(tire_at t4 n0)/(free n1)
+Execute: (move_truck n0 n1)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(loaded t6)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(free ng)/(tire_at t8 n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(car_at n0)/(truck_at n1)/(free n2)/(tire_at t4 n0)
+Execute: (droptire n1 t6)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(free ng)/(tire_at t6 n1)/(tire_at t8 n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(car_at n0)/(truck_at n1)/(free n2)/(tire_at t4 n0)
+Execute: (move_truck_to_initial n1 n0)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(tire_at t6 n1)/(free ng)/(tire_at t8 n0)/(truck_at n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(car_at n0)/(free n2)/(tire_at t4 n0)/(free n1)
+Execute: (move_car_spiky n0 n1)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(tire_at t6 n1)/(free ng)/(not_flattire_0)/(tire_at t8 n0)/(car_at n1)/(truck_at n0)/(tire_at t2 n0)/(tire_at t1 n0)/(free n2)/(tire_at t4 n0)
+Execute: (fix n1 t6)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(free ng)/(tire_at t8 n0)/(car_at n1)/(truck_at n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(free n2)/(tire_at t4 n0)
+Execute: (move_car_normal n1 n2)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(free ng)/(car_at n2)/(tire_at t8 n0)/(truck_at n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(tire_at t4 n0)/(free n1)
+Execute: (move_car_normal n2 ng)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(tire_at t6 n1)/(free ng)/(tire_at t8 n0)/(car_at n1)/(truck_at n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(free n2)/(tire_at t4 n0)
+Execute: (move_car_normal n1 n2)
+
+If holds: (tire_at t9 n0)/(tire_at t7 n0)/(tire_at t5 n0)/(tire_at t10 n0)/(tire_at t3 n0)/(free n0)/(tire_at t6 n1)/(free ng)/(car_at n2)/(tire_at t8 n0)/(truck_at n0)/(tire_at t2 n0)/(not_flattire)/(tire_at t1 n0)/(tire_at t4 n0)/(free n1)
+Execute: (move_car_normal n2 ng)
+

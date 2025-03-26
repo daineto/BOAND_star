@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/home/daineto/CostFOND/planner/planner.py", line 647, in <module>
+    main(sys.argv, len(sys.argv))
+  File "/home/daineto/CostFOND/planner/planner.py", line 622, in main
+    solution = boand_star(domain_file, problem_file, solution_folder, use_metric=metric, use_cp_heuristic=heuristic, use_best_case_heuristic=best_heuristic, use_worst_case_heuristic=worst_heuristic, use_size_heuristic=size_heuristic, use_selector=selector)
+  File "/home/daineto/CostFOND/planner/planner.py", line 532, in boand_star
+    f_worst = worst_heuristic.get_f_value(new_policy)
+  File "/home/daineto/CostFOND/planner/planner.py", line 59, in get_f_value
+    f_worst = max([policy.get_worst_g(state) for state in Out], default=math.inf)
+  File "/home/daineto/CostFOND/planner/planner.py", line 59, in <listcomp>
+    f_worst = max([policy.get_worst_g(state) for state in Out], default=math.inf)
+  File "/home/daineto/CostFOND/planner/policy.py", line 65, in get_worst_g
+    ancestors.add(current)
+MemoryError
+real 318.97
+user 310.39
+sys 12.23

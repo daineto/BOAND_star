@@ -1,0 +1,21 @@
+If holds: (victim_at v1 l2)/(victim_status v1 hurt)/(medical_unit_at m2 l1)/(victim_status v2 hurt)/(medical_unit_at m1 l2)/(victim_at v2 l1)
+Execute: (treat_victim_on_scene m1 l2 v1)
+
+If holds: (victim_at v1 l2)/(victim_status v1 healthy)/(medical_unit_at m2 l1)/(victim_status v2 hurt)/(medical_unit_at m1 l2)/(victim_at v2 l1)
+Execute: (treat_victim_on_scene m2 l1 v2)
+
+If holds: (victim_at v1 l2)/(victim_status v1 healthy)/(medical_unit_at m2 l1)/(victim_status v2 dying)/(medical_unit_at m1 l2)/(victim_at v2 l1)
+Execute: (treat_victim_at_hospital v2 l1)
+
+If holds: (victim_at v1 l2)/(medical_unit_at m2 l1)/(victim_status v1 dying)/(victim_status v2 hurt)/(medical_unit_at m1 l2)/(victim_at v2 l1)
+Execute: (treat_victim_on_scene m2 l1 v2)
+
+If holds: (victim_at v1 l2)/(medical_unit_at m2 l1)/(victim_status v1 dying)/(victim_status v2 dying)/(medical_unit_at m1 l2)/(victim_at v2 l1)
+Execute: (treat_victim_at_hospital v2 l1)
+
+If holds: (victim_at v1 l2)/(medical_unit_at m2 l1)/(victim_status v1 dying)/(victim_status v2 healthy)/(medical_unit_at m1 l2)/(victim_at v2 l1)
+Execute: (reanimate m1 l2 v1)
+
+If holds: (victim_at v1 l2)/(victim_status v1 hurt)/(medical_unit_at m2 l1)/(victim_status v2 healthy)/(medical_unit_at m1 l2)/(victim_at v2 l1)
+Execute: (treat_victim_on_scene m1 l2 v1)
+

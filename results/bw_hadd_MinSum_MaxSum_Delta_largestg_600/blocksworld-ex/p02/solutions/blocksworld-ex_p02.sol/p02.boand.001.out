@@ -1,0 +1,18 @@
+If holds: (on_table b5)/(clear b1)/(no_destroyed b1)/(no_detonated b2)/(no_destroyed b4)/(no_destroyed b2)/(no_detonated b5)/(on b2 b3)/(on b4 b5)/(clear b2)/(no_detonated b4)/(emptyhand)/(no_detonated b3)/(no_destroyed b5)/(on_table b3)/(clear b4)/(no_destroyed_table)/(no_destroyed b3)/(no_detonated b1)/(on_table b1)
+Execute: (pick_up b2 b3)
+
+If holds: (clear b3)/(on_table b5)/(clear b1)/(no_detonated b3)/(no_destroyed b5)/(no_destroyed b1)/(on_table b3)/(clear b4)/(no_detonated b2)/(no_destroyed_table)/(no_destroyed b3)/(no_destroyed b4)/(no_detonated b1)/(holding b2)/(no_destroyed b2)/(no_detonated b5)/(on b4 b5)/(clear b2)/(no_detonated b4)/(on_table b1)
+Execute: (put_on_block_nodet b2 b1)
+
+If holds: (emptyhand)/(on_table b5)/(no_detonated b3)/(no_destroyed b5)/(no_destroyed b1)/(on_table b3)/(on b2 b1)/(clear b4)/(no_detonated b2)/(no_destroyed_table)/(no_destroyed b3)/(no_destroyed b4)/(no_detonated b1)/(no_destroyed b2)/(no_detonated b5)/(clear b3)/(clear b2)/(on b4 b5)/(on_table b1)/(no_detonated b4)
+Execute: (pick_up_from_table b3)
+
+If holds: (on_table b5)/(no_detonated b3)/(no_destroyed b5)/(no_destroyed b1)/(on b2 b1)/(clear b4)/(no_detonated b2)/(no_destroyed_table)/(no_destroyed b3)/(no_destroyed b4)/(no_detonated b1)/(holding b3)/(no_destroyed b2)/(no_detonated b5)/(clear b3)/(clear b2)/(on b4 b5)/(on_table b1)/(no_detonated b4)
+Execute: (put_on_block_nodet b3 b4)
+
+If holds: (emptyhand)/(on_table b5)/(no_detonated b3)/(no_destroyed b5)/(detonated b2)/(on_table b3)/(on b2 b1)/(clear b4)/(no_destroyed_table)/(no_destroyed b3)/(no_destroyed b4)/(no_detonated b1)/(no_destroyed b2)/(no_detonated b5)/(clear b3)/(clear b2)/(on b4 b5)/(on_table b1)/(no_detonated b4)
+Execute: (pick_up_from_table b3)
+
+If holds: (on_table b5)/(no_detonated b3)/(no_destroyed b5)/(on b2 b1)/(clear b4)/(no_destroyed_table)/(no_destroyed b3)/(no_destroyed b4)/(no_detonated b1)/(on_table b1)/(holding b3)/(no_destroyed b2)/(no_detonated b5)/(clear b3)/(clear b2)/(on b4 b5)/(detonated b2)/(no_detonated b4)
+Execute: (put_on_block_nodet b3 b4)
+

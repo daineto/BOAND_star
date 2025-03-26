@@ -1,0 +1,3 @@
+If holds: (no_destroyed b3)/(clear b1)/(on_table b3)/(no_detonated b1)/(no_destroyed b4)/(no_detonated b3)/(on b2 b5)/(no_detonated b5)/(clear b3)/(no_detonated b4)/(no_detonated b2)/(no_destroyed b5)/(on_table b4)/(no_destroyed_table)/(on b5 b4)/(emptyhand)/(clear b2)/(no_destroyed b1)/(on_table b1)/(no_destroyed b2)
+Execute: (pick_up_from_table b1)
+

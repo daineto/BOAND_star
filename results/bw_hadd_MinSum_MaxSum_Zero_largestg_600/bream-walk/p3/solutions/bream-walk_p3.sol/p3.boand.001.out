@@ -1,0 +1,93 @@
+If holds: (position p0)/(up_0)
+Execute: (climb p0)
+
+If holds: (up)/(position p0)
+Execute: (walk_on_beam p0 p1)
+
+If holds: (up)/(position p1)
+Execute: (walk_on_beam p1 p2)
+
+If holds: (position p2)/(up_0)
+Execute: (walk p2 p1)
+
+If holds: (position p1)/(up_0)
+Execute: (walk p1 p0)
+
+If holds: (position p2)/(up)
+Execute: (walk_on_beam p2 p3)
+
+If holds: (position p3)/(up)
+Execute: (walk_on_beam p3 p4)
+
+If holds: (position p4)/(up)
+Execute: (walk_on_beam p4 p5)
+
+If holds: (position p5)/(up_0)
+Execute: (walk p5 p4)
+
+If holds: (up)/(position p5)
+Execute: (walk_on_beam p5 p6)
+
+If holds: (position p4)/(up_0)
+Execute: (walk p4 p3)
+
+If holds: (up)/(position p6)
+Execute: (walk_on_beam p6 p7)
+
+If holds: (up)/(position p7)
+Execute: (walk_on_beam p7 p8)
+
+If holds: (position p7)/(up_0)
+Execute: (walk p7 p6)
+
+If holds: (position p8)/(up)
+Execute: (walk_on_beam p8 p9)
+
+If holds: (position p6)/(up_0)
+Execute: (walk p6 p5)
+
+If holds: (position p9)/(up)
+Execute: (walk_on_beam p9 p10)
+
+If holds: (position p10)/(up_0)
+Execute: (walk p10 p9)
+
+If holds: (up)/(position p10)
+Execute: (walk_on_beam p10 p11)
+
+If holds: (position p11)/(up_0)
+Execute: (walk p11 p10)
+
+If holds: (position p8)/(up_0)
+Execute: (walk p8 p7)
+
+If holds: (position p11)/(up)
+Execute: (walk_on_beam p11 p12)
+
+If holds: (up_0)/(position p12)
+Execute: (walk p12 p11)
+
+If holds: (up)/(position p12)
+Execute: (walk_on_beam p12 p13)
+
+If holds: (position p13)/(up_0)
+Execute: (walk p13 p12)
+
+If holds: (up)/(position p13)
+Execute: (walk_on_beam p13 p14)
+
+If holds: (up)/(position p14)
+Execute: (walk_on_beam p14 p15)
+
+If holds: (position p15)/(up_0)
+Execute: (walk p15 p14)
+
+If holds: (position p14)/(up_0)
+Execute: (walk p14 p13)
+
+If holds: (position p3)/(up_0)
+Execute: (walk p3 p2)
+
+If holds: (position p9)/(up_0)
+Execute: (walk p9 p8)
+
