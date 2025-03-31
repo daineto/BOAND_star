@@ -1,4 +1,4 @@
-from utils import determinize
+from fondutils import determinize
 
 from unified_planning.shortcuts import *
 from unified_planning.io import PDDLReader, PDDLWriter

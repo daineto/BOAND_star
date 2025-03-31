@@ -1,0 +1,3 @@
+[submodule "planner/fondutils"]
+	path = planner/fondutils
+	url = https://github.com/daineto/fond-utils.git
