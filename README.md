@@ -9,7 +9,7 @@ To know more about BOAND*, please read our paper: Aineto and Scala, *"Cost-Optim
 This implementation of BOAND* is built on top publicly available planning libraries.
 
 Installation instructions:
-
+    - Run "git submodule update --init --recursive" from the root folder to download submodules
     - Install "pddl" library (source: https://github.com/AI-Planning/pddl/tree/v0.4.0) by running "pip install ." from the "planner/pddl/" folder 
     - Install "pyperplan" (source: https://github.com/aibasel/pyperplan/tree/main) by running "pip install ." from the "planner/pyperplan/" folder
     - Install the "Unified Planning Library" (source: https://github.com/aiplan4eu/unified-planning) by running "pip install unified-planning"
