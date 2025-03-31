@@ -1,3 +1,9 @@
 [submodule "planner/fondutils"]
 	path = planner/fondutils
 	url = https://github.com/daineto/fond-utils.git
+[submodule "planner/pddl"]
+	path = planner/pddl
+	url = https://github.com/AI-Planning/pddl.git
+[submodule "planner/pyperplan"]
+	path = planner/pyperplan
+	url = https://github.com/aibasel/pyperplan.git
