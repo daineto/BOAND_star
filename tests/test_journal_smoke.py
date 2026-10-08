@@ -1,11 +1,13 @@
 """Scientific coverage and failure detection for the journal smoke suite."""
 import json
 import signal
+from pathlib import Path
+import tempfile
 from types import SimpleNamespace
 import unittest
 
 from campaigns.journal_development.campaign import CAMPAIGN, DOMAINS
-from campaigns.journal_development.smoke import check_outcome, deadline
+from campaigns.journal_development.smoke import check_outcome, check_run, deadline
 from experiment_support.campaigns import load_campaign, read_instances
 from experiment_support.runner import build_environment, campaign_manifest
 
@@ -29,6 +31,32 @@ class JournalSmokeTests(unittest.TestCase):
         self.assertEqual(sum(not costs for costs in expected.values()), 2)
         self.assertEqual(sum(len(costs) > 1 for costs in expected.values()), 2)
         self.assertTrue(any(worst == 999999 for costs in expected.values() for _, worst in costs))
+
+    def test_performance_profile_has_frozen_coverage_and_limits(self):
+        selected = read_instances(CAMPAIGN, "performance")
+        self.assertEqual(len(selected), 11)
+        self.assertEqual({e["domain"] for e in selected}, set(DOMAINS))
+        identities = {f"{e['domain']}/{e['instance']}" for e in selected}
+        outcomes = json.loads(CAMPAIGN.instance_manifest.with_name("performance-expected.json").read_text())
+        self.assertEqual(outcomes["campaign_version"], CAMPAIGN.version)
+        self.assertEqual(set(outcomes["costs"]), identities)
+        self.assertEqual(sum(bool(costs) for costs in outcomes["costs"].values()), 10)
+        self.assertTrue(any(len(costs) > 1 for costs in outcomes["costs"].values()))
+        self.assertTrue(any(worst == 999999 for costs in outcomes["costs"].values() for _, worst in costs))
+        manifest = campaign_manifest(build_environment("performance", campaign_id=CAMPAIGN.campaign_id), "performance")
+        self.assertEqual(manifest["run_count"], 11)
+        self.assertEqual((manifest["parallel_runs"], manifest["memory_kb"], manifest["timeout_seconds"]),
+                         (4, 6_000_000, 30))
+        self.assertEqual(CAMPAIGN.profiles["performance"].configurations,
+                         CAMPAIGN.profiles["smoke"].configurations)
+
+    def test_validation_rejects_the_wrong_profile(self):
+        with tempfile.TemporaryDirectory() as directory:
+            Path(directory, "manifest.json").write_text(json.dumps({"profile": "performance"}))
+            with self.assertRaisesRegex(ValueError, "Expected a smoke-profile run"):
+                check_run(directory)
+            with self.assertRaisesRegex(ValueError, "Unknown development validation profile"):
+                check_run(directory, "other")
 
     def run_record(self, complete=True, returncode=0, costs=()):
         return SimpleNamespace(complete=complete,

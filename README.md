@@ -60,6 +60,16 @@ It uses four workers and 6,000,000 KB of virtual memory per job, with a
 host took about 34 seconds. See the [journal development campaign](campaigns/journal_development/README.md)
 for the selected instances, validation rules and performance measurements.
 
+For optimization timing, use the separate fixed 11-instance performance profile:
+
+```bash
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profile performance
+```
+
+It retains the same resource limits and one-minute deadline. Keep the original
+smoke profile as the correctness gate and establish separate timing baselines.
+
+
 Campaigns define their planner configurations, benchmark inputs and resource
 limits. The ICAPS 2025 campaign provides four profiles:
 

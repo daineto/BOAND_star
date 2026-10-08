@@ -72,8 +72,18 @@ investigate mismatches and document any intentional semantic revision.
 
 Use profiling to identify bottlenecks, including search code, data structures
 and preprocessing. State a concrete hypothesis and implement one focused
-optimization per attempt. Use the existing journal smoke suite for profiling
-and evaluation. Add targeted instances only when the suite cannot clearly
+optimization per attempt. Use the journal smoke suite as the correctness gate
+and the fixed
+`performance` profile for profiling and timing evaluation. Run the performance
+profile with:
+
+    PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profile performance
+
+It covers 11 instances/11 domains, with 10 solvable instances and 11 emitted
+policies; its dedicated command also enforces the 60-second suite deadline.
+Keep both selections fixed. Establish a separate repeated baseline for the
+performance profile; earlier smoke timing baselines do not apply to new inputs.
+Add targeted instances only when the suite cannot clearly
 measure a particular effect; do not launch a full campaign without a request.
 
 Establish and retain a fixed original baseline revision and repeated
@@ -93,9 +103,11 @@ Require 14/14 completed searches and 12/12 solvable instances solved. The two
 unsolvable instances must complete with no policies. Require unchanged expected
 Pareto cost sets, valid policy replay and relevant tests. Timeouts, crashes,
 incomplete searches and incorrect outputs are failures, not unsolvability.
-Record intentional changes in search order or work counts.
+For the performance profile, require 11/11 completed searches, 10/10 solvable
+instances solved and all 11 expected policies replayed. Record intentional
+changes in search order or work counts.
 
-Record per-instance search times, total smoke-suite wall time, expansions,
+Record per-instance search times, total profile wall time, expansions,
 generations, peak memory per planner process, completed searches, solved
 instances and correctness outcomes. Use median search times across repetitions.
 The primary aggregate is the geometric mean of per-instance speedups, defined
@@ -124,7 +136,7 @@ show repeatable improvement and profiling offers no promising next target.
 
 After a significant number of attempts, prepare comparison plots when
 requested: aggregate speedup across attempts with variability and keep/revert
-labels, a per-instance speedup heatmap, and total smoke-suite wall time.
+labels, a per-instance speedup heatmap, and total profile wall time.
 Preserve comparable measurements for every attempt so these plots can include
 rejected candidates. Coverage is a correctness gate for this suite and a main
 performance metric on any later, harder evaluation set.
@@ -137,6 +149,8 @@ independent mathematical tests when the historical baseline is buggy. Document
 and version changed numerical bounds and record resulting search-work changes.
 Journal definition version 2 uses BFS best bounds on cyclic and acyclic graphs;
 version 1 and the original baseline can overestimate best costs on cyclic graphs.
+Journal definition version 4 adds the fixed performance profile while keeping
+version-3 planner semantics and smoke costs unchanged.
 Journal definition version 3 additionally uses reverse goal reachability for
 closed-policy properness, correcting false rejections by the trajectory checker.
 Future equivalence checks must compare against the corrected parent or an

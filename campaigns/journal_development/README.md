@@ -1,15 +1,22 @@
 # Journal development campaign
 
 This campaign supports planner improvements for the forthcoming journal study.
-It defines a development smoke suite, not the full paper experiment. The working
+It defines fixed correctness and timing profiles, not the full paper experiment. The working
 branch is `codex/journal-development`; `icaps2025` remains the publication tag.
 
 The input manifest reuses the 196 verified ICAPS 2025 domain/problem entries
-without changing their paths, ordering or hashes. Only the 14 explicitly named
-smoke instances execute. The suite covers exactly the 11 ICAPS domains; it
+without changing their paths, ordering or hashes. Only the explicitly named profile instances execute (14 for smoke, 11 for
+performance). The suite covers exactly the 11 ICAPS domains; it
 excludes `st_blocksworld` and `st_first_responders`.
 
 ## Definition versions
+
+Version 4 adds a fixed `performance` profile for timing the faster planner.
+It retains version-3 planner semantics and the exact original smoke selection
+and numerical cost expectations. The input manifest, configuration and limits
+are unchanged. Expected-outcome metadata now identifies version 4. Earlier runs
+remain usable with their recorded campaign revision; timings on the two
+profiles require separate baselines and must not be mixed.
 
 Version 3 corrects closed-policy properness using reverse reachability from
 goals. The historical trajectory checker could reject valid cyclic policies
@@ -111,3 +118,59 @@ excluded in favor of the verified unsolvable `p06`; the archive and benchmarks
 were preserved. Archived times are selection hints, not runtime guarantees on
 this host. A full journal campaign and its scientific analysis remain to be
 defined separately.
+
+## Performance profile
+
+Keep the smoke profile as the correctness gate. Use this separate selection
+for profiling and timing before and after each optimization:
+
+```bash
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profile performance --dry-run
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profile performance
+```
+
+The profile uses the same configuration, seed, four workers, 6,000,000 KB/job,
+30-second job timeout and 60-second deadline including replay. The ordinary
+runner also accepts `--profile performance`, but does not enforce the whole-suite
+deadline. To replay an existing performance run, pass both `--profile performance`
+and `--dataset <run-directory>` to the dedicated validator.
+
+Require 11 completed searches, 10 solvable instances solved, the one unsolvable
+instance completed without policies, and all 11 emitted policies replayed.
+`performance-expected.json` freezes the complete cost sets from the corrected
+current-parent planner. Where archived completed searches exist their costs
+agree. Doors `p8` and Elevators `p04` have no completed archived result; their
+expectations come from current completed searches and independent policy replay.
+Replay verifies policy validity and costs, not Pareto completeness or
+unsolvability. Validation writes `performance-validation.json`.
+
+| Domain | Instance | Calibration search time (s) |
+| --- | --- | ---: |
+| Beam-walk | `p7` | 0.44 |
+| Blocksworld-ex | `p13` (unsolvable) | 0.41 |
+| Chain-of-rooms | `p24` | 0.55 |
+| Doors | `p8` | 1.34 |
+| Elevators | `p04` | 2.85 |
+| FrozenLake | `p19` | 0.85 |
+| Islands | `p16` | 2.86 |
+| Modified First Responders | `p_2_2` (two Pareto solutions) | 0.12 |
+| ST Tires | `p08` | 0.14 |
+| Tireworld | `p06` | 6.85 |
+| Tireworld-truck | `p7` | 1.33 |
+
+The first whole-profile run took **31.78 seconds**, including all replay. The
+0.5–3 second search target is approximate: Beam-walk and Blocksworld are close,
+Modified First Responders and ST Tires remain faster because larger shortlisted
+cases timed out, and Tireworld is deliberately longer to obtain measurable work.
+Cyclic solutions occur in Beam-walk, FrozenLake and Tireworld. Keep every case
+in the aggregate, including fast cases; report per-case medians and variability.
+Repeat unprofiled runs for comparisons and retain all samples. The original
+smoke baseline remains applicable only to the original smoke selection.
+
+Calibration tested a bounded shortlist of 31 inputs from the frozen collection,
+using four workers and 12-second pilot limits; it was not a full campaign.
+Timed-out/partial candidates were excluded from the selection and preserved
+as failed pilots, never classified as unsolvable or averaged as successful
+searches. Raw pilot logs, manifests and validated profile runs are recorded
+under `outputs/performance/profile-calibration/`. Freeze this selection before
+optimization; future deliberate selection changes need a new definition version.
