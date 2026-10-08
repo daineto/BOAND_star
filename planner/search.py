@@ -1,6 +1,7 @@
 """BOAND* policy search with graph-based best and worst bounds."""
 import heapq
 from functools import lru_cache
+from itertools import chain
 import math
 import re
 import time
@@ -144,73 +145,34 @@ def extend_policy(current_policy, state, nondet_action, det_actions, successors,
     return new_policy
 
 
-def compute_f_value(policy:Policy, task:Task, heuristic:hMaxHeuristic):
-    # if policy.is_closed():
-    #     f_best = policy.get_best_g(goal,init)
-    #     if policy.cyclic:
-    #         f_worst = math.inf
-    #     else:
-    #         f_worst = policy.get_worst_g(goal,init)
-    # else:
-    #     if policy.best_ancestors.get(goal, None) is not None:
-    #         f_best = policy.get_best_g(goal,init)
-    #     else:
-    #         f_best = min([policy.get_best_g(pending_tile, init) + manhattan(pending_tile,goal) for pending_tile in policy.pending])
-
-    #     if policy.cyclic:
-    #         f_worst = math.inf
-    #     else:
-    #         f_worst = max([policy.get_worst_g(pending_tile, init) + manhattan(pending_tile,goal) for pending_tile in policy.pending])
-
-    Out = policy.pending.union(policy.goal_states)
-    # WITHOUT H CACHE
-
+def compute_f_value(policy: Policy, task: Task, heuristic: hMaxHeuristic):
+    """Evaluate outgoing bounds in one pass without materializing their union."""
     state_h = (heuristic.evaluate if isinstance(heuristic, CachedStateHeuristic)
                else lambda state: heuristic(SearchNode(state, None, None, 0)))
-    h_values = {state: state_h(state) for state in Out}
-
-    f_best = min([policy.get_best_g(state) + h_values[state] for state in Out], default=math.inf)
-
-    f_worst_values = []
-    for state in Out:
+    h_values = {}
+    f_best = math.inf
+    f_worst = -math.inf
+    for state in chain(policy.pending, policy.goal_states):
+        if state in h_values:
+            continue  # Preserve union semantics for overlapping caller inputs.
+        h = state_h(state)
+        h_values[state] = h
+        best = policy.get_best_g(state) + h
+        if best < f_best:
+            f_best = best
         g_worst = policy.get_worst_g(state)
-        h = h_values[state]
-        if g_worst == CYCLE_COST:
-            f_worst_values += [max(CYCLE_COST, h)]
-        else:
-            f_worst_values += [g_worst + h]
-    f_worst = max(f_worst_values, default=math.inf)
-
-    # DISCARDED: it assigns CYCLE_COST + h in case of cyclic policies
-    # f_worst = max([policy.get_worst_g(state) + h_values[state] for state in Out], default=math.inf)
-
+        worst = max(CYCLE_COST, h) if g_worst == CYCLE_COST else g_worst + h
+        if worst > f_worst:
+            f_worst = worst
+    if not h_values:
+        f_worst = math.inf
     h_vector = sorted([h_values[state] for state in policy.pending])
     if len(h_vector) > 0:
         f_close = max([h_vector[i] + i for i in range(len(h_vector))])
     else:
         f_close = 0
-
-    # f_close = len(policy.pending)
-
-
-    # WITH H CACHE
-
-    # f_best = min([policy.get_best_g(state, task.initial_state) + hcache.setdefault(state,heuristic(SearchNode(state, None, None, 0))) for state in Out], default=math.inf)
-    # f_worst = max([policy.get_worst_g(state, task.initial_state) + hcache.setdefault(state,heuristic(SearchNode(state, None, None, 0))) for state in Out], default=math.inf)
-    # # f_close = len(policy.pending)
-    # h_vector = sorted([hcache[state] for state in policy.pending])
-    # if len(h_vector) > 0:
-    #     f_close = max([h_vector[i] + i for i in range(len(h_vector))])
-    # else:
-    #     f_close = 0
-
-    if f_worst > CYCLE_COST and f_worst < math.inf:
-        pass
-
-    # DEADLOCK in the policy: it cannot become proper
     if policy.cyclic and f_worst < CYCLE_COST:
         f_worst = math.inf
-
     return f_best, f_worst, f_close
 
 
