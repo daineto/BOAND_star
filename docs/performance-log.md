@@ -331,3 +331,151 @@ The final planner source matches measured attempt8 byte for byte.
   as an intentional search-order change.
 
 Stopped after the requested five attempts; no further round launched.
+
+
+## Round 3: ancestor tracking and cycle detection
+
+Original baseline remains `0d570b3`; round-start revision is `97404f2`.
+Fresh reference: three smoke runs, same fixed 14 instances/11 domains,
+seed 0, four workers, 6,000,000 KB and 30 s per planner job, 60 s suite limit.
+Artifacts and measurement scripts: `outputs/performance/round3/`; raw planner
+runs: `runs/journal_development/`. Whole-run bootstrap uses 4,000 samples,
+seed 0. Exact ancestor-map checks compare against original implementation.
+
+### Attempt 11: cache ancestor-chain prefixes — REVERT
+
+- Parent: `97404f2`; candidate: `cd8b609`; revert: `2fd9f16`.
+- Hypothesis: cache every intermediate ancestor cost rather than just the queried
+  state within recomputation, clearing on any corresponding parent-map mutation.
+- Three runs: search speedup **0.946×**, bootstrap interval **0.926–0.961×**.
+  Doors and FrozenLake p07 slow substantially (speedups 0.585× and 0.606×),
+  despite Beam-walk improving 1.601×. Cache rebuilding overhead dominates.
+- Costs agree on 1,000 random parent maps; exact ancestor maps/cycle flags agree
+  on 500 cyclic/convergent graphs. Targeted tests pass. All smoke runs pass
+  completion, expected Pareto costs and policy replay, with unchanged final
+  non-time work statistics. Decision: revert a clear loss after three runs.
+- Raw measurements: `outputs/performance/round3/attempt11/`; diagnostic scripts
+  `check-cost-helper.py`, `apply11.py` preserve the rejected candidate approach.
+
+
+### Attempt 12: skip unchanged-parent comparisons — KEEP
+
+- Effective parent: `2fd9f16` (planner equivalent to `97404f2`);
+  candidate: `78de6ee`. Compared with fresh round-start measurements.
+- Hypothesis: when the candidate ancestor already equals the recorded parent,
+  both compared costs are equal; avoid both ancestor walks and cache lookups.
+  Other comparisons and parent assignments retain their order.
+- Three runs: search speedup **1.079×**, bootstrap interval **1.053–1.106×**.
+  Every instance median improves or stays effectively equal; improvements include
+  Elevators 1.204×, Chain-of-rooms 1.196× and FrozenLake motivating 1.276×.
+- Exact ancestor maps/cycle flags match original on 500 seeded graphs; targeted
+  tests pass. All runs meet completion, expected cost and policy replay gates;
+  non-time final statistics match original. Decision: retain the clear gain.
+- Artifacts: `outputs/performance/round3/attempt12/` and
+  `ancestor-equivalence-attempt12.txt`.
+
+
+### Attempt 13: share trajectory prefixes across siblings — REVERT
+
+- Parent: `78de6ee`; candidate: `ef9bf22`; revert: `06ef31c`.
+- Hypothesis: build one read-only extended ancestor list per expanded trajectory
+  rather than separately copying it for every noncyclic successor.
+- Five runs per revision: speedup **1.014×**, bootstrap interval
+  **0.965–1.046×**. Median suite **22.669 s** versus parent **21.447 s**;
+  candidate wall range **21.265–31.783 s**. No observations excluded.
+- Exact ancestor maps/cycle flags agree on 500 graphs; targeted tests and all
+  completion/cost/replay gates pass, with unchanged final work statistics.
+  Decision: revert unresolved timing; peak memory does not establish a clear
+  compensating improvement.
+- Artifacts: `outputs/performance/round3/attempt13/`, `attempt12-extra/`,
+  `ancestor-equivalence-attempt13.txt`. Supplementary parent runs restored
+  `planner/search.py` exactly from `78de6ee` under HEAD `ef9bf22`, recording the
+  inverse patch and source variant. Combined attempt12 now has five records:
+  speedup **1.088×**, interval **1.054–1.107×** over the three round-start runs.
+  Attempt12's initial three-run keep evidence above is preserved.
+
+
+### Attempt 14: streamline cycle-aware cost walks — REVERT
+
+- Effective parent: `06ef31c` (planner equivalent to `78de6ee`);
+  candidate: `b427134`; revert: `b079381`.
+- Hypothesis: bind the parent dictionary once and detect repeated current states
+  before stepping, avoiding terminal-sentinel insertion in the visited set.
+- Five runs: speedup **0.996×**, bootstrap interval **0.983–1.022×**.
+  Median suite **22.516 s**. No repeatable gain; reverted.
+- 1,000 random cyclic/acyclic/missing parent maps agree with original worst-cost
+  walks; 500 graph recomputations preserve exact ancestors and cycle flags.
+  Targeted tests and all smoke correctness/coverage gates pass; final work
+  statistics remain unchanged.
+- Artifacts: `outputs/performance/round3/attempt14/`,
+  `worst-walk-equivalence-attempt14.txt`, `ancestor-equivalence-attempt14.txt`.
+
+
+### Attempt 15: reuse outcomes during cycle propagation — REVERT
+
+- Effective parent: `b079381` (planner equivalent to `78de6ee`);
+  candidate: `3a7e86f`; revert: `4393130`.
+- Hypothesis: propagation from loopy states reapplies actions already visited
+  during trajectory enumeration. Reuse cached outcomes, taking a separate
+  difference set to keep the cached set read-only.
+- Five runs: speedup **0.994×**, bootstrap interval **0.925–1.024×**.
+  Median suite **21.281 s**. Unresolved timing; reverted under the agreed rule.
+- Exact ancestor maps/cycle flags match original on 500 integer-state and 500
+  frozenset-state graphs. A targeted cycle-to-goal test confirms outcome reuse
+  and unchanged finite best/infinite-cycle worst costs. All smoke correctness
+  gates pass; non-time final statistics remain identical.
+- Artifacts: `outputs/performance/round3/attempt15/`,
+  `ancestor-equivalence-attempt15.txt`, `frozenset-equivalence-attempt15.txt`.
+  Small cyclic cases limit how clearly this suite measures propagation savings;
+  no larger-campaign benefit is claimed.
+
+
+### Round 3 outcome
+
+| Attempt | Change | Search speedup over parent | Decision |
+| --- | --- | ---: | --- |
+| 11 | Cache ancestor-chain prefixes | 0.946× | Revert, regression |
+| 12 | Skip comparisons for unchanged parents | 1.088× | Keep |
+| 13 | Share trajectory prefixes across siblings | 1.014× | Revert, inconclusive |
+| 14 | Streamline cycle-aware cost walks | 0.996× | Revert, inconclusive |
+| 15 | Reuse action outcomes during cycle propagation | 0.994× | Revert, inconclusive |
+
+The retained planner source equals the measured attempt12 source byte for byte.
+
+- **1.088×** aggregate search speedup over the fresh round start, **8.743×** over
+  original `0d570b3`. The extended five-run keep interval is **1.054–1.107×**
+  against three round-start runs. Summed median search time **4.130 s**.
+- Median suite **21.447 s** (range **20.477–22.358 s**), versus fresh parent
+  **23.185 s** and original **33.920 s**. These are observed wall medians;
+  scheduling/import/preprocessing/replay variability limits timing attribution.
+  Every controlled suite finishes within 60 s (maximum **31.783 s**).
+- Final per-instance medians improve in 13 of 14 cases. The exception is
+  st_tires p08: **0.170285 s** versus **0.164210 s**, about 3.7% or 6 ms slower.
+  This small regression is accepted alongside gains of 20–27% on several cases.
+  No search-order or solution semantics changed. Largest median sampled peak
+  RSS **162,676 KB**; no additional memory improvement is claimed this round.
+- **26 controlled runs**: 3 reference, 3 attempt11 and 5 each attempt12–15.
+  All complete 14 searches, solve the expected 12 cases and replay 14 policies.
+  Every intermediate and final non-time statistics row matches original.
+  Inputs, configuration, four workers, 6,000,000 KB, 30 s/job and seed 0 remain
+  fixed. Supplementary parent records are counted once.
+- Final **46 tests pass**. The retained code also matches exact ancestor maps
+  and cycle flags on 500 frozenset-state graphs. Evidence:
+  `outputs/performance/round3/tests-final.log`, `statistics-equivalence.txt`,
+  `resource-and-source-validation.txt`, `frozenset-equivalence-final.txt`.
+- Plot-ready aggregate/per-instance CSV and JSON include all five candidates in
+  `outputs/performance/round3/round-summary.*` and `per-instance-summary.*`.
+  `retained-summary.json` records the final comparison; raw reports retain work
+  counts, expected costs, replay outcomes, timings and sampled process memory.
+- Diagnostic final profiles use two workers, the same 6,000,000 KB/job and 30 s
+  timeout, and are excluded from timing comparisons. FrozenLake best/worst-cost
+  walk calls fall from **116,710/158,474** in round2 to **89,249/120,700**;
+  Tireworld-truck from **45,997/49,321** to **31,822/35,146**.
+  See `profiles-final/` and `ancestor-walk-profile-counts.json`.
+- Ancestor recomputation still dominates FrozenLake search. A larger future
+  target is replacing trajectory enumeration with graph-based ancestor bounds
+  and cycle analysis, with explicit checks for changes to ancestor tie choices,
+  cycle-cost propagation, search order and proper-policy decisions. The current
+  round preserves all of those behaviors; failed local optimizations are logged.
+
+Stopped after five attempts. No further round or full campaign launched.
