@@ -58,12 +58,83 @@ def update_g_values(policy, state, reached_states, task):
     # neither them nor their descendants. Finite longest-path levels also
     # certify that such an edge cannot create a cycle. A cycle-cost source may
     # safely connect to nodes already having cycle cost.
-    if all(policy.get_best_g(child) <= parent_best + 1 and
-           (policy.get_worst_g(child) == CYCLE_COST or
-            (child_worst != CYCLE_COST and policy.get_worst_g(child) >= child_worst))
-           for child in known):
+    worst_unchanged = all(policy.get_worst_g(child) == CYCLE_COST or
+                          (child_worst != CYCLE_COST and policy.get_worst_g(child) >= child_worst)
+                          for child in known)
+    if worst_unchanged:
+        relax_best_edges(policy, state, known, task)
+        return
+    if not policy.cyclic and not reaches_source(policy, known, state, task):
+        # The parent was a DAG and no inserted edge closes a path back to its
+        # source. Propagate only changed bounds through affected descendants.
+        relax_best_edges(policy, state, known, task)
+        relax_worst_edges(policy, state, known, task)
         return
     update_g_brute(policy, task)
+
+
+def policy_outcomes(policy, state, task):
+    action = policy.strategy.get(state)
+    if action is None:
+        return ()
+    cached = getattr(task, "policy_outcomes", None)
+    return cached(state, action[0]) if cached is not None else {op.apply(state) for op in action[1]}
+
+
+def relax_best_edges(policy, state, children, task):
+    """Propagate shortened paths, including implicit changes in parent chains."""
+    distance = policy.get_best_g(state) + 1
+    queue = []
+    for child in children:
+        if distance < policy.get_best_g(child):
+            policy.best_ancestors[child] = state
+            queue.append(child)
+    seen_costs = {}
+    for current in queue:
+        cost = policy.get_best_g(current)
+        if seen_costs.get(current, math.inf) <= cost:
+            continue
+        seen_costs[current] = cost
+        for child in policy_outcomes(policy, current, task):
+            if policy.best_ancestors[child] == current:
+                # This descendant's bound fell through its ancestor chain.
+                queue.append(child)
+            elif cost + 1 < policy.get_best_g(child):
+                policy.best_ancestors[child] = current
+                queue.append(child)
+
+
+def reaches_source(policy, children, source, task):
+    """New cycles must use an inserted source edge; test for its return path."""
+    seen = set()
+    queue = list(children)
+    for state in queue:
+        if state == source:
+            return True
+        if state not in seen:
+            seen.add(state)
+            queue.extend(child for child in policy_outcomes(policy, state, task) if child not in seen)
+    return False
+
+
+def relax_worst_edges(policy, state, children, task):
+    """Propagate longest-path increases in a certified acyclic graph."""
+    distance = policy.get_worst_g(state) + 1
+    queue = []
+    for child in children:
+        if distance > policy.worst_costs[child]:
+            policy.worst_costs[child] = distance
+            queue.append(child)
+    seen_costs = {}
+    for current in queue:
+        cost = policy.worst_costs[current]
+        if seen_costs.get(current, -1) >= cost:
+            continue
+        seen_costs[current] = cost
+        for child in policy_outcomes(policy, current, task):
+            if cost + 1 > policy.worst_costs[child]:
+                policy.worst_costs[child] = cost + 1
+                queue.append(child)
 
 
 def update_g_brute(policy: Policy, task: Task):
