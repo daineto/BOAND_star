@@ -346,7 +346,7 @@ def boand_star(
         # Check if the policy is closed
         if current_policy.is_closed():
             # If closed and proper, it is a solution
-            if (not current_policy.cyclic and current_policy.goal_states) or current_policy.is_proper(task):
+            if current_policy.is_proper(task):
                 pareto_frontier += [current_policy]
                 pareto_f = (f_value[0], f_value[1])
 
