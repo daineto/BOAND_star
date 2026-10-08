@@ -1236,3 +1236,140 @@ are null, not averages over its surviving subset. Parent extension artifacts
 record actual HEAD plus restored-file provenance. Stop after the requested five
 attempts; compact storage/cheap queue comparisons are now tested jointly, and
 state-selection sensitivity on unsolvable inputs is an important limitation.
+
+## Round 8 — repeated bound evaluation and policy copying (attempts 36–40)
+
+The user authorized another five-attempt round. Start from `bc14a81`, retain
+journal definition version 3 and the corrected graph semantics. Use the fixed
+14-instance/11-domain smoke, seed 0, four workers, 6,000,000 KB/job, 30 s/job
+and 60 s suite deadline, including independent policy replay. Three fresh
+reference runs are under `outputs/performance/round8/round8-start/`; original
+baseline `0d570b3` measurements remain separate. Bootstrap whole-run repeats
+(4,000 samples, seed 0); extend inconclusive comparisons to five per revision.
+Parent extension measurements record the actual HEAD and byte-for-byte restored
+source provenance. No failed or slow run is silently dropped.
+
+Profile two representative cases separately from timed comparisons, with the
+same planner limits. At the round reference, Tireworld-truck's 25,303 joint
+bound calls consume 0.221 s under cProfile, versus 0.054 s in policy copying;
+FrozenLake's 5,588 bound calls consume 0.089 s. Final properness checks are
+comparatively small. These are instrumented profile costs, not timing evidence
+for candidate speedups. Raw profiles and summaries: `profiles-before/`.
+
+### Attempt 36 — direct cached state-heuristic access — keep
+
+- Candidate `a2829d2`. Access the task-local state cache directly in joint and
+  individual policy bounds, avoiding temporary `SearchNode` construction on
+  cache hits. Keep node-based fallback support for uncached heuristics.
+- Three runs per revision: **1.036×** search speedup, bootstrap interval
+  **1.004–1.048×**. Keep. Preserve these decision measurements in
+  `attempt36/decision-summary.json` and `decision-bootstrap.json`; additional
+  parent repetitions later support the next comparison, not this decision.
+- Tests verify cache-hit allocation avoidance and uncached/infinite-value
+  behavior. Every smoke run completes 14 cases, solves 12 and replays 14
+  policies with unchanged expected costs and non-time statistics.
+- Artifacts: `attempt36/`, `tests-attempt36.log`,
+  `joint-tests-attempt36.log`.
+
+### Attempt 37 — fuse outgoing-state evaluation scans — revert
+
+- Candidate `5377719`, revert `f509654`. Evaluate state heuristics, best and
+  worst bounds in one pass; avoid constructing the outgoing union and numeric
+  best/worst lists. Deduplicate overlapping pending/goal inputs and preserve
+  empty/infinite/cyclic results.
+- Five runs per revision: **1.003×**, interval **0.957–1.046×**. Revert an
+  inconclusive change; Python loop/deduplication costs offset the saved scans.
+- Thirteen relevant tests pass; 2,000 randomized cases match the round-start
+  bound function exactly. All completed/solved/replay counts and cost sets
+  match. Preserve the 37.34 s external-wall outlier; no timing exclusion or
+  system-load attribution. Candidate tests are preserved in its Git commit.
+- Artifacts: `attempt37/`, `attempt36-extra/` and its restored-source provenance.
+
+### Attempt 38 — exact closed form for the current size bound
+
+- Candidate `8e09390`. The existing ascending sort makes `h[i] + i` monotone,
+  so the bound is exactly `max(h) + len(pending) - 1` for nonempty pending,
+  zero otherwise. Remove sorting and index-list construction in joint and
+  separate size evaluators. This preserves the current bound; it does not
+  introduce the paper's alternative ordering or a scientific definition change.
+- No incremental histogram is needed for this algebraic simplification. Check
+  1,005 empty/duplicate/infinite/random size cases and 2,000 independent bound
+  cases, including overlapping outgoing inputs and cyclic flags.
+- Artifacts: `attempt38/`, `bounds-attempt38.txt`, `tests-attempt38.log`.
+- Three candidate runs versus five parent repetitions: **0.969×**, interval
+  **0.943–0.997×**. Revert a measured regression (`585d569`). The generator-based
+  maximum did not repay its overhead on the small pending sets in this profile;
+  algebraic equivalence alone is not evidence of faster Python execution.
+
+### Attempt 39 — reuse the early escape invariant at closure
+
+- Candidate `e4054a3`. Every accepted search extension preserves an escape to
+  an unmapped state. When pending becomes empty those exits are goals, so
+  accept the closed policy without rebuilding its reverse graph, and mark it
+  proper. Keep the generic `Policy.is_proper` implementation for other callers.
+- Independent forward-reachability oracle verifies 2,000 closed policies after
+  11,536 accepted incremental extensions, including cycles; the 3,313 growing
+  extension checks and 25 relevant tests also pass. This is search-local reuse
+  of an invariant, not a reversion of the corrected properness definition.
+- Artifacts: `attempt39/`, `closure-invariant.txt`,
+  `escape-growth-attempt39.txt`, `tests-attempt39.log`.
+- Five runs per revision: **0.999×**, interval **0.953–1.025×**. Revert an
+  inconclusive change (`d065919`). Retain the explicit generic properness scan;
+  its small profile cost does not justify an unmeasurable search-local shortcut.
+
+### Attempt 40 — avoid discarded initialization during policy copying
+
+- Candidate `0c3f6a1`. Allocate the slotted `Policy` directly, then assign all
+  eight fields as before. Avoid the five empty containers and initial flag
+  assignments that the constructor performs only to have `copy()` overwrite
+  them immediately. Keep independent copies of strategy, pending, goals and
+  both bound maps; no parent chain or shared mutable state is introduced.
+- This targets the profiled sibling-copy cost more directly than immutable
+  goal sharing or another strategy representation. Existing copy tests verify
+  flags, bounds and independent mutability of all five containers. Twenty-five
+  relevant tests and 1,188 randomized extension comparisons pass.
+- Artifacts: `attempt40/`, `tests-attempt40.log`, `incremental-attempt40.txt`.
+- Revert commit: `abdde96`. Preserve the FrozenLake/motivating timing outlier
+  (0.424 s versus about 0.018 s in other candidate repetitions), which widens
+  the interval. No observed cause is established and no run is excluded.
+- 5 candidate runs: **0.997×**, interval **0.816–1.026×**. Decision: **revert**.
+
+### Round 8 result
+
+| Attempt | Search speedup vs parent | Bootstrap interval | Decision |
+| --- | ---: | --- | --- |
+| 36 | 1.036× | 1.004–1.048× | Keep |
+| 37 | 1.003× | 0.957–1.046× | Revert |
+| 38 | 0.969× | 0.943–0.997× | Revert |
+| 39 | 0.999× | 0.953–1.025× | Revert |
+| 40 | 0.997× | 0.816–1.026× | Revert |
+
+Final measured planner: `attempt36`. Retained search speedup **1.035×**
+versus this round's fresh reference (five retained-source repetitions, interval
+**1.004–1.057×**) and **17.522×** versus the
+fixed original smoke baseline. Summed per-instance median search time:
+**2.034 s**. Full suite median **24.357 s**,
+range **24.142–26.800 s**, versus
+round-start median **24.215 s**. These are search improvements;
+launch/preprocessing/replay dominate suite time and no end-to-end improvement
+is established. Largest median sampled peak planner RSS:
+**163,552 KB**. Resource snapshots show about 22–23 GB
+available RAM and no swap use; they do not establish the cause of timing outliers.
+
+All **26 timed smoke invocations** complete 14 instances, solve 12 and replay
+14 policies, with unchanged expected Pareto costs and every intermediate/final
+non-time work row matching the corrected round reference. Manifests preserve
+version 3, frozen inputs, commands/configurations, resource limits and seed.
+Final planner hashes match its measured revision. Relevant tests and independent
+graph/bound/escape checks pass; final suite passes 66 tests. No full campaign
+was launched. Fixed original timing comparisons cross the previously documented
+correctness boundaries and do not claim arbitrary-task equivalence.
+
+Raw results, source-variant provenance, resource observations and comparison data
+are under `outputs/performance/round8/`: `round-summary.csv/json`,
+`per-instance-summary.csv/json`, `retained-summary.json`,
+`retained-bootstrap.json`, `statistics-comparison.txt`, `work-count-differences.json`,
+`reproducibility.txt`, `tests-final.log`, `graph-final.txt` and
+`incremental-attempt40.txt`. Original attempt-36 decision data are preserved
+separately from additional repetitions used as the parent for later attempts.
+Stop after the requested five attempts; no further optimization was started.
