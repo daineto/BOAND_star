@@ -109,15 +109,6 @@ def extension_has_escape(policy, state, successors, task):
     region. Find an unmapped outcome reachable from it; goals also count.
     The override at state is already represented by the initial successors.
     """
-    # A finite longest-path level in a DAG certifies that a child with an
-    # equal or greater level cannot return to this source. Its existing escape
-    # therefore survives, so avoid successor traversal in that case.
-    if not policy.cyclic:
-        source_cost = policy.worst_costs.get(state)
-        if source_cost is not None and source_cost != CYCLE_COST:
-            if any(child != state and policy.get_worst_g(child) >= source_cost
-                   for child in successors):
-                return True
     seen = {state}
     frontier = list(successors)
     outcomes = getattr(task, "policy_outcomes", None)
