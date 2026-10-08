@@ -1,9 +1,21 @@
 """Policy-cost estimates extracted without changing their calculations."""
 from abc import ABC, abstractmethod
+from functools import lru_cache
 import math
 from pyperplan.heuristics.heuristic_base import Heuristic
 from pyperplan.search.searchspace import SearchNode
 from .policy import Policy, CYCLE_COST
+
+
+class CachedStateHeuristic(Heuristic):
+    """Memoize task-local hmax/lmcut values, which depend only on the state."""
+    def __init__(self, heuristic, maxsize=65_536):
+        self.evaluate = lru_cache(maxsize=maxsize)(
+            lambda state: heuristic(SearchNode(state, None, None, 0))
+        )
+
+    def __call__(self, node):
+        return self.evaluate(node.state)
 
 
 class FondHeuristic(ABC):

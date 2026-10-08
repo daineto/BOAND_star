@@ -12,7 +12,7 @@ from pyperplan.search.searchspace import SearchNode
 from .policy import Policy, CYCLE_COST
 from .preprocessing import get_alloutcome_determinization
 from .output import write_solution, write_stats
-from .heuristics import (FondHeuristic, BlindBestCaseHeuristic, MinSumBestCaseHeuristic, SumMinBestCaseHeuristic, BlindWorstCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic, ZeroSizeHeuristic)
+from .heuristics import (CachedStateHeuristic, FondHeuristic, BlindBestCaseHeuristic, MinSumBestCaseHeuristic, SumMinBestCaseHeuristic, BlindWorstCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic, ZeroSizeHeuristic)
 from .state_selection import (StateSelector, RandomStateSelector, BoundsFirstStateSelector, LargestGStateSelector, BestStateSelector)
 from .queue_order import (OpenListSorter, BestWorstOpenListSorter, WorstBestOpenListSorter, BestOpenListSorter, WorstOpenListSorter)
 
@@ -231,6 +231,8 @@ def boand_star(
     else:
         print("heuristic must be 'hmax' or 'lmcut'")
         exit()
+
+    cp_heuristic = CachedStateHeuristic(cp_heuristic)
 
     if use_best_case_heuristic == "Blind":
         best_heuristic = BlindBestCaseHeuristic(cp_heuristic)
