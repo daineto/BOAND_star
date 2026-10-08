@@ -69,7 +69,7 @@ def update_g_brute(policy:Policy, task:Task):
 
     trajectories = list()
     cycles = list()
-    frontier = {task.initial_state:()}
+    frontier = {task.initial_state:[]}
     while frontier:
         state,ancestors = frontier.popitem()
         action = policy.strategy.get(state, None)
@@ -82,7 +82,7 @@ def update_g_brute(policy:Policy, task:Task):
                 state_successors[state] = reached_states
             for reached_state in reached_states:
                 if reached_state in ancestors: # Cycle
-                    cycles.append(ancestors[ancestors.index(reached_state):]+(state,))
+                    cycles.append(ancestors[ancestors.index(reached_state):]+[state])
                     pass
                 else: # Not a cycle
                     aux1 = worst_g(state)
@@ -95,7 +95,9 @@ def update_g_brute(policy:Policy, task:Task):
                         policy.best_ancestors[reached_state] = state
                         best_g.cache_clear()
                     # Extend trajectory
-                    frontier[reached_state] = ancestors + (state,)
+                    new_ancestors = ancestors.copy()
+                    new_ancestors.append(state)
+                    frontier[reached_state] = new_ancestors
     loopy_states = set().union(*cycles)
     extended_loopy_states = set()
     for cycle in cycles:
