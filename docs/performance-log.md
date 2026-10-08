@@ -866,3 +866,199 @@ and source-variant provenance, including extended parent runs. These results
 establish no repeatable gain on this smoke selection; they do not exclude gains
 on larger policies. Correct incremental analysis is feasible, but its overhead
 and the current workload did not yield convincing aggregate performance gains.
+
+
+## Properness correction before round 6
+
+Reading the AND* paper (printed pp. 281–282) exposed a second independent
+correctness discrepancy. The closed policy `0 -> {1, goal}`, `1 -> 0` is
+strong-cyclic: all reachable states can reach the goal. The historical checker
+rejects it because a goal trajectory records ancestors without its current
+source, so a cycle root can be absent from the recorded goal paths. Its
+state-keyed traversal also conflates paths. On 2,000 seeded random reachable
+graphs with nonempty action outcomes, the old checker has **306 false
+rejections** and no observed false acceptances. This is a correctness finding,
+not an optimization to revert if timing is unchanged.
+
+Correction `7bd2051`: build the reachable policy graph and traverse predecessor
+edges backward from goals. Properness requires every reachable state to be
+reached in this reverse traversal. Goal checks are explicit, unmapped non-goal
+states fail, and task-local outcome caching is reused. Independent forward
+reachability from each reachable state and a separate escape fixed point agree
+with the replacement; five tests include the minimal regression, trapped
+cycles, missing assignments, empty outcomes and cached/uncached behavior.
+
+Journal campaign definition and expected-outcome metadata advance from version
+2 to **3**. Inputs, limits and numerical expected cost sets are unchanged.
+The ICAPS tag, archive and campaign remain intact. Three pre-fix smoke runs at
+`411d4fc` and three initial post-fix runs complete 14 cases, solve 12 and replay
+14 policies, with unchanged expected costs and final work counts. Initial
+search speedup is **1.014×**, interval **0.981–1.049×**; no performance gain is
+claimed for the correction. It remains independently justified on graphs that
+the smoke selection does not expose.
+
+Artifacts: `outputs/performance/round6/round6-start/`, `properness-fix/`,
+`properness-differences-before.json`, `check-properness.py`,
+`properness-after.txt` and `properness-tests.log`. The random oracle records no
+post-fix discrepancies. Performance attempts 26–30 use the corrected reference.
+
+
+## Round 6: AND* properness, deadlock pruning and policy representation
+
+Corrected journal definition version 3; reference planner `7bd2051`. Fixed
+14 instances/11 domains, seed 0, four workers, 6,000,000 KB virtual memory,
+30 s/job and 60 s suite deadline including replay. Original baseline remains
+`0d570b3` for timing context; correctness uses independent graph oracles and
+the corrected planner. Raw artifacts: `outputs/performance/round6/`.
+
+### Attempt 26: closed acyclic properness shortcut — REVERT
+
+- Parent `7bd2051`; candidate `f41c507`; revert `da0a301`.
+- A reachable closed DAG with nonempty action outcomes must end at goals, so
+  avoid the generic properness traversal when maintained graph bounds certify
+  acyclicity and goals exist. Cycle cases keep reverse reachability.
+- Five runs per revision: search speedup **1.003×**, interval **0.961–1.064×**.
+  Revert an inconclusive gain. Five properness contract tests and an independent
+  1,000-DAG check pass; expected costs, policy replay and work counts match.
+- Extra reference runs in `properness-fix-extra/` restore `planner/search.py`
+  byte-for-byte from `7bd2051`; `source_variant` records this provenance.
+  Artifacts: `attempt26/`, `tests-attempt26.log`, `acyclic-oracle.txt`.
+
+### Attempt 27: early deadlock rejection before copying — KEEP
+
+- Effective parent `da0a301` (planner equivalent to `7bd2051`);
+  candidate `c3d4fd7`.
+- Implement AND* Algorithm 2 before creating a child policy: traverse from
+  new outcomes, treating the newly mapped source as mapped, and find an escape
+  to any unmapped state (goal or pending). If none exists, the closed region
+  cannot be repaired by assigning other pending states, so discard immediately.
+  The empty policy starts the invariant, and only passing children enter Open.
+- Initial three runs against five reference runs: speedup **1.085×**, interval
+  **1.052–1.150×**. Chain-of-rooms improves **1.866×**, Responders **1.373×**.
+  FrozenLake motivating has a small absolute-time regression from the new
+  checking overhead; inspect final per-instance medians and extended evidence.
+- Seven tests include an independent partial-policy escape fixed point, and
+  3,313 growing-policy extensions agree with the same independent criterion.
+  All costs and replay checks pass. Work counts match the corrected parent:
+  the old heuristic already rejected these children later, after copying and
+  graph-bound computation. Generation counts still include attempted children.
+- Artifacts: `attempt27/`, `escape-growth-attempt27.txt`,
+  `tests-attempt27.log`, and `work-comparison.json` in the attempt directory.
+
+- Extended five-run evidence: speedup **1.107×**, interval **1.056–1.170×**;
+  retain. Extra candidate runs in `attempt27-extra/` restore planner source from
+  `c3d4fd7` with explicit provenance. These five runs are the reference for 28–30
+  unless a later candidate is retained.
+
+### Attempt 28: finite longest-path escape certificate — REVERT
+
+- Parent `c3d4fd7`; candidate `c5e7539`; revert `992240f`.
+- For an acyclic parent, an outcome with finite longest-path level at least
+  that of the source cannot return to the source. The parent's existing escape
+  from that outcome therefore survives; use the numeric levels before graph
+  traversal. Cyclic parents and uncertified outcomes retain the graph test.
+- Five runs per revision: speedup **0.965×**, interval **0.929–1.010×**.
+  Revert the inconclusive result. Numeric checks add overhead and avoid too
+  little traversal on these cases. Costs, replay and work counts match.
+- Seven targeted tests and 3,313 growing extensions agree with the independent
+  escape fixed point. Artifacts: `attempt28/`, `escape-growth-attempt28.txt`,
+  `tests-attempt28.log`; extra parent runs described above.
+
+
+### Attempt 29: compact child strategies with active materialization — REVERT
+
+- Effective parent `992240f` (planner equivalent to `c3d4fd7`);
+  candidate `85404df`; revert `de92fdb`.
+- Evaluate policy sharing together with retained early deadlock pruning. Store
+  a child as a read-only parent mapping plus one assignment; materialize its
+  native dictionary after Open/Pareto selection. Full graph analysis uses a
+  temporary native map instead of repeated pointer-chain lookups. Other policy
+  maps and sets remain independently copied. This avoids long lookup chains in
+  actual search, though standalone helper calls support nested overlays.
+- Three runs: speedup **0.839×**, interval **0.784–0.878×**; clear loss, revert.
+  Largest median sampled RSS **161,160 KB** vs **163,344 KB** parent: the small
+  saving does not compensate. Overlay equality/materialization and extra Python
+  mapping operations remain costly; costs, replay and work counts match.
+- Two targeted sibling-isolation/materialization tests, 1,188 incremental cost
+  checks and 3,313 escape checks pass. Artifacts: `attempt29/`,
+  `tests-attempt29.log`, `incremental-attempt29.txt`,
+  `escape-growth-attempt29.txt`. Ignored candidate/test-generation scripts retain
+  the prototype after its tracked implementation is reverted.
+
+
+### Attempt 30: larger-policy and serial queue tie-breaking — REVERT
+
+- Effective parent `de92fdb` (planner equivalent to `c3d4fd7`);
+  candidate `283ac62`; revert `5429ae1`.
+- Preserve all existing objective/heuristic priority fields, then prefer larger
+  policies as in AND*. A task-local serial resolves remaining ties, avoiding
+  whole-policy equality and the historical unconditional `Policy.__lt__`.
+  This deliberately changes equal-priority search order, not objective semantics.
+- Five candidate runs against five parent runs: speedup
+  **0.978×**, interval **0.929–1.033×**.
+  Revert an inconclusive result. Extra queue keys/counters have overhead and
+  the new order helps some cases while hurting others.
+- Costs and replay remain unchanged. Summed final work counts change:
+  iterations **71,135 -> 70,815**, expansions **13,113 -> 13,043**, generations
+  **86,949 -> 86,543**, sum of per-instance max-Open counts **51,794 -> 51,592**.
+  The last metric is a sum of individual maxima, not concurrent queue occupancy.
+- Two tests verify original priority precedence, larger-policy/FIFO ties and
+  absence of policy comparisons for all four sorter configurations. Smoke
+  execution covers the fixed bw configuration. Artifacts: `attempt30/`,
+  `tests-attempt30.log`, `work-comparison.json` and
+  `work-count-differences.json`. Ignored scripts preserve the reverted prototype.
+
+### Round 6 result
+
+Keep early deadlock rejection, attempt 27. Independently retain the confirmed
+properness correction `7bd2051` and journal definition version 3. Restore native
+strategy dictionaries and historical queue ordering. Do not credit inconclusive
+changes. Final planner source hashes match the five measured attempt-27 runs.
+
+| Attempt | Speedup vs parent | Bootstrap interval | Decision |
+| --- | ---: | --- | --- |
+| 26 | 1.003× | 0.961–1.064× | Revert |
+| 27 | 1.107× | 1.056–1.170× | Keep |
+| 28 | 0.965× | 0.929–1.010× | Revert |
+| 29 | 0.839× | 0.784–0.878× | Revert |
+| 30 | 0.978× | 0.929–1.033× | Revert |
+
+Retained search gain **1.107×** versus the fresh corrected
+reference, interval **1.056–1.170×**; **16.467×** versus
+the original fixed timing baseline on this smoke selection. Per-instance
+regressions in the retained optimization are below 5% in the extended data;
+no substantial absolute-time regression is observed. Summed per-instance median
+search time **2.159 s**. Suite median
+**23.673 s**, range
+**23.040–24.632 s**, versus
+**24.936 s** reference median; overlapping ranges
+and launch/preprocessing overhead prevent a robust suite-wall improvement claim.
+Largest median sampled RSS **163,344 KB**.
+
+All **31 timed runs** complete 14 instances, solve the same 12 and replay
+14 policies with unchanged expected Pareto cost sets. Inputs, configuration,
+commands (apart from output locations), seed and resource limits are identical;
+properness version 2->3 is explicitly recorded. Every intermediate and final
+non-time statistics row matches the corrected reference except deliberate
+attempt-30 tie-order changes, preserved separately. The fixed smoke suite does
+not expose the old properness false rejections; independent graph oracles do.
+Final planner passes **62 tests**. No full campaign or published-impact study
+was launched. Original-baseline timing comparisons cross explicit correctness
+boundaries and do not assert numerical equivalence on arbitrary tasks.
+
+Diagnostic runs, excluded from controlled timing measurements, confirm the
+mechanism: chain-of-rooms p16 rejects **689 of 1,304** attempted extensions before
+copying/bounds, and Responders p_2_2 rejects **2,151 of 11,602**. Counts and logs
+are in `diagnostics-final/` and `diagnostic-*.log`. Generation statistics still
+include these attempted extensions, explaining unchanged work counts despite
+less internal computation.
+
+Artifacts under `outputs/performance/round6/` include `round-summary.csv/json`,
+`per-instance-summary.csv/json`, `retained-summary.json`,
+`statistics-comparison.txt`, `work-count-differences.json`, `reproducibility.txt`,
+`tests-final.log`, raw measurement logs and per-run manifests. Restored parent
+measurements preserve explicit source variants rather than claim their actual
+HEAD was the parent revision. The next promising separate investigation is the
+interaction of compact strategy storage with queue comparisons removed; it was
+not evaluated in this five-attempt round. Most-recently-generated pending-state
+selection also remains untested and would deliberately change search order.
