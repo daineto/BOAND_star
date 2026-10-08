@@ -95,9 +95,9 @@ class DeltaSizeHeuristic(FondHeuristic):
 
         h_values = {state: self.cp_heuristic(SearchNode(state, None, None, 0)) for state in Out}
 
-        # Sorted h[i] + i is nondecreasing; its maximum is the last entry.
-        if policy.pending:
-            f_size = max(h_values[state] for state in policy.pending) + len(policy.pending) - 1
+        h_vector = sorted([h_values[state] for state in policy.pending])
+        if len(h_vector) > 0:
+            f_size = max([h_vector[i] + i for i in range(len(h_vector))])
         else:
             f_size = 0
 

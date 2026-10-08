@@ -184,9 +184,9 @@ def compute_f_value(policy:Policy, task:Task, heuristic:hMaxHeuristic):
     # DISCARDED: it assigns CYCLE_COST + h in case of cyclic policies
     # f_worst = max([policy.get_worst_g(state) + h_values[state] for state in Out], default=math.inf)
 
-    # Sorted h[i] + i is nondecreasing; its maximum is the last entry.
-    if policy.pending:
-        f_close = max(h_values[state] for state in policy.pending) + len(policy.pending) - 1
+    h_vector = sorted([h_values[state] for state in policy.pending])
+    if len(h_vector) > 0:
+        f_close = max([h_vector[i] + i for i in range(len(h_vector))])
     else:
         f_close = 0
 

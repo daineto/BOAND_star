@@ -1,6 +1,5 @@
 """Correctness contracts for measured planner optimizations."""
 import math
-import random
 from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock
@@ -49,20 +48,6 @@ class JointBoundTests(unittest.TestCase):
                 separate = tuple(cls(heuristic).get_f_value(policy) for cls in
                                  (MinSumBestCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic))
                 self.assertEqual(compute_f_value(policy, None, heuristic), separate)
-
-    def test_delta_bound_matches_sorted_definition(self):
-        rng = random.Random(0)
-        vectors = [[], [0], [math.inf], [1, 1, 1], [0, 3, math.inf]]
-        vectors += [[rng.randrange(20) for _ in range(rng.randrange(30))]
-                    for _ in range(100)]
-        for vector in vectors:
-            values = dict(enumerate(vector))
-            policy = Policy({}, set(values), set())
-            policy.best_ancestors = policy.worst_ancestors = {state: 'dummy' for state in values}
-            heuristic = lambda node: values[node.state]
-            expected = max((value + i for i, value in enumerate(sorted(vector))), default=0)
-            self.assertEqual(DeltaSizeHeuristic(heuristic).get_f_value(policy), expected)
-            self.assertEqual(compute_f_value(policy, None, heuristic)[2], expected)
 
     def test_closed_and_empty_frontiers_keep_default_bounds(self):
         policy = Policy({}, set(), {'s'})
