@@ -97,11 +97,10 @@ class DeltaSizeHeuristic(FondHeuristic):
 
         h_values = {state: self.state_h(state) for state in Out}
 
-        h_vector = sorted([h_values[state] for state in policy.pending])
-        if len(h_vector) > 0:
-            f_size = max([h_vector[i] + i for i in range(len(h_vector))])
-        else:
-            f_size = 0
+        # Preserve the existing ascending-sort bound in closed form.
+        f_size = max((h_values[state] for state in policy.pending), default=0)
+        if policy.pending:
+            f_size += len(policy.pending) - 1
 
         return f_size
 
