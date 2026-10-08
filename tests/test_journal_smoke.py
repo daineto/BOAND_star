@@ -22,7 +22,9 @@ class JournalSmokeTests(unittest.TestCase):
         self.assertEqual(manifest["run_count"], 14)
         self.assertEqual(manifest["memory_kb"], 6_000_000)
         self.assertEqual(manifest["parallel_runs"], 4)
-        expected = json.loads(CAMPAIGN.instance_manifest.with_name("expected.json").read_text())["costs"]
+        outcomes = json.loads(CAMPAIGN.instance_manifest.with_name("expected.json").read_text())
+        self.assertEqual(outcomes["campaign_version"], CAMPAIGN.version)
+        expected = outcomes["costs"]
         self.assertEqual(set(expected), {f"{e['domain']}/{e['instance']}" for e in selected})
         self.assertEqual(sum(not costs for costs in expected.values()), 2)
         self.assertEqual(sum(len(costs) > 1 for costs in expected.values()), 2)
