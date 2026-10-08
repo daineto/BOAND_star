@@ -54,19 +54,21 @@ class Policy:
           g+=1
       return g-1
 
-  def get_worst_g(self, state):
-      parents = self.worst_ancestors
+  def get_worst_g(self,state):
       ancestors = set()
+      ancestors.add(state)
+      
       current = state
-      g = -1
-      while current != "dummy":
+      g = 0
+      while current != "dummy": # reaches the initial state
+          current = self.worst_ancestors.get(current,None)
           if current in ancestors:
               return CYCLE_COST
+          g+=1
           ancestors.add(current)
-          current = parents.get(current)
-          g += 1
-      return g
-
+      return g-1
+    
+  
   def is_proper(self, task):
     if not self.proper:
         goal_trajectories = list()
