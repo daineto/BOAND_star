@@ -42,21 +42,28 @@ def select_pending_state(policy, task, heuristic):
 
 
 def update_g_values(policy, state, reached_states, task):
-    all_new = True
-    for reached_state in reached_states:
-        # First time reaching the state
-        # tile is the best and worst ancestor
-        if policy.best_ancestors.get(reached_state,None) is None:
-            # if reached_state != task.initial_state:
-            policy.best_ancestors[reached_state] = state
-            policy.worst_costs[reached_state] = (CYCLE_COST if policy.get_worst_g(state) == CYCLE_COST
-                                                  else policy.get_worst_g(state) + 1)
-        # Not the first time
+    parent_worst = policy.get_worst_g(state)
+    child_worst = CYCLE_COST if parent_worst == CYCLE_COST else parent_worst + 1
+    known = []
+    for child in reached_states:
+        if child not in policy.best_ancestors:
+            policy.best_ancestors[child] = state
+            policy.worst_costs[child] = child_worst
         else:
-            all_new = False
-
-    if not all_new:
-        update_g_brute(policy, task)
+            known.append(child)
+    if not known:
+        return
+    parent_best = policy.get_best_g(state)
+    # If every new edge is dominated by existing best/worst bounds, it changes
+    # neither them nor their descendants. Finite longest-path levels also
+    # certify that such an edge cannot create a cycle. A cycle-cost source may
+    # safely connect to nodes already having cycle cost.
+    if all(policy.get_best_g(child) <= parent_best + 1 and
+           (policy.get_worst_g(child) == CYCLE_COST or
+            (child_worst != CYCLE_COST and policy.get_worst_g(child) >= child_worst))
+           for child in known):
+        return
+    update_g_brute(policy, task)
 
 
 def update_g_brute(policy: Policy, task: Task):
