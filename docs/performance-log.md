@@ -49,3 +49,24 @@ spent substantial time recomputing ancestor costs. Artifacts:
   `outputs/performance/round1/attempt1/`; post-change profiles are in
   `outputs/performance/round1/profiles-attempt1/`.
 
+### Attempt 2: cache ancestor walks during recomputation — KEEP
+
+- Parent: `a5a7b36`; candidate: `3cc1ec7`.
+- Hypothesis: convergent/cyclic policy traversal repeatedly walks unchanged
+  ancestor chains. Cache best/worst costs only within one recomputation, clearing
+  the corresponding cache whenever any ancestor changes.
+- Three candidate runs: suite median **21.233 s**, range **20.902–21.537 s**;
+  aggregate search speedup **1.321×** over parent, **6.606×** over original;
+  summed median search time **6.074 s**.
+- Every run completed 14 searches, solved 12 instances and replayed 14 policies;
+  all non-time statistics match baseline. Targeted convergence/self-loop tests
+  and 500 seeded cyclic/convergent differential comparisons against original
+  `update_g_brute` passed with identical ancestor maps and cycle flags.
+- Four-worker regressions: Elevators +0.039 s (12%), Islands +0.113 s (15%).
+  Three alternating isolated runs per revision on these same smoke instances
+  reduced the differences to +0.011 s (3.4%) and +0.005 s (0.6%). Profiles show
+  cache construction overhead; scheduling/contention likely amplifies the
+  parallel-run differences. These small absolute costs are accepted in return
+  for 2.0–2.5× gains on Beam-walk, Chain-of-rooms, Doors and FrozenLake cases.
+- Decision: retain. Artifacts: `outputs/performance/round1/attempt2/`,
+  `profiles-attempt2-small/`, `ancestor-probe/`, and `ancestor-equivalence.txt`.

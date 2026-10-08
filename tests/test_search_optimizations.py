@@ -5,9 +5,10 @@ import unittest
 from unittest.mock import Mock
 
 from pyperplan.search.searchspace import SearchNode
+from pyperplan.task import Operator, Task
 from planner.heuristics import CachedStateHeuristic
 from planner.policy import Policy, CYCLE_COST
-from planner.search import update_g_brute
+from planner.search import grouped_successors, update_g_brute
 
 
 class HeuristicCacheTests(unittest.TestCase):
@@ -29,6 +30,23 @@ class HeuristicCacheTests(unittest.TestCase):
         self.assertEqual(first.evaluate.cache_info().currsize, 1)
         self.assertEqual(first(node), 1)
         self.assertEqual(first.evaluate.cache_info().misses, 3)
+
+
+class SuccessorGroupingTests(unittest.TestCase):
+    def test_all_outcomes_noops_and_distinct_actions_are_preserved(self):
+        state = frozenset({'ready'})
+        noop = Operator('(move_detdup_0)', {'ready'}, set(), set())
+        progress = Operator('(move_detdup_1)', {'ready'}, {'done'}, {'ready'})
+        other = Operator('(finish)', {'ready'}, {'done'}, {'ready'})
+        blocked = Operator('(blocked)', {'absent'}, set(), set())
+        task = Task('example', {'ready', 'done', 'absent'}, state, {'done'},
+                    [noop, progress, other, blocked])
+        successors, operators = grouped_successors(task, state)
+        self.assertEqual(list(successors), ['(move)', '(finish)'])
+        self.assertEqual(successors['(move)'], {state, frozenset({'done'})})
+        self.assertEqual(operators['(move)'], {noop, progress})
+        self.assertEqual(operators['(finish)'], {other})
+        self.assertEqual(grouped_successors(task, frozenset({'done'})), ({}, {}))
 
 
 class AncestorUpdateTests(unittest.TestCase):

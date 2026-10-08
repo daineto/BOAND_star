@@ -211,6 +211,25 @@ def compute_f_value(policy:Policy, task:Task, heuristic:hMaxHeuristic):
     return f_best, f_worst, f_close
 
 
+def grouped_successors(task, state):
+    """Group applicable deterministic outcomes in the task's operator order.
+
+    Returned dictionaries and sets are shared by the search cache and read-only
+    after construction; preserving set insertion order preserves policy ties.
+    """
+    nondet_action_to_successors = {}
+    nondet_to_det_action = {}
+    for op, succ in task.get_successor_states(state):
+        nondet_action = re.sub('_detdup_' + '[0-9]*', '', op.name)
+        successors = nondet_action_to_successors.get(nondet_action, set())
+        successors.add(succ)
+        nondet_action_to_successors[nondet_action] = successors
+        det_actions = nondet_to_det_action.get(nondet_action, set())
+        det_actions.add(op)
+        nondet_to_det_action[nondet_action] = det_actions
+    return nondet_action_to_successors, nondet_to_det_action
+
+
 def boand_star(
         domain_file,
         problem_file,
@@ -241,6 +260,7 @@ def boand_star(
         exit()
 
     cp_heuristic = CachedStateHeuristic(cp_heuristic)
+    successors_for_state = lru_cache(maxsize=65_536)(lambda state: grouped_successors(task, state))
 
     if use_best_case_heuristic == "Blind":
         best_heuristic = BlindBestCaseHeuristic(cp_heuristic)
@@ -369,21 +389,7 @@ def boand_star(
         # Select a state from Out~(current_policy)
         state = selector.select_pending_state(current_policy, cp_heuristic)
 
-        op_successors = task.get_successor_states(state)
-        nondet_action_to_successors = dict()
-        # TODO: caching?
-        nondet_to_det_action = dict()
-        for (op,succ) in op_successors:
-            nondet_action = re.sub('_detdup_' + '[0-9]*', '', op.name)
-
-            successors = nondet_action_to_successors.get(nondet_action, set())
-            successors.add(succ)
-            nondet_action_to_successors[nondet_action] = successors
-
-            det_actions = nondet_to_det_action.get(nondet_action, set())
-            det_actions.add(op)
-            nondet_to_det_action[nondet_action] = det_actions
-
+        nondet_action_to_successors, nondet_to_det_action = successors_for_state(state)
 
         for (nondet_action,successors) in nondet_action_to_successors.items():
             # Create new_policy by extending current_policy
