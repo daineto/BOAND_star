@@ -98,7 +98,7 @@ spent substantial time recomputing ancestor costs. Artifacts:
 
 ### Attempt 4: eliminate discarded policy-copy allocations — REVERT
 
-- Parent: `45225ff`; candidate: `5e7497b`; reverted in `45d947b`.
+- Parent: `45225ff`; candidate: `5e7497b`; reverted in `b06dd70`.
 - Hypothesis: each policy copy constructs five empty containers and default
   fields that are immediately replaced. Allocate the object without calling
   its initializer, then copy every field exactly as before.
@@ -117,3 +117,76 @@ spent substantial time recomputing ancestor costs. Artifacts:
   run provenance records the inverse patch. Other differences were docstrings
   and documentation. Original three-run records and both extra runs remain
   available; the combined attempt3 summary now uses five runs.
+
+### Attempt 5: share frontier evaluation across bounds — KEEP
+
+- Effective parent: `b06dd70` (attempt4 reverted, numerically equivalent to
+  `45225ff`); candidate: `067b28d`. Compared with the five attempt3 measurements.
+- Hypothesis: MinSum, MaxSum and Delta each construct the same frontier and
+  evaluate classical heuristic values separately, even with state caching.
+- Change: reuse the existing joint `compute_f_value` calculation for this exact
+  heuristic combination. Other combinations retain their separate evaluators.
+- Five candidate runs: suite median **21.067 s**, range **20.832–21.402 s**;
+  aggregate search speedup **1.047×** over effective parent, **7.422×** over
+  original; summed median search time **5.432 s**. Largest search regressions
+  versus parent are approximately 1.5% on Beam-walk and 0.3% on Doors, while
+  Elevators, First Responders and Tireworld-truck improve by 8–14%.
+- Bootstrap of whole-run repetitions, preserving correlation across instances
+  (4,000 samples, seed 0), gives a percentile 95% aggregate speedup interval
+  **1.026–1.126×** versus parent. Attempt4's corresponding interval spans 1
+  (**0.987–1.081×**), supporting its inconclusive classification. These intervals
+  describe this small measured sample, not performance on unseen problems.
+- All five candidate runs completed 14 searches, solved 12 instances and
+  replayed 14 policies. All statistics rows, including intermediate solutions,
+  match baseline except elapsed time. Joint-bound tests cover ordinary policies,
+  cycles, deadlock rejection, infinite heuristic values and empty frontiers.
+- Decision: retain. Artifacts: `outputs/performance/round1/attempt5/`.
+
+## Round 1 outcome
+
+Four changes retained; attempt4 reverted. Work stopped after the five agreed
+attempts. Source changes and the revert are separate commits; history was not
+rewritten. Nothing was pushed or tagged.
+
+| Revision / attempt | Runs | Decision | Search speedup vs parent | Search speedup vs original | Median suite time (s) |
+| --- | ---: | --- | ---: | ---: | ---: |
+| Original `0d570b3` | 3 | Reference | 1.000× | 1.000× | 33.920 |
+| 1: classical heuristic cache | 3 | Keep | 5.001× | 5.001× | 23.226 |
+| 2: ancestor walk cache | 3 | Keep | 1.321× | 6.606× | 21.233 |
+| 3: grouped successor cache | 5 | Keep | 1.073× | 7.091× | 21.208 |
+| 4: cheaper policy copying | 5 | Revert | 1.003× | 7.112× | 21.047 |
+| 5: joint bound evaluation | 5 | Keep | 1.047× | 7.422× | 21.067 |
+
+The attempt3 table uses the supplementary five-run comparison; its entry above
+retains the original three-run decision evidence. Attempt5 compares with
+attempt3 because attempt4 was reverted. Faster search does not guarantee a
+measurable suite-wall improvement for every small individual change.
+
+- Final suite time improves **1.610×**, or **37.9% less wall time**, versus
+  original. Sum of per-instance median search times falls from **39.229 s** to
+  **5.432 s** (these are concurrent jobs, so the sum is not suite wall time).
+- All **24 measured smoke runs** have 14 completed searches, 12 solved instances
+  and 14 valid policies. Every non-time statistics row matches original,
+  including expansions, generations, iterations and maximum open-list size.
+- Maximum per-instance median sampled peak planner RSS falls from **185,848 KB**
+  to **164,828 KB** (roughly 181 to 161 MiB), on Tireworld-truck. Cache memory is
+  bounded by state count, not bytes; larger tasks still need independent memory
+  evaluation under the 6,000,000 KB virtual-memory cap.
+- Final full test suite: **44 tests passed**. Formatting checks passed. Published
+  definitions, benchmark contents, input hashes and published results were not
+  changed. All measured manifests use the same worker count, limits and seed.
+- Plot-ready data: `outputs/performance/round1/round-summary.csv` and
+  `outputs/performance/round1/per-instance.csv`, with the JSON equivalents and
+  raw per-run records retained. The reverted candidate remains represented.
+
+Final profiles (`outputs/performance/round1/profiles-final/`) identify ancestor
+trajectory traversal as the remaining principal FrozenLake search cost. Policy
+extension and joint bound evaluation remain visible in Tireworld-truck. Imports,
+preprocessing and sequential policy validation now account for much of total
+suite time. Profiling timings are diagnostic and excluded from comparisons.
+
+An existing selector issue was observed: `LargestGStateSelector` builds a heap
+but selects the last iterated state. This round preserves that behavior and all
+other search ordering; correcting it is a separate, explicitly evaluated
+algorithm change. Results here establish improvements on the fixed smoke
+suite on this host, not coverage or performance claims for a larger campaign.
