@@ -19,9 +19,9 @@ class Policy:
     self.cyclic = False
     self.proper = False
 
-  def copy(self):
+  def copy(self, copy_strategy=True):
     new_policy = Policy(dict(),set(),set())
-    new_policy.strategy = self.strategy.copy()
+    new_policy.strategy = self.strategy.copy() if copy_strategy else self.strategy
     new_policy.pending = self.pending.copy()
     new_policy.goal_states = self.goal_states.copy()
     new_policy.best_ancestors = self.best_ancestors.copy()
