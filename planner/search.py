@@ -11,7 +11,6 @@ from pyperplan.heuristics.lm_cut import LmCutHeuristic
 from pyperplan.task import Task
 from pyperplan.search.searchspace import SearchNode
 from .policy import Policy, CYCLE_COST
-from .strategy import Strategy
 from .preprocessing import get_alloutcome_determinization
 from .output import write_solution, write_stats
 from .heuristics import (CachedStateHeuristic, FondHeuristic, BlindBestCaseHeuristic, MinSumBestCaseHeuristic, SumMinBestCaseHeuristic, BlindWorstCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic, ZeroSizeHeuristic)
@@ -105,10 +104,7 @@ def update_g_brute(policy: Policy, task: Task):
 
 def extend_policy(current_policy, state, nondet_action, det_actions, successors, task):
     new_policy = current_policy.copy()
-    base_strategy = current_policy.strategy
-    if not isinstance(base_strategy, Strategy):
-        base_strategy = Strategy(base_strategy)
-    new_policy.strategy = base_strategy.extend(state, (nondet_action, det_actions))
+    new_policy.strategy[state] = (nondet_action, det_actions)
 
     # TODO: is it better to compute the pending first?
     # if every successor is in new_pending then no need update_g_brute?
