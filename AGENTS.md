@@ -137,6 +137,8 @@ independent mathematical tests when the historical baseline is buggy. Document
 and version changed numerical bounds and record resulting search-work changes.
 Journal definition version 2 uses BFS best bounds on cyclic and acyclic graphs;
 version 1 and the original baseline can overestimate best costs on cyclic graphs.
+Journal definition version 3 additionally uses reverse goal reachability for
+closed-policy properness, correcting false rejections by the trajectory checker.
 Future equivalence checks must compare against the corrected parent or an
 independent oracle rather than preserve that historical error. Expected solution
 costs remain unchanged unless a separately justified correctness finding requires

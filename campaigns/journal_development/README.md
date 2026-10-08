@@ -11,6 +11,13 @@ excludes `st_blocksworld` and `st_first_responders`.
 
 ## Definition versions
 
+Version 3 corrects closed-policy properness using reverse reachability from
+goals. The historical trajectory checker could reject valid cyclic policies
+(for example, `0 -> {1, goal}`, `1 -> 0`). This may change accepted policies,
+coverage and Pareto costs on other inputs. Smoke inputs and numerical expected
+costs remain unchanged; validation must confirm them rather than adjust them
+to force agreement.
+
 Version 2 corrects best-cost bounds on cyclic policy graphs: breadth-first
 predecessors now give shortest paths for all policies. Version 1 retained the
 historical trajectory relaxation, which could skip a shorter edge when the

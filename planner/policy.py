@@ -58,37 +58,35 @@ class Policy:
       return -1 if state == "dummy" else self.worst_costs.get(state, CYCLE_COST)
 
   def is_proper(self, task):
-    if not self.proper:
-        goal_trajectories = list()
-        frontier = {task.initial_state:[]}
-        cycle_roots = set()
-        while frontier:
-            state,ancestors = frontier.popitem()
-            action = self.strategy.get(state, None)
-            if action is None:
-                return False
-            else:
-                reached_states = {det_action.apply(state) for det_action in action[1]}
-                for reached_state in reached_states:
-                    if reached_state in ancestors:
-                        cycle_roots.add(reached_state)
-                    elif task.goal_reached(reached_state):
-                        goal_trajectories.append(ancestors)
-                    else:
-                        new_ancestors = ancestors.copy()
-                        new_ancestors.append(state)
-                        frontier[reached_state] = new_ancestors
-        # Every cycle root must be goal reaching
-        for root in cycle_roots:
-            goal_reaching = False
-            for trajectory in goal_trajectories:
-                if root in trajectory:
-                    goal_reaching = True
-                    break
-            if not goal_reaching:
-                return False
-        
-        self.proper = True
+    if self.proper:
+        return True
+    # A closed reachable policy is proper exactly when all its states can
+    # reach a goal. Build reverse edges once rather than enumerating paths.
+    outcomes = getattr(task, "policy_outcomes", None)
+    reached = {task.initial_state}
+    frontier = [task.initial_state]
+    predecessors = {}
+    goals = []
+    for state in frontier:
+        if task.goal_reached(state):
+            goals.append(state)
+            continue
+        action = self.strategy.get(state)
+        if action is None:
+            return False
+        children = outcomes(state, action[0]) if outcomes is not None else {op.apply(state) for op in action[1]}
+        for child in children:
+            predecessors.setdefault(child, []).append(state)
+            if child not in reached:
+                reached.add(child)
+                frontier.append(child)
+    good = set(goals)
+    for state in goals:
+        for parent in predecessors.get(state, ()):
+            if parent not in good:
+                good.add(parent)
+                goals.append(parent)
+    self.proper = reached <= good
     return self.proper
 
   def is_closed(self):

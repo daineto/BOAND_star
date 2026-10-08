@@ -27,7 +27,7 @@ SMOKE_INSTANCES = (
 )
 CAMPAIGN = Campaign(
     campaign_id="journal_development",
-    version="2",
+    version="3",
     configurations={
         "BOAND bw": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
     },
