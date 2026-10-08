@@ -2,6 +2,9 @@
 CYCLE_COST = 999999
 
 class Policy:
+  __slots__ = ("strategy", "pending", "goal_states", "best_ancestors",
+               "worst_ancestors", "closed", "cyclic", "proper")
+
   def __init__(self, strategy, pending, goal_states):
     self.strategy = strategy  # tile-action map
     

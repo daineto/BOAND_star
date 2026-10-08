@@ -190,3 +190,54 @@ but selects the last iterated state. This round preserves that behavior and all
 other search ordering; correcting it is a separate, explicitly evaluated
 algorithm change. Results here establish improvements on the fixed smoke
 suite on this host, not coverage or performance claims for a larger campaign.
+
+## Round 2: attempts 6–10
+
+Starting revision: `e2ad72d`, retaining attempts 1, 2, 3 and 5. The original
+baseline remains `0d570b3`; its measurements are copied unchanged into
+`outputs/performance/round2/baseline/`. Fresh starting measurements are in
+`outputs/performance/round2/round2-start/`: three runs, median suite time
+**20.960 s**, range **20.609–23.223 s**.
+Inputs, limits, four workers and seed 0 remain fixed. The measurement and
+bootstrap scripts use the round1 methods. Comparisons use fresh immediate
+parent measurements and the fixed original baseline; artifacts stay under
+`outputs/performance/round2/` and `runs/journal_development/`.
+
+### Attempt 6: reuse action outcomes in ancestor traversal — KEEP
+
+- Parent: `e2ad72d`; candidate: `ae8fbbd`.
+- Hypothesis: convergent trajectories reapply the same fixed policy action to
+  the same state. Cache those successor sets within one ancestor recomputation.
+  The cache is discarded afterward. The propagation phase still uses fresh
+  sets wherever it mutates the successor set.
+- Three runs: aggregate search speedup **1.105×** over parent,
+  **8.060×** over original; suite median
+  **21.245 s**, summed median search time **4.484 s**.
+- Whole-run bootstrap 95% interval: **1.058–1.181×** over parent. Chain-of-rooms,
+  Doors and FrozenLake p07 improve by 44–60%. Elevators slows about 6% (under
+  0.02 s); local cache allocation/scheduling overhead is accepted for the
+  larger gains. Remaining regressions are below 2% on very short cases.
+- All three runs completed 14 searches, solved 12 instances and replayed 14
+  policies. Non-time final statistics match original. Targeted reuse, convergence
+  and cycle tests pass; 500 seeded differential graph checks match original
+  ancestor maps and cycle flags. Artifacts: `outputs/performance/round2/attempt6/`
+  and `ancestor-equivalence-attempt6.txt`.
+- Decision: retain, with bounded lifetime storage proportional to policy size.
+
+### Attempt 7: immutable trajectory tuples — REVERT
+
+- Parent: `ae8fbbd`; candidate: `546d243`; reverted after five-run evaluation.
+- Change: concatenate immutable trajectory tuples instead of copying/appending
+  lists, retaining exactly the original traversal order and cycle slices.
+- Five runs per revision: aggregate search speedup **1.027×** over parent;
+  bootstrap 95% interval **0.989–1.059×** includes no improvement. Suite medians
+  **22.823 s** versus **21.650 s**, with substantial run variability (parent
+  range 21.071–30.038 s, candidate 20.959–25.421 s). No observations excluded.
+- All searches, costs and policy replay pass; non-time statistics match original.
+  Targeted tests and 500 seeded differential graph checks retain exact ancestor
+  maps/cycle flags. Decision: revert as inconclusive under the agreed rule.
+- Artifacts: `outputs/performance/round2/attempt7/`, `attempt6-extra/` and
+  `ancestor-equivalence-attempt7.txt`. Supplementary parent runs used HEAD
+  `546d243` with `planner/search.py` restored exactly from `ae8fbbd`; provenance
+  captures the inverse patch. The combined attempt6 summary now uses five runs;
+  its entry above preserves the initial three-run keep evidence.
