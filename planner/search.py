@@ -184,11 +184,30 @@ def compute_f_value(policy:Policy, task:Task, heuristic:hMaxHeuristic):
     # DISCARDED: it assigns CYCLE_COST + h in case of cyclic policies
     # f_worst = max([policy.get_worst_g(state) + h_values[state] for state in Out], default=math.inf)
 
-    # Ascending h[i] + i is monotone: its maximum is the last term.
-    f_close = max((h_values[state] for state in policy.pending), default=0)
-    if policy.pending:
-        f_close += len(policy.pending) - 1
+    h_vector = sorted([h_values[state] for state in policy.pending])
+    if len(h_vector) > 0:
+        f_close = max([h_vector[i] + i for i in range(len(h_vector))])
+    else:
+        f_close = 0
 
+    # f_close = len(policy.pending)
+
+
+    # WITH H CACHE
+
+    # f_best = min([policy.get_best_g(state, task.initial_state) + hcache.setdefault(state,heuristic(SearchNode(state, None, None, 0))) for state in Out], default=math.inf)
+    # f_worst = max([policy.get_worst_g(state, task.initial_state) + hcache.setdefault(state,heuristic(SearchNode(state, None, None, 0))) for state in Out], default=math.inf)
+    # # f_close = len(policy.pending)
+    # h_vector = sorted([hcache[state] for state in policy.pending])
+    # if len(h_vector) > 0:
+    #     f_close = max([h_vector[i] + i for i in range(len(h_vector))])
+    # else:
+    #     f_close = 0
+
+    if f_worst > CYCLE_COST and f_worst < math.inf:
+        pass
+
+    # DEADLOCK in the policy: it cannot become proper
     if policy.cyclic and f_worst < CYCLE_COST:
         f_worst = math.inf
 
