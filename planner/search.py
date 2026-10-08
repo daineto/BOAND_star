@@ -60,46 +60,51 @@ def update_g_values(policy, state, reached_states, task):
 
 
 def update_g_brute(policy: Policy, task: Task):
-    """Compute shortest best bounds and cycle-aware worst bounds in graph passes."""
+    """Compute graph bounds using temporary dense integer state indices."""
+    strategy = policy.strategy
     root = task.initial_state
-    best = {root: "dummy"}
-    indegrees = {root: 0}
-    successors = {}
-    outcomes_for_action = getattr(task, "policy_outcomes", None)
-    frontier = [root]
-    # Breadth-first discovery chooses a shortest-path predecessor for each state.
-    for state in frontier:
-        action = policy.strategy.get(state)
+    states = [root]
+    indices = {root: 0}
+    parents = [-1]
+    indegrees = [0]
+    successors = []
+    outcomes = getattr(task, "policy_outcomes", None)
+    # BFS discovery preserves the existing shortest-parent tie order.
+    for source, state in enumerate(states):
+        action = strategy.get(state)
         if action is None:
             reached = ()
-        elif outcomes_for_action is not None:
-            reached = outcomes_for_action(state, action[0])
+        elif outcomes is not None:
+            reached = outcomes(state, action[0])
         else:
             reached = {op.apply(state) for op in action[1]}
-        successors[state] = reached
+        children = []
         for child in reached:
-            indegrees[child] = indegrees.get(child, 0) + 1
-            if child not in best:
-                best[child] = state
-                frontier.append(child)
-
-    distances = {root: 0}
-    ready = [state for state, degree in indegrees.items() if degree == 0]
-    # Kahn's traversal computes finite longest paths. The residue consists of
-    # cycle states and their descendants, all of which have CYCLE_COST.
-    for state in ready:
-        distance = distances[state] + 1
-        for child in successors[state]:
-            if distance > distances.get(child, -1):
-                distances[child] = distance
-            indegrees[child] -= 1
-            if indegrees[child] == 0:
-                ready.append(child)
-    cyclic_states = {state for state, degree in indegrees.items() if degree}
-    distances.update(dict.fromkeys(cyclic_states, CYCLE_COST))
-    policy.best_ancestors = best
-    policy.worst_costs = distances
-    policy.cyclic = bool(cyclic_states)
+            target = indices.get(child)
+            if target is None:
+                target = len(states)
+                indices[child] = target
+                states.append(child)
+                parents.append(source)
+                indegrees.append(0)
+            indegrees[target] += 1
+            children.append(target)
+        successors.append(children)
+    distances = [0] * len(states)
+    ready = [i for i, degree in enumerate(indegrees) if degree == 0]
+    for source in ready:
+        distance = distances[source] + 1
+        for target in successors[source]:
+            if distance > distances[target]:
+                distances[target] = distance
+            indegrees[target] -= 1
+            if indegrees[target] == 0:
+                ready.append(target)
+    policy.best_ancestors = {state: "dummy" if parent < 0 else states[parent]
+                             for state, parent in zip(states, parents)}
+    policy.worst_costs = {state: CYCLE_COST if degree else distance
+                          for state, degree, distance in zip(states, indegrees, distances)}
+    policy.cyclic = any(indegrees)
 
 
 def extension_has_escape(policy, state, successors, task):
