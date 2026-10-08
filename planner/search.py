@@ -215,7 +215,8 @@ def grouped_successors(task, state):
     """Group applicable deterministic outcomes in the task's operator order.
 
     Returned dictionaries and sets are shared by the search cache and read-only
-    after construction; preserving set insertion order preserves policy ties.
+    after construction. Keep the original construction sequence to avoid
+    gratuitous changes to set iteration order and policy ties.
     """
     nondet_action_to_successors = {}
     nondet_to_det_action = {}
