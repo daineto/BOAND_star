@@ -65,11 +65,17 @@ def update_g_brute(policy: Policy, task: Task):
     best = {root: "dummy"}
     indegrees = {root: 0}
     successors = {}
+    outcomes_for_action = getattr(task, "policy_outcomes", None)
     frontier = [root]
     # Breadth-first discovery chooses a shortest-path predecessor for each state.
     for state in frontier:
         action = policy.strategy.get(state)
-        reached = {op.apply(state) for op in action[1]} if action is not None else ()
+        if action is None:
+            reached = ()
+        elif outcomes_for_action is not None:
+            reached = outcomes_for_action(state, action[0])
+        else:
+            reached = {op.apply(state) for op in action[1]}
         successors[state] = reached
         for child in reached:
             indegrees[child] = indegrees.get(child, 0) + 1
@@ -249,6 +255,11 @@ def boand_star(
 
     cp_heuristic = CachedStateHeuristic(cp_heuristic)
     successors_for_state = lru_cache(maxsize=65_536)(lambda state: grouped_successors(task, state))
+    # Retain the deterministic-action iteration order used by graph construction.
+    # The cache belongs to this task and stores read-only outcome sets.
+    task.policy_outcomes = lru_cache(maxsize=65_536)(
+        lambda state, action: {op.apply(state) for op in successors_for_state(state)[1][action]}
+    )
 
     if use_best_case_heuristic == "Blind":
         best_heuristic = BlindBestCaseHeuristic(cp_heuristic)
