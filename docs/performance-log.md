@@ -1584,3 +1584,133 @@ bound checks, final test/validation logs, resource snapshots,
 `round-summary.csv/json`, `per-instance-summary.csv/json` and
 `retained-bootstrap.json`. Initial candidates are labelled rejected or
 superseded; final refinements have their own revisions and measurement groups.
+
+## Round 10 — retest graph and queue candidates on the harder profile (43–45)
+
+The user requested retesting old attempts 23, 25 and 32. Execute these three
+retests only; do not start a fourth candidate. Round parent `2b1fc90` retains
+fused bounds, the historical last-iterated selection with its unused heap
+removed, and ordinary Policy copying. Fixed original performance baseline is
+`c7cd597`; old smoke timing baselines are not mixed with these inputs.
+
+Three fresh parent timing runs and a before-change smoke check are recorded
+under `outputs/performance/round10/round10-start/` and `smoke-before.log`.
+Use the unchanged definition version 4, frozen selections and expected costs,
+seed 0, four workers, 6,000,000 KB/job, 30 s/job and 60 s suite deadline.
+Primary metric is geometric mean of per-case median search speedups; bootstrap
+whole-run repeats (4,000 samples, seed 0). Extend uncertain comparisons to five
+per revision. Keep every timing sample, including suite outliers. Inspect
+individual results, especially ST Tires; do not claim universal improvements.
+
+### Attempt 43 — dominated-edge graph bound reuse (old 23)
+
+Candidate `98cbec9` adapts the historical `68c1360` update function to the current
+planner without replacing its retained bound evaluator or early deadlock/action
+pruning. Initialize new children, then skip full graph computation only when
+all existing-child edges cannot improve shortest bounds or increase cycle-aware
+worst bounds. Strict finite longest-path levels certify no new cycle; cycle-cost
+nodes keep their established cycle status. Other extensions retain full BFS/Kahn
+analysis. The fixed eight-field Policy representation is unchanged.
+
+Nineteen targeted graph/properness tests pass. Independently compare 5,422
+randomized growing extensions with the corrected full-graph parent, including
+cycles and graphs up to 34 states, and 1,188 extensions with independent
+shortest-path relaxation and historical worst costs. All numeric bounds,
+reachability, cycle flags and pending/goal sets agree. Smoke passes with all
+14 searches complete, 12 solved and 14 policies replayed.
+
+Three runs per revision: **1.136×**, interval **1.098–1.157×**. **Keep**. Doors
+improves **3.524×**; ST Tires is **1.010×**, effectively unchanged. Other
+per-case ratios range approximately **0.961–1.096×**, including small losses
+reported in the raw table. Preserve the third suite's 35.41 s external-wall
+sample; do not exclude it or assign its cause. Costs and work counts agree.
+Artifacts: `attempt43/`, `tests-attempt43.log`, `growing-attempt43.txt`,
+`incremental-attempt43.txt`, `smoke-attempt43.log`.
+
+### Attempt 44 — full incremental acyclic updates (old 25)
+
+Candidate `8ee5e2e` adapts the complete historical `4b0f685` implementation,
+including the unchanged-worst certificate, shortest-path relaxation, DAG
+return-path cycle check and finite longest-path propagation. This contains
+old attempts 23–25 as dependencies, but is evaluated as a complete candidate
+against retained 43; no independent gain is assigned to its subcomponents.
+Cyclic/unsupported extensions still use the corrected full graph computation.
+
+Twenty-two targeted tests and the same 5,422 corrected-parent plus 1,188
+independent extension checks pass. Smoke completes/replays with unchanged
+costs and search work. Artifacts: `attempt44/`, `tests-attempt44.log`,
+`growing-attempt44.txt`, `incremental-attempt44.txt`, `smoke-attempt44.log`.
+
+Five runs per revision: **1.027×**, interval **0.983–1.083×**. **Revert** in
+`c9d948b`: additional propagation logic has no demonstrated benefit over the
+simpler retained shortcut. Do not use the cleanup exception for this algorithm.
+Parent extension runs restore `planner/search.py` byte-for-byte from `98cbec9`
+under actual HEAD `8ee5e2e`, with source-variant provenance recorded. The
+extended attempt-43 interval versus the fresh reference is **1.065–1.157×**;
+its clear gain remains supported. All rows and policies still match.
+
+### Attempt 45 — non-structural heap entries (old 32)
+
+Candidate `2f436a3` reintroduces `fc20a3f`'s slotted priority/policy entries,
+avoiding `Policy.__eq__` for distinct queued strategies. Preserve priority
+vectors, the historical policy less-than tie rule and identical-object
+handling. This is not the earlier changed FIFO/size tie policy. All four sorters,
+initial push and main pop use the same representation. No parent-linked strategy
+representation or scientific queue-order revision is introduced.
+
+Fifteen relevant queue/copy/incremental tests pass. Queue tests prohibit
+strategy equality and check identical removal order on 100 interleaved trials
+of 200 unique strategies. The four sorters and identical-object comparisons
+are covered. Smoke again passes (14 complete, 12 solved, 14 policies replayed),
+with unchanged numerical expected costs. Artifacts: `attempt45/`,
+`tests-attempt45.log`, `smoke-attempt45.log`.
+
+Five candidate runs versus five parent runs: **1.007×**, interval
+**0.979–1.062×**. **Revert** in `85efc80`. Larger open lists still do not establish
+a gain for the Python comparator; do not claim dictionary equality is free or
+infer that the idea could never help another implementation. Historical queue
+representation and tie behavior remain. All observed costs/work still agree.
+
+### Round 10 result
+
+Keep only attempt 43. Full incremental propagation and custom heap entries are
+reverted with separate history-preserving commits. Final planner fingerprints
+match the measured `98cbec9` source. Stop after the three requested retests.
+
+| Retest | Previous attempt | Speedup vs parent | Bootstrap interval | Decision |
+| --- | --- | ---: | --- | --- |
+| 43: dominated-edge reuse | 23 | 1.125× | 1.065–1.157× | Keep |
+| 44: full incremental updates | 25 | 1.027× | 0.983–1.083× | Revert |
+| 45: non-structural heap entries | 32 | 1.007× | 0.979–1.062× | Revert |
+
+The retained revision has five repetitions compared with three fresh round
+reference repetitions: **1.125×** search speedup, interval
+**1.065–1.157×**. Its initial three-run keep result is preserved above;
+additional parent runs strengthen the following comparisons and update this
+final summary. Per-case details retain every regression and range. ST Tires
+median **0.175 s** versus **0.176 s**,
+effectively unchanged. Doors remains the major beneficiary.
+
+Summed per-instance median search time **15.491 s**.
+Suite median **32.808 s**, range
+**31.767–35.107 s**, versus starting
+median **31.855 s**. This is a search improvement;
+whole-suite variability does not establish an end-to-end gain. Largest median
+sampled peak planner RSS **489,936 KB**. System
+snapshots show about 22 GB available RAM and no swap use, without causal
+attribution of timing fluctuations.
+
+Across **18 performance runs**, each completes 11 searches, solves 10 cases,
+and replays 11 policies. All four smoke checks complete 14 searches, solve 12
+and replay 14 policies. Every intermediate solution/final non-time row matches
+the fresh reference. Independent growing-graph and numeric-bound checks pass;
+final planner passes **74 tests**. Inputs, expected Pareto costs, commands,
+version 4, seed 0 and resource limits remain fixed. No full campaign launched.
+
+Artifacts: `outputs/performance/round10/`, including parent-source provenance,
+raw candidate/revert measurements, `round-summary.csv/json`,
+`per-instance-summary.csv/json`, `retained-summary.json`,
+`validation-performance.txt`, `validation-smoke.txt`, `source-verification.txt`,
+corrected-parent/independent graph checks, final test log and resource snapshots.
+Original-profile cumulative comparisons refer only to the fixed `c7cd597`
+performance measurements, not the old 14-case smoke selection.
