@@ -153,6 +153,7 @@ roots rely on the explicitly selected campaign and cannot provide that identity
 check.
 
 For a new paper, add tests for its scientific selections and manifest contracts.
-Keep the common mini smoke test for planner/infrastructure changes, and verify
+Use the journal development smoke suite for current planner improvements;
+retain mini for checks concerning the historical ICAPS profile. Verify
 that unrelated benchmark additions do not expand a frozen campaign. Published
 cross-machine runtime or coverage matching is not a refactoring criterion.

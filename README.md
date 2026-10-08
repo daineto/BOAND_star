@@ -47,6 +47,19 @@ archive and the paper.
 
 ## Run an experimental campaign
 
+For current journal development, run the 14-instance smoke suite across the
+11 ICAPS domains:
+
+```bash
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --dry-run
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke
+```
+
+It uses four workers and 6,000,000 KB of virtual memory per job, with a
+60-second deadline including policy and cost validation. Calibration on this
+host took about 34 seconds. See the [journal development campaign](campaigns/journal_development/README.md)
+for the selected instances, validation rules and performance measurements.
+
 Campaigns define their planner configurations, benchmark inputs and resource
 limits. The ICAPS 2025 campaign provides four profiles:
 
