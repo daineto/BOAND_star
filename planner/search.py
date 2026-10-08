@@ -1,5 +1,6 @@
 """BOAND* policy search; function bodies retain historical semantics."""
 import heapq
+from functools import lru_cache
 import math
 import re
 import time
@@ -60,6 +61,11 @@ def update_g_values(policy, state, reached_states, task):
 def update_g_brute(policy:Policy, task:Task):
     # BRUTE FORCE: Compute al pi-trajectories
 
+    # Ancestor walks repeat while traversing convergent paths. A changed parent
+    # can affect any descendant, so invalidate the entire corresponding cache.
+    best_g = lru_cache(maxsize=None)(policy.get_best_g)
+    worst_g = lru_cache(maxsize=None)(policy.get_worst_g)
+
     trajectories = list()
     cycles = list()
     frontier = {task.initial_state:[]}
@@ -75,13 +81,15 @@ def update_g_brute(policy:Policy, task:Task):
                     cycles.append(ancestors[ancestors.index(reached_state):]+[state])
                     pass
                 else: # Not a cycle
-                    aux1 = policy.get_worst_g(state)
-                    aux2 = policy.get_worst_g(policy.worst_ancestors[reached_state])
+                    aux1 = worst_g(state)
+                    aux2 = worst_g(policy.worst_ancestors[reached_state])
                     if aux1 > aux2:
                     # if policy.get_worst_g(state,task.initial_state) > policy.get_worst_g(policy.worst_ancestors[reached_state],task.initial_state):
                         policy.worst_ancestors[reached_state] = state
-                    if policy.get_best_g(state) < policy.get_best_g(policy.best_ancestors[reached_state]):
+                        worst_g.cache_clear()
+                    if best_g(state) < best_g(policy.best_ancestors[reached_state]):
                         policy.best_ancestors[reached_state] = state
+                        best_g.cache_clear()
                     # Extend trajectory
                     new_ancestors = ancestors.copy()
                     new_ancestors.append(state)
