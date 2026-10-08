@@ -85,13 +85,12 @@ def update_g_brute(policy:Policy, task:Task):
                     cycles.append(ancestors[ancestors.index(reached_state):]+[state])
                     pass
                 else: # Not a cycle
-                    aux1 = worst_g(state)
-                    aux2 = worst_g(policy.worst_ancestors[reached_state])
-                    if aux1 > aux2:
+                    worst_parent = policy.worst_ancestors[reached_state]
+                    if worst_parent != state and worst_g(state) > worst_g(worst_parent):
                     # if policy.get_worst_g(state,task.initial_state) > policy.get_worst_g(policy.worst_ancestors[reached_state],task.initial_state):
                         policy.worst_ancestors[reached_state] = state
                         worst_g.cache_clear()
-                    if best_g(state) < best_g(policy.best_ancestors[reached_state]):
+                    if policy.best_ancestors[reached_state] != state and best_g(state) < best_g(policy.best_ancestors[reached_state]):
                         policy.best_ancestors[reached_state] = state
                         best_g.cache_clear()
                     # Extend trajectory
