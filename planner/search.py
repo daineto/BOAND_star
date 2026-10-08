@@ -65,6 +65,7 @@ def update_g_brute(policy:Policy, task:Task):
     # can affect any descendant, so invalidate the entire corresponding cache.
     best_g = lru_cache(maxsize=None)(policy.get_best_g)
     worst_g = lru_cache(maxsize=None)(policy.get_worst_g)
+    state_successors = {}
 
     trajectories = list()
     cycles = list()
@@ -75,7 +76,10 @@ def update_g_brute(policy:Policy, task:Task):
         if action is None: #State has no action assigned: end of trajectory
             trajectories.append(ancestors)
         else: # State has action assigned
-            reached_states = {det_action.apply(state) for det_action in action[1]}
+            reached_states = state_successors.get(state)
+            if reached_states is None:
+                reached_states = {det_action.apply(state) for det_action in action[1]}
+                state_successors[state] = reached_states
             for reached_state in reached_states:
                 if reached_state in ancestors: # Cycle
                     cycles.append(ancestors[ancestors.index(reached_state):]+[state])
@@ -98,8 +102,7 @@ def update_g_brute(policy:Policy, task:Task):
     extended_loopy_states = set()
     for cycle in cycles:
         for state in cycle:
-            action = policy.strategy.get(state, None)
-            reached_states = {det_action.apply(state) for det_action in action[1]}
+            reached_states = state_successors[state]
             for reached_state in reached_states:
                 if reached_state not in loopy_states:
                     extended_loopy_states.add(reached_state)
