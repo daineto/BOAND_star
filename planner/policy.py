@@ -17,9 +17,7 @@ class Policy:
     self.proper = False
 
   def copy(self):
-    # Every field is copied below; avoid constructing containers and defaults
-    # that would immediately be replaced for each generated policy.
-    new_policy = object.__new__(Policy)
+    new_policy = Policy(dict(),set(),set())
     new_policy.strategy = self.strategy.copy()
     new_policy.pending = self.pending.copy()
     new_policy.goal_states = self.goal_states.copy()

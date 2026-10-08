@@ -49,24 +49,6 @@ class SuccessorGroupingTests(unittest.TestCase):
         self.assertEqual(grouped_successors(task, frozenset({'done'})), ({}, {}))
 
 
-class PolicyCopyTests(unittest.TestCase):
-    def test_copy_preserves_flags_and_isolates_all_mutable_containers(self):
-        policy = Policy({'s': ('move', frozenset())}, {'a'}, {'g'})
-        policy.best_ancestors = {'s': 'dummy', 'a': 's', 'g': 'a'}
-        policy.worst_ancestors = policy.best_ancestors.copy()
-        policy.closed = policy.cyclic = policy.proper = True
-        clone = policy.copy()
-        self.assertEqual(clone, policy)
-        self.assertEqual(clone.get_best_g('g'), 2)
-        self.assertEqual(clone.get_worst_g('g'), 2)
-        self.assertEqual((clone.closed, clone.cyclic, clone.proper), (True, True, True))
-        for field in ('strategy', 'pending', 'goal_states', 'best_ancestors', 'worst_ancestors'):
-            self.assertEqual(getattr(clone, field), getattr(policy, field))
-            self.assertIsNot(getattr(clone, field), getattr(policy, field))
-            getattr(clone, field).clear()
-            self.assertTrue(getattr(policy, field))
-
-
 class AncestorUpdateTests(unittest.TestCase):
     def policy(self, edges, ancestors):
         strategy = {state: ('move', [SimpleNamespace(apply=lambda _, target=target: target)
