@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "campaign_id": "icaps2025",
+  "campaign_version": "1",
+  "migrations": [
+    {
+      "from_sha256": "2e48fc2648636111a0eb513e3ffcde010f6dbee6877fd5b74c0ce2cf36668ca0",
+      "to_sha256": "297c027644fd48351186f7ab079ad382e43e42b61ee444ec5816ff4b6ac801b9",
+      "reason": "Correct Beam Walk domain labels; selected input paths, hashes and order are unchanged.",
+      "from_dataset_version": "1",
+      "to_dataset_version": "2"
+    }
+  ]
+}

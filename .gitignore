@@ -1,2 +1,10 @@
-planner/__pycache__/
-.venv/
+/.venv/
+__pycache__/
+*.py[cod]
+/MINI/
+/ICAPS/
+/outputs/
+.ipynb_checkpoints/
+aux_domain.pddl
+aux_problem.pddl
+/runs/

@@ -1,0 +1,13 @@
+# Portable runtime matching the environment used for refactoring validation.
+# PDDL and Pyperplan are installed separately from the pinned git submodules.
+unified-planning==1.3.0
+planning-experiments @ git+https://github.com/LBonassi95/planning-experiments.git@0770174e758f192d604c9301683ccc6a97d63caf
+numpy==2.2.6
+pandas==2.3.3
+matplotlib==3.10.9
+tabulate==0.10.0
+networkx==3.4.2
+ConfigSpace==1.2.2
+pyparsing==3.3.3
+lark==1.1.9
+click==8.5.0

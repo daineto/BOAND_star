@@ -1,4 +1,6 @@
-from fondutils import determinize
+from .fondutils import determinize
+from io import StringIO
+from pathlib import Path as FilePath
 
 from unified_planning.shortcuts import *
 from unified_planning.io import PDDLReader, PDDLWriter
@@ -11,7 +13,32 @@ from pddl.core import Domain, Problem
 from pddl.formatter import domain_to_string, problem_to_string
 
 from pyperplan.pddl.parser import Parser
+from pyperplan.pddl.lisp_parser import parse_nested_list
 from pyperplan import grounding
+
+
+def explicit_empty_effects(domain_text):
+    """Keep compiled no-op actions by giving Pyperplan an explicit empty effect.
+
+    Unified Planning can omit :effect for an action with no effects. Existing
+    effect clauses and all other PDDL sections retain their meaning.
+    """
+    domain = parse_nested_list(StringIO(domain_text))
+    changed = False
+    for section in domain:
+        if (isinstance(section, list) and section and section[0] == ":action"
+                and ":effect" not in section):
+            section.extend((":effect", ["and"]))
+            changed = True
+    if not changed:
+        return domain_text
+
+    def serialize(expression):
+        if isinstance(expression, list):
+            return "(" + " ".join(serialize(child) for child in expression) + ")"
+        return expression
+
+    return "(" + "\n ".join(serialize(section) for section in domain) + ")\n"
 
 
 def get_alloutcome_determinization(domain, problem):
@@ -40,6 +67,12 @@ def get_alloutcome_determinization(domain, problem):
     writer.write_domain("aux_domain.pddl")
     writer.write_problem("aux_problem.pddl")
 
+    # Preserve effect-free outcomes when the writer omits their :effect clause.
+    auxiliary_domain = FilePath("aux_domain.pddl")
+    generated = auxiliary_domain.read_text()
+    normalized = explicit_empty_effects(generated)
+    if normalized != generated:
+        auxiliary_domain.write_text(normalized)
 
     # Pyperplan setup
     parser = Parser("aux_domain.pddl", "aux_problem.pddl")
