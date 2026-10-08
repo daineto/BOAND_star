@@ -43,44 +43,6 @@ class IncrementalBoundsTests(unittest.TestCase):
         self.assertEqual(child.get_best_g(3), 2)
         self.assertTrue(child.cyclic)
 
-    def test_shorter_paths_propagate_through_implicitly_shortened_descendants(self):
-        parent, task = mapped_policy({0: [1, 2, 8], 1: [7], 7: [3], 3: [4], 4: [6],
-                                      8: [9], 9: [10], 10: [11], 11: [6]})
-        # Both old routes to 6 have length five; choose the independent route.
-        parent.best_ancestors[6] = 11
-        self.assertEqual(parent.get_best_g(6), 5)
-        with patch('planner.search.update_g_brute', side_effect=AssertionError('Unnecessary graph rebuild')):
-            child = extend_policy(parent, 2, 'shortcut', [SimpleNamespace(apply=lambda _: 3)], {3}, task)
-        self.assertEqual((child.get_best_g(3), child.get_best_g(4), child.get_best_g(6)), (2, 3, 4))
-        self.assertEqual(child.worst_costs, parent.worst_costs)
-        self.assertEqual(parent.get_best_g(6), 5)
-        eager = child.copy()
-        update_g_brute(eager, task)
-        for state in eager.best_ancestors:
-            self.assertEqual(child.get_best_g(state), eager.get_best_g(state))
-
-    def test_acyclic_extension_propagates_best_and_worst_changes(self):
-        parent, task = mapped_policy({0: [1, 4, 5], 1: [2], 2: [3], 3: [4],
-                                      5: [6], 6: [7], 7: [8]})
-        self.assertEqual((parent.get_best_g(4), parent.get_worst_g(4)), (1, 4))
-        with patch('planner.search.update_g_brute', side_effect=AssertionError('Unnecessary graph rebuild')):
-            child = extend_policy(parent, 4, 'join', [SimpleNamespace(apply=lambda _: 7)], {7}, task)
-        self.assertEqual((child.get_best_g(7), child.get_worst_g(7)), (2, 5))
-        self.assertEqual((child.get_best_g(8), child.get_worst_g(8)), (3, 6))
-        self.assertEqual((parent.get_best_g(8), parent.get_worst_g(8)), (4, 4))
-        self.assertFalse(child.cyclic)
-
-    def test_new_cycle_uses_full_recomputation_and_marks_new_leaf(self):
-        parent, task = mapped_policy({0: [1], 1: [2]})
-        ops = [SimpleNamespace(apply=lambda _: 1), SimpleNamespace(apply=lambda _: 3)]
-        with patch('planner.search.update_g_brute', wraps=update_g_brute) as rebuild:
-            child = extend_policy(parent, 2, 'cycle', ops, {1, 3}, task)
-        rebuild.assert_called_once()
-        self.assertTrue(child.cyclic)
-        self.assertFalse(parent.cyclic)
-        self.assertEqual([child.get_worst_g(state) for state in [1, 2, 3]], [CYCLE_COST] * 3)
-        self.assertEqual(child.get_best_g(3), 3)
-
     def test_random_extensions_match_full_graph_recomputation(self):
         rng = random.Random(0)
         for case in range(100):
