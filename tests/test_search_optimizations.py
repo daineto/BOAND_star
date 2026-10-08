@@ -8,7 +8,7 @@ from pyperplan.search.searchspace import SearchNode
 from pyperplan.task import Operator, Task
 from planner.heuristics import CachedStateHeuristic, MinSumBestCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic
 from planner.policy import Policy, CYCLE_COST
-from planner.search import compute_f_value, grouped_successors, update_g_brute
+from planner.search import ancestor_cost, compute_f_value, grouped_successors, update_g_brute
 
 
 class HeuristicCacheTests(unittest.TestCase):
@@ -89,6 +89,19 @@ class PolicyCopyTests(unittest.TestCase):
             self.assertIsNot(getattr(clone, field), getattr(policy, field))
             getattr(clone, field).clear()
             self.assertTrue(getattr(policy, field))
+
+
+class AncestorCostTests(unittest.TestCase):
+    def test_shared_prefixes_cycles_and_cache_invalidation(self):
+        parents = {'s': 'dummy', 'a': 's', 'b': 'a', 'c': 'b'}
+        cache = {}
+        self.assertEqual(ancestor_cost('c', parents, cache, True), 3)
+        self.assertEqual(cache, {'s': 0, 'a': 1, 'b': 2, 'c': 3})
+        parents['a'] = 'b'
+        cache.clear()
+        self.assertEqual(ancestor_cost('c', parents, cache, True), CYCLE_COST)
+        self.assertEqual(ancestor_cost('a', parents, cache, True), CYCLE_COST)
+        self.assertEqual(ancestor_cost('dummy', parents, cache, True), -1)
 
 
 class AncestorUpdateTests(unittest.TestCase):

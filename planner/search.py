@@ -58,13 +58,37 @@ def update_g_values(policy, state, reached_states, task):
         update_g_brute(policy, task)
 
 
+def ancestor_cost(state, parents, cache, detect_cycles=False):
+    """Cache every visited prefix; discard the cache when parents change."""
+    path = []
+    seen = set() if detect_cycles else None
+    current = state
+    while current != "dummy" and current not in cache:
+        if detect_cycles:
+            if current in seen:
+                for ancestor in path:
+                    cache[ancestor] = CYCLE_COST
+                return CYCLE_COST
+            seen.add(current)
+        path.append(current)
+        current = parents[current]
+    cost = -1 if current == "dummy" else cache[current]
+    for ancestor in reversed(path):
+        if not detect_cycles or cost != CYCLE_COST:
+            cost += 1
+        cache[ancestor] = cost
+    return -1 if state == "dummy" else cache[state]
+
+
 def update_g_brute(policy:Policy, task:Task):
     # BRUTE FORCE: Compute al pi-trajectories
 
     # Ancestor walks repeat while traversing convergent paths. A changed parent
     # can affect any descendant, so invalidate the entire corresponding cache.
-    best_g = lru_cache(maxsize=None)(policy.get_best_g)
-    worst_g = lru_cache(maxsize=None)(policy.get_worst_g)
+    best_costs = {}
+    worst_costs = {}
+    best_g = lambda state: ancestor_cost(state, policy.best_ancestors, best_costs)
+    worst_g = lambda state: ancestor_cost(state, policy.worst_ancestors, worst_costs, True)
     state_successors = {}
 
     trajectories = list()
@@ -90,10 +114,10 @@ def update_g_brute(policy:Policy, task:Task):
                     if aux1 > aux2:
                     # if policy.get_worst_g(state,task.initial_state) > policy.get_worst_g(policy.worst_ancestors[reached_state],task.initial_state):
                         policy.worst_ancestors[reached_state] = state
-                        worst_g.cache_clear()
+                        worst_costs.clear()
                     if best_g(state) < best_g(policy.best_ancestors[reached_state]):
                         policy.best_ancestors[reached_state] = state
-                        best_g.cache_clear()
+                        best_costs.clear()
                     # Extend trajectory
                     new_ancestors = ancestors.copy()
                     new_ancestors.append(state)
