@@ -73,8 +73,7 @@ investigate mismatches and document any intentional semantic revision.
 Use profiling to identify bottlenecks, including search code, data structures
 and preprocessing. State a concrete hypothesis and implement one focused
 optimization per attempt. Use the journal smoke suite as the correctness gate
-and the fixed
-`performance` profile for profiling and timing evaluation. Run the performance
+and the fixed `performance` profile for profiling and timing evaluation. Run the performance
 profile with:
 
     PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profile performance
@@ -97,7 +96,8 @@ Start with three runs per compared revision; extend to five if results are
 noisy. Reuse recorded baseline measurements only while comparison conditions
 remain equivalent. Stop a candidate evaluation when correctness fails or
 measurements establish a clear benefit or loss. If results remain inconclusive
-after five runs per revision, revert and record the uncertainty.
+after five runs per revision, revert and record the uncertainty, except for the
+explicit code-cleanup exception below.
 
 Require 14/14 completed searches and 12/12 solvable instances solved. The two
 unsolvable instances must complete with no policies. Require unchanged expected
@@ -121,6 +121,15 @@ substantial unexplained regressions. Simpler changes may justify smaller gains;
 more complex changes need stronger evidence. Revert losses, correctness
 failures and unresolved results. Use separate candidate commits and revert
 commits for rejected committed changes; never rewrite history.
+
+An explicitly justified code cleanup may remain without a demonstrated timing
+win after validation and repeated measurements show no substantial aggregate
+or per-instance regression. Record the maintainability benefit, timing
+uncertainty and reason for retention; do not label it a performance improvement.
+This exception does not justify retaining complex algorithmic experiments or
+changes with unresolved correctness or substantial regression risk. Evaluate
+a requested batch as a whole against its parent, without claiming individual
+component gains from the combined result.
 
 Maintain `docs/performance-log.md` with an entry for every attempt: hypothesis,
 implementation, original baseline and parent/candidate revisions, measurement

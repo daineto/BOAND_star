@@ -20,7 +20,8 @@ class Policy:
     self.proper = False
 
   def copy(self):
-    new_policy = Policy(dict(),set(),set())
+    # All eight slots are assigned below; avoid containers we immediately overwrite.
+    new_policy = object.__new__(Policy)
     new_policy.strategy = self.strategy.copy()
     new_policy.pending = self.pending.copy()
     new_policy.goal_states = self.goal_states.copy()
