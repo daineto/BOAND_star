@@ -241,3 +241,93 @@ parent measurements and the fixed original baseline; artifacts stay under
   `546d243` with `planner/search.py` restored exactly from `ae8fbbd`; provenance
   captures the inverse patch. The combined attempt6 summary now uses five runs;
   its entry above preserves the initial three-run keep evidence.
+
+### Attempt 8: fixed policy fields in slots — KEEP (memory benefit)
+
+- Effective parent: `747b8a3` (attempt7 reverted, equivalent to `ae8fbbd`);
+  candidate: `c984acc`. Compared with the five attempt6 measurements.
+- Change: eight explicit `__slots__` instead of a per-instance attribute dict.
+  Fields, copy behavior and flags retain their values. Dynamic extra attributes
+  are no longer supported; no repository caller relied on them.
+- Five runs: aggregate search speedup **1.010×**, bootstrap interval
+  **0.992–1.037×**. No proven search-speed gain. Median suite time **22.922 s**
+  versus parent **21.650 s**; substantial wall-time variability remains.
+- Policy object plus its attribute dict reduces from **192 to 96 bytes**,
+  excluding unchanged referenced containers. Five largest-case peak RSS samples
+  are **162,024–162,560 KB**, versus **163,588–164,420 KB** for parent; medians
+  **162,256 vs 163,964 KB**, saving **1,708 KB**. The ranges do not overlap.
+- All five runs pass completion, cost and replay checks; non-time statistics
+  match original. Copy-isolation/flag tests pass. Decision: retain the clear,
+  repeatable memory reduction from a small representation change, without
+  claiming a timing win. Artifacts: `outputs/performance/round2/attempt8/` and
+  `policy-object-size-attempt8.txt`.
+
+
+### Attempt 9: remove discarded selector heap — REVERT
+
+- Parent: `c984acc`; candidate: `af0bf69`; revert: `336638e`.
+- Hypothesis: the largest-g selector builds a heap but returns the last iterated
+  pending state. Remove unused heap construction and ancestor-cost calls while
+  preserving that historical choice exactly; this does not fix the selector.
+- Five runs: search speedup **1.018×**, bootstrap 95% interval
+  **0.946–1.035×**. Suite median **21.957 s**. Inconclusive; reverted.
+- All five runs complete 14 searches, solve 12 instances and replay 14 policies;
+  non-time final statistics match original. Selector preservation tests pass.
+  Artifacts: `outputs/performance/round2/attempt9/`. The revert also removed the
+  previously committed attempt8 documentation; that entry is restored here.
+
+
+### Attempt 10: linear Delta bound without sorting — REVERT
+
+- Effective parent: `336638e` (attempt9 reverted, planner equivalent to
+  `c984acc`); candidate: `6ab1ad1`; revert: `9265b4f`.
+- Hypothesis: sorted nondecreasing h[i] + i reaches its maximum at the last
+  index. Replace sorting with max(h) + n - 1 in both Delta implementations,
+  preserving zero for empty frontiers. Independent seeded-vector checks compare
+  with the historical sorted formula, including ties and infinity.
+- Five runs: search speedup **1.007×**, bootstrap interval **0.959–1.035×**.
+  Median suite **22.595 s**, range **21.156–31.102 s**. No measurements excluded.
+  Correctness checks pass, but speed remains inconclusive; reverted.
+- Artifacts: `outputs/performance/round2/attempt10/`. The mathematical simplification
+  may help larger frontiers; the agreed smoke gate does not justify retaining it.
+
+### Round 2 outcome
+
+| Attempt | Change | Search speedup over parent | Decision |
+| --- | --- | ---: | --- |
+| 6 | Reuse action outcomes in ancestor traversal | 1.109× | Keep |
+| 7 | Immutable trajectory tuples | 1.027× | Revert |
+| 8 | Policy slots | 1.010× | Keep for memory |
+| 9 | Remove discarded selector heap | 1.018× | Revert |
+| 10 | Delta bound without sorting | 1.007× | Revert |
+
+All candidates have five measurements; the fresh round-start reference has
+three. Attempt6's extended five-run interval is **1.065–1.173×**; its initial
+three-run keep evidence is retained above. Attempt7 revert commit: `747b8a3`.
+The final planner source matches measured attempt8 byte for byte.
+
+- Retained code: **1.120×** geometric-mean search speedup over the fresh round2
+  start and **8.174×** over fixed original baseline `0d570b3`. Summed per-instance
+  median search time **4.449 s**. Largest-case median peak RSS **162,256 KB**.
+- Final measured suite median **22.922 s**, versus original **33.920 s**. Whole
+  wall time is noisy; this round does not establish an additional wall-time win.
+  All observed suites finish within 60 s. Small search samples and this compact
+  suite limit claims about larger problems or other configurations.
+- **28 controlled runs** (three round-start plus five per candidate) all complete
+  14 searches, solve the same 12 instances, and validate 14 policies. Every raw
+  intermediate and final non-time statistics row matches original. Separate
+  supplementary attempt6 raw records are preserved without double-counting.
+- All manifests retain frozen inputs, seed 0, 4 workers, 6,000,000 KB and 30 s/job.
+  Final **46 tests pass**. Logs: `outputs/performance/round2/tests-final.log`,
+  `statistics-equivalence.txt`, `resource-and-source-validation.txt`.
+- Plot-ready aggregate/per-instance CSV and JSON: `outputs/performance/round2/`
+  `round-summary.*` and `per-instance-summary.*`; rejected candidates are included.
+  Raw reports preserve work counts, costs, timings and sampled process memory.
+- Final diagnostic profiles in `outputs/performance/round2/profiles-final/` are
+  excluded from timing comparisons. FrozenLake ancestor recomputation remains
+  the main search target; Tireworld-truck spends time on policy bounds. Imports,
+  preprocessing and serial policy replay limit whole-suite gains. The historical
+  largest-g selector behavior remains unchanged and could be studied separately
+  as an intentional search-order change.
+
+Stopped after the requested five attempts; no further round launched.
