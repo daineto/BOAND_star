@@ -15,7 +15,7 @@ from .preprocessing import get_alloutcome_determinization
 from .output import write_solution, write_stats
 from .heuristics import (CachedStateHeuristic, FondHeuristic, BlindBestCaseHeuristic, MinSumBestCaseHeuristic, SumMinBestCaseHeuristic, BlindWorstCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic, ZeroSizeHeuristic)
 from .state_selection import (StateSelector, RandomStateSelector, BoundsFirstStateSelector, LargestGStateSelector, BestStateSelector)
-from .queue_order import (OpenListSorter, BestWorstOpenListSorter, WorstBestOpenListSorter, BestOpenListSorter, WorstOpenListSorter)
+from .queue_order import (OpenEntry, OpenListSorter, BestWorstOpenListSorter, WorstBestOpenListSorter, BestOpenListSorter, WorstOpenListSorter)
 
 
 def select_pending_state(policy, task, heuristic):
@@ -311,7 +311,7 @@ def boand_star(
     empty_policy.best_ancestors = {task.initial_state:"dummy"}
     empty_policy.worst_costs = {task.initial_state: 0}
     # Push the empty policy onto the open list
-    heapq.heappush(open_list, ((0,0), empty_policy))
+    heapq.heappush(open_list, OpenEntry((0,0), empty_policy))
 
     pareto_frontier = []
     pareto_f = (math.inf, math.inf)
@@ -326,7 +326,8 @@ def boand_star(
     # Loop until the open list is empty
     while open_list:
         # Get the policy with the lowest f value
-        f_value, current_policy = heapq.heappop(open_list)
+        entry = heapq.heappop(open_list)
+        f_value, current_policy = entry.priority, entry.policy
         it += 1
 
         # Pruning non-Pareto solutions
