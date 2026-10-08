@@ -81,12 +81,11 @@ class PolicyCopyTests(unittest.TestCase):
         policy = Policy({'s': ('move', frozenset())}, {'a'}, {'g'})
         policy.best_ancestors = {'s': 'dummy', 'a': 's', 'g': 'a'}
         policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_ancestors}
-        policy.best_costs = {'dummy': -1, 's': 0, 'a': 1, 'g': 2}
         policy.closed = policy.cyclic = policy.proper = True
         clone = policy.copy()
         self.assertEqual((clone.closed, clone.cyclic, clone.proper), (True, True, True))
         self.assertEqual((clone.get_best_g('g'), clone.get_worst_g('g')), (2, 2))
-        for field in ('strategy', 'pending', 'goal_states', 'best_ancestors', 'worst_costs', 'best_costs'):
+        for field in ('strategy', 'pending', 'goal_states', 'best_ancestors', 'worst_costs'):
             self.assertEqual(getattr(clone, field), getattr(policy, field))
             self.assertIsNot(getattr(clone, field), getattr(policy, field))
             getattr(clone, field).clear()

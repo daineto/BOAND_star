@@ -49,8 +49,6 @@ def update_g_values(policy, state, reached_states, task):
         if policy.best_ancestors.get(reached_state,None) is None:
             # if reached_state != task.initial_state:
             policy.best_ancestors[reached_state] = state
-            if policy.best_costs is not None:
-                policy.best_costs[reached_state] = policy.best_costs[state] + 1
             policy.worst_costs[reached_state] = (CYCLE_COST if policy.get_worst_g(state) == CYCLE_COST
                                                   else policy.get_worst_g(state) + 1)
         # Not the first time
@@ -64,7 +62,6 @@ def update_g_values(policy, state, reached_states, task):
 def update_g_brute(policy: Policy, task: Task):
     """Compute cycle-aware worst bounds; preserve historical best relaxation."""
     root = task.initial_state
-    policy.best_costs = None
     best = {root: "dummy"}
     indegrees = {root: 0}
     successors = {}
@@ -109,20 +106,6 @@ def update_g_brute(policy: Policy, task: Task):
                     pending_paths[child] = ancestors + [state]
     else:
         policy.best_ancestors = best
-    # Parent choices are now fixed. Memoize shared prefixes once, rather than
-    # walking them in each heuristic and state-selection query.
-    best_costs = {"dummy": -1}
-    for state in frontier:
-        current = state
-        path = []
-        while current not in best_costs:
-            path.append(current)
-            current = policy.best_ancestors[current]
-        distance = best_costs[current]
-        for ancestor in reversed(path):
-            distance += 1
-            best_costs[ancestor] = distance
-    policy.best_costs = best_costs
     policy.worst_costs = distances
     policy.cyclic = bool(cyclic_states)
 
@@ -331,7 +314,6 @@ def boand_star(
     empty_policy = Policy(dict(),set(), set())
     empty_policy.pending.add(task.initial_state)
     empty_policy.best_ancestors = {task.initial_state:"dummy"}
-    empty_policy.best_costs = {"dummy": -1, task.initial_state: 0}
     empty_policy.worst_costs = {task.initial_state: 0}
     # Push the empty policy onto the open list
     heapq.heappush(open_list, ((0,0), empty_policy))
