@@ -13,10 +13,9 @@ class SelectorCleanupTests(unittest.TestCase):
             pending = {state for state in states if rng.random() < .7} or {states[0]}
             policy = Policy({}, pending, set())
             policy.worst_costs = {state: rng.randrange(100) for state in pending}
-            reference = policy.copy()
             heap = []
-            for state in reference.pending:
-                heapq.heappush(heap, (-reference.get_worst_g(state), state))
-            reference.pending.remove(state)
+            for state in policy.pending:
+                heapq.heappush(heap, (-policy.get_worst_g(state), state))
+            remaining = policy.pending - {state}
             self.assertEqual(LargestGStateSelector().select_pending_state(policy, None), state)
-            self.assertEqual(policy.pending, reference.pending)
+            self.assertEqual(policy.pending, remaining)
