@@ -212,6 +212,14 @@ def compute_f_value(policy:Policy, task:Task, heuristic:hMaxHeuristic):
     return f_best, f_worst, f_close
 
 
+def cached_dead_end_actions(successors_for_state, heuristic, maxsize=65_536):
+    """Cache an admissible infinite-h certificate for any action outcome."""
+    return lru_cache(maxsize=maxsize)(
+        lambda state, action: any(heuristic.evaluate(child) == math.inf
+                                  for child in successors_for_state(state)[0][action])
+    )
+
+
 def grouped_successors(task, state):
     """Group applicable deterministic outcomes in the task's operator order.
 
@@ -263,6 +271,7 @@ def boand_star(
 
     cp_heuristic = CachedStateHeuristic(cp_heuristic)
     successors_for_state = lru_cache(maxsize=65_536)(lambda state: grouped_successors(task, state))
+    action_has_dead_end = cached_dead_end_actions(successors_for_state, cp_heuristic)
     # Retain the deterministic-action iteration order used by graph construction.
     # The cache belongs to this task and stores read-only outcome sets.
     task.policy_outcomes = lru_cache(maxsize=65_536)(
@@ -404,6 +413,10 @@ def boand_star(
             # All queued parents retain escape routes; reject the extension
             # before copying policy containers or computing graph bounds.
             generations += 1
+            # Strong-cyclic solutions must handle every outcome. A successor
+            # with infinite admissible classical h cannot reach a goal.
+            if action_has_dead_end(state, nondet_action):
+                continue
             if not extension_has_escape(current_policy, state, successors, task):
                 continue
             # Create new_policy by extending current_policy
