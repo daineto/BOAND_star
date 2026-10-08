@@ -722,3 +722,147 @@ explicit metadata failure. The three valid post-fix runs are retained in full.
 
 Decision: retain the independently verified correction. Resume optimization
 from the corrected version-2 implementation, with this bug-fix boundary explicit.
+
+
+## Round 5: strategy sharing and incremental graph bounds
+
+Corrected reference `d9fef7d`, journal definition version 2. Five fresh baseline
+runs (initial three, extended for uncertainty); fixed 14 cases/11 domains, seed 0, four workers, 6,000,000 KB, 30 s/job and
+60 s suite budget. Artifacts: `outputs/performance/round5/`, raw runs under
+`runs/journal_development/`. Retain original timing baseline for cumulative
+comparison; correctness uses independent oracles and corrected graph passes.
+
+### Attempt 21: immutable parent-linked strategy — REVERT
+
+- Parent `d9fef7d`; candidate `cdf9aef`; revert `6aecd03`.
+- Store one assignment and a parent strategy pointer per extension, sharing
+  immutable prefixes. Copy returns the same mapping; pending/goal/bound maps
+  remain independently copied. Preserve insertion order and add sibling equality
+  shortcut. Test lookup, policy-copy isolation and mapping behavior.
+- Three runs: aggregate speedup **0.722×**, bootstrap interval **0.711–0.742×**.
+  Largest median RSS **161,524 KB** versus **163,420 KB** baseline. The small
+  memory saving does not justify the substantial lookup/equality overhead.
+- All smoke correctness gates pass; targeted strategy tests and 1,188 incremental
+  oracle checks pass. Decision: revert a clear timing loss. Artifacts:
+  `outputs/performance/round5/attempt21/`, `incremental-attempt21.txt`.
+
+### Attempt 22: bounded strategy parent chains — REVERT
+
+- Effective parent `6aecd03` (planner equivalent to `d9fef7d`);
+  candidate `5ed4ccf`; revert `cd773d0`.
+- Flatten into a native-dictionary base every third assignment, bounding lookup
+  depth at two. Preserve shared-prefix immutability, insertion order and sibling
+  isolation. Root equality uses native dict comparison.
+- Three runs: speedup **0.839×**, bootstrap interval **0.822–0.876×**.
+  Largest median RSS **161,396 KB**. Bounded lookups are less costly overall than
+  unbounded chains but remain slower than native dictionaries; Tireworld-truck
+  is particularly sensitive to mapping/equality overhead. Revert a clear loss.
+- All smoke correctness gates, bounded-depth/isolation tests and incremental
+  oracle checks pass. Artifacts: `outputs/performance/round5/attempt22/`,
+  `incremental-attempt22.txt`. No shared-strategy implementation is retained.
+
+
+### Attempt 23: reuse bounds for dominated edges — REVERT
+
+- Effective parent `cd773d0` (planner equivalent to `d9fef7d`);
+  candidate `68c1360`; final revert `99435f7`.
+- Generalize the all-new-state shortcut: compare new edges with the parent's
+  shortest and cycle-aware longest bounds. When existing children already have
+  no greater best cost and no smaller worst cost than the inserted path, no
+  bounds change. Strict finite longest-path levels certify no new cycle; an
+  already cycle-cost source may connect to already cycle-cost descendants.
+  Reuse parent bounds instead of rebuilding the entire graph. Mixed extensions
+  still initialize previously unseen leaf states correctly.
+- Three runs: speedup **1.066×**, bootstrap interval **1.040–1.095×**. Doors
+  improves **2.015×**, Responders **1.198×**. Small regressions elsewhere stay
+  below 3.3%; accepted alongside the clear aggregate gain.
+- Targeted finite/cyclic dominated-merge tests ensure no rebuild, sibling
+  isolation and unchanged numeric bounds. Random incremental extensions agree
+  with full corrected graph recomputation; 1,188 extensions across 200 graphs
+  agree with independent shortest-path relaxation and original worst costs.
+  All smoke correctness gates pass; final work statistics match original.
+- Artifacts: `outputs/performance/round5/attempt23/`,
+  `incremental-attempt23.txt`; candidate tests were in
+  `tests/test_incremental_bounds.py` (removed with its revert).
+
+- The initial three-run result justified provisional retention. After extending
+  both candidate and reference to five runs, speedup is **1.049×**, interval
+  **0.999–1.112×**. This remains inconclusive under the agreed rule, so revert.
+  Extra runs are preserved in `attempt23-extra/` and `round5-start-extra/`;
+  restored planner sources match `68c1360` and `d9fef7d`, respectively, with
+  explicit source-variant provenance. Original three-run evidence remains above.
+
+### Attempt 24: incremental shortest-bound propagation — REVERT
+
+- Parent `68c1360`; candidate `ec336fc`; revert `4a39b13`.
+- Extend the unchanged-worst-bound certificate with shortest-path relaxation.
+  Propagate decreases through existing best-parent links as well as alternate
+  edges, including descendants whose getters already reflect an ancestor's
+  decrease. Other extensions still require full graph analysis.
+- Five runs against five parent runs: speedup **1.002×**, bootstrap interval
+  **0.949–1.053×**. Suite median **21.754 s**. Revert an inconclusive result.
+- Four targeted tests and 1,188 independent incremental graph checks pass;
+  smoke completion, solution costs, replay and work counts remain unchanged.
+  Artifacts: `outputs/performance/round5/attempt24/`,
+  `incremental-attempt24.txt`. After reverting 24, also revert provisional 23.
+
+### Attempt 25: incremental acyclic best/worst bounds — REVERT
+
+- Corrected baseline parent `99435f7` (planner equivalent to `d9fef7d`);
+  candidate `4b0f685`; revert `496f2dd`.
+- Combine unchanged-bound certificates, shortest-path decreases and longest-path
+  increases. For an acyclic parent, test whether a new edge's target reaches its
+  source; if it does not, propagate changes through affected descendants.
+  Cycle-creating edges and unsupported cyclic extensions use full graph analysis.
+  This complete algorithm includes the previous candidates as dependencies and
+  is evaluated as a whole against the corrected baseline, without crediting
+  their inconclusive gains independently.
+- Five candidate runs against five reference runs: speedup
+  **1.041×**, bootstrap interval **0.986–1.089×**.
+  Suite median **21.796 s**, range
+  **20.890–27.209 s**.
+  Largest median sampled RSS **164,056 KB**.
+  Revert the inconclusive aggregate gain. Doors and Responders improve, while
+  several other cases regress; reachability and propagation overhead can offset
+  the avoided full traversal.
+- Six targeted tests cover sibling isolation, finite/cyclic dominated merges,
+  shortest-tree propagation, simultaneous best/worst changes and cycle fallback.
+  All pass, as do 1,188 independent incremental checks across 200 graphs.
+  Smoke correctness and work counts match throughout. Artifacts:
+  `outputs/performance/round5/attempt25/`, `incremental-attempt25.txt`;
+  prototype and test templates remain in the ignored round artifact directory.
+
+### Round 5 result
+
+No planner changes are retained. The original native strategy dictionaries and
+corrected full graph algorithm remain the measured reference. The initial
+three-run retention of attempt 23 was reconsidered after additional evidence;
+all decisions below use the final five-run reference (attempt 24 uses its own
+five-run immediate parent). Attempts 21 and 22 were stopped after three clear
+losses. Intervals are whole-run bootstrap percentile 95% intervals of the
+geometric mean of per-instance median search speedups.
+
+| Attempt | Final speedup vs parent | Interval | Decision |
+| --- | ---: | --- | --- |
+| 21 | 0.722× | 0.706–0.764× | Revert |
+| 22 | 0.840× | 0.815–0.889× | Revert |
+| 23 | 1.049× | 0.999–1.112× | Revert |
+| 24 | 1.002× | 0.949–1.053× | Revert |
+| 25 | 1.041× | 0.986–1.089× | Revert |
+
+All **26 timed runs** complete 14 cases, solve the same 12, replay 14 policies
+and preserve expected Pareto costs. Every intermediate and final non-time
+statistics row matches the original smoke output. Frozen input hashes,
+configuration, seed, workers, memory and timeout remain identical. Final planner
+source hashes match the measured corrected reference. The restored planner
+passes **55 tests**, and 1,000 independent graph checks retain the verified
+best-bound correction. No full campaign was launched.
+
+Artifacts include `round-summary.csv/json`, `per-instance-summary.csv/json`,
+`retained-summary.json`, `statistics-comparison.txt`, `reproducibility.txt`,
+`graph-correctness.txt` and `tests-final.log` under
+`outputs/performance/round5/`. Raw measurements and manifests preserve revision
+and source-variant provenance, including extended parent runs. These results
+establish no repeatable gain on this smoke selection; they do not exclude gains
+on larger policies. Correct incremental analysis is feasible, but its overhead
+and the current workload did not yield convincing aggregate performance gains.
