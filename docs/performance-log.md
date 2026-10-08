@@ -1446,3 +1446,141 @@ provisional performance log, resource snapshot and `performance-baseline/`
 (raw repetitions, measurements, source provenance, summary JSON and CSV).
 The profile's selections and researcher commands are documented in
 `campaigns/journal_development/README.md`.
+
+## Round 9 — cleanup and interacting bound batches (attempts 41–42)
+
+The user accepted two proposed batches and a code-cleanup exception to the
+strict timing rule. Record the exception in AGENTS.md: a clear maintainability
+improvement may remain without a demonstrated speedup when correctness and
+repeated measurements show no substantial regression. Explicitly label such
+retention as cleanup, not a timing win. Complex algorithmic experiments still
+need stronger evidence. Evaluate a batch as a whole; do not assign its measured
+gain to individual components.
+
+Use the fixed version-4 performance profile (11 cases/11 domains, 10 solved,
+11 policies replayed), with the unchanged smoke correctness gate (14 complete,
+12 solved, 14 policies replayed). Seed 0, four workers, 6,000,000 KB/job,
+30 s/job and 60 s suite deadline. Reuse the three calibrated `c7cd597` timings
+as this profile's own baseline, then add two fresh reference repetitions to
+investigate the per-instance concern. Never mix these inputs with the older
+smoke timing baseline. Preserve all raw samples; bootstrap whole-run repeats
+(4,000 samples, seed 0). Artifacts: `outputs/performance/round9/`.
+
+### Attempt 41 — unused selector heap + discarded copy initialization
+
+Candidate `1e31fb7` removes the unread heap and worst-cost lookups from the
+historical last-iterated selector, and bypasses Policy initialization while
+assigning every copied field. These are the combined attempts 9 and 4/40.
+The 14-case smoke and copy/bound/properness tests pass.
+
+The added selector test initially cloned the pending set before constructing
+its reference. Set copying can change iteration order, so that fixture failed
+even though both selectors preserve their own last-iterated element. Correct
+it to compare paths on the same set in `abae178`: 500 randomized cases pass.
+This test-only correction does not alter the measured planner source. Preserve
+the initial failure log and corrected test evidence.
+
+Three candidate runs initially show 1.010× aggregate speedup, interval
+1.004–1.032×. Provisional retention is revisited after per-case inspection:
+ST Tires p08 has mixed samples around 0.135 and 0.167 s versus reference
+around 0.135–0.142 s. Extend both the reference and candidate to five rather
+than treating the aggregate result as sufficient. Five-run aggregate is 1.011×,
+interval 0.987–1.044×: no proven timing gain, and ST Tires remains slower.
+
+### Attempt 42 — fuse bound scans with the exact size-bound formula
+
+Candidate `ac5a92e` combines attempts 37 and 10/38 with a different implementation:
+compute the pending heuristic maximum during the existing outgoing-state scan,
+so no heuristic-value dictionary, numeric bound lists, sorted vector or index
+list is needed. Retain the outgoing union to deduplicate overlapping goal/pending
+inputs and preserve iteration order. The separate Delta bound evaluates only
+pending states. The ascending-sort formula remains exactly max(h)+n-1, zero
+for empty pending; this is not a new scientific size objective.
+
+Fourteen relevant tests, 500 random comparisons with the separate best/worst
+estimators and an independent sorted size formula, and 2,000 comparisons with
+the corrected round-eight reference function pass. Empty frontiers, overlap,
+cycles, infinity, uncached node heuristics and a small state cache are covered.
+The original smoke again completes/replays with unchanged costs and work.
+
+Three runs initially show 1.068× versus the first batch, interval 1.026–1.085×.
+Extend to five while investigating the first batch's ST Tires issue. Final
+five-run speedup is 1.048×, interval 1.021–1.084×, versus batch 41, and 1.060×
+versus the reference. Aggregate improvement is clear, but ST Tires still has
+slow samples; do not hide this case or exclude it from the aggregate.
+
+### Diagnosis and conservative refinement
+
+Run 15 separately instrumented ST Tires checks: three each of baseline,
+selector-only, copy-only, both initial cleanup components, and fused-only.
+AST-extracted original methods are substituted at runtime; no benchmarks or
+expected outcomes change. At most four jobs, the same flags/seed/memory, and
+30 s/job. All complete with the expected solution costs. GC instrumentation
+shows all variants around 0.134–0.142 s, with one generation-2 collection each;
+it does not reproduce or explain the full-profile slowdown. These instrumented
+samples are diagnostic evidence, not replacement timing baselines or proof that
+concurrent-profile regressions cannot occur.
+
+The constructor bypass has a weaker maintainability benefit and introduces
+manual initialization responsibility. Drop it instead of using the cleanup
+exception to justify that uncertainty. Commit `5dd815a` restores the ordinary
+constructor and temporarily restores the old bounds to measure only the
+unread-heap removal. The first batch is not retained intact.
+
+Selector-only source has three full-profile repetitions: 1.006×, interval
+0.996–1.040×, against the five reference repetitions. This does not establish
+a speedup. The ST Tires median is 0.147 s (0.135–0.148 s), versus the reference
+median about 0.136 s. Other median ratios range approximately 0.99–1.06×.
+The aggregate interval excludes substantial loss; retain the straightforward
+unused-work cleanup subject to the final combined validation, explicitly
+without claiming an independent timing improvement. Report the small absolute
+ST Tires difference and timing limitations instead of claiming every case wins.
+
+Reapply the independently validated fused bounds with ordinary Policy copying;
+measure that final combination separately. Its measurements must not be mixed
+with `ac5a92e`, which also contained the constructor bypass. These are refinements
+of the two requested batches, not additional speculative optimization attempts.
+
+### Final decision and validation
+
+Keep the unread-selector-heap removal as a code cleanup, and retain the fused
+bound/size calculation as a measured performance improvement. The constructor
+bypass remains reverted; final `planner/policy.py` equals the performance
+baseline exactly. Final source revision: `b81e48e`. No separate speedup is
+assigned to the removed copy component or to the selector cleanup.
+
+Five final repetitions versus three selector-only repetitions give **1.051×**,
+interval **1.005–1.066×**. Versus the five original-profile reference repetitions,
+retained aggregate speedup is **1.058×**, interval
+**1.013–1.092×**. Summed per-instance median search time is
+**16.282 s**; suite median **31.628 s**,
+range **31.591–31.758 s**, versus
+reference median **32.137 s**. Largest median sampled peak planner
+RSS **489,816 KB**.
+
+ST Tires p08 remains a measured exception: reference median **0.136 s**,
+final median **0.167 s**, range **0.133–0.215 s**.
+This is about **23.1% slower**, or **31.4 ms**.
+Dropping constructor bypass did not resolve the full-profile variability;
+component-isolated diagnostic runs did not establish its cause. Explicitly
+accept this small absolute tradeoff alongside the clear aggregate improvement
+and larger gains in the longer cases. Do not claim absence of per-case regression
+or exclude the case from the geometric mean. A low aggregate risk and a readable
+selector cleanup do not turn inconclusive selector timing into a speedup claim.
+
+All **23 performance invocations** (including reused and refreshed reference
+measurements) complete 11 cases, solve 10 and replay 11 policies. All three
+smoke checks complete 14 cases, solve 12 and replay 14 policies. Every intermediate
+solution and final non-time work row matches the corresponding reference;
+cost sets are unchanged. Final planner fingerprints equal its measured source;
+frozen inputs, campaign version 4, commands/configurations, seed and limits
+remain unchanged. **71 tests pass**. No full campaign or further optimization
+attempt was launched.
+
+Raw artifacts remain under `outputs/performance/round9/`: original candidate
+records, restored-source parent extensions, `selector-only/`, `refined/`,
+`gc-diagnostic/`, original failed/corrected selector test logs, independent
+bound checks, final test/validation logs, resource snapshots,
+`round-summary.csv/json`, `per-instance-summary.csv/json` and
+`retained-bootstrap.json`. Initial candidates are labelled rejected or
+superseded; final refinements have their own revisions and measurement groups.
