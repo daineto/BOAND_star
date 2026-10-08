@@ -98,18 +98,21 @@ def update_g_brute(policy: Policy, task: Task):
             for child in successors[state]:
                 if child in cyclic_states:
                     worst[child] = state
-    # Preserve the historical best-parent relaxation order. On cyclic graphs,
-    # a full shortest-path replacement can change the existing bound values.
-    best_g = lru_cache(maxsize=None)(policy.get_best_g)
-    pending_paths = {root: []}
-    while pending_paths:
-        state, ancestors = pending_paths.popitem()
-        for child in successors[state]:
-            if child not in ancestors:
-                if policy.best_ancestors[child] != state and best_g(state) < best_g(policy.best_ancestors[child]):
-                    policy.best_ancestors[child] = state
-                    best_g.cache_clear()
-                pending_paths[child] = ancestors + [state]
+    if cyclic_states:
+        # Preserve the historical best-parent relaxation order. On cyclic graphs,
+        # a full shortest-path replacement can change the existing bound values.
+        best_g = lru_cache(maxsize=None)(policy.get_best_g)
+        pending_paths = {root: []}
+        while pending_paths:
+            state, ancestors = pending_paths.popitem()
+            for child in successors[state]:
+                if child not in ancestors:
+                    if policy.best_ancestors[child] != state and best_g(state) < best_g(policy.best_ancestors[child]):
+                        policy.best_ancestors[child] = state
+                        best_g.cache_clear()
+                    pending_paths[child] = ancestors + [state]
+    else:
+        policy.best_ancestors = best
     policy.worst_ancestors = worst
     policy.cyclic = bool(cyclic_states)
 
