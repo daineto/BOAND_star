@@ -3,6 +3,7 @@ import random
 from types import SimpleNamespace
 import unittest
 from planner.policy import Policy
+from planner.search import extension_has_escape
 
 
 def make_policy(edges, goal):
@@ -58,5 +59,43 @@ class PropernessTests(unittest.TestCase):
         policy, task = make_policy(edges, 2)
         task.policy_outcomes = lambda s,a:edges[s]
         self.assertTrue(policy.is_proper(task))
+
+
+def all_have_escape(edges):
+    # Independent fixed-point oracle for escape to ANY unmapped state.
+    good = {c for children in edges.values() for c in children if c not in edges}
+    while True:
+        added = {s for s, children in edges.items() if any(c in good for c in children)}
+        if added <= good:
+            return set(edges) <= good
+        good |= added
+
+
+class EarlyDeadlockTests(unittest.TestCase):
+    def test_cycles_with_and_without_escape(self):
+        parent, task = make_policy({0:[1,2]}, 3)
+        self.assertTrue(extension_has_escape(parent, 1, {0}, task))
+        self.assertFalse(extension_has_escape(parent, 1, {1}, task))
+        self.assertTrue(extension_has_escape(parent, 1, {1,3}, task))
+        parent, task = make_policy({0:[1]}, 3)
+        self.assertFalse(extension_has_escape(parent, 1, {0}, task))
+
+    def test_incremental_escape_matches_independent_fixed_point(self):
+        rng = random.Random(27)
+        tested = 0
+        for _ in range(2000):
+            size = rng.randrange(2,9)
+            count = rng.randrange(1,size)
+            edges = {s:[c for c in range(size) if rng.random()<.3] for s in range(count)}
+            if not all_have_escape(edges):
+                continue
+            parent, task = make_policy(edges, size-1)
+            children = {c for c in range(size) if rng.random()<.3}
+            expected = all_have_escape({**edges, count:list(children)})
+            self.assertEqual(extension_has_escape(parent, count, children, task), expected)
+            task.policy_outcomes = lambda state, action:edges[state]
+            self.assertEqual(extension_has_escape(parent, count, children, task), expected)
+            tested += 1
+        self.assertGreater(tested, 500)
 
 if __name__ == '__main__': unittest.main()

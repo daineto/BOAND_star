@@ -102,6 +102,28 @@ def update_g_brute(policy: Policy, task: Task):
     policy.cyclic = bool(cyclic_states)
 
 
+def extension_has_escape(policy, state, successors, task):
+    """AND* incremental deadlock test, given a deadlock-free parent.
+
+    Only the newly assigned state can close the last escape from an existing
+    region. Find an unmapped outcome reachable from it; goals also count.
+    The override at state is already represented by the initial successors.
+    """
+    seen = {state}
+    frontier = list(successors)
+    outcomes = getattr(task, "policy_outcomes", None)
+    for child in frontier:
+        if child in seen:
+            continue
+        action = policy.strategy.get(child)
+        if action is None:
+            return True
+        seen.add(child)
+        reached = outcomes(child, action[0]) if outcomes is not None else {op.apply(child) for op in action[1]}
+        frontier.extend(successor for successor in reached if successor not in seen)
+    return False
+
+
 def extend_policy(current_policy, state, nondet_action, det_actions, successors, task):
     new_policy = current_policy.copy()
     new_policy.strategy[state] = (nondet_action, det_actions)
@@ -379,10 +401,14 @@ def boand_star(
         nondet_action_to_successors, nondet_to_det_action = successors_for_state(state)
 
         for (nondet_action,successors) in nondet_action_to_successors.items():
+            # All queued parents retain escape routes; reject the extension
+            # before copying policy containers or computing graph bounds.
+            generations += 1
+            if not extension_has_escape(current_policy, state, successors, task):
+                continue
             # Create new_policy by extending current_policy
             # Extension: map tile to action
             new_policy = extend_policy(current_policy, state, nondet_action, nondet_to_det_action[nondet_action], nondet_action_to_successors[nondet_action], task)
-            generations += 1
 
             # Calculate new_policy's f-value
             if joint_bounds:
