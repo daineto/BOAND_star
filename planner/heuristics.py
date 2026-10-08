@@ -93,10 +93,17 @@ class MaxSumWorstCaseHeuristic(FondHeuristic):
 
 class DeltaSizeHeuristic(FondHeuristic):
     def get_f_value(self, policy: Policy):
-        # Preserve the existing ascending-sort bound exactly, including infinity.
-        if not policy.pending:
-            return 0
-        return max(self.state_h(state) for state in policy.pending) + len(policy.pending) - 1
+        Out = policy.pending.union(policy.goal_states)
+
+        h_values = {state: self.state_h(state) for state in Out}
+
+        h_vector = sorted([h_values[state] for state in policy.pending])
+        if len(h_vector) > 0:
+            f_size = max([h_vector[i] + i for i in range(len(h_vector))])
+        else:
+            f_size = 0
+
+        return f_size
 
 
 class ZeroSizeHeuristic(FondHeuristic):
