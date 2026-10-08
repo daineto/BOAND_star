@@ -190,3 +190,36 @@ but selects the last iterated state. This round preserves that behavior and all
 other search ordering; correcting it is a separate, explicitly evaluated
 algorithm change. Results here establish improvements on the fixed smoke
 suite on this host, not coverage or performance claims for a larger campaign.
+
+## Round 2: attempts 6–10
+
+Starting revision: `e2ad72d`, retaining attempts 1, 2, 3 and 5. The original
+baseline remains `0d570b3`; its measurements are copied unchanged into
+`outputs/performance/round2/baseline/`. Fresh starting measurements are in
+`outputs/performance/round2/round2-start/`: three runs, median suite time
+**20.960 s**, range **20.609–23.223 s**.
+Inputs, limits, four workers and seed 0 remain fixed. The measurement and
+bootstrap scripts use the round1 methods. Comparisons use fresh immediate
+parent measurements and the fixed original baseline; artifacts stay under
+`outputs/performance/round2/` and `runs/journal_development/`.
+
+### Attempt 6: reuse action outcomes in ancestor traversal — KEEP
+
+- Parent: `e2ad72d`; candidate: `ae8fbbd`.
+- Hypothesis: convergent trajectories reapply the same fixed policy action to
+  the same state. Cache those successor sets within one ancestor recomputation.
+  The cache is discarded afterward. The propagation phase still uses fresh
+  sets wherever it mutates the successor set.
+- Three runs: aggregate search speedup **1.105×** over parent,
+  **8.060×** over original; suite median
+  **21.245 s**, summed median search time **4.484 s**.
+- Whole-run bootstrap 95% interval: **1.058–1.181×** over parent. Chain-of-rooms,
+  Doors and FrozenLake p07 improve by 44–60%. Elevators slows about 6% (under
+  0.02 s); local cache allocation/scheduling overhead is accepted for the
+  larger gains. Remaining regressions are below 2% on very short cases.
+- All three runs completed 14 searches, solved 12 instances and replayed 14
+  policies. Non-time final statistics match original. Targeted reuse, convergence
+  and cycle tests pass; 500 seeded differential graph checks match original
+  ancestor maps and cycle flags. Artifacts: `outputs/performance/round2/attempt6/`
+  and `ancestor-equivalence-attempt6.txt`.
+- Decision: retain, with bounded lifetime storage proportional to policy size.
