@@ -479,3 +479,171 @@ The retained planner source equals the measured attempt12 source byte for byte.
   round preserves all of those behaviors; failed local optimizations are logged.
 
 Stopped after five attempts. No further round or full campaign launched.
+
+
+## Round 4: graph-based ancestor bounds and cycles
+
+Round-start `0e992c5`; original baseline `0d570b3`. Three fresh reference runs,
+fixed smoke instances/configuration, seed 0, four workers, 6,000,000 KB, 30 s/job
+and 60 s suite budget. Artifacts: `outputs/performance/round4/` and raw runs in
+`runs/journal_development/`. Same median/geometric-mean and 4,000-sample whole-run
+bootstrap methods as earlier rounds.
+
+The full breadth-first best-bound prototype disagreed with original on 40 of
+1,000 random cyclic graphs: original best-parent relaxation can overestimate
+shortest paths. Worst bounds and cycle flags agree throughout. The prototype is
+not retained; this performance round preserves historical cyclic best costs.
+Evidence: `full-graph-prototype.py`, `prototype-cost-differential.json` and
+`prototype-cost-discrepancy.log`. Correcting those bounds requires a separate,
+explicit correctness/scientific decision; expected costs were not edited.
+
+### Attempt 16: topological worst bounds and cycle analysis — KEEP
+
+- Parent `0e992c5`; candidate `1a1661e`.
+- Build the reachable policy graph once. Kahn's traversal computes longest
+  finite bounds; its residue contains cycles and their descendants. Give every
+  residual node a residual predecessor, retaining the CYCLE_COST representation.
+  Historical best-parent relaxation uses the same traversal order on cached
+  graph outcomes, without worst-ancestor walks or cycle-path enumeration.
+- Three runs: aggregate search speedup **1.104×**, bootstrap interval
+  **1.094–1.128×**. Beam-walk improves 1.762×, Chain-of-rooms 1.406×,
+  Doors 1.372×, FrozenLake p07 1.208×. Mod-first-responders slows 14%; smaller
+  regressions on other cases are under 2%. The graph-construction overhead is
+  accepted for the repeatable aggregate gain and larger-instance improvements.
+- All smoke correctness gates pass; final non-time statistics match original.
+  Costs/cycle flags agree on 1,000 random frozenset-state policy graphs. Parent
+  tie choices may change, so equivalence checks compare numerical bounds rather
+  than require identical predecessor identities. An independent path-enumeration
+  oracle checks worst bounds on 100 small graphs, including cycle descendants
+  and finite branches. A new fixture initially used a nonexistent parent edge;
+  corrected in `cfcdf6d` without a planner fix.
+- Artifacts: `outputs/performance/round4/attempt16/`,
+  `cost-equivalence-attempt16.txt`; tests in `tests/test_policy_graph.py`.
+
+
+### Attempt 17: breadth-first best bounds for DAGs — KEEP
+
+- Parent `1a1661e`; candidate `cfcdf6d`.
+- Use already-computed BFS predecessors on acyclic policy graphs; keep the
+  historical best-parent relaxation only when the graph has cycles.
+- Three runs: speedup **1.088×**, bootstrap interval **1.064–1.097×**.
+  Doors improves **2.555×**, FrozenLake p07 **1.136×**. Elevators slows about 15%
+  (0.2715 vs 0.2312 s) relative to attempt16, but is close to round start
+  (0.2684 s). This small absolute timing regression is accepted alongside the
+  clear aggregate gain; search work counts are unchanged. Other regressions
+  stay below 4%.
+- 1,000 graph-cost comparisons, independent worst-bound oracle and targeted
+  DAG/cycle tests pass. All smoke correctness gates pass; final non-time
+  statistics match original. Artifacts: `outputs/performance/round4/attempt17/`
+  and `cost-equivalence-attempt17.txt`.
+
+### Attempt 18: numeric worst costs — KEEP
+
+- Parent `cfcdf6d`; candidate `04d079b`.
+- Replace `Policy.worst_ancestors` with `worst_costs`; Kahn's distances and cycle
+  residue directly supply the numeric bounds. Tree-only extensions add one to
+  the parent's finite worst cost and preserve CYCLE_COST for cycle descendants.
+  Update constructors, copying, empty-policy initialization and all callers.
+- Three runs: speedup **1.064×**, bootstrap interval **1.057–1.087×**. Thirteen
+  medians improve; st_tires p09 changes by under 0.4% in the other direction.
+- Costs/cycle flags agree on 1,000 graphs. Independent oracle, graph fixtures,
+  heuristic-bound/copy tests and all smoke correctness gates pass; final non-time
+  work counts are unchanged. This is an internal representation change, with
+  no objective or cost-semantics revision. Baseline differential checks now
+  instantiate the original Policy separately, avoiding representation coupling.
+- Artifacts: `outputs/performance/round4/attempt18/` and
+  `cost-equivalence-attempt18.txt`.
+
+
+### Attempt 19: materialize numeric best costs — REVERT
+
+- Parent `04d079b`; candidate `7c41bc7`; revert `e052031`.
+- Hypothesis: after parent choices are fixed, memoize best costs across shared
+  prefixes and store them per policy, avoiding later ancestor walks. Invalidate
+  before recomputation, update tree extensions and copy values independently.
+- Three runs: speedup **0.948×**, bootstrap interval **0.934–0.965×**: clear loss.
+  Largest-case median sampled peak RSS **170,160 KB** versus parent **162,388 KB**.
+  Map creation/copying outweighs cheap bound walks in this suite. Reverted after
+  the loss was established; no five-run extension was needed.
+- Costs/cycle flags agree on 1,000 graphs. **1,188 incremental extensions** across
+  200 graphs match original costs for every state, flags and pending/goal sets.
+  Targeted graph, numeric-bound/copy-isolation tests and all smoke correctness
+  gates pass; final non-time statistics are unchanged.
+- Artifacts: `outputs/performance/round4/attempt19/`,
+  `cost-equivalence-attempt19.txt`, `incremental-equivalence-attempt19.txt`.
+
+
+### Attempt 20: task-local action-outcome cache — KEEP
+
+- Effective parent `e052031` (planner equivalent to `04d079b`);
+  candidate `17b03ca`. Compared with the three attempt18 measurements.
+- Reuse deterministic action outcome sets across policy-graph recomputations,
+  using a task-local LRU bounded at 65,536 state/action pairs. Build each cached
+  set using the same deterministic-operator iteration order as the graph pass;
+  cached outcomes remain read-only. Tasks without the callback use direct action
+  application, preserving the standalone graph API.
+- Three runs: speedup **1.113×**, bootstrap interval **1.084–1.123×**. Doors
+  improves 2.071×, Chain-of-rooms 1.300×, FrozenLake p07 1.286×. FrozenLake
+  motivating and Tireworld-truck slow about 5%; other regressions are under 3%.
+  These small-case/cache overhead tradeoffs are accepted for the clear gain.
+- All smoke correctness gates pass; final non-time statistics match original.
+  1,000 graph comparisons and 1,188 incremental extensions agree with original.
+  Targeted cache tests verify reuse, bounded storage and unchanged cached sets;
+  extension tests verify copied policies preserve cycle costs and isolate fields.
+- Artifacts: `outputs/performance/round4/attempt20/`,
+  `cost-equivalence-attempt20.txt`, `incremental-equivalence-attempt20.txt`.
+
+### Round 4 outcome
+
+| Attempt | Change | Search speedup over parent | Decision |
+| --- | --- | ---: | --- |
+| 16 | Topological worst bounds and cycle analysis | 1.104× | Keep |
+| 17 | BFS best bounds on acyclic policies | 1.088× | Keep |
+| 18 | Numeric worst costs | 1.064× | Keep |
+| 19 | Numeric best-cost materialization | 0.948× | Revert |
+| 20 | Task-local graph action outcomes | 1.113× | Keep |
+
+Each candidate and the fresh reference has three unprofiled measurements. Gains
+or loss are clear at that point; no five-run extensions were needed. The final
+planner source matches measured attempt20 byte for byte.
+
+- Final aggregate search speedup **1.422×** over fresh round start, whole-run
+  bootstrap interval **1.395–1.445×**; **12.410×** over original `0d570b3`.
+  Summed median search time **2.664 s**, versus round start **4.111 s**.
+- Round-wide per-instance gains include Doors **7.550×**, Beam-walk **2.309×**,
+  Chain-of-rooms **2.101×**, FrozenLake p07 **1.983×**, Responders **1.297×**
+  and Elevators **1.231×**. Four small regressions (Blocksworld p02/p06,
+  st_tires p09, Tireworld-truck) stay below 2.4% relative to round start.
+- Final median suite **22.555 s** (range **22.529–30.415 s**), versus fresh start
+  **21.903 s** and original **33.920 s**. This round establishes a search gain,
+  not a suite-wall gain. Import/preprocessing/replay costs and scheduling noise
+  remain significant. All controlled runs stay within 60 s (maximum 30.415 s).
+  Largest median sampled peak RSS **163,408 KB**; no memory gain is claimed.
+- **18 controlled runs** all complete 14 searches, solve the expected 12 cases
+  and replay 14 policies. Every raw intermediate and final non-time statistics
+  row matches original. Frozen inputs, campaign configuration, seed 0, four
+  workers, 6,000,000 KB and 30 s/job remain unchanged.
+- Final **53 tests pass**, including an independent path-enumeration worst-bound
+  oracle. Final costs/cycle flags match original on 1,000 random graphs and
+  every state across 1,188 incremental extensions. Evidence:
+  `outputs/performance/round4/tests-final.log`, `statistics-equivalence.txt`,
+  `resource-and-source-validation.txt` and the attempt20 differential logs.
+- Plot-ready summaries include retained and rejected candidates:
+  `outputs/performance/round4/round-summary.*`, `per-instance-summary.*`,
+  `retained-summary.json`, `retained-per-instance-speedups.json`. The cumulative
+  interval is saved separately in `retained-bootstrap-output.json`; attempt20's
+  `bootstrap.json` retains its immediate-parent comparison.
+- Final profiles in `profiles-final/` use two workers, the same 6,000,000 KB and
+  30 s job timeout, and are excluded from timing comparisons. FrozenLake's
+  recomputation still spends time on historical cyclic best-parent relaxation;
+  Tireworld-truck spends more on bound evaluation. Acyclic recomputation and
+  cycle/worst-bound classification now use graph passes rather than paths.
+- Remaining correctness issue: the rejected full BFS prototype exposes cyclic
+  best-cost overestimates in the original implementation. Those are intentionally
+  preserved here, along with proper-policy checks and search order. A subsequent
+  correctness change should explicitly document/version changed bounds and
+  measure their effect separately from these semantics-preserving optimizations.
+  This round makes no claim about unmeasured larger campaigns/configurations.
+
+Stopped after the requested five attempts. No further round or full campaign
+launched; published definitions, archives and frozen hashes remain untouched.
