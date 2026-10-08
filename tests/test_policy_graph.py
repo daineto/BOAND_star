@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import unittest
 
 from planner.policy import Policy, CYCLE_COST
-from planner.search import update_g_brute
+from planner.search import extend_policy, update_g_brute
 
 
 def policy_for(edges, size):
@@ -75,6 +75,19 @@ class PolicyGraphTests(unittest.TestCase):
         update_g_brute(policy, SimpleNamespace(initial_state=0))
         self.assertEqual((policy.get_best_g(5), policy.get_worst_g(5)), (3, 4))
         self.assertFalse(policy.cyclic)
+
+    def test_extension_preserves_cycle_costs_and_isolates_numeric_bounds(self):
+        policy = policy_for({0: [1], 1: [0, 2]}, 3)
+        task = SimpleNamespace(initial_state=0, goal_reached=lambda state: False)
+        update_g_brute(policy, task)
+        op = SimpleNamespace(apply=lambda state: 3)
+        child = extend_policy(policy, 2, 'finish', [op], {3}, task)
+        self.assertEqual((child.get_best_g(3), child.get_worst_g(3)), (3, CYCLE_COST))
+        self.assertNotIn(3, policy.best_ancestors)
+        self.assertNotIn(3, policy.best_costs)
+        self.assertNotIn(3, policy.worst_costs)
+        self.assertNotIn(2, policy.strategy)
+        self.assertEqual(policy.get_best_g(2), 2)
 
     def test_empty_strategy_keeps_root_costs(self):
         policy = policy_for({}, 1)

@@ -3,7 +3,7 @@ CYCLE_COST = 999999
 
 class Policy:
   __slots__ = ("strategy", "pending", "goal_states", "best_ancestors",
-               "worst_costs", "closed", "cyclic", "proper")
+               "worst_costs", "best_costs", "closed", "cyclic", "proper")
 
   def __init__(self, strategy, pending, goal_states):
     self.strategy = strategy  # tile-action map
@@ -13,6 +13,7 @@ class Policy:
     self.goal_states = goal_states
     
     self.best_ancestors = dict()
+    self.best_costs = None
     self.worst_costs = dict()
 
     self.closed = False
@@ -25,6 +26,7 @@ class Policy:
     new_policy.pending = self.pending.copy()
     new_policy.goal_states = self.goal_states.copy()
     new_policy.best_ancestors = self.best_ancestors.copy()
+    new_policy.best_costs = self.best_costs.copy() if self.best_costs is not None else None
     new_policy.worst_costs = self.worst_costs.copy()
     new_policy.closed = self.closed
     new_policy.cyclic = self.cyclic
@@ -47,6 +49,8 @@ class Policy:
     return False
   
   def get_best_g(self, state):
+      if self.best_costs is not None:
+          return self.best_costs[state]
       current = state
       g = 0
       while current != "dummy":
