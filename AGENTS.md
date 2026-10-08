@@ -129,6 +129,19 @@ Preserve comparable measurements for every attempt so these plots can include
 rejected candidates. Coverage is a correctness gate for this suite and a main
 performance metric on any later, harder evaluation set.
 
+## Correctness fixes
+
+Evaluate confirmed correctness fixes separately from performance attempts; do
+not revert a correct fix merely because timing is unchanged or slower. Use
+independent mathematical tests when the historical baseline is buggy. Document
+and version changed numerical bounds and record resulting search-work changes.
+Journal definition version 2 uses BFS best bounds on cyclic and acyclic graphs;
+version 1 and the original baseline can overestimate best costs on cyclic graphs.
+Future equivalence checks must compare against the corrected parent or an
+independent oracle rather than preserve that historical error. Expected solution
+costs remain unchanged unless a separately justified correctness finding requires
+an explicitly documented revision.
+
 ## Resources and reproducibility
 
 This machine has 32 GB of RAM. Journal development runs use 6,000,000 KB of

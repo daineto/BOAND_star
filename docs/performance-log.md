@@ -647,3 +647,78 @@ planner source matches measured attempt20 byte for byte.
 
 Stopped after the requested five attempts. No further round or full campaign
 launched; published definitions, archives and frozen hashes remain untouched.
+
+
+## Correctness fix: shortest best bounds on cyclic graphs
+
+This is a separately authorized bug fix, not optimization attempt 21 and not
+subject to reverting a confirmed correction merely for a lack of speedup.
+Parent `5a9907e`; fix `e0583bd`; matching expectation metadata `2b74452`.
+Journal campaign definition advances **1 -> 2**. ICAPS definitions, publication
+tag, archives, input paths/hashes, configurations, resource limits and every
+expected numerical solution cost remain unchanged.
+
+### Cause and correction
+
+Historical relaxation skips an edge when its destination is already in the
+current trajectory, suppressing an otherwise valid shortest-path improvement.
+The regression graph has 0 -> 1 -> 3 -> 5 (three steps), but the prior code reports
+four. Both the specific regression and independent simple-path oracle fail
+before the fix; the failure log is retained.
+
+Use the existing breadth-first predecessor map for every reachable policy
+state, including cyclic graphs. Remove the historical cyclic best-parent path
+traversal. Kahn's worst-cost/cycle analysis and proper-policy decisions are
+unchanged. Ancestor recomputation now consists of graph passes for all policies.
+
+Version 2 makes the changed bound semantics explicit. Old version-1 runs use
+their recorded code/definition revision for validation. `AGENTS.md` records that
+future correctness comparisons must not preserve the old cyclic overestimate.
+
+### Validation and measurements
+
+Artifacts: `outputs/performance/best-bound-fix/`; raw planner runs remain in
+`runs/journal_development/`. Fixed 14 cases/11 domains, seed 0, four workers,
+6,000,000 KB, 30 s/job and 60 s suite budget; three fresh runs before and after.
+
+- **55 tests pass**, including the counterexample and 200 independent simple-path
+  shortest-bound cases. Before-fix tests fail with 4 != 3 and another random
+  cyclic graph mismatch. Logs: `tests-before-fix.log`, `tests-after-fix.log`,
+  `tests-final.log`.
+- **1,000 random graphs** agree with independent shortest-path edge relaxation.
+  The original implementation's 40 cyclic best-bound discrepancies are corrected;
+  all worst costs and cycle flags agree with original. **1,188 incremental
+  extensions** on 200 graphs retain correct shortest bounds, original worst
+  costs/cycle flags and the same pending/goal sets. `graph-correctness.txt`,
+  `incremental-correctness.txt`, `graph-cost-differential.json` record evidence.
+- All **six valid timed runs** complete 14 searches, solve the same 12 cases,
+  and replay 14 policies with unchanged expected Pareto costs. All intermediate
+  and final non-time statistics rows match before-fix results. No observed
+  search-work/solution change on this smoke selection; other graphs deliberately
+  have changed best bounds. `statistics-comparison.txt`,
+  `work-count-differences.json` record this separately from mathematical tests.
+- Dry-run selections, commands, configurations, frozen hashes and resource limits
+  are identical; only definition/source provenance changes. Expected-outcome
+  numerical cost sets are verified identical to `5a9907e`.
+  `dry-before.json`, `dry-after.json`, `campaign-comparison.txt`.
+- Search speedup **1.245×** versus fresh parent, whole-run bootstrap interval
+  **1.216–1.255×**; **15.091×** versus original on the same smoke cases. Summed
+  median search time **2.258 s**. Chain-of-rooms improves 2.256× and FrozenLake
+  p07 1.914×; three slight regressions remain below 0.8%.
+- Suite median **23.472 s** versus **23.564 s** before; candidate range
+  **23.213–25.725 s**. No robust suite-wall improvement is claimed. Median largest
+  sampled peak RSS **163,472 KB** versus **163,516 KB** before; no memory claim.
+  All timed runs remain under one minute. This suite does not establish impact
+  on published results, other configurations, or Pareto completeness beyond its
+  fixed expectations; no full campaign was launched.
+
+The first post-fix execution completed all planners but validation rejected the
+expected-outcome file's stale campaign-version metadata (1 versus 2). Preserve
+that failed invocation in `after-metadata-mismatch/`; correct only metadata,
+add a consistency assertion, and independently replay that completed run:
+14 instances/14 policies pass (`revalidated-first-run.log`). Its incomplete
+validation timing is excluded from the six controlled measurements for the
+explicit metadata failure. The three valid post-fix runs are retained in full.
+
+Decision: retain the independently verified correction. Resume optimization
+from the corrected version-2 implementation, with this bug-fix boundary explicit.
