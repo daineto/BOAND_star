@@ -39,9 +39,9 @@ class JointBoundTests(unittest.TestCase):
             with self.subTest(cyclic=cyclic, ancestor_cycle=ancestor_cycle, unreachable=unreachable):
                 policy = Policy({}, {'a', 'b'}, {'g'})
                 policy.best_ancestors = {'s': 'dummy', 'a': 's', 'b': 'a', 'g': 'b'}
-                policy.worst_ancestors = policy.best_ancestors.copy()
+                policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_ancestors}
                 if ancestor_cycle:
-                    policy.worst_ancestors['s'] = 's'
+                    policy.worst_costs = dict.fromkeys(policy.best_ancestors, CYCLE_COST)
                 policy.cyclic = cyclic
                 values = {'a': 3, 'b': math.inf if unreachable else 1, 'g': 0}
                 heuristic = lambda node: values[node.state]
@@ -51,7 +51,8 @@ class JointBoundTests(unittest.TestCase):
 
     def test_closed_and_empty_frontiers_keep_default_bounds(self):
         policy = Policy({}, set(), {'s'})
-        policy.best_ancestors = policy.worst_ancestors = {'s': 'dummy'}
+        policy.best_ancestors = {'s': 'dummy'}
+        policy.worst_costs = {'s': 0}
         heuristic = lambda node: 0
         self.assertEqual(compute_f_value(policy, None, heuristic), (0, 0, 0))
         policy.goal_states.clear()
@@ -79,12 +80,12 @@ class PolicyCopyTests(unittest.TestCase):
     def test_copy_preserves_flags_and_isolates_mutable_fields(self):
         policy = Policy({'s': ('move', frozenset())}, {'a'}, {'g'})
         policy.best_ancestors = {'s': 'dummy', 'a': 's', 'g': 'a'}
-        policy.worst_ancestors = policy.best_ancestors.copy()
+        policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_ancestors}
         policy.closed = policy.cyclic = policy.proper = True
         clone = policy.copy()
         self.assertEqual((clone.closed, clone.cyclic, clone.proper), (True, True, True))
         self.assertEqual((clone.get_best_g('g'), clone.get_worst_g('g')), (2, 2))
-        for field in ('strategy', 'pending', 'goal_states', 'best_ancestors', 'worst_ancestors'):
+        for field in ('strategy', 'pending', 'goal_states', 'best_ancestors', 'worst_costs'):
             self.assertEqual(getattr(clone, field), getattr(policy, field))
             self.assertIsNot(getattr(clone, field), getattr(policy, field))
             getattr(clone, field).clear()
@@ -97,7 +98,7 @@ class AncestorUpdateTests(unittest.TestCase):
                                     for target in targets]) for state, targets in edges.items()}
         policy = Policy(strategy, set(), set())
         policy.best_ancestors = ancestors.copy()
-        policy.worst_ancestors = ancestors.copy()
+        policy.worst_costs = {state: policy.get_best_g(state) for state in ancestors}
         return policy
 
     def test_convergent_paths_keep_shortest_and_longest_costs(self):

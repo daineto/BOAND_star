@@ -11,7 +11,7 @@ def policy_for(edges, size):
     policy = Policy({state: ('move', [SimpleNamespace(apply=lambda _, child=child: child)
                                    for child in children]) for state, children in edges.items()}, set(), set())
     policy.best_ancestors = {0: 'dummy', **{state: state - 1 for state in range(1, size)}}
-    policy.worst_ancestors = policy.best_ancestors.copy()
+    policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_ancestors}
     return policy
 
 
@@ -56,7 +56,7 @@ class PolicyGraphTests(unittest.TestCase):
     def test_cycle_descendants_and_independent_finite_branch(self):
         policy = policy_for({0: [1, 3], 1: [2], 2: [1, 4]}, 5)
         policy.best_ancestors = {0: 'dummy', 1: 0, 2: 1, 3: 0, 4: 2}
-        policy.worst_ancestors = policy.best_ancestors.copy()
+        policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_ancestors}
         update_g_brute(policy, SimpleNamespace(initial_state=0))
         self.assertEqual([policy.get_worst_g(state) for state in range(5)],
                          [0, CYCLE_COST, CYCLE_COST, 1, CYCLE_COST])
@@ -71,7 +71,7 @@ class PolicyGraphTests(unittest.TestCase):
     def test_convergent_dag_keeps_distinct_shortest_and_longest_bounds(self):
         policy = policy_for({0: [1, 2], 1: [3], 2: [4], 4: [3], 3: [5]}, 6)
         policy.best_ancestors = {0: 'dummy', 1: 0, 2: 0, 3: 1, 4: 2, 5: 3}
-        policy.worst_ancestors = policy.best_ancestors.copy()
+        policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_ancestors}
         update_g_brute(policy, SimpleNamespace(initial_state=0))
         self.assertEqual((policy.get_best_g(5), policy.get_worst_g(5)), (3, 4))
         self.assertFalse(policy.cyclic)

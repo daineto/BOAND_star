@@ -49,7 +49,8 @@ def update_g_values(policy, state, reached_states, task):
         if policy.best_ancestors.get(reached_state,None) is None:
             # if reached_state != task.initial_state:
             policy.best_ancestors[reached_state] = state
-            policy.worst_ancestors[reached_state] = state
+            policy.worst_costs[reached_state] = (CYCLE_COST if policy.get_worst_g(state) == CYCLE_COST
+                                                  else policy.get_worst_g(state) + 1)
         # Not the first time
         else:
             all_new = False
@@ -76,7 +77,6 @@ def update_g_brute(policy: Policy, task: Task):
                 best[child] = state
                 frontier.append(child)
 
-    worst = {root: "dummy"}
     distances = {root: 0}
     ready = [state for state, degree in indegrees.items() if degree == 0]
     # Kahn's traversal computes finite longest paths. The residue consists of
@@ -86,18 +86,11 @@ def update_g_brute(policy: Policy, task: Task):
         for child in successors[state]:
             if distance > distances.get(child, -1):
                 distances[child] = distance
-                worst[child] = state
             indegrees[child] -= 1
             if indegrees[child] == 0:
                 ready.append(child)
     cyclic_states = {state for state, degree in indegrees.items() if degree}
-    # Every residual state has a residual predecessor. Following these parents
-    # must enter a cycle, retaining the existing worst-cost representation.
-    for state in frontier:
-        if state in cyclic_states:
-            for child in successors[state]:
-                if child in cyclic_states:
-                    worst[child] = state
+    distances.update(dict.fromkeys(cyclic_states, CYCLE_COST))
     if cyclic_states:
         # Preserve the historical best-parent relaxation order. On cyclic graphs,
         # a full shortest-path replacement can change the existing bound values.
@@ -113,7 +106,7 @@ def update_g_brute(policy: Policy, task: Task):
                     pending_paths[child] = ancestors + [state]
     else:
         policy.best_ancestors = best
-    policy.worst_ancestors = worst
+    policy.worst_costs = distances
     policy.cyclic = bool(cyclic_states)
 
 
@@ -321,7 +314,7 @@ def boand_star(
     empty_policy = Policy(dict(),set(), set())
     empty_policy.pending.add(task.initial_state)
     empty_policy.best_ancestors = {task.initial_state:"dummy"}
-    empty_policy.worst_ancestors = {task.initial_state:"dummy"}
+    empty_policy.worst_costs = {task.initial_state: 0}
     # Push the empty policy onto the open list
     heapq.heappush(open_list, ((0,0), empty_policy))
 

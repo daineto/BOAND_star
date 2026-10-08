@@ -3,7 +3,7 @@ CYCLE_COST = 999999
 
 class Policy:
   __slots__ = ("strategy", "pending", "goal_states", "best_ancestors",
-               "worst_ancestors", "closed", "cyclic", "proper")
+               "worst_costs", "closed", "cyclic", "proper")
 
   def __init__(self, strategy, pending, goal_states):
     self.strategy = strategy  # tile-action map
@@ -13,7 +13,7 @@ class Policy:
     self.goal_states = goal_states
     
     self.best_ancestors = dict()
-    self.worst_ancestors = dict()
+    self.worst_costs = dict()
 
     self.closed = False
     self.cyclic = False
@@ -25,7 +25,7 @@ class Policy:
     new_policy.pending = self.pending.copy()
     new_policy.goal_states = self.goal_states.copy()
     new_policy.best_ancestors = self.best_ancestors.copy()
-    new_policy.worst_ancestors = self.worst_ancestors.copy()
+    new_policy.worst_costs = self.worst_costs.copy()
     new_policy.closed = self.closed
     new_policy.cyclic = self.cyclic
     new_policy.proper = self.proper
@@ -54,21 +54,9 @@ class Policy:
           g+=1
       return g-1
 
-  def get_worst_g(self,state):
-      ancestors = set()
-      ancestors.add(state)
-      
-      current = state
-      g = 0
-      while current != "dummy": # reaches the initial state
-          current = self.worst_ancestors.get(current,None)
-          if current in ancestors:
-              return CYCLE_COST
-          g+=1
-          ancestors.add(current)
-      return g-1
-    
-  
+  def get_worst_g(self, state):
+      return -1 if state == "dummy" else self.worst_costs.get(state, CYCLE_COST)
+
   def is_proper(self, task):
     if not self.proper:
         goal_trajectories = list()
