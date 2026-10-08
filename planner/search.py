@@ -11,6 +11,7 @@ from pyperplan.heuristics.lm_cut import LmCutHeuristic
 from pyperplan.task import Task
 from pyperplan.search.searchspace import SearchNode
 from .policy import Policy, CYCLE_COST
+from .strategy import Strategy
 from .preprocessing import get_alloutcome_determinization
 from .output import write_solution, write_stats
 from .heuristics import (CachedStateHeuristic, FondHeuristic, BlindBestCaseHeuristic, MinSumBestCaseHeuristic, SumMinBestCaseHeuristic, BlindWorstCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic, ZeroSizeHeuristic)
@@ -62,6 +63,8 @@ def update_g_values(policy, state, reached_states, task):
 def update_g_brute(policy: Policy, task: Task):
     """Compute shortest best bounds and cycle-aware worst bounds in graph passes."""
     root = task.initial_state
+    # Repeated graph lookups use a temporary native map; Open keeps the delta.
+    strategy = policy.strategy.materialize() if isinstance(policy.strategy, Strategy) else policy.strategy
     best = {root: "dummy"}
     indegrees = {root: 0}
     successors = {}
@@ -69,7 +72,7 @@ def update_g_brute(policy: Policy, task: Task):
     frontier = [root]
     # Breadth-first discovery chooses a shortest-path predecessor for each state.
     for state in frontier:
-        action = policy.strategy.get(state)
+        action = strategy.get(state)
         if action is None:
             reached = ()
         elif outcomes_for_action is not None:
@@ -125,8 +128,8 @@ def extension_has_escape(policy, state, successors, task):
 
 
 def extend_policy(current_policy, state, nondet_action, det_actions, successors, task):
-    new_policy = current_policy.copy()
-    new_policy.strategy[state] = (nondet_action, det_actions)
+    new_policy = current_policy.copy(copy_strategy=False)
+    new_policy.strategy = Strategy(current_policy.strategy, state, (nondet_action, det_actions))
 
     # TODO: is it better to compute the pending first?
     # if every successor is in new_pending then no need update_g_brute?
@@ -364,6 +367,9 @@ def boand_star(
         #     pass # Add a breakpoint here to see hits
         # closed_list.add(hashable_strategy)
 
+
+        if isinstance(current_policy.strategy, Strategy):
+            current_policy.strategy = current_policy.strategy.materialize()
 
         # Check if the policy is closed
         if current_policy.is_closed():
