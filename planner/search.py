@@ -80,6 +80,8 @@ def update_g_brute(policy:Policy, task:Task):
             if reached_states is None:
                 reached_states = {det_action.apply(state) for det_action in action[1]}
                 state_successors[state] = reached_states
+            # Child paths are read-only: each expansion constructs its own list.
+            new_ancestors = ancestors + [state]
             for reached_state in reached_states:
                 if reached_state in ancestors: # Cycle
                     cycles.append(ancestors[ancestors.index(reached_state):]+[state])
@@ -94,8 +96,6 @@ def update_g_brute(policy:Policy, task:Task):
                         policy.best_ancestors[reached_state] = state
                         best_g.cache_clear()
                     # Extend trajectory
-                    new_ancestors = ancestors.copy()
-                    new_ancestors.append(state)
                     frontier[reached_state] = new_ancestors
     loopy_states = set().union(*cycles)
     extended_loopy_states = set()
