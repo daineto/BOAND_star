@@ -115,6 +115,17 @@ class AncestorUpdateTests(unittest.TestCase):
         self.assertEqual(policy.get_worst_g('g'), CYCLE_COST)
         self.assertTrue(policy.cyclic)
 
+    def test_cycle_propagation_reuses_outcomes_without_mutating_cache(self):
+        calls = []
+        policy = self.policy({'s': ['a', 'g'], 'a': ['s', 'b'], 'b': ['g']},
+                             {'s': 'dummy', 'a': 's', 'b': 'a', 'g': 's'})
+        policy.strategy['b'] = ('finish', [SimpleNamespace(apply=lambda state: calls.append(state) or 'g')])
+        update_g_brute(policy, SimpleNamespace(initial_state='s'))
+        self.assertEqual(calls, ['b'])
+        self.assertTrue(policy.cyclic)
+        self.assertEqual(policy.get_best_g('g'), 1)
+        self.assertEqual(policy.get_worst_g('g'), CYCLE_COST)
+
     def test_convergent_visits_reuse_action_outcomes(self):
         calls = []
         op = SimpleNamespace(apply=lambda state: calls.append(state) or 'g')

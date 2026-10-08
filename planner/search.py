@@ -113,11 +113,15 @@ def update_g_brute(policy:Policy, task:Task):
         if state not in already_seen:
             action = policy.strategy.get(state, None)
             if action is not None: #State has no action assigned: end of trajectory
-                reached_states = {det_action.apply(state) for det_action in action[1]}
+                reached_states = state_successors.get(state)
+                if reached_states is None:
+                    reached_states = {det_action.apply(state) for det_action in action[1]}
+                    state_successors[state] = reached_states
                 for reached_state in reached_states:
                     policy.worst_ancestors[reached_state] = state
-                reached_states.difference_update(already_seen)
-                extended_loopy_states.update(reached_states)
+                # Keep cached outcomes immutable and preserve set insertion behavior.
+                remaining_states = reached_states.difference(already_seen)
+                extended_loopy_states.update(remaining_states)
             already_seen.add(state)
 
 
