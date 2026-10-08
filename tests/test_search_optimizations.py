@@ -6,9 +6,9 @@ from unittest.mock import Mock
 
 from pyperplan.search.searchspace import SearchNode
 from pyperplan.task import Operator, Task
-from planner.heuristics import CachedStateHeuristic
+from planner.heuristics import CachedStateHeuristic, MinSumBestCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic
 from planner.policy import Policy, CYCLE_COST
-from planner.search import grouped_successors, update_g_brute
+from planner.search import compute_f_value, grouped_successors, update_g_brute
 
 
 class HeuristicCacheTests(unittest.TestCase):
@@ -30,6 +30,32 @@ class HeuristicCacheTests(unittest.TestCase):
         self.assertEqual(first.evaluate.cache_info().currsize, 1)
         self.assertEqual(first(node), 1)
         self.assertEqual(first.evaluate.cache_info().misses, 3)
+
+
+class JointBoundTests(unittest.TestCase):
+    def test_joint_bounds_equal_separate_estimates_for_cycles_deadlocks_and_infinity(self):
+        for cyclic, ancestor_cycle, unreachable in [(False, False, False), (True, True, False),
+                                                    (True, False, False), (False, False, True)]:
+            with self.subTest(cyclic=cyclic, ancestor_cycle=ancestor_cycle, unreachable=unreachable):
+                policy = Policy({}, {'a', 'b'}, {'g'})
+                policy.best_ancestors = {'s': 'dummy', 'a': 's', 'b': 'a', 'g': 'b'}
+                policy.worst_ancestors = policy.best_ancestors.copy()
+                if ancestor_cycle:
+                    policy.worst_ancestors['s'] = 's'
+                policy.cyclic = cyclic
+                values = {'a': 3, 'b': math.inf if unreachable else 1, 'g': 0}
+                heuristic = lambda node: values[node.state]
+                separate = tuple(cls(heuristic).get_f_value(policy) for cls in
+                                 (MinSumBestCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic))
+                self.assertEqual(compute_f_value(policy, None, heuristic), separate)
+
+    def test_closed_and_empty_frontiers_keep_default_bounds(self):
+        policy = Policy({}, set(), {'s'})
+        policy.best_ancestors = policy.worst_ancestors = {'s': 'dummy'}
+        heuristic = lambda node: 0
+        self.assertEqual(compute_f_value(policy, None, heuristic), (0, 0, 0))
+        policy.goal_states.clear()
+        self.assertEqual(compute_f_value(policy, None, heuristic), (math.inf, math.inf, 0))
 
 
 class SuccessorGroupingTests(unittest.TestCase):

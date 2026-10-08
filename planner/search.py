@@ -215,7 +215,8 @@ def grouped_successors(task, state):
     """Group applicable deterministic outcomes in the task's operator order.
 
     Returned dictionaries and sets are shared by the search cache and read-only
-    after construction; preserving set insertion order preserves policy ties.
+    after construction. Keep the original construction sequence to avoid
+    gratuitous changes to set iteration order and policy ties.
     """
     nondet_action_to_successors = {}
     nondet_to_det_action = {}
@@ -287,6 +288,8 @@ def boand_star(
     else:
         print("Worst Case Heuristic must be 'Zero' or 'Delta'")
         exit()
+
+    joint_bounds = (use_best_case_heuristic, use_worst_case_heuristic, use_size_heuristic) == ("MinSum", "MaxSum", "Delta")
 
     if use_selector == "random":
         selector = RandomStateSelector()
@@ -398,9 +401,12 @@ def boand_star(
             generations += 1
 
             # Calculate new_policy's f-value
-            f_best = best_heuristic.get_f_value(new_policy)
-            f_worst = worst_heuristic.get_f_value(new_policy)
-            f_size = size_heuristic.get_f_value(new_policy)
+            if joint_bounds:
+                f_best, f_worst, f_size = compute_f_value(new_policy, task, cp_heuristic)
+            else:
+                f_best = best_heuristic.get_f_value(new_policy)
+                f_worst = worst_heuristic.get_f_value(new_policy)
+                f_size = size_heuristic.get_f_value(new_policy)
 
             # Uncomment to discard weak policies
             if f_worst == math.inf or f_size == math.inf:

@@ -70,3 +70,50 @@ spent substantial time recomputing ancestor costs. Artifacts:
   for 2.0–2.5× gains on Beam-walk, Chain-of-rooms, Doors and FrozenLake cases.
 - Decision: retain. Artifacts: `outputs/performance/round1/attempt2/`,
   `profiles-attempt2-small/`, `ancestor-probe/`, and `ancestor-equivalence.txt`.
+
+### Attempt 3: cache grouped state successors — KEEP
+
+- Parent: `3cc1ec7`; candidate: `45225ff`.
+- Hypothesis: expansions revisit the same states, repeatedly checking applicable
+  operators, applying effects, grouping outcomes and allocating operator sets.
+- Change: task-local LRU cache of grouped successors/operator sets, bounded to
+  65,536 states. Shared sets are read-only after construction; action order and
+  original construction sequence are preserved.
+- Three candidate runs: suite median **21.068 s**, range **20.769–21.317 s**;
+  aggregate search speedup **1.068×** over parent, **7.053×** over original;
+  summed median search time **5.667 s**. Tireworld-truck and Modified First
+  Responders improve by approximately 30%; the slowest median regression is
+  under 2% and affects sub-0.1-second cases.
+- All three runs completed 14 searches, solved 12 instances and replayed 14
+  policies. All non-time statistics match baseline. Tests preserve no-op
+  outcomes, distinguish nondeterministic actions, retain operator order and
+  reject inapplicable actions.
+- Sampled median peak RSS on Tireworld-truck falls by **21,532 KB** versus
+  parent, consistent with sharing operator sets across policies. Some domains
+  add roughly 0.4–1.2 MB of cache storage; other domains use less memory.
+- Decision: retain. Per-instance ranges, memory and raw data:
+  `outputs/performance/round1/attempt3/`. Total suite ranges overlap parent:
+  claim the clearer per-instance search improvements, not a precise wall-time
+  improvement from this attempt alone.
+
+### Attempt 4: eliminate discarded policy-copy allocations — REVERT
+
+- Parent: `45225ff`; candidate: `5e7497b`; reverted in `45d947b`.
+- Hypothesis: each policy copy constructs five empty containers and default
+  fields that are immediately replaced. Allocate the object without calling
+  its initializer, then copy every field exactly as before.
+- Initial three-run aggregate gain was 1.018×, so both parent and candidate
+  were extended to five runs. Final aggregate search speedup was **1.003×**
+  over parent, summed median search time **5.607 s** versus **5.627 s**;
+  suite medians **21.047 s** versus **21.208 s**, with overlapping ranges.
+- All five candidate runs passed completion, cost and policy checks, and all
+  non-time statistics match baseline. A copy-isolation test passed. An isolated
+  100,000-copy microbenchmark repeated five times showed roughly **1.50×**
+  primitive speedup, but no clear benefit on the agreed smoke evaluation.
+- Decision: revert under the five-run inconclusive-result rule. Artifacts:
+  `outputs/performance/round1/attempt4/` and supplementary parent measurements
+  in `attempt3-extra/`. For the supplementary parent runs, HEAD remained
+  `5e7497b` and `planner/policy.py` was restored byte-for-byte from `45225ff`;
+  run provenance records the inverse patch. Other differences were docstrings
+  and documentation. Original three-run records and both extra runs remain
+  available; the combined attempt3 summary now uses five runs.
