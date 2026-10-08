@@ -1,4 +1,4 @@
-"""BOAND* policy search; function bodies retain historical semantics."""
+"""BOAND* policy search with graph-based best and worst bounds."""
 import heapq
 from functools import lru_cache
 import math
@@ -60,7 +60,7 @@ def update_g_values(policy, state, reached_states, task):
 
 
 def update_g_brute(policy: Policy, task: Task):
-    """Compute cycle-aware worst bounds; preserve historical best relaxation."""
+    """Compute shortest best bounds and cycle-aware worst bounds in graph passes."""
     root = task.initial_state
     best = {root: "dummy"}
     indegrees = {root: 0}
@@ -97,21 +97,7 @@ def update_g_brute(policy: Policy, task: Task):
                 ready.append(child)
     cyclic_states = {state for state, degree in indegrees.items() if degree}
     distances.update(dict.fromkeys(cyclic_states, CYCLE_COST))
-    if cyclic_states:
-        # Preserve the historical best-parent relaxation order. On cyclic graphs,
-        # a full shortest-path replacement can change the existing bound values.
-        best_g = lru_cache(maxsize=None)(policy.get_best_g)
-        pending_paths = {root: []}
-        while pending_paths:
-            state, ancestors = pending_paths.popitem()
-            for child in successors[state]:
-                if child not in ancestors:
-                    if policy.best_ancestors[child] != state and best_g(state) < best_g(policy.best_ancestors[child]):
-                        policy.best_ancestors[child] = state
-                        best_g.cache_clear()
-                    pending_paths[child] = ancestors + [state]
-    else:
-        policy.best_ancestors = best
+    policy.best_ancestors = best
     policy.worst_costs = distances
     policy.cyclic = bool(cyclic_states)
 

@@ -39,6 +39,20 @@ def enumerated_worst(edges):
     return values
 
 
+def enumerated_best(edges):
+    """Independent shortest-path oracle by enumerating simple trajectories."""
+    values = {}
+    frontier = [(0, ())]
+    while frontier:
+        state, path = frontier.pop()
+        if state in path:
+            continue
+        values[state] = min(values.get(state, float('inf')), len(path))
+        for child in edges.get(state, ()):
+            frontier.append((child, path + (state,)))
+    return values
+
+
 class PolicyGraphTests(unittest.TestCase):
     def test_worst_bounds_match_independent_path_oracle(self):
         rng = random.Random(0)
@@ -53,6 +67,36 @@ class PolicyGraphTests(unittest.TestCase):
             expected = enumerated_worst(edges)
             self.assertEqual({state: policy.get_worst_g(state) for state in expected}, expected)
             self.assertEqual(policy.cyclic, CYCLE_COST in expected.values())
+
+    def test_best_bounds_match_independent_path_oracle_on_cyclic_graphs(self):
+        rng = random.Random(1)
+        for case in range(200):
+            size = rng.randrange(2, 9)
+            edges = {state: [state + 1] for state in range(size - 1)}
+            for state in edges:
+                edges[state] += [child for child in range(size) if child != state + 1
+                                 and rng.random() < .2]
+            policy = policy_for(edges, size)
+            update_g_brute(policy, SimpleNamespace(initial_state=0))
+            expected = enumerated_best(edges)
+            self.assertEqual({state: policy.get_best_g(state) for state in expected}, expected)
+
+    def test_cycle_edge_still_relaxes_a_shorter_best_path(self):
+        # With seed 0, the historical trajectory traversal encounters 3 -> 5
+        # through a path already containing 5, skips relaxation, and reports 4.
+        edges = {0: [1], 1: [2, 3], 2: [3, 7], 3: [4, 5], 4: [5],
+                 5: [6, 3, 9], 6: [7, 1, 5], 7: [8, 1], 8: [9, 2, 6]}
+        labels = {state: frozenset({f's{state}'}) for state in range(10)}
+        policy = Policy({labels[state]: ('move', [SimpleNamespace(apply=lambda _, child=labels[child]: child)
+                                                for child in children])
+                         for state, children in edges.items()}, set(), set())
+        policy.best_ancestors = {labels[0]: 'dummy', **{labels[state]: labels[state - 1]
+                                                     for state in range(1, 10)}}
+        policy.worst_costs = {labels[state]: state for state in range(10)}
+        update_g_brute(policy, SimpleNamespace(initial_state=labels[0]))
+        self.assertEqual(policy.get_best_g(labels[5]), 3)  # 0 -> 1 -> 3 -> 5
+        self.assertEqual(policy.get_worst_g(labels[5]), CYCLE_COST)
+        self.assertTrue(policy.cyclic)
 
     def test_cycle_descendants_and_independent_finite_branch(self):
         policy = policy_for({0: [1, 3], 1: [2], 2: [1, 4]}, 5)

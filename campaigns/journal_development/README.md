@@ -9,6 +9,17 @@ without changing their paths, ordering or hashes. Only the 14 explicitly named
 smoke instances execute. The suite covers exactly the 11 ICAPS domains; it
 excludes `st_blocksworld` and `st_first_responders`.
 
+## Definition versions
+
+Version 2 corrects best-cost bounds on cyclic policy graphs: breadth-first
+predecessors now give shortest paths for all policies. Version 1 retained the
+historical trajectory relaxation, which could skip a shorter edge when the
+current trajectory classified it as cyclic. This can change search priorities,
+pruning and work counts. Inputs, configurations, resource limits and expected
+Pareto solution costs are unchanged. Earlier version-1 runs remain available
+at their recorded Git revision; validation uses the matching campaign version.
+The ICAPS 2025 definition, tag and published archives remain unchanged.
+
 ## Run and validate
 
 From the repository root:
