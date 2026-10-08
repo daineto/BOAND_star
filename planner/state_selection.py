@@ -1,4 +1,4 @@
-"""Pending-state selection for policy-space search."""
+"""Pending-state selection, preserving historical ordering behavior."""
 from abc import ABC, abstractmethod
 import heapq
 from pyperplan.heuristics.heuristic_base import Heuristic
@@ -51,21 +51,3 @@ class BestStateSelector(StateSelector):
         policy.pending.remove(state)
 
         return state
-
-
-class RecentStateSelector(StateSelector):
-    """Expand a pending outcome of the most recent available assignment."""
-    def __init__(self, outcomes, initial_state):
-        self.outcomes = outcomes
-        self.initial_state = initial_state
-
-    def select_pending_state(self, policy, heuristic):
-        if not policy.strategy:
-            policy.pending.remove(self.initial_state)
-            return self.initial_state
-        for state in reversed(policy.strategy):
-            for child in self.outcomes(state, policy.strategy[state][0]):
-                if child in policy.pending:
-                    policy.pending.remove(child)
-                    return child
-        raise ValueError("pending states must be outcomes of assigned states")

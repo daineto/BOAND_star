@@ -14,7 +14,7 @@ from .policy import Policy, CYCLE_COST
 from .preprocessing import get_alloutcome_determinization
 from .output import write_solution, write_stats
 from .heuristics import (CachedStateHeuristic, FondHeuristic, BlindBestCaseHeuristic, MinSumBestCaseHeuristic, SumMinBestCaseHeuristic, BlindWorstCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic, ZeroSizeHeuristic)
-from .state_selection import (StateSelector, RandomStateSelector, BoundsFirstStateSelector, LargestGStateSelector, RecentStateSelector, BestStateSelector)
+from .state_selection import (StateSelector, RandomStateSelector, BoundsFirstStateSelector, LargestGStateSelector, BestStateSelector)
 from .queue_order import (OpenListSorter, BestWorstOpenListSorter, WorstBestOpenListSorter, BestOpenListSorter, WorstOpenListSorter)
 
 
@@ -311,7 +311,7 @@ def boand_star(
     elif use_selector == "best":
         selector = BestStateSelector()
     elif use_selector == "largestg":
-        selector = RecentStateSelector(task.policy_outcomes, task.initial_state)
+        selector = LargestGStateSelector()
     elif use_selector == "bounds":
         selector = BoundsFirstStateSelector()
     else:
