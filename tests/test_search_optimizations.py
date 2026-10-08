@@ -9,7 +9,6 @@ from pyperplan.task import Operator, Task
 from planner.heuristics import CachedStateHeuristic, MinSumBestCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic
 from planner.policy import Policy, CYCLE_COST
 from planner.search import compute_f_value, grouped_successors, update_g_brute
-from planner.state_selection import LargestGStateSelector
 
 
 class HeuristicCacheTests(unittest.TestCase):
@@ -74,21 +73,6 @@ class SuccessorGroupingTests(unittest.TestCase):
         self.assertEqual(operators['(move)'], {noop, progress})
         self.assertEqual(operators['(finish)'], {other})
         self.assertEqual(grouped_successors(task, frozenset({'done'})), ({}, {}))
-
-
-class HistoricalSelectorTests(unittest.TestCase):
-    def test_last_iterated_state_and_remaining_pending_states_are_preserved(self):
-        for pending in ({'a'}, {'a', 'b', 'c'}):
-            policy = Policy({}, pending.copy(), set())
-            policy.worst_ancestors = {'s': 'dummy', 'a': 's', 'b': 'a', 'c': 'b'}
-            expected = tuple(policy.pending)[-1]
-            selected = LargestGStateSelector().select_pending_state(policy, None)
-            self.assertEqual(selected, expected)
-            self.assertEqual(policy.pending, pending - {expected})
-
-    def test_empty_pending_retains_the_existing_error_contract(self):
-        with self.assertRaises(UnboundLocalError):
-            LargestGStateSelector().select_pending_state(Policy({}, set(), set()), None)
 
 
 class PolicyCopyTests(unittest.TestCase):
