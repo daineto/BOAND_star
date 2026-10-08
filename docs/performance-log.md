@@ -1373,3 +1373,76 @@ are under `outputs/performance/round8/`: `round-summary.csv/json`,
 `incremental-attempt40.txt`. Original attempt-36 decision data are preserved
 separately from additional repetitions used as the parent for later attempts.
 Stop after the requested five attempts; no further optimization was started.
+
+## Performance-profile calibration — journal definition version 4
+
+The user requested a harder timing profile before another optimization round.
+This is a campaign/validation change, not optimization attempt 41. Preserve the
+original 14-instance smoke correctness selection and all its numerical expected
+costs, and add a separate fixed 11-instance `performance` selection covering
+exactly the same 11 ICAPS domains. Planner source is unchanged from `d1a4798`.
+
+A bounded shortlist of 31 frozen inputs was piloted at seed 0 with four workers,
+6,000,000 KB of virtual memory and a 12-second process limit. Eighteen searches
+complete; thirteen pilots time out or remain incomplete. Keep all raw logs,
+including Tireworld `p13`'s partial solution; none of these failures is treated
+as unsolvability or included in successful timing aggregates. The pilot
+collector initially looked for `.stat` rather than `.stats`; reconstruct its
+records from the existing raw `.stats` files without rerunning or excluding
+planners. `pilot-summary.json` is the corrected authoritative inventory;
+earlier timestamped summaries preserve the original collection output.
+
+Select Beam-walk `p7`, Blocksworld-ex `p13`, Chain-of-rooms `p24`, Doors `p8`,
+Elevators `p04`, FrozenLake `p19`, Islands `p16`, Modified First Responders
+`p_2_2`, ST Tires `p08`, Tireworld `p06` and Tireworld-truck `p7`. Blocksworld
+is unsolvable; Modified First Responders has two Pareto solutions; three domains
+supply cyclic policies. Search-time targets are approximate: two cases remain
+around 0.12–0.14 s because shortlisted larger alternatives time out, two are
+around 0.40–0.44 s, six are around 0.55–2.83 s, and Tireworld is around 6.84 s.
+All cases remain in the primary geometric-mean aggregate; no fast-case exclusion
+or timing-dependent weighting is introduced.
+
+The definition is versioned as 4 to explicitly record the additional selection;
+version-3 planner semantics, smoke numerical costs, full input manifest bytes,
+input hashes/order, configuration and limits remain unchanged. Each profile
+has its own expected-outcome file and exact-selection validation. Both dedicated
+commands enforce a 60-second deadline including replay, four workers,
+6,000,000 KB/job and 30 s/job. Updated documentation and AGENTS.md distinguish
+the correctness gate from timing evaluation; earlier smoke timing baselines
+must not be reused or mixed with new performance timings.
+
+Nine selected cost sets match complete published BOAND bw searches. Doors `p8`
+and Elevators `p04` have no complete archived baseline, so freeze their costs
+from current-parent completed searches and validate emitted policies independently.
+No archive or benchmark was changed. Replay verifies validity and policy costs,
+not unsolvability or Pareto completeness. Expected costs must not be revised
+merely to accept later optimization output.
+
+The provisional full-profile run passes in 31.78 s. Freeze source at `c7cd597`
+and measure three fresh repetitions: all 11 searches complete, 10 instances
+are solved and 11 policies are independently replayed in every run. Expected
+costs, final work counts and planner source hashes are identical. Median full
+suite time **32.43 s**, range **32.14–32.47 s**; summed per-instance median search
+time **17.66 s**. Largest median sampled peak planner RSS **489,868 KB**;
+a resource snapshot shows about 23 GB available RAM and no swap use. Record
+search time separately from suite time; use `c7cd597` and these measurements
+as this profile's baseline, without comparing ratios across profile selections.
+
+Dry manifests show identical original smoke selections, commands, input hashes,
+configurations and limits before/after; only version metadata and the added
+profile differ. The initial pre-change dry run omitted the seed; a comparable
+seed-0 manifest is reconstructed from the unchanged version-3 definition in
+memory, with provenance noted separately. Actual pre/post smoke runs use seed 0
+and pass in **24.44 s** and **23.82 s**, respectively, with all 14 searches
+complete, 12 solvable cases solved, 14 policies replayed, and every non-time
+statistics row unchanged. New tests cover timing-profile selection, resource
+limits, outcomes and rejection of wrong-profile validation. **68 tests pass**.
+No full campaign or new optimization round was launched.
+
+Artifacts: `outputs/performance/profile-calibration/`, including raw pilots,
+`pilot-summary.json`, `manifest-comparison.txt`, `archive-comparison.txt`,
+`validation-summary.txt`, `tests-final.log`, before/after smoke logs, the
+provisional performance log, resource snapshot and `performance-baseline/`
+(raw repetitions, measurements, source provenance, summary JSON and CSV).
+The profile's selections and researcher commands are documented in
+`campaigns/journal_development/README.md`.

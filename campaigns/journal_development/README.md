@@ -144,19 +144,19 @@ expectations come from current completed searches and independent policy replay.
 Replay verifies policy validity and costs, not Pareto completeness or
 unsolvability. Validation writes `performance-validation.json`.
 
-| Domain | Instance | Calibration search time (s) |
+| Domain | Instance | Median search time (s) |
 | --- | --- | ---: |
 | Beam-walk | `p7` | 0.44 |
-| Blocksworld-ex | `p13` (unsolvable) | 0.41 |
+| Blocksworld-ex | `p13` (unsolvable) | 0.40 |
 | Chain-of-rooms | `p24` | 0.55 |
 | Doors | `p8` | 1.34 |
-| Elevators | `p04` | 2.85 |
-| FrozenLake | `p19` | 0.85 |
-| Islands | `p16` | 2.86 |
+| Elevators | `p04` | 2.83 |
+| FrozenLake | `p19` | 0.86 |
+| Islands | `p16` | 2.79 |
 | Modified First Responders | `p_2_2` (two Pareto solutions) | 0.12 |
 | ST Tires | `p08` | 0.14 |
-| Tireworld | `p06` | 6.85 |
-| Tireworld-truck | `p7` | 1.33 |
+| Tireworld | `p06` | 6.84 |
+| Tireworld-truck | `p7` | 1.36 |
 
 The first whole-profile run took **31.78 seconds**, including all replay. The
 0.5–3 second search target is approximate: Beam-walk and Blocksworld are close,
@@ -174,3 +174,12 @@ as failed pilots, never classified as unsolvable or averaged as successful
 searches. Raw pilot logs, manifests and validated profile runs are recorded
 under `outputs/performance/profile-calibration/`. Freeze this selection before
 optimization; future deliberate selection changes need a new definition version.
+
+The frozen-profile baseline is commit `c7cd597`, with three repetitions on this
+host: median **32.43 s**, range **32.14–32.47 s**, including launch and replay.
+The table above uses per-instance medians from those repetitions; their summed
+search time is **17.66 s**. Every repetition has identical cost sets and work
+counts. The largest median sampled peak planner RSS is **489,868 KB**.
+Baseline measurements, source provenance and per-instance CSV are under
+`outputs/performance/profile-calibration/performance-baseline/`. Use this
+profile's own baseline when evaluating future changes.
