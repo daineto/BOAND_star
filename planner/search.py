@@ -58,71 +58,60 @@ def update_g_values(policy, state, reached_states, task):
         update_g_brute(policy, task)
 
 
-def update_g_brute(policy:Policy, task:Task):
-    # BRUTE FORCE: Compute al pi-trajectories
+def update_g_brute(policy: Policy, task: Task):
+    """Compute cycle-aware worst bounds; preserve historical best relaxation."""
+    root = task.initial_state
+    best = {root: "dummy"}
+    indegrees = {root: 0}
+    successors = {}
+    frontier = [root]
+    # Breadth-first discovery chooses a shortest-path predecessor for each state.
+    for state in frontier:
+        action = policy.strategy.get(state)
+        reached = {op.apply(state) for op in action[1]} if action is not None else ()
+        successors[state] = reached
+        for child in reached:
+            indegrees[child] = indegrees.get(child, 0) + 1
+            if child not in best:
+                best[child] = state
+                frontier.append(child)
 
-    # Ancestor walks repeat while traversing convergent paths. A changed parent
-    # can affect any descendant, so invalidate the entire corresponding cache.
+    worst = {root: "dummy"}
+    distances = {root: 0}
+    ready = [state for state, degree in indegrees.items() if degree == 0]
+    # Kahn's traversal computes finite longest paths. The residue consists of
+    # cycle states and their descendants, all of which have CYCLE_COST.
+    for state in ready:
+        distance = distances[state] + 1
+        for child in successors[state]:
+            if distance > distances.get(child, -1):
+                distances[child] = distance
+                worst[child] = state
+            indegrees[child] -= 1
+            if indegrees[child] == 0:
+                ready.append(child)
+    cyclic_states = {state for state, degree in indegrees.items() if degree}
+    # Every residual state has a residual predecessor. Following these parents
+    # must enter a cycle, retaining the existing worst-cost representation.
+    for state in frontier:
+        if state in cyclic_states:
+            for child in successors[state]:
+                if child in cyclic_states:
+                    worst[child] = state
+    # Preserve the historical best-parent relaxation order. On cyclic graphs,
+    # a full shortest-path replacement can change the existing bound values.
     best_g = lru_cache(maxsize=None)(policy.get_best_g)
-    worst_g = lru_cache(maxsize=None)(policy.get_worst_g)
-    state_successors = {}
-
-    trajectories = list()
-    cycles = list()
-    frontier = {task.initial_state:[]}
-    while frontier:
-        state,ancestors = frontier.popitem()
-        action = policy.strategy.get(state, None)
-        if action is None: #State has no action assigned: end of trajectory
-            trajectories.append(ancestors)
-        else: # State has action assigned
-            reached_states = state_successors.get(state)
-            if reached_states is None:
-                reached_states = {det_action.apply(state) for det_action in action[1]}
-                state_successors[state] = reached_states
-            for reached_state in reached_states:
-                if reached_state in ancestors: # Cycle
-                    cycles.append(ancestors[ancestors.index(reached_state):]+[state])
-                    pass
-                else: # Not a cycle
-                    worst_parent = policy.worst_ancestors[reached_state]
-                    if worst_parent != state and worst_g(state) > worst_g(worst_parent):
-                    # if policy.get_worst_g(state,task.initial_state) > policy.get_worst_g(policy.worst_ancestors[reached_state],task.initial_state):
-                        policy.worst_ancestors[reached_state] = state
-                        worst_g.cache_clear()
-                    if policy.best_ancestors[reached_state] != state and best_g(state) < best_g(policy.best_ancestors[reached_state]):
-                        policy.best_ancestors[reached_state] = state
-                        best_g.cache_clear()
-                    # Extend trajectory
-                    new_ancestors = ancestors.copy()
-                    new_ancestors.append(state)
-                    frontier[reached_state] = new_ancestors
-    loopy_states = set().union(*cycles)
-    extended_loopy_states = set()
-    for cycle in cycles:
-        for state in cycle:
-            reached_states = state_successors[state]
-            for reached_state in reached_states:
-                if reached_state not in loopy_states:
-                    extended_loopy_states.add(reached_state)
-                policy.worst_ancestors[reached_state] = state
-
-    already_seen = set()
-    while extended_loopy_states:
-        state = extended_loopy_states.pop()
-        if state not in already_seen:
-            action = policy.strategy.get(state, None)
-            if action is not None: #State has no action assigned: end of trajectory
-                reached_states = {det_action.apply(state) for det_action in action[1]}
-                for reached_state in reached_states:
-                    policy.worst_ancestors[reached_state] = state
-                reached_states.difference_update(already_seen)
-                extended_loopy_states.update(reached_states)
-            already_seen.add(state)
-
-
-    if len(cycles) > 0:
-        policy.cyclic = True
+    pending_paths = {root: []}
+    while pending_paths:
+        state, ancestors = pending_paths.popitem()
+        for child in successors[state]:
+            if child not in ancestors:
+                if policy.best_ancestors[child] != state and best_g(state) < best_g(policy.best_ancestors[child]):
+                    policy.best_ancestors[child] = state
+                    best_g.cache_clear()
+                pending_paths[child] = ancestors + [state]
+    policy.worst_ancestors = worst
+    policy.cyclic = bool(cyclic_states)
 
 
 def extend_policy(current_policy, state, nondet_action, det_actions, successors, task):
