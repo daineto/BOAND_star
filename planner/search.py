@@ -378,29 +378,28 @@ def boand_star(
 
         # Check if the policy is closed
         if current_policy.is_closed():
-            # Every queued extension preserves escape to an unmapped state.
-            # In a closed policy those exits are goals, so it is proper.
-            current_policy.proper = True
-            pareto_frontier += [current_policy]
-            pareto_f = (f_value[0], f_value[1])
+            # If closed and proper, it is a solution
+            if current_policy.is_proper(task):
+                pareto_frontier += [current_policy]
+                pareto_f = (f_value[0], f_value[1])
 
-            elapsed_time = time.time() - start_time
+                elapsed_time = time.time() - start_time
 
-            f_best = best_heuristic.get_f_value(current_policy)
-            f_worst = worst_heuristic.get_f_value(current_policy)
+                f_best = best_heuristic.get_f_value(current_policy)
+                f_worst = worst_heuristic.get_f_value(current_policy)
 
-            stats["best"] += [f_best]
-            stats["worst"] += [f_worst]
-            stats["size"] += [len(current_policy.strategy)]
-            stats["time"] += [elapsed_time]
-            stats["iterations"] += [it]
-            stats["expansions"] += [expansions]
-            stats["generations"] += [generations]
-            stats["max_open"] += [max_open]
+                stats["best"] += [f_best]
+                stats["worst"] += [f_worst]
+                stats["size"] += [len(current_policy.strategy)]
+                stats["time"] += [elapsed_time]
+                stats["iterations"] += [it]
+                stats["expansions"] += [expansions]
+                stats["generations"] += [generations]
+                stats["max_open"] += [max_open]
 
 
-            write_solution(current_policy, len(pareto_frontier),pname, solution_folder)
-            write_stats(stats, pname, solution_folder)
+                write_solution(current_policy, len(pareto_frontier),pname, solution_folder)
+                write_stats(stats, pname, solution_folder)
 
             # Closed policies cannot be expanded
             continue
