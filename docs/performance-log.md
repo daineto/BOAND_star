@@ -1062,3 +1062,177 @@ HEAD was the parent revision. The next promising separate investigation is the
 interaction of compact strategy storage with queue comparisons removed; it was
 not evaluated in this five-attempt round. Most-recently-generated pending-state
 selection also remains untested and would deliberately change search order.
+
+
+## Round 7: implementation hypotheses from archived AND* code
+
+Reference `e1a21ff`, journal definition version 3. Use fresh reference runs;
+fixed 14 instances/11 domains, seed 0, four workers, 6,000,000 KB virtual memory,
+30 s/job and 60 s suite budget. Original timing baseline remains `0d570b3`.
+Artifacts: `outputs/performance/round7/`. Archived source inspection and checksum
+provenance remain in `outputs/and-star-inspection/`.
+
+### Attempt 31: cached infinite-heuristic action rejection — KEEP
+
+- Parent `e1a21ff`; candidate `3c9616a`.
+- Before escape checking/copying/bounds, discard an action with any successor
+  whose admissible classical heuristic is infinite. All outcomes must be
+  handled by a strong-cyclic solution. Cache the boolean certificate per
+  state/action (65,536 entries, task-local), using the existing state heuristic
+  and grouped-outcome caches. Generation counts still include attempts.
+- Initial three runs: speedup **1.046×**, interval **1.023–1.079×**; retain.
+  Expected costs, replay and work counts match. Small overhead regressions
+  occur where there are fewer dead ends; per-instance data is preserved.
+- Two tests use actual mixed nondeterministic outcomes and hmax, verify that
+  one dead outcome suffices, finite goal outcomes remain valid, and caches
+  are task-local and bounded. Artifacts: `attempt31/`, `tests-attempt31.log`.
+- One run has **36.78 s** suite wall time versus approximately 24 s for the
+  others. Preserve it in the measurements; no causal attribution or exclusion
+  is justified. Suite wall time is reported separately from search time.
+
+- Five candidate runs (extended in `attempt31-extra/`, source restored from
+  `3c9616a`) against three fresh reference runs: **1.052×**, interval
+  **1.023–1.079×**. The gain remains clear. Source-variant metadata records the
+  actual HEAD and restored files. These five runs become the next parent.
+
+### Attempt 32: non-structural Open entries with unchanged tie rule — REVERT
+
+- Parent `3c9616a`; candidate `fc20a3f`; revert `8bb1800`.
+- Replace nested tuple entries with slotted priority/policy entries whose
+  comparison avoids `Policy.__eq__`. BOAND* generates each strategy only once;
+  distinct queued policies are unequal. Preserve the existing priority tuple
+  and policy less-than rule on ties, including identical-object handling.
+  This explicitly differs from attempt 30's changed FIFO/size tie policy.
+- Five runs per revision: **0.977×**, interval **0.953–1.006×**. Revert the
+  inconclusive result; Python entry comparisons offset dictionary-equality
+  savings on this selection. Costs, replay and work counts match.
+- Three tests forbid structural equality during queue operations and verify
+  identical removal order for 100 interleaved insertion/pop trials of 200
+  unique strategies each. Artifacts: `attempt32/`, `tests-attempt32.log`.
+- The fifth suite run takes **41.28 s**; retain it without attribution or
+  exclusion. Parent extensions also have slower suite wall times. All remain
+  within the fixed deadline. Do not infer a system bottleneck from wall alone.
+
+
+### Attempt 33: compact strategies with non-structural queue comparisons — REVERT
+
+- Effective parent `8bb1800` (planner equivalent to `3c9616a`);
+  candidate `7e8acd2`; revert `e5ccac5`.
+- Test the interaction left open by round 6: compact child mappings with native
+  materialization for active/full-graph traversal, plus Open entries that avoid
+  structural equality. Reintroduce 32 as a required dependency and evaluate the
+  complete combination against retained 31; do not credit 32 independently.
+- Five candidate and five parent runs: **0.965×**, interval **0.934–0.995×**.
+  Revert the measured loss. Removing queue dictionary equality substantially
+  narrows the loss seen in 29, but sharing/materialization still fails to pay
+  off on this selection. No isolated speedup for either component is claimed.
+- Costs, replay and work counts match; largest median sampled RSS is retained
+  in the per-attempt summary. Queue/order tests, sibling/materialization tests,
+  1,188 incremental bound checks and 3,313 independent escape checks pass.
+  Artifacts: `attempt33/`, `tests-queue-attempt33.log`,
+  `tests-strategy-attempt33.log`, `incremental-attempt33.txt`,
+  `escape-growth-attempt33.txt`. Prototype scripts preserve the reverted code.
+
+
+### Attempt 34: most-recent-outcome pending-state selection — REVERT
+
+- Effective parent `e5ccac5` (planner equivalent to `3c9616a`);
+  candidate `ba5e37e`; revert `46cda89`.
+- Following archived AND*, inspect assigned states in reverse insertion order
+  and pick a pending outcome from the newest assignment with one available.
+  Use task-local outcome caching. This intentionally replaces arbitrary pending
+  set ordering in this candidate while retaining the fixed campaign's historical
+  `largestg` argument label; it is an explicitly recorded algorithm/order
+  experiment, not a structural equivalence claim. Goal/cost semantics are unchanged.
+- Stop after the first smoke **fails coverage**: `st_tires/p09` reaches the
+  **30-second job timeout**, return code **124**, whereas the retained selector
+  proves unsolvability in milliseconds. Suite wall **49.06 s**; sampled peak
+  planner RSS **1,169,672 KB** for that case. The execution wrapper finishes,
+  but this is not a completed search or a proof of unsolvability.
+- Revert immediately; no aggregate speedup is calculated from only the
+  successful subset. Other cases finish, but the suite has no complete
+  validation report. Two selector contract tests pass; tests do not excuse
+  the failed performance/coverage gate. Artifacts: `attempt34/run-1.log/json`,
+  `tests-attempt34.log`, raw manifest and execution/error/output files under
+  `runs/journal_development/2026-10-08T12-06-47Z-smoke-ee812bda/`.
+- Selection order is highly consequential on this unsolvable case; this
+  observation alone does not establish a logical bug in the recent selector.
+
+- Post-run inspection independently replays all **14 policies** from the **13
+  completed cases**, and all their expected costs match; **12 solved instances**.
+  Only `st_tires/p09` is incomplete, with timeout status and no planner exception
+  in stderr. This does not promote the failed suite to a successful run.
+  `failed-run-inspection.json/txt` records completion, costs, replay, raw work
+  rows and the failed execution. The failure remains explicit in exported data.
+
+### Attempt 35: dense policy-local indices for graph bounds — REVERT
+
+- Effective parent `46cda89` (planner equivalent to `3c9616a`);
+  candidate `3dd120f`; revert `abd290c`.
+- Index reachable states locally during BFS. Use integer adjacency, indegree,
+  distance and predecessor arrays for Kahn traversal, reconstructing public
+  state-keyed bounds afterward. Preserve BFS discovery and shortest-parent tie
+  order. This tests integer graph bookkeeping without changing benchmark/state
+  representations globally or interfaces elsewhere in the planner.
+- Five runs per revision: **0.997×**, interval
+  **0.964–1.033×**. Revert an inconclusive result; indexing/conversion work
+  offsets cheaper array operations on these policies.
+- Nine graph tests, 1,000 independent shortest-path graphs and 1,188 incremental
+  extension checks pass. All expected costs, policy replay and intermediate/
+  final work rows match. Artifacts: `attempt35/`, `tests-attempt35.log`,
+  `graph-attempt35.txt`, `incremental-attempt35.txt`.
+
+### Round 7 result
+
+Keep attempt 31, the task-local early infinite-heuristic action certificate.
+Native strategy dictionaries, historical Open representation/order, previous
+pending-state selection and state-keyed graph computation remain. Final planner
+source hashes equal the measured attempt-31 revision. All intermediate/revert
+commits and rejected prototypes are preserved; no source equivalence is claimed
+for the intentional selection experiment.
+
+| Attempt | Speedup vs parent | Bootstrap interval | Coverage | Decision |
+| --- | ---: | --- | --- | --- |
+| 31 | 1.052× | 1.023–1.079× | 14/14 completed | Keep |
+| 32 | 0.977× | 0.953–1.006× | 14/14 completed | Revert |
+| 33 | 0.965× | 0.934–0.995× | 14/14 completed | Revert |
+| 34 | Not calculated | Not calculated | Timeout; 13/14 completed | Revert |
+| 35 | 0.997× | 0.964–1.033× | 14/14 completed | Revert |
+
+Retained search gain **1.052×** versus three fresh
+round-reference runs, bootstrap interval **1.023–1.079×** after five candidate
+runs; **17.242×** versus the fixed original baseline on
+this smoke selection. Summed per-instance median search time
+**2.081 s**. Largest median sampled peak planner RSS
+**163,324 KB**. Small regressions in individual
+cases and full ranges are retained in per-instance data.
+
+The retained suite median is **26.840 s**, range
+**23.704–36.775 s**, versus
+reference median **24.083 s**. This is a search-time
+improvement, not evidence of end-to-end improvement: the observed suite median
+is worse and launch/preprocessing/validation variability remains material.
+Preserve all outliers; resource snapshots did not establish their cause. No
+system-load correction, exclusion, or causal attribution is applied.
+
+Across **24 timed invocations**, **23 successful runs** each complete 14 cases,
+solve 12 and replay 14 policies with unchanged expected Pareto costs. Every
+intermediate and final non-time statistics row matches the round reference for
+these successful runs. The remaining invocation is attempt 34's explicitly
+failed timeout, separately inspected as above and excluded from speedup
+aggregation. All 24 manifests retain the same frozen inputs, numerical expected
+costs, campaign version 3, commands/configuration, seed 0, four workers,
+6,000,000 KB and 30 s/job; only intended planner-source revisions differ.
+Final planner passes **64 tests**. No full campaign was launched. Original timing
+comparisons cross the previously documented correctness boundaries and do not
+claim arbitrary-task or published-result equivalence.
+
+Raw measurements, logs and source variants remain under
+`outputs/performance/round7/`, including `round-summary.csv/json`,
+`per-instance-summary.csv/json`, `retained-summary.json`,
+`statistics-comparison.txt`, `work-count-differences.json`, `reproducibility.txt`,
+`tests-final.log` and `failed-run-inspection.json/txt`. Failed candidate speedups
+are null, not averages over its surviving subset. Parent extension artifacts
+record actual HEAD plus restored-file provenance. Stop after the requested five
+attempts; compact storage/cheap queue comparisons are now tested jointly, and
+state-selection sensitivity on unsolvable inputs is an important limitation.
