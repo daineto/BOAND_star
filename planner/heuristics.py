@@ -22,6 +22,8 @@ class FondHeuristic(ABC):
     def __init__(self, cp_heuristic: Heuristic) -> None:
         # super().__init__()
         self.cp_heuristic = cp_heuristic
+        self.state_h = (cp_heuristic.evaluate if isinstance(cp_heuristic, CachedStateHeuristic)
+                        else lambda state: cp_heuristic(SearchNode(state, None, None, 0)))
     @abstractmethod
     def get_f_value(self, policy: Policy):
         pass
@@ -38,7 +40,7 @@ class MinSumBestCaseHeuristic(FondHeuristic):
     def get_f_value(self, policy: Policy):
         Out = policy.pending.union(policy.goal_states)
 
-        h_values = {state: self.cp_heuristic(SearchNode(state, None, None, 0)) for state in Out}
+        h_values = {state: self.state_h(state) for state in Out}
 
         f_best = min([policy.get_best_g(state) + h_values[state] for state in Out], default=math.inf)
 
@@ -50,7 +52,7 @@ class SumMinBestCaseHeuristic(FondHeuristic):
         Out = policy.pending.union(policy.goal_states)
 
         g_values = [policy.get_best_g(state) for state in Out]
-        h_values = [self.cp_heuristic(SearchNode(state, None, None, 0)) for state in Out]
+        h_values = [self.state_h(state) for state in Out]
 
         f_best = min(g_values, default=math.inf) + min(h_values, default=math.inf)
 
@@ -70,7 +72,7 @@ class MaxSumWorstCaseHeuristic(FondHeuristic):
     def get_f_value(self, policy: Policy):
         Out = policy.pending.union(policy.goal_states)
 
-        h_values = {state: self.cp_heuristic(SearchNode(state, None, None, 0)) for state in Out}
+        h_values = {state: self.state_h(state) for state in Out}
 
         f_worst_values = []
         for state in Out:
@@ -93,7 +95,7 @@ class DeltaSizeHeuristic(FondHeuristic):
     def get_f_value(self, policy: Policy):
         Out = policy.pending.union(policy.goal_states)
 
-        h_values = {state: self.cp_heuristic(SearchNode(state, None, None, 0)) for state in Out}
+        h_values = {state: self.state_h(state) for state in Out}
 
         h_vector = sorted([h_values[state] for state in policy.pending])
         if len(h_vector) > 0:

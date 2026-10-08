@@ -165,7 +165,9 @@ def compute_f_value(policy:Policy, task:Task, heuristic:hMaxHeuristic):
     Out = policy.pending.union(policy.goal_states)
     # WITHOUT H CACHE
 
-    h_values = {state: heuristic(SearchNode(state, None, None, 0)) for state in Out}
+    state_h = (heuristic.evaluate if isinstance(heuristic, CachedStateHeuristic)
+               else lambda state: heuristic(SearchNode(state, None, None, 0)))
+    h_values = {state: state_h(state) for state in Out}
 
     f_best = min([policy.get_best_g(state) + h_values[state] for state in Out], default=math.inf)
 
