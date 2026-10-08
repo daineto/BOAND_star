@@ -35,9 +35,10 @@ class BoundsFirstStateSelector(StateSelector):
 
 class LargestGStateSelector(StateSelector):
     def select_pending_state(self, policy:Policy, heuristic: Heuristic):
-        prio_list = []
+        # Preserve the historical last-iterated choice. The former heap was
+        # never popped, so its priority calculations could not affect selection.
         for state in policy.pending:
-            heapq.heappush(prio_list, (-policy.get_worst_g(state),state))
+            pass
         policy.pending.remove(state)
 
         return state

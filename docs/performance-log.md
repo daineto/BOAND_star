@@ -241,3 +241,23 @@ parent measurements and the fixed original baseline; artifacts stay under
   `546d243` with `planner/search.py` restored exactly from `ae8fbbd`; provenance
   captures the inverse patch. The combined attempt6 summary now uses five runs;
   its entry above preserves the initial three-run keep evidence.
+
+### Attempt 8: fixed policy fields in slots — KEEP (memory benefit)
+
+- Effective parent: `747b8a3` (attempt7 reverted, equivalent to `ae8fbbd`);
+  candidate: `c984acc`. Compared with the five attempt6 measurements.
+- Change: eight explicit `__slots__` instead of a per-instance attribute dict.
+  Fields, copy behavior and flags retain their values. Dynamic extra attributes
+  are no longer supported; no repository caller relied on them.
+- Five runs: aggregate search speedup **1.010×**, bootstrap interval
+  **0.992–1.037×**. No proven search-speed gain. Median suite time **22.922 s**
+  versus parent **21.650 s**; substantial wall-time variability remains.
+- Policy object plus its attribute dict reduces from **192 to 96 bytes**,
+  excluding unchanged referenced containers. Five largest-case peak RSS samples
+  are **162,024–162,560 KB**, versus **163,588–164,420 KB** for parent; medians
+  **162,256 vs 163,964 KB**, saving **1,708 KB**. The ranges do not overlap.
+- All five runs pass completion, cost and replay checks; non-time statistics
+  match original. Copy-isolation/flag tests pass. Decision: retain the clear,
+  repeatable memory reduction from a small representation change, without
+  claiming a timing win. Artifacts: `outputs/performance/round2/attempt8/` and
+  `policy-object-size-attempt8.txt`.
