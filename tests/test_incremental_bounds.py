@@ -43,6 +43,22 @@ class IncrementalBoundsTests(unittest.TestCase):
         self.assertEqual(child.get_best_g(3), 2)
         self.assertTrue(child.cyclic)
 
+    def test_shorter_paths_propagate_through_implicitly_shortened_descendants(self):
+        parent, task = mapped_policy({0: [1, 2, 8], 1: [7], 7: [3], 3: [4], 4: [6],
+                                      8: [9], 9: [10], 10: [11], 11: [6]})
+        # Both old routes to 6 have length five; choose the independent route.
+        parent.best_ancestors[6] = 11
+        self.assertEqual(parent.get_best_g(6), 5)
+        with patch('planner.search.update_g_brute', side_effect=AssertionError('Unnecessary graph rebuild')):
+            child = extend_policy(parent, 2, 'shortcut', [SimpleNamespace(apply=lambda _: 3)], {3}, task)
+        self.assertEqual((child.get_best_g(3), child.get_best_g(4), child.get_best_g(6)), (2, 3, 4))
+        self.assertEqual(child.worst_costs, parent.worst_costs)
+        self.assertEqual(parent.get_best_g(6), 5)
+        eager = child.copy()
+        update_g_brute(eager, task)
+        for state in eager.best_ancestors:
+            self.assertEqual(child.get_best_g(state), eager.get_best_g(state))
+
     def test_random_extensions_match_full_graph_recomputation(self):
         rng = random.Random(0)
         for case in range(100):
