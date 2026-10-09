@@ -117,23 +117,17 @@ def extension_has_escape(policy, state, successors, task):
     The override at state is already represented by the initial successors.
     """
     seen = {state}
-    frontier = []
-    for child in successors:
-        if child not in seen:
-            if policy.strategy.get(child) is None:
-                return True
-            seen.add(child)
-            frontier.append(child)
+    frontier = list(successors)
     outcomes = getattr(task, "policy_outcomes", None)
     for child in frontier:
-        action = policy.strategy[child]
+        if child in seen:
+            continue
+        action = policy.strategy.get(child)
+        if action is None:
+            return True
+        seen.add(child)
         reached = outcomes(child, action[0]) if outcomes is not None else {op.apply(child) for op in action[1]}
-        for successor in reached:
-            if successor not in seen:
-                if policy.strategy.get(successor) is None:
-                    return True
-                seen.add(successor)
-                frontier.append(successor)
+        frontier.extend(successor for successor in reached if successor not in seen)
     return False
 
 
