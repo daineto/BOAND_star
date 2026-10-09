@@ -2732,3 +2732,50 @@ Pareto sets remain unchanged. These are correctness runs, not repeated timing
 baselines; some test execution overlapped the early profile checks, so their
 wall times must not be interpreted as performance comparisons. No full campaign
 or backend-default change was made.
+
+## Migration consolidation: journal default backend (definition 9)
+
+Parent: `046c861`. This is an interface/campaign consolidation, not another
+performance attempt. The direct backend was retained and measured in attempt 59;
+this milestone makes it the explicit default for journal smoke/performance.
+Hmax remains the default heuristic because LM-cut guidance was mixed on the
+fixed inputs. No new timing gain is claimed.
+
+A common lightweight backend registry now selects lazy grounding factories and
+native/translator/compiler provenance requirements for search and the runner.
+The four existing pipelines retain their implementations and flags. Unknown
+names fail before parsing; unsupported inputs and missing/stale native builds
+fail explicitly without backend fallback. Legacy standalone CLI/API defaults
+remain Pyperplan to preserve ICAPS campaign command behavior. Journal default
+profiles now select the existing **BOAND direct hmax** configuration; named
+`smoke-pyperplan-hmax` and `performance-pyperplan-hmax` profiles retain the old
+**BOAND bw** selection. Configuration identifiers remain unique, and all other
+comparison profiles remain available.
+
+Journal definition 9 versions the default change. Before/after dry-run manifests
+confirm identical selected identities, paths, hashes, run counts, scientific
+settings, four workers, 6,000,000 KB/job and 30-second job limits. Each scheduled
+command only gains `--backend downward-direct` and its configuration identifier
+gains `_downward-direct`. Runtime provenance adds the verified pinned native
+build, translator file hashes and `boand-dual-rail-v1` compiler marker. Expected
+Pareto costs are unchanged. No ICAPS definitions or published inputs are edited.
+
+Raw evidence: `outputs/backend-consolidation/` retains before/after manifests,
+`manifest-comparison.json`, parent smoke, test logs and validated profile logs;
+planner runs and snapshots remain under ignored `runs/journal_development/`.
+Documentation now gives the native prerequisite build before the default
+journal commands and explains explicit comparison profiles. Compact native
+state IDs and direct SAS conditions remain an optional future migration stage.
+
+Validation: all 97 tests pass, including lazy backend dispatch, explicit failure
+propagation, unknown-name rejection before parsing, standalone CLI selection and
+campaign default/comparison contracts. Parent smoke passes. New-default direct
+hmax, explicit Pyperplan hmax and direct LM-cut each pass both fixed profiles:
+14/14 smoke searches complete, 12/12 solvable cases solved and all 14 policies
+replayed; performance has 11/11 complete, 10/10 solved and 11 policies replayed.
+All expected Pareto sets match. Raw intermediate and final non-time statistics
+are identical to the corrected parent for all 75 paired case runs across these
+six profiles (`work-equivalence.json`), including expansions, generations and
+policy sizes. Current default suite walls are 15.03 s (smoke) and 18.26 s
+(performance); these single correctness runs are not repeated timing baselines.
+Keep the consolidation and default change. No full campaign, push, merge or tag.

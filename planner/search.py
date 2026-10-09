@@ -13,6 +13,7 @@ from pyperplan.task import Task
 from pyperplan.search.searchspace import SearchNode
 from .policy import Policy, CYCLE_COST
 from .preprocessing import get_alloutcome_determinization
+from .backends import get_backend
 from .output import write_solution, write_stats
 from .heuristics import (CachedStateHeuristic, FondHeuristic, BlindBestCaseHeuristic, MinSumBestCaseHeuristic, SumMinBestCaseHeuristic, BlindWorstCaseHeuristic, MaxSumWorstCaseHeuristic, DeltaSizeHeuristic, ZeroSizeHeuristic)
 from .state_selection import (StateSelector, RandomStateSelector, BoundsFirstStateSelector, LargestGStateSelector, BestStateSelector)
@@ -220,6 +221,7 @@ def boand_star(
         use_selector = "bounds_first",
         backend = "pyperplan"):
 
+    backend_spec = get_backend(backend)
     pname = problem_file[problem_file.rfind("/")+1:][:-5]
     initialization_started = time.perf_counter()
 
@@ -227,26 +229,17 @@ def boand_star(
     domain = parse_domain(domain_file)
     problem = parse_problem(problem_file)
 
-    if backend == "downward-direct":
-        from .backends.grounding import get_direct_determinization
-        task = get_direct_determinization(domain, problem)
-    elif backend == "downward-grounded":
-        from .backends.grounding import get_downward_determinization
-        task = get_downward_determinization(domain, problem)
-    else:
-        task = get_alloutcome_determinization(domain, problem)
+    task = backend_spec.ground(domain, problem, get_alloutcome_determinization)
     translation_provenance = getattr(task, "translation_provenance", None)
     grounding_seconds = time.perf_counter() - initialization_started
     heuristic_started = time.perf_counter()
 
     # CONFIG
 
-    if backend in ("downward-strips", "downward-grounded", "downward-direct"):
+    if backend_spec.native:
         from .backends.downward import FactStateTask
         task = FactStateTask(task, use_cp_heuristic)
         cp_heuristic = task
-    elif backend != "pyperplan":
-        raise ValueError(f"Unknown backend: {backend}")
     elif use_cp_heuristic == "hmax":
         cp_heuristic = hMaxHeuristic(task)
     elif use_cp_heuristic == "lmcut":
@@ -457,7 +450,7 @@ def boand_star(
     metadata = {"backend": backend, "heuristic": use_cp_heuristic,
                 "parsing_compilation_grounding_seconds": grounding_seconds,
                 "backend_heuristic_setup_seconds": heuristic_setup_seconds}
-    if backend in ("downward-strips", "downward-grounded", "downward-direct"):
+    if backend_spec.native:
         metadata["native_build"] = task.backend_provenance
     if translation_provenance is not None:
         metadata["translation"] = translation_provenance

@@ -16,13 +16,16 @@ class JournalSmokeTests(unittest.TestCase):
     def test_experimental_profiles_preserve_inputs_and_default_flags(self):
         for base in ("smoke", "performance"):
             reference = read_instances(CAMPAIGN, base)
-            for suffix in ("downward-hmax", "downward-lmcut", "pyperplan-lmcut", "grounded-hmax", "grounded-lmcut", "direct-hmax", "direct-lmcut"):
+            for suffix in ("downward-hmax", "downward-lmcut", "pyperplan-hmax", "pyperplan-lmcut", "grounded-hmax", "grounded-lmcut", "direct-hmax", "direct-lmcut"):
                 profile = f"{base}-{suffix}"
                 self.assertEqual(read_instances(CAMPAIGN, profile), reference)
                 self.assertEqual(len(CAMPAIGN.profiles[profile].configurations), 1)
-        default = CAMPAIGN.configurations["BOAND bw"]
-        self.assertNotIn("--backend", default.flags)
-        self.assertEqual(default.name, "bw_hmax_MinSum_MaxSum_Delta_largestg_30")
+        default = CAMPAIGN.configurations[CAMPAIGN.profiles["smoke"].configurations[0]]
+        self.assertEqual(default.flags[-2:], ("--backend", "downward-direct"))
+        self.assertEqual(default, CAMPAIGN.configurations["BOAND direct hmax"])
+        legacy = CAMPAIGN.configurations["BOAND bw"]
+        self.assertNotIn("--backend", legacy.flags)
+        self.assertEqual(legacy.name, "bw_hmax_MinSum_MaxSum_Delta_largestg_30")
         native = CAMPAIGN.configurations["BOAND downward lmcut"]
         self.assertEqual(native.flags[-2:], ("--backend", "downward-strips"))
 

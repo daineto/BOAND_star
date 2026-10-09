@@ -47,6 +47,19 @@ archive and the paper.
 
 ## Run an experimental campaign
 
+Journal development uses the direct Fast Downward backend with hmax. Build the
+pinned native dependency once before running its profiles:
+
+```bash
+git clone --depth 1 --branch release-26.6.0 \
+  https://github.com/aibasel/downward.git outputs/fast-downward/source
+.venv/bin/python -m planner.backends.native.build --compiler g++-12 --jobs 4
+```
+
+This requires CMake, Python development headers and a C++20 compiler. See the
+[backend guide](docs/fast-downward-backend.md) for build verification, supported
+PDDL and alternative backends. A missing or stale native build fails explicitly.
+
 For current journal development, run the 14-instance smoke suite across the
 11 ICAPS domains:
 
@@ -56,8 +69,8 @@ PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke
 ```
 
 It uses four workers and 6,000,000 KB of virtual memory per job, with a
-60-second deadline including policy and cost validation. Calibration on this
-host took about 34 seconds. See the [journal development campaign](campaigns/journal_development/README.md)
+60-second deadline including policy and cost validation. The historical Pyperplan calibration took about 34 seconds;
+current FD measurements are recorded in the development log. See the [journal development campaign](campaigns/journal_development/README.md)
 for the selected instances, validation rules and performance measurements.
 
 For optimization timing, use the separate fixed 11-instance performance profile:
@@ -68,6 +81,10 @@ PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profi
 
 It retains the same resource limits and one-minute deadline. Keep the original
 smoke profile as the correctness gate and establish separate timing baselines.
+Use `--profile smoke-pyperplan-hmax` or `--profile performance-pyperplan-hmax`
+for explicit Pyperplan comparisons, and `smoke-direct-lmcut` or
+`performance-direct-lmcut` for native LM-cut. Standalone planner calls and ICAPS
+campaign configurations retain Pyperplan defaults.
 
 
 Campaigns define their planner configurations, benchmark inputs and resource

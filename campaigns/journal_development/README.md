@@ -9,6 +9,28 @@ without changing their paths, ordering or hashes. Only the explicitly named prof
 performance). The suite covers exactly the 11 ICAPS domains; it
 excludes `st_blocksworld` and `st_first_responders`.
 
+## Current backend (definition 9)
+
+The default `smoke` and `performance` profiles select **BOAND direct hmax**:
+FD grounding, native execution and hmax, using the direct negative-condition
+compiler. Build the pinned native dependency using the
+[backend guide](../../docs/fast-downward-backend.md) before running them.
+Unsupported syntax and missing/stale builds fail explicitly; no automatic
+fallback substitutes a different backend.
+
+`smoke-pyperplan-hmax` and `performance-pyperplan-hmax` select the retained
+**BOAND bw** Pyperplan configuration. The existing Pyperplan LM-cut, native
+STRIPS, UP-grounded and direct comparison profiles remain available. Default
+profiles reuse the existing direct-hmax configuration without duplicating its
+identifier. The hmax choice reflects mixed LM-cut guidance on the fixed profiles,
+not a claim that hmax is always preferable.
+
+Definition 9 changes backend selection, not objectives, input hashes, selected
+instances, expected costs, worker counts or limits. Use matching revision and
+explicit backend profiles for comparisons; earlier Pyperplan timing baselines
+are not measurements of the new default. Standalone CLI/API defaults and ICAPS
+campaign definitions remain unchanged.
+
 ## Definition versions
 
 Version 4 adds a fixed `performance` profile for timing the faster planner.
@@ -84,7 +106,8 @@ that command measures validation time only.
 
 ## Selected instances and calibration
 
-All runs use `bw / hmax / MinSum / MaxSum / Delta / largestg`. The first verified
+The original calibration used Pyperplan with
+`bw / hmax / MinSum / MaxSum / Delta / largestg`. The first verified
 run on this host on 2026-10-08 took **33.75 seconds**, including validation of
 14 policies; a repeat took **34.01 seconds**. Every search completed and all
 costs matched the archive in both runs.

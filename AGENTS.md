@@ -200,6 +200,12 @@ policy with zero best/worst costs without expanding the root. Compare this case
 against independent replay, not the buggy historical search. Fixed profile
 selections and expected costs remain unchanged.
 
+Journal definition version 9 selects `downward-direct` with hmax for default
+smoke/performance profiles. Build the pinned native dependency before running
+these commands; do not silently fall back. Use `smoke-pyperplan-hmax` and
+`performance-pyperplan-hmax` for legacy comparisons. Standalone CLI defaults and
+ICAPS definitions are unchanged. Backend changes need separate timing baselines.
+
 ## Resources and reproducibility
 
 This machine has 32 GB of RAM. Journal development runs use 6,000,000 KB of

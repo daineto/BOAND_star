@@ -1,9 +1,11 @@
-# Fast Downward migration prototype
+# Fast Downward backend
 
 Work on `codex/fast-downward-backend` starts from journal planner `c937f43`.
 The first stage retains the existing PDDL compilation and Pyperplan grounding,
 and sends that grounded STRIPS task to native Fast Downward execution. The
-backend is experimental and opt-in: the default remains Pyperplan with hmax.
+initial backend was experimental and opt-in. Journal definition 9 now selects
+`downward-direct` with hmax for the default smoke/performance profiles.
+Standalone planner calls and ICAPS configurations retain Pyperplan defaults.
 
 ## Dependency and build
 
@@ -230,3 +232,26 @@ for timing-phase accounting, variability and the separately documented legacy
 initial-goal search issue, subsequently corrected in journal definition 8: an
 initially satisfied goal emits an empty policy with zero costs. Defaults remain
 unchanged.
+
+
+## Backend selection and journal defaults (definition 9)
+
+`planner.backends.get_backend` is the common registry for search dispatch and
+campaign dependency/provenance selection. It lazily chooses grounding and records
+whether native execution, the pinned translator and the direct negative compiler
+are required. Unknown backend names fail before parsing; grounding/build errors
+propagate without fallback. Each backend keeps its existing pipeline:
+
+| Backend | Negative compilation / grounding | Execution and heuristic |
+| --- | --- | --- |
+| `pyperplan` | UP / Pyperplan | Python |
+| `downward-strips` | UP / Pyperplan | Native FD |
+| `downward-grounded` | UP / FD relaxed reachability | Native FD |
+| `downward-direct` | Direct complements / FD relaxed reachability | Native FD |
+
+The journal `smoke` and `performance` profiles now select the existing direct
+hmax configuration. Explicit Pyperplan hmax profiles preserve comparison access;
+all other comparison profiles remain available. There is no automatic build or
+backend substitution. The standalone CLI still accepts `--backend <name>` and
+`-ch hmax|lmcut`; omitted backend selection retains Pyperplan. Native state-ID/SAS
+experiments remain future work, not part of this consolidation.

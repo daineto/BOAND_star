@@ -41,7 +41,7 @@ PERFORMANCE_INSTANCES = (
 )
 CAMPAIGN = Campaign(
     campaign_id="journal_development",
-    version="8",
+    version="9",
     configurations={
         "BOAND bw": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
         "BOAND downward hmax": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-strips"),
@@ -53,8 +53,10 @@ CAMPAIGN = Campaign(
         "BOAND direct lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-direct"),
     },
     profiles={
-        "smoke": Profile(("BOAND bw",), instances=SMOKE_INSTANCES),
-        "performance": Profile(("BOAND bw",), instances=PERFORMANCE_INSTANCES),
+        "smoke-pyperplan-hmax": Profile(("BOAND bw",), instances=SMOKE_INSTANCES),
+        "performance-pyperplan-hmax": Profile(("BOAND bw",), instances=PERFORMANCE_INSTANCES),
+        "smoke": Profile(("BOAND direct hmax",), instances=SMOKE_INSTANCES),
+        "performance": Profile(("BOAND direct hmax",), instances=PERFORMANCE_INSTANCES),
         "smoke-downward-hmax": Profile(("BOAND downward hmax",), instances=SMOKE_INSTANCES),
         "performance-downward-hmax": Profile(("BOAND downward hmax",), instances=PERFORMANCE_INSTANCES),
         "smoke-downward-lmcut": Profile(("BOAND downward lmcut",), instances=SMOKE_INSTANCES),

@@ -73,17 +73,18 @@ def campaign_manifest(environment, profile):
                              "problem_sha256": hashes[domain.name, name]["problem_sha256"],
                              "command": planner.get_cmd(domain_path, problem_path, "<solution_path>")})
     runtime = runtime_information()
-    if any(campaign.configurations[label].backend in ("downward-strips", "downward-grounded", "downward-direct")
-           for label in campaign.profiles[profile].configurations):
+    from planner.backends import get_backend
+    backends = [get_backend(campaign.configurations[label].backend)
+                for label in campaign.profiles[profile].configurations]
+    if any(backend.native for backend in backends):
         from planner.backends.downward import native_provenance
         runtime["native_backend"] = native_provenance()
-    if any(campaign.configurations[label].backend in ("downward-grounded", "downward-direct")
-           for label in campaign.profiles[profile].configurations):
+    if any(backend.uses_translator for backend in backends):
         from planner.backends.grounding import translator_provenance
         translation = dict(translator_provenance())
-        if any(campaign.configurations[label].backend == "downward-direct"
-               for label in campaign.profiles[profile].configurations):
-            translation["negative_conditions"] = "boand-dual-rail-v1"
+        for backend in backends:
+            if backend.negative_conditions:
+                translation["negative_conditions"] = backend.negative_conditions
         runtime["native_backend"] = {**runtime["native_backend"], "translator": translation}
     return {"schema_version": 1, "campaign": resolved_definition(campaign), "profile": profile,
             "scientific_settings": {"timeout_seconds": environment.time, "memory_kb": environment.memory,
