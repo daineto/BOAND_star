@@ -219,3 +219,12 @@ No classical SAS simplification or new state representation is introduced.
 Compiler identity `boand-dual-rail-v1` is recorded in manifests and sidecars.
 Lazy imports put legacy compiler cold-import time inside preprocessing; fresh
 controls must be used rather than reinterpreting earlier phase measurements.
+
+Candidate `9540574` passes 93 tests and both fixed profiles with unchanged costs
+and policy replay. Three fresh repetitions per configuration reduce suite wall
+time from 27.29→17.97 s with hmax and 26.62→18.05 s with LM-cut: **1.52×/1.47×**
+end-to-end speedups. Search geomeans improve 1.02×/1.04× with identical recorded
+work; sampled peak-memory medians fall approximately 20%. The direct path is
+retained as opt-in. See [attempt 59](performance-log.md#attempt-59--direct-compilation-of-negative-conditions)
+for timing-phase accounting, variability and the separately documented legacy
+initial-goal search issue. Defaults remain unchanged.

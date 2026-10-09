@@ -2609,3 +2609,85 @@ seed 0, four workers, 6,000,000 KB/job, 30 s/job and the 60 s suite deadline.
 Collect per-instance search/setup times, work counts, completed/solved/replayed
 coverage, suite wall time, sampled memory and machine resources. No full campaign
 is requested or launched.
+
+Final decision: **retain candidate `9540574` as the opt-in direct compiler path**.
+Three fresh repetitions per configuration establish a clear setup/end-to-end
+benefit; no extension to five is needed. All twelve performance runs complete
+11/11 searches, solve 10/10 solvable cases and replay 11/11 policies with unchanged
+expected costs. Both direct smoke configurations complete 14/14 searches, solve
+12/12 solvable cases and replay all 14 policies. Resource-monitored final smoke
+walls are 13.017 s for hmax and 12.886 s for LM-cut (external command time is
+slightly higher). Default before/after smoke passes; **93 tests pass**.
+
+All performance manifests use committed `9540574`, definition 7, seed 0,
+four workers, 6,000,000 KB/job, 30 seconds/job and the 60-second suite deadline.
+Control and candidate runs are interleaved sequentially without diagnostics,
+other campaigns or builds. The earlier controls cannot replace these fresh
+controls for setup-time comparisons, because lazy imports changed phase
+accounting. Before/after dry-run checks confirm identical selected identities,
+paths, input hashes and scientific resource settings, with four workers and
+only explicitly chosen configuration/backend flags differing. Manifests and
+sidecars identify the direct compiler as `boand-dual-rail-v1`.
+
+| Configuration | Sum of median search times (s) | Sum of median preprocessing times (s) | Median suite wall (range), s | Search geomean speedup vs matching control (95% bootstrap interval) |
+| --- | ---: | ---: | ---: | ---: |
+| UP compiler + FD grounding, hmax | 9.949 | 30.601 | 27.295 (27.132–28.744) | reference |
+| Direct compiler + FD grounding, hmax | 9.618 | 1.730 | 17.969 (17.802–18.782) | 1.023 (1.015–1.086) |
+| UP compiler + FD grounding, LM-cut | 8.447 | 29.703 | 26.619 (26.595–26.690) | reference |
+| Direct compiler + FD grounding, LM-cut | 8.037 | 1.725 | 18.052 (17.910–19.324) | 1.043 (1.034–1.053) |
+
+Preprocessing includes original FOND parsing, determinization, compiler imports,
+compilation, grounding and explicit temporary-object collection. Legacy UP cold
+imports were outside this timer in definition 6; they are inside it in definition
+7. Thus the 30-second sums do not imply the retained compiler became slower than
+before. They sum eleven independent cold processes, run four at a time, and are
+not suite wall times. The direct path avoids those imports and the UP parse/
+compile/write round trip entirely. Native backend/heuristic construction sums
+are 0.301→0.307 s for hmax and 0.298→0.304 s for LM-cut. Total suite wall speedups
+are 1.52× and 1.47× (approximately 34%/32% shorter), including launch and replay.
+These real end-to-end reductions are unaffected by the phase-accounting change.
+
+Whole-run bootstrap intervals use 4,000 resamples and seed 0, followed by
+per-instance medians and a geometric mean of ratios. Every intermediate/final
+non-time statistics row matches the corresponding control in all 66 paired
+case/repetition comparisons: expansions, generations, iterations, queue sizes,
+costs and policy sizes agree. The modest search improvement is therefore not
+a search-order/guidance gain; avoiding the compiler changes the Python heap and
+runtime overhead. Hmax has small per-instance median regressions on Doors
+(0.984×), Modified First Responders (0.973×) and ST Tires (0.965×), retained in
+raw data; no substantial regression accompanies the strong setup gain. LM-cut
+improves every measured per-instance search median (1.008× through 1.134×).
+
+Observed cumulative search speedups versus fixed `c7cd597` are 4.022×
+(3.976–4.068) for hmax and 3.983× (3.925–3.997) for LM-cut. These span rounds
+and have environmental-drift limitations; the fresh matching controls are the
+primary evidence for this milestone. Comparing direct LM-cut with direct hmax
+still gives mixed domain guidance (geomean 0.990, interval 0.972–0.997) despite
+LM-cut's lower summed search time. No universal heuristic/default choice follows.
+
+Largest per-instance median sampled peak RSS drops from 480,140→383,492 KB
+(hmax) and 480,488→383,372 KB (LM-cut), approximately 469→375 MiB or 20% less.
+All planner processes are observed by the 50 ms sampler, but sampled high-water
+RSS is not a guaranteed exit-time peak. Candidate system samples show at least
+27.424 GiB available RAM and no more than 768 KB swap used. Aggregate system CPU
+busy fraction is approximately 7.9–8.3%, versus 12.8–13.1% for controls, across
+24 logical CPUs and including other machine activity. No memory pressure is
+observed; the compiler replacement also reduces machine CPU demand on this set.
+
+Raw evidence: `outputs/fast-downward-direct/measurements/` preserves all reports,
+logs, manifests, sampled RSS and system telemetry. `summary.json` holds coverage,
+medians, intervals, work counts, resource summaries and per-instance speedups;
+`per-instance.csv` includes preprocessing/construction and search variability;
+`work-equivalence.json` retains all compared statistics rows. `summarize.py` checks
+coverage, costs, execution states, definition/limits and paired raw rows before
+computing results. Audit/test logs and dry-run manifests remain beside these
+files. Planner runs and their provenance/snapshots are under ignored
+`runs/journal_development/`. The initial-goal correctness finding above remains
+a separate documented issue; neither compiler expectations nor profile costs
+were altered to suppress it.
+
+Remaining migration scope: compact SAS variables/integer states and consolidation
+of defaults/interfaces after review. This direct path still uses the shared FOND
+parser/determinizer and Boolean SAS/fact-set search boundary. It intentionally
+bypasses classical FD graph simplification and does not claim unrestricted PDDL
+support. No full campaign, default switch, push, merge or tag was performed.
