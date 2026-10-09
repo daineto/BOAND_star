@@ -2168,3 +2168,102 @@ profile inputs/flags/limits under definition-5 metadata. All parent cost sets
 remain unchanged. Repeated candidate evaluation and final keep/revert assessment
 will follow this validated prototype commit. No performance win is claimed yet.
 See `docs/fast-downward-backend.md` for architecture, build and remaining scope.
+
+### Final evaluation of prototype `37368cb`
+
+Decision: **retain the opt-in native execution backend** on the migration
+branch. The default remains Pyperplan+hmax for review and controlled comparisons.
+Native hmax has a clear repeatable benefit with identical search work. Keep
+native LM-cut as the requested heuristic capability, with its mixed guidance
+results documented; do not select it as a universal default on this evidence.
+The integer-state search-boundary candidate remains rejected. This stage does
+not migrate grounding or claim the advantages of compact native Python-facing
+states, and it does not attribute the batch gain to separate components.
+
+All reported candidate measurements use committed revision `37368cb`, seed 0,
+the unchanged 11-instance performance selection, four workers, 6,000,000 KB/job,
+30 s/job and the 60 s suite deadline. Three exact-parent planner measurements
+use `baseline-performance-{1,3,5-parent}.log`; the fifth restores the parent
+search/CLI/output modules and leaves the version-5 profile metadata in place.
+The commands, costs, input hashes and limits are equivalent to version 4.
+A further three current-Pyperplan controls at `37368cb` interleave with three
+runs of each native configuration; there are no concurrent builds or campaigns.
+These controls check drift and include the measurement sampler used for native
+runs. Whole-run bootstrap intervals use 4,000 resamples, seed 0, and per-instance
+medians followed by the geometric mean of baseline/candidate ratios.
+
+| Configuration | Searches completed | Solvable cases solved | Policies replayed | Geomean speedup vs parent (95% bootstrap interval) | Sum of median search times (s) | Median suite wall time (s) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Parent Pyperplan+hmax | 11/11 | 10/10 | 11/11 | 1.000 | 12.095 | 28.817 |
+| Current Pyperplan+hmax control | 11/11 | 10/10 | 11/11 | reference control | 12.136 | 28.938 |
+| Native hmax | 11/11 | 10/10 | 11/11 | 2.256 (2.229–2.310) | 9.711 | 27.595 |
+| Native LM-cut | 11/11 | 10/10 | 11/11 | 2.174 (2.042–2.211) | 8.456 | 27.206 |
+| Pyperplan LM-cut | 10/11 | 9/10 | 10/11 | **coverage failure; no aggregate** | unavailable for complete suite | 36.067 external, failed |
+
+The parent wall-time median above is the median of its suite validation reports;
+see raw artifacts for exact samples. Current-control wall range is 28.798–30.087 s;
+native hmax 27.460–27.799 s; native LM-cut 27.205–27.911 s. Suite-wall improvements
+are modest because setup and replay still dominate much of the suite; the
+geometric mean weights domains equally and does not predict total elapsed time.
+Against the interleaved current Pyperplan control, native hmax is 2.208×
+(2.142–2.301) and native LM-cut 2.127× (1.962–2.202). Relative to the fixed
+original `c7cd597` baseline, cumulative observed speedups are 3.670×
+(3.613–3.735) and 3.536× (3.309–3.575), respectively. Those original-baseline
+comparisons span rounds and retain the usual environmental-drift limitation.
+
+Native hmax improves every parent per-instance median (1.024× on Elevators
+through 15.840× on Blocksworld); all intermediate and final non-time statistics
+rows match the parent exactly, including policy sizes and work counts. Native
+LM-cut has an individual regression: Beam-walk search is 0.871 s versus the
+parent's approximately 0.191 s (0.219×). It reaches 161.077× on Elevators,
+reducing expansions from 46,819 to 461. Modified First Responders expansions
+fall from 1,959 to 1,784 and Tireworld-truck from 8,369 to 8,249. Other changes
+in generations, queue sizes and policy statistics are recorded in the raw runs.
+LM-cut versus native hmax has geomean 0.964× (0.893–0.982), while its summed
+median search time is lower. The clear gains/losses established after three
+runs do not require extending to five. No failed case enters a speedup average.
+
+Pyperplan LM-cut's first performance run timed out on Beam-walk `p7` at its
+30-second job limit; further repetitions stopped. The other ten cases completed,
+including the unsolvable case, and their ten emitted policies were independently
+replayed with matching cost sets. That partial check is not an overall pass.
+Both native configurations pass final 14-case smoke checks, with 12/12 solvable
+cases and 14/14 policies replayed. **85 tests pass**, including 120 generated
+classical tasks and exhaustive policy oracles on 60 tiny FOND tasks with all
+four backend/heuristic combinations. No numerical expected cost was changed.
+
+Diagnostic profiles confirm Beam-walk calls both native heuristics 512 times:
+hmax evaluation totals 0.00390 s, LM-cut 0.76903 s (profiled values, not timing
+baselines). All four implementations give initial h=256 there. On Elevators,
+hmax initially gives 5 while LM-cut gives 10, and the native LM-cut search uses
+133 heuristic evaluations versus hmax's 248. These two diagnostic tasks also
+show equal initial heuristic values across backends. LM-cut values need not
+agree on every task because supporter choices can differ. Profiled samples
+are excluded from all aggregate timing calculations.
+
+Per-process sampled median peak RSS is at most 480,116 KB for native hmax and
+480,356 KB for native LM-cut, versus 490,080 KB for the current Pyperplan control.
+The 50 ms sampler observed all 11 planner processes in every repetition; these
+are sampled high-water measurements rather than guaranteed exit-time peaks.
+System samples every second show at least 27.566 GiB of available RAM, at most
+768 KB of swap used, and mean aggregate CPU busy fractions of approximately
+12–14% across 24 logical CPUs. The CPU metric includes other machine activity;
+it is not per-planner CPU utilization. There is no indication of substantial
+memory pressure from this workload.
+
+Raw evidence: `outputs/fast-downward/measurements/` holds each repetition's
+full report, log, peak-RSS and system samples; `summary.json` contains medians,
+bootstraps and case-level speedups; `per-instance.csv` adds preprocessing and
+backend/heuristic setup times. `raw-work-equivalence-all.json` records the complete
+hmax statistics comparison across all six repeated control/native-hmax runs. `pyperplan-lmcut-coverage.json` and
+`pyperplan-lmcut-partial-validation.json` preserve failure/partial coverage.
+`profiles/` holds four diagnostic cProfiles and native-call totals;
+`audit/` holds domain equivalence, feature checks and initial-value diagnostics.
+Final smoke runs and their resource samples are also in `measurements/`.
+All native run manifests include the upstream revision, compiler, Python ABI,
+binding hashes and native binary hash; snapshots include `native-backend.json`.
+
+The next useful milestone is replacing grounding/translation while preserving
+all outcomes and explicitly handling translator simplification. It should be
+assessed separately from this native execution win. No full campaign, push,
+tag or merge was performed.

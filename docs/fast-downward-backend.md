@@ -114,3 +114,21 @@ of unsolvable tasks cannot be assumed to preserve a FOND transition graph.
 Do not enable it until preservation options and outcome reconstruction have
 passed independent checks. The PR2 rewrite is reference material; upstream
 is the dependency for this prototype.
+
+## First-stage outcome
+
+Prototype commit `37368cb` passes all 85 tests and both native smoke gates.
+Three repeated performance runs give geometric-mean search speedups of **2.26×**
+for native hmax and **2.17×** for native LM-cut against the exact parent planner.
+Summed median search times are 12.10 s for the parent, 9.71 s for native hmax
+and 8.46 s for native LM-cut. Suite time improves much less because existing
+compilation/grounding and replay remain outside the search timer.
+
+Native hmax preserves every recorded non-time statistics row. LM-cut reduces
+Elevators expansions from 46,819 to 461 but adds overhead on Beam-walk, where
+both heuristics already give initial h=256. Native LM-cut completes all cases;
+Pyperplan LM-cut times out on Beam-walk in the performance profile. The default
+remains unchanged while both native options are available for review. Detailed
+intervals, per-case regressions, coverage and resource measurements are in
+[the performance log](performance-log.md), with raw evidence under
+`outputs/fast-downward/`.
