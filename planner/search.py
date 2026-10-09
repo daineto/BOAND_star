@@ -42,28 +42,24 @@ def select_pending_state(policy, task, heuristic):
 
 
 def update_g_values(policy, state, reached_states, task):
-    parent_worst = policy.get_worst_g(state)
+    best = policy.best_costs
+    worst = policy.worst_costs
+    child_best = best[state] + 1
+    parent_worst = worst.get(state, CYCLE_COST)
     child_worst = CYCLE_COST if parent_worst == CYCLE_COST else parent_worst + 1
-    known = []
     for child in reached_states:
-        if child not in policy.best_costs:
-            policy.best_costs[child] = policy.get_best_g(state) + 1
-            policy.worst_costs[child] = child_worst
+        if child not in best:
+            best[child] = child_best
+            worst[child] = child_worst
         else:
-            known.append(child)
-    if not known:
-        return
-    parent_best = policy.get_best_g(state)
-    # If every new edge is dominated by existing best/worst bounds, it changes
-    # neither them nor their descendants. Finite longest-path levels also
-    # certify that such an edge cannot create a cycle. A cycle-cost source may
-    # safely connect to nodes already having cycle cost.
-    if all(policy.get_best_g(child) <= parent_best + 1 and
-           (policy.get_worst_g(child) == CYCLE_COST or
-            (child_worst != CYCLE_COST and policy.get_worst_g(child) >= child_worst))
-           for child in known):
-        return
-    update_g_brute(policy, task)
+            previous_worst = worst.get(child, CYCLE_COST)
+            # A dominated edge preserves bounds and cannot create a new cycle.
+            if best[child] > child_best or (previous_worst != CYCLE_COST and
+                    (child_worst == CYCLE_COST or previous_worst < child_worst)):
+                # The full graph includes every outcome of the new assignment;
+                # no initialization of the remaining outcomes is needed here.
+                update_g_brute(policy, task)
+                return
 
 
 def update_g_brute(policy: Policy, task: Task):
