@@ -141,12 +141,16 @@ def extend_policy(current_policy, state, nondet_action, det_actions, successors,
     # Update the g-values (ancestors) of the reached states
     update_g_values(new_policy,state,successors, task)
 
-    # Compute pending tiles for the new policy
-    new_pending = [succ for succ in successors if not task.goal_reached(succ) and new_policy.strategy.get(succ,None) is None]
-    new_policy.pending.update(new_pending)
+    # Classify each outcome once, retaining the existing container order.
+    pending, goals = [], []
+    for successor in successors:
+        if task.goal_reached(successor):
+            goals.append(successor)
+        elif new_policy.strategy.get(successor) is None:
+            pending.append(successor)
 
-    new_goal_states = [succ for succ in successors if task.goal_reached(succ)]
-    new_policy.goal_states.update(new_goal_states)
+    new_policy.pending.update(pending)
+    new_policy.goal_states.update(goals)
 
     return new_policy
 
