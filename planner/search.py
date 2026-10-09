@@ -70,7 +70,7 @@ def update_g_brute(policy: Policy, task: Task):
     successors = {}
     outcomes_for_action = getattr(task, "policy_outcomes", None)
     frontier = [root]
-    # Breadth-first discovery records the shortest distance to each state.
+    # Breadth-first discovery chooses a shortest-path predecessor for each state.
     for state in frontier:
         action = policy.strategy.get(state)
         if action is None:
@@ -87,9 +87,7 @@ def update_g_brute(policy: Policy, task: Task):
                 frontier.append(child)
 
     distances = {root: 0}
-    # All discovered vertices are reachable from root, so every other vertex
-    # has an incoming edge. Root is the only possible zero-indegree vertex.
-    ready = [root] if indegrees[root] == 0 else []
+    ready = [state for state, degree in indegrees.items() if degree == 0]
     # Kahn's traversal computes finite longest paths. The residue consists of
     # cycle states and their descendants, all of which have CYCLE_COST.
     for state in ready:
