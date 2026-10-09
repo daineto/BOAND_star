@@ -5,6 +5,8 @@ from pathlib import Path
 import random
 import tempfile
 import unittest
+from dataclasses import replace
+from tests.test_downward_backend import reachable_graph, exact_distances
 
 from planner.backends.grounding import ground_compiled_pddl
 from planner.backends.downward import FactStateTask, ROOT
@@ -29,13 +31,19 @@ class DirectTests(unittest.TestCase):
                 problem.write_text('(define (problem t) (:domain t) (:init '+' '.join(f'({f})' for f in sorted(initial))+') (:goal '+conjunction(goals,neg_goals)+'))')
                 with redirect_stdout(StringIO()):
                     grounded=ground_compiled_pddl(domain,problem,direct=True)
+                exact = exact_distances(grounded, reachable_graph(grounded))
                 for heuristic in ('hmax','lmcut'):
+                    legacy = FactStateTask(replace(grounded, complement_pairs={}), heuristic)
                     native=FactStateTask(grounded,heuristic); pending=[native.initial_state];seen=set()
                     while pending:
                         state=pending.pop()
                         if state in seen:continue
                         seen.add(state)
                         fixed={f for f in initial if f'({f})' not in grounded.facts}
+                        self.assertLessEqual(native.evaluate(state), exact.get(state, float('inf')))
+                        if heuristic == 'hmax':
+                            self.assertEqual(native.evaluate(state), legacy.evaluate(state))
+                        legacy.get_successor_states(state)
                         positive={f for f in facts if f'({f})' in state}|fixed
                         self.assertEqual(native.goal_reached(state),goals<=positive and not neg_goals&positive)
                         for f in facts:

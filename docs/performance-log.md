@@ -2859,3 +2859,43 @@ operator order, add-wins alias handling and FOND reachability semantics while
 representing actual complement pairs as opposite values of one SAS variable.
 Keep this separate from handle representation and classical FD simplification.
 No SAS encoding change was implemented in this attempt.
+
+## Attempt 61 — complement pairs as opposite SAS values
+
+Hypothesis: encode explicit compiler-generated complement pairs as opposite
+values of one Boolean SAS variable, reducing native variables without changing
+the Python fact-set boundary or FOND grounding. Parent: `a51e9a4` (planner
+identical to `b7b2633`); fixed original performance baseline: `c7cd597`.
+
+The direct compiler's mapping now reaches `GroundedTask` as explicit grounded
+pairs. `paired_sas` merges eligible pairs, maps negative conditions/goals to
+value 0, combines mirrored effects after existing add-wins normalization and
+reconstructs the same positive/complement fact labels when decoding. No
+predicate-name inference, integer search states, classical SAS simplification
+or benchmark change is involved. A pair is left as separate Boolean variables
+when both values occur in a goal/precondition or its initial values are not
+exclusive. Non-direct tasks use the original Boolean encoding. Manifest and
+translation provenance identify `boand-paired-boolean-v1` for the direct path.
+This is a candidate encoding; default selections/objectives/costs are unchanged.
+
+All 100 tests pass, including 100 random signed classical graphs with native
+bounds checked against independent exact distances, hmax compared with the
+unmerged encoding, and signed FOND exhaustive-policy oracles. Targeted tests
+check declared-pair-only merging, contradictory-condition fallback, transitions,
+values, hashes and complement invariants. Hmax and LM-cut smoke both complete
+14/14 searches, solve 12/12 solvable instances and replay all 14 policies with
+unchanged costs.
+
+An audit of all 23 distinct fixed-profile tasks compares 1,698 sampled states
+and 11,447 labeled transitions per heuristic; three graphs are exhaustive,
+the others stop at 80 states. Transitions, goals and hmax/LM-cut values agree
+with the unmerged parent. Only Beam-walk p6/p7 and Tireworld-truck p6/p7 have
+eligible dynamic pairs, one each (variables 130→129, 258→257, 54→53, 64→63,
+excluding the identity auxiliary). Other complements are already static/pruned
+or absent. Thus a substantial fixed-profile benefit is unlikely; small SAS
+sizes alone do not justify this algorithmic complexity.
+
+Raw evidence: `outputs/paired-sas/` retains parent smoke, three repeated
+resource-monitored unprofiled parent runs per heuristic, tests, candidate smoke,
+`audit.py`, `audit.json` and grounding/audit logs. Runs/manifests/snapshots remain
+under ignored `runs/journal_development/`. Candidate timing/decision pending.
