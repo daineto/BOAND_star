@@ -5,7 +5,7 @@ accepted. Relaxed reachability may omit unreachable operators, but every
 reachable all-outcome operator (including identities) must survive. Goals are
 retained even when the relaxed exploration declares the task unsolvable.
 """
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from functools import lru_cache
 import gc
 import hashlib
@@ -71,7 +71,6 @@ class GroundedTask:
     goals: frozenset
     operators: tuple
     translation_provenance: dict
-    complement_pairs: dict = field(default_factory=dict)
 
     def goal_reached(self, state):
         return self.goals <= state
@@ -157,16 +156,7 @@ def ground_compiled_pddl(domain_file, problem_file, direct=False):
     provenance = dict(translator_provenance())
     if direct:
         provenance["negative_conditions"] = "boand-dual-rail-v1"
-    pairs = {}
-    for value in facts:
-        predicate, *args = value[1:-1].split()
-        if predicate in complements:
-            other = "(" + " ".join((complements[predicate], *args)) + ")"
-            if other in facts:
-                pairs[value] = other
-    if direct:
-        provenance["encoding"] = "boand-paired-boolean-v1"
-    return GroundedTask(task.problem_name, facts, initial, goals, tuple(operators), provenance, pairs)
+    return GroundedTask(task.problem_name, facts, initial, goals, tuple(operators), provenance)
 
 
 def get_downward_determinization(domain, problem):

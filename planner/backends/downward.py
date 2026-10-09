@@ -83,55 +83,6 @@ def boolean_sas(task):
     return "\n".join(lines) + "\n", tuple(facts)
 
 
-def paired_sas(task):
-    """Merge only explicit compiler pairs with consistent Boolean constraints."""
-    pairs = getattr(task, "complement_pairs", {})
-    pairs = {positive: negative for positive, negative in pairs.items()
-             if (positive in task.initial_state) != (negative in task.initial_state)
-             and not {positive, negative} <= task.goals
-             and not any({positive, negative} <= op.preconditions for op in task.operators)}
-    if not pairs:
-        sas, names = boolean_sas(task)
-        return sas, names, {}
-    facts = sorted(set(task.facts) | set(task.initial_state) | set(task.goals) |
-                   {f for op in task.operators for f in op.preconditions | op.add_effects | op.del_effects})
-    names = tuple(f for f in facts if f not in pairs.values())
-    locations = {f: (i, 1) for i, f in enumerate(names)}
-    negatives = {locations[p][0]: n for p, n in pairs.items()}
-    locations.update({n: (locations[p][0], 0) for p, n in pairs.items()})
-    auxiliary = len(names)
-    lines = ["begin_version", "3", "end_version", "begin_metric", "0", "end_metric", str(auxiliary + 1)]
-    for i, name in enumerate(names):
-        zero = f"Atom {negatives[i]}" if i in negatives else f"NegatedAtom {name}"
-        lines += ["begin_variable", f"var{i}", "-1", "2", zero, f"Atom {name}", "end_variable"]
-    lines += ["begin_variable", "boand_identity", "-1", "2", "NegatedAtom boand_identity", "Atom boand_identity", "end_variable"]
-    lines += ["0", "begin_state", *[str(int(f in task.initial_state)) for f in names], "1", "end_state",
-              "begin_goal", str(len(task.goals) or 1)]
-    lines += ([f"{locations[f][0]} {locations[f][1]}" for f in sorted(task.goals)]
-              if task.goals else [f"{auxiliary} 1"])
-    lines += ["end_goal", str(len(task.operators))]
-    for op in task.operators:
-        pre = dict(locations[f] for f in op.preconditions)
-        effects = {}
-        writes = [(f, False) for f in op.del_effects - op.add_effects] + [(f, True) for f in op.add_effects]
-        for f, added in writes:
-            var, true_value = locations[f]
-            value = true_value if added else 1 - true_value
-            if var in effects and effects[var] != value:
-                raise ValueError(f"Inconsistent complement effects: {op.name}")
-            effects[var] = value
-        prevail = sorted(pre.keys() - effects.keys())
-        lines += ["begin_operator", op.name, str(len(prevail))]
-        lines += [f"{var} {pre[var]}" for var in prevail]
-        lines += [str(len(effects) or 1)]
-        lines += [f"0 {var} {pre.get(var, -1)} {value}" for var, value in sorted(effects.items())]
-        if not effects:
-            lines += [f"0 {auxiliary} 1 1"]
-        lines += ["1", "end_operator"]
-    lines += ["0"]
-    return "\n".join(lines) + "\n", names, negatives
-
-
 class NativeOperator:
     __slots__ = ("name", "index", "task", "_hash")
 
@@ -154,7 +105,7 @@ class DownwardTask:
 
     def __init__(self, grounded, heuristic="hmax"):
         self.native = native_module()
-        sas, self.fact_names, self.negative_names = paired_sas(grounded)
+        sas, self.fact_names = boolean_sas(grounded)
         self.handle = self.native.load(sas, heuristic)
         self.initial_state = 0
         self.operators = tuple(NativeOperator(self, index, op)
@@ -171,12 +122,8 @@ class DownwardTask:
         return [(self.operators[index], child) for index, child in sorted(self._successors(state))]
 
     def state_facts(self, state):
-        true = self.native.facts(self.handle, state)
-        if not self.negative_names:
-            return frozenset(self.fact_names[i] for i in true if i < len(self.fact_names))
-        present = set(true)
-        return frozenset([*(self.fact_names[i] for i in true if i < len(self.fact_names)),
-                          *(name for i, name in self.negative_names.items() if i not in present)])
+        return frozenset(self.fact_names[index] for index in self.native.facts(self.handle, state)
+                         if index < len(self.fact_names))
 
     def __call__(self, node):
         return self.evaluate(node.state)

@@ -85,7 +85,6 @@ def campaign_manifest(environment, profile):
         for backend in backends:
             if backend.negative_conditions:
                 translation["negative_conditions"] = backend.negative_conditions
-                translation["encoding"] = "boand-paired-boolean-v1"
         runtime["native_backend"] = {**runtime["native_backend"], "translator": translation}
     return {"schema_version": 1, "campaign": resolved_definition(campaign), "profile": profile,
             "scientific_settings": {"timeout_seconds": environment.time, "memory_kb": environment.memory,
