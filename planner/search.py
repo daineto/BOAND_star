@@ -237,8 +237,8 @@ def boand_star(
     # CONFIG
 
     if backend_spec.native:
-        from .backends.downward import HandleStateTask
-        task = HandleStateTask(task, use_cp_heuristic)
+        from .backends.downward import FactStateTask
+        task = FactStateTask(task, use_cp_heuristic)
         cp_heuristic = task
     elif use_cp_heuristic == "hmax":
         cp_heuristic = hMaxHeuristic(task)

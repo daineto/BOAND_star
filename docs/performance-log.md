@@ -2779,33 +2779,3 @@ six profiles (`work-equivalence.json`), including expansions, generations and
 policy sizes. Current default suite walls are 15.03 s (smoke) and 18.26 s
 (performance); these single correctness runs are not repeated timing baselines.
 Keep the consolidation and default change. No full campaign, push, merge or tag.
-
-## Attempt 60 — compact native handles preserving state hashes
-
-Hypothesis: keep native state IDs at the Python search boundary while retaining
-legacy fact-set hashes, so state selection remains unchanged and permanent
-fact-set copies/two-way ID maps can be removed. Parent: `b7b2633`; fixed original
-performance baseline: `c7cd597`. Direct Boolean SAS/negative compilation and
-scientific semantics remain unchanged. This is a focused state representation
-experiment; direct SAS-condition compilation is not part of this candidate.
-
-Profiles on current direct hmax Tireworld and Doors show decoding is small:
-Tireworld `state_facts` takes 0.043 s and successor conversion 0.112 s cumulative
-out of 6.337 s profiled execution. A large runtime benefit is unlikely; reduced
-retained Python heap may still matter. Candidate `HandleStateTask` interns
-compact task-local state objects holding an ID and the original decoded
-fact-set hash. Native goal/heuristic calls use IDs directly; decoding occurs
-once for hashing and later for output or legacy subset tie comparisons. No
-permanent decoded facts or reverse fact-set-to-ID map is retained. Operator
-hashes/order remain unchanged. Python-level state hashing is a potential cost.
-
-Raw diagnostics, before/candidate smoke logs, repeated unprofiled parent
-measurements (three runs), sampled planner RSS/system resources and tests are
-under `outputs/native-state-handles/`; planner runs are under ignored `runs/`.
-The candidate passes all 98 tests, including 40 random classical tasks with
-both native heuristics, transition/goal/value/hash equivalence, canonical handle
-identity and successor set iteration. Existing independent tiny FOND search
-oracles and initial-goal tests also pass. Smoke completes 14/14 searches,
-solves 12/12 solvable inputs and replays all 14 policies with unchanged costs;
-all intermediate/final non-time rows match the parent. Candidate timing and
-keep/revert decision are pending repeated unprofiled performance evaluation.
