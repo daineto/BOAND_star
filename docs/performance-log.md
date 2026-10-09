@@ -3119,3 +3119,23 @@ summaries, all 84 heatmap cells to source per-instance medians, interval orderin
 figure exports, and PDF/PNG rendering. All agree. Cross-session comparisons,
 correctness-version changes, different profiles, weaker legacy execution
 provenance and full-suite resource differences are explicitly documented.
+
+### Migration merged into journal development
+
+User-authorized merge `38d344a` integrates `codex/fast-downward-backend` at
+`a695630` into `codex/journal-development`, preserving all candidate/revert
+history. No conflicts; the merged file tree exactly matches the validated
+migration tree. Pending report/plotting changes were committed before merging.
+No benchmark, published campaign or archive changes are included.
+
+Before merge: 103 tests pass; default smoke completes 14 searches, solves 12
+cases and validates 14 policies (21.63 s, with tests running concurrently;
+not a performance comparison). After merge: default smoke passes all coverage,
+expected costs and 14 policy replays in 13.85 s; fixed performance passes all
+11 searches, 10 solvable cases, expected costs and 11 replays in 18.64 s.
+These single post-merge timings are integration checks, not new baselines.
+Evidence: `outputs/merge-validation/merge.json`, `tests.log`, `smoke.log` and
+`performance.log`; raw runs are journal smoke `2026-10-09T14-28-39Z-smoke-58917e92`
+and performance `2026-10-09T14-29-00Z-performance-55511a99`. Earlier tests cover
+identical merged source; no redundant full test repetition was needed.
+No push, tag or branch deletion was requested or performed.
