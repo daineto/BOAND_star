@@ -2465,3 +2465,96 @@ New raw artifacts and resource-monitored runs are under
 relevant tests before three unprofiled timing repetitions per candidate heuristic;
 extend to five only if uncertainty remains. The architecture, definition 6 and
 unsupported-feature checks otherwise remain exactly as documented for attempt 57.
+
+Final evaluation of candidate **`290b89e`**: **retain the opt-in FD grounding
+backend on its repeatable LM-cut search benefit**. Hmax support remains available
+for correctness checks and controlled comparisons, with **no demonstrated hmax
+performance improvement**. The existing default and both original native
+configurations remain unchanged. Retention is justified by the requested LM-cut
+migration capability and its measured gain, not by treating the inconclusive
+hmax result as an improvement or invoking the code-cleanup exception. The
+adapter/cleanup is one shared implementation; no individual component gain is
+claimed from this combined follow-up.
+
+All 90 tests pass again. Both new smoke configurations complete 14/14 searches,
+solve 12/12 solvable cases and replay 14/14 policies with unchanged costs; suite
+walls are 23.121 s (hmax) and 23.377 s (LM-cut). The post-change default also
+passes, in 23.291 s. Performance completes 11/11 searches, solves 10/10 solvable
+cases and replays 11/11 policies in every measured repetition. The unchanged
+unsolvable instance completes with no policy. No failed search enters an average.
+
+Candidate hmax starts with three repetitions and extends to five because of
+noise; LM-cut stops after three with a clear search benefit. Each native control
+has five repetitions, reused from attempt 57 under the equivalent conditions
+specified above. All candidate performance manifests record `290b89e`, definition
+6, seed 0, four workers, 6,000,000 KB/job, 30 s/job and the 60 s suite deadline.
+Candidate smoke runs precede the commit and include the same source in their
+recorded patches. No builds, diagnostics or other campaigns overlap timing runs.
+
+| Configuration | Repetitions | Geomean search speedup vs matching native control (95% bootstrap interval) | Sum of median search times (s) | Median suite wall (range), s |
+| --- | ---: | ---: | ---: | ---: |
+| Native hmax control | 5 | reference | 9.787 | 27.964 (27.605–29.982) |
+| FD-grounded hmax | 5 | **inconclusive:** 1.065 (0.901–1.096) | 9.965 | 27.901 (27.822–34.687) |
+| Native LM-cut control | 5 | reference | 8.494 | 27.451 (27.213–30.808) |
+| FD-grounded LM-cut | 3 | **1.079 (1.043–1.108)** | 8.478 | 27.700 (27.412–28.272) |
+
+Bootstraps use the same 4,000 whole-run resamples and seed as attempt 57. The
+geometric mean weights each domain equally; the LM-cut gain concentrates on
+short cases and does not imply an equivalent reduction in summed search time
+or end-to-end time. Suite wall time is effectively unchanged. Do not advertise
+this as a total-runtime improvement. Hmax's summed median search time is 1.8%
+higher than its control; this also cautions against selecting it as a new default.
+
+Summed median parsing/compilation/grounding (including the explicit collection)
+is 9.031→9.185 s for hmax and 9.478→9.393 s for LM-cut. Summed native backend/
+heuristic construction is 0.345→0.303 s and 0.346→0.301 s. Some search-time
+benefit reflects moving cleanup to its appropriate setup phase; it is not all
+an improvement in search operations or heuristic evaluation. The cleanup's
+increment relative to rejected attempt 57 is itself inconclusive: geomeans
+1.001 (0.848–1.058) for hmax and 1.005 (0.974–1.095) for LM-cut. Its specific
+engineering benefit is reclaiming known translation temporaries before search,
+not a demonstrated aggregate speedup attributable to `gc.collect()` alone.
+
+Doors now has medians 0.1356 s (hmax) and 0.1361 s (LM-cut), versus controls
+0.1359/0.1387 s: the previous repeatable regression is removed. ST Tires medians
+are 0.00935/0.01173 s versus 0.01392/0.02139 s. Hmax retains a 0.05798 s
+ST Tires outlier; its exact cause is not established, and it remains in the
+bootstrap. Normal GC remains enabled and this cleanup cannot prevent all later
+collections or scheduling delays. LM-cut has small individual regressions:
+Islands 0.960×, Tireworld-truck 0.974× and Tireworld 0.993× relative to matching
+controls; these are retained and shown in the per-instance data. Expected costs
+and independent replay are unchanged. Non-time statistics differ only on
+Modified First Responders, with the same work-count reductions documented for
+attempt 57; all intermediate/final rows are preserved in `work-equivalence.json`.
+
+Relative to the fixed original `c7cd597`, observed cumulative search geomeans
+are 3.927× (3.327–3.948) for grounded hmax and 3.843× (3.703–3.863) for grounded
+LM-cut. These span rounds, with environmental-drift limitations; they are not
+substitutes for the matching native-control comparison. Hmax versus LM-cut with
+FD grounding is inconclusive (LM-cut/hmax geomean 0.979, interval 0.946–1.155).
+No universal heuristic preference follows from this small set.
+
+Largest per-instance median sampled peak RSS is 480,536 KB for candidate hmax
+and 480,340 KB for candidate LM-cut, approximately 469 MiB. The 50 ms sampler
+observes all 11 planner processes per repetition but is not an exact exit-time
+peak. Candidate samples show at least 27.515 GiB available RAM and at most 768 KB
+swap used. Mean system CPU busy fraction is approximately 12.6–12.7% across 24
+logical CPUs, including other machine activity. There is no evidence of memory
+pressure or system saturation from these runs.
+
+Raw evidence: `outputs/fast-downward-grounding-gc/measurements/` contains logs,
+reports, manifests, resource samples and revision references; `summary.json`
+contains medians, variability, speedups, bootstraps and coverage; `per-instance.csv`
+adds preprocessing/construction and work counts. `summarize.py` checks all cases
+and assembles the comparison, explicitly reusing the five original native
+controls under `outputs/fast-downward-grounding/`. `tests.log` and smoke reports
+preserve validation. Rejected attempt 57 and its diagnostics are retained in
+that earlier directory, including its three- and five-run summary logs. Runs
+remain under ignored `runs/journal_development/` and translator/binary provenance
+is captured in every new-backend manifest and snapshot.
+
+Remaining scope: the shared Unified Planning negative-condition compiler,
+Boolean SAS encoding and fact-set search boundary are still present. This
+milestone replaces Pyperplan parsing/grounding, not the complete preprocessing
+pipeline or a compact SAS translation. No full campaign, default switch, push,
+merge or tag was performed.

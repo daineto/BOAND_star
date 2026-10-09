@@ -188,3 +188,13 @@ The remaining migration scope is replacing the shared negative-condition
 compiler and evaluating a compact SAS representation while preserving FOND
 semantics and independent policy replay. This path isolates grounding from
 those changes and keeps the original native/Pyperplan-grounded profiles available.
+
+Candidate `290b89e` passes 90 tests, both 14-case smoke gates and all repeated
+11-case performance checks. FD-grounded LM-cut gives **1.08×** additional
+geometric-mean search speedup versus native LM-cut with Pyperplan grounding
+(95% bootstrap interval 1.04–1.11×). Hmax remains inconclusive after five runs.
+Total suite time is effectively unchanged, and part of the search-time effect
+is moving translator cleanup into preprocessing. The opt-in backend is retained
+on the LM-cut evidence; defaults remain unchanged. See attempts 57–58 in the
+[performance log](performance-log.md#attempt-58--reclaim-fd-grounding-temporaries-during-preprocessing)
+for the rejected first prototype, individual regressions and timing limitations.
