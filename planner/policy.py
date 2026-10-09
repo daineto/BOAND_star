@@ -2,7 +2,7 @@
 CYCLE_COST = 999999
 
 class Policy:
-  __slots__ = ("strategy", "pending", "goal_states", "best_ancestors",
+  __slots__ = ("strategy", "pending", "goal_states", "best_costs",
                "worst_costs", "closed", "cyclic", "proper")
 
   def __init__(self, strategy, pending, goal_states):
@@ -12,7 +12,7 @@ class Policy:
     self.pending = pending # tiles pending and their g values
     self.goal_states = goal_states
     
-    self.best_ancestors = dict()
+    self.best_costs = dict()
     self.worst_costs = dict()
 
     self.closed = False
@@ -24,7 +24,7 @@ class Policy:
     new_policy.strategy = self.strategy.copy()
     new_policy.pending = self.pending.copy()
     new_policy.goal_states = self.goal_states.copy()
-    new_policy.best_ancestors = self.best_ancestors.copy()
+    new_policy.best_costs = self.best_costs.copy()
     new_policy.worst_costs = self.worst_costs.copy()
     new_policy.closed = self.closed
     new_policy.cyclic = self.cyclic
@@ -47,12 +47,7 @@ class Policy:
     return False
   
   def get_best_g(self, state):
-      current = state
-      g = 0
-      while current != "dummy":
-          current = self.best_ancestors.get(current,None)
-          g+=1
-      return g-1
+      return -1 if state == "dummy" else self.best_costs[state]
 
   def get_worst_g(self, state):
       return -1 if state == "dummy" else self.worst_costs.get(state, CYCLE_COST)

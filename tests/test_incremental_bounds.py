@@ -20,19 +20,19 @@ def mapped_policy(edges):
 class IncrementalBoundsTests(unittest.TestCase):
     def test_dominated_merge_reuses_bounds_and_keeps_sibling_independent(self):
         parent, task = mapped_policy({0: [1, 2, 5], 1: [3], 3: [4], 4: [5]})
-        before_best = parent.best_ancestors.copy()
+        before_best = parent.best_costs.copy()
         before_worst = parent.worst_costs.copy()
         with patch('planner.search.update_g_brute', side_effect=AssertionError('Unnecessary graph rebuild')):
             child = extend_policy(parent, 2, 'merge', [SimpleNamespace(apply=lambda _: 5)], {5}, task)
-        for state in parent.best_ancestors:
+        for state in parent.best_costs:
             self.assertEqual((child.get_best_g(state), child.get_worst_g(state)),
                              (parent.get_best_g(state), parent.get_worst_g(state)))
-        self.assertEqual(parent.best_ancestors, before_best)
+        self.assertEqual(parent.best_costs, before_best)
         self.assertEqual(parent.worst_costs, before_worst)
         self.assertNotIn(2, parent.strategy)
         sibling = extend_policy(parent, 2, 'other', [SimpleNamespace(apply=lambda _: 6)], {6}, task)
-        self.assertNotIn(6, child.best_ancestors)
-        self.assertNotIn(6, parent.best_ancestors)
+        self.assertNotIn(6, child.best_costs)
+        self.assertNotIn(6, parent.best_costs)
         self.assertEqual(sibling.get_best_g(6), 2)
 
     def test_already_cyclic_target_keeps_cycle_cost(self):
@@ -51,15 +51,15 @@ class IncrementalBoundsTests(unittest.TestCase):
             for state in range(size - 1):
                 children = {state + 1} | {other for other in range(size) if rng.random() < .15}
                 operators = [SimpleNamespace(apply=lambda _, child=child: child) for child in children]
-                previous_best = parent.best_ancestors.copy()
+                previous_best = parent.best_costs.copy()
                 previous_worst = parent.worst_costs.copy()
                 child = extend_policy(parent, state, 'move', operators, children, task)
                 eager = child.copy()
                 update_g_brute(eager, task)
                 self.assertEqual(child.cyclic, eager.cyclic)
-                for known in eager.best_ancestors:
+                for known in eager.best_costs:
                     self.assertEqual((child.get_best_g(known), child.get_worst_g(known)),
                                      (eager.get_best_g(known), eager.get_worst_g(known)), (case, state, known))
-                self.assertEqual(parent.best_ancestors, previous_best)
+                self.assertEqual(parent.best_costs, previous_best)
                 self.assertEqual(parent.worst_costs, previous_worst)
                 parent = child

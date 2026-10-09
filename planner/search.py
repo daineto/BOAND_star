@@ -46,8 +46,8 @@ def update_g_values(policy, state, reached_states, task):
     child_worst = CYCLE_COST if parent_worst == CYCLE_COST else parent_worst + 1
     known = []
     for child in reached_states:
-        if child not in policy.best_ancestors:
-            policy.best_ancestors[child] = state
+        if child not in policy.best_costs:
+            policy.best_costs[child] = policy.get_best_g(state) + 1
             policy.worst_costs[child] = child_worst
         else:
             known.append(child)
@@ -69,7 +69,7 @@ def update_g_values(policy, state, reached_states, task):
 def update_g_brute(policy: Policy, task: Task):
     """Compute shortest best bounds and cycle-aware worst bounds in graph passes."""
     root = task.initial_state
-    best = {root: "dummy"}
+    best = {root: 0}
     indegrees = {root: 0}
     successors = {}
     outcomes_for_action = getattr(task, "policy_outcomes", None)
@@ -87,7 +87,7 @@ def update_g_brute(policy: Policy, task: Task):
         for child in reached:
             indegrees[child] = indegrees.get(child, 0) + 1
             if child not in best:
-                best[child] = state
+                best[child] = best[state] + 1
                 frontier.append(child)
 
     distances = {root: 0}
@@ -104,7 +104,7 @@ def update_g_brute(policy: Policy, task: Task):
                 ready.append(child)
     cyclic_states = {state for state, degree in indegrees.items() if degree}
     distances.update(dict.fromkeys(cyclic_states, CYCLE_COST))
-    policy.best_ancestors = best
+    policy.best_costs = best
     policy.worst_costs = distances
     policy.cyclic = bool(cyclic_states)
 
@@ -308,7 +308,7 @@ def boand_star(
     # Generate empty policy
     empty_policy = Policy(dict(),set(), set())
     empty_policy.pending.add(task.initial_state)
-    empty_policy.best_ancestors = {task.initial_state:"dummy"}
+    empty_policy.best_costs = {task.initial_state:0}
     empty_policy.worst_costs = {task.initial_state: 0}
     # Push the empty policy onto the open list
     heapq.heappush(open_list, ((0,0), empty_policy))
