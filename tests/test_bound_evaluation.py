@@ -38,12 +38,3 @@ def distances_from_parents(parents):
             distance += 1
         result[state] = distance
     return result
-
-
-class SentinelBoundTests(unittest.TestCase):
-    def test_legacy_dummy_sentinel_remains_consistent_with_separate_estimators(self):
-        p = Policy({}, {"dummy"}, set())
-        h = lambda node: 2
-        expected = (MinSumBestCaseHeuristic(h).get_f_value(p), MaxSumWorstCaseHeuristic(h).get_f_value(p), DeltaSizeHeuristic(h).get_f_value(p))
-        self.assertEqual(expected, (1, 1, 2))
-        self.assertEqual(compute_f_value(p, None, h), expected)

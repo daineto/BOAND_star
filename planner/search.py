@@ -158,16 +158,15 @@ def compute_f_value(policy: Policy, task: Task, heuristic: hMaxHeuristic):
         return math.inf, math.inf, 0
     state_h = (heuristic.evaluate if isinstance(heuristic, CachedStateHeuristic)
                else lambda state: heuristic(SearchNode(state, None, None, 0)))
-    best_costs, worst_costs = policy.best_costs, policy.worst_costs
     f_best = math.inf
     f_worst = -math.inf
     pending_max = -math.inf
     for state in outgoing:
         h = state_h(state)
-        best = (-1 if state == "dummy" else best_costs[state]) + h
+        best = policy.get_best_g(state) + h
         if best < f_best:
             f_best = best
-        g_worst = -1 if state == "dummy" else worst_costs.get(state, CYCLE_COST)
+        g_worst = policy.get_worst_g(state)
         worst = max(CYCLE_COST, h) if g_worst == CYCLE_COST else g_worst + h
         if worst > f_worst:
             f_worst = worst
