@@ -132,14 +132,20 @@ def extension_has_escape(policy, state, successors, task):
 
 
 def extend_policy(current_policy, state, nondet_action, det_actions, successors, task):
-    new_policy = current_policy.copy()
+    parent_best = current_policy.get_best_g(state)
+    parent_worst = current_policy.get_worst_g(state)
+    child_worst = CYCLE_COST if parent_worst == CYCLE_COST else parent_worst + 1
+    rebuild = any(child in current_policy.best_costs and
+                  (current_policy.get_best_g(child) > parent_best + 1 or
+                   (current_policy.get_worst_g(child) != CYCLE_COST and
+                    (child_worst == CYCLE_COST or current_policy.get_worst_g(child) < child_worst)))
+                  for child in successors)
+    new_policy = current_policy.copy(copy_bounds=not rebuild)
     new_policy.strategy[state] = (nondet_action, det_actions)
-
-    # TODO: is it better to compute the pending first?
-    # if every successor is in new_pending then no need update_g_brute?
-
-    # Update the g-values (ancestors) of the reached states
-    update_g_values(new_policy,state,successors, task)
+    if rebuild:
+        update_g_brute(new_policy, task)
+    else:
+        update_g_values(new_policy, state, successors, task)
 
     # Compute pending tiles for the new policy
     new_pending = [succ for succ in successors if not task.goal_reached(succ) and new_policy.strategy.get(succ,None) is None]
