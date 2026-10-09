@@ -2979,3 +2979,15 @@ replays in 13.21 s. Dry-run manifests confirm 392 paper jobs and 28 smoke jobs;
 exact input entries, hashes, objectives and selectors match the frozen source.
 Preflight artifacts are under `outputs/journal-icaps-preflight/`. End-to-end
 comparison smoke and full execution are next. No merge or push has occurred.
+
+End-to-end comparison smoke at `5b26c34` passes: both native configurations
+complete 14/14, solve/replay all 12 solvable instances and all 14 policies each;
+there are no expected-cost, native-cost or historical-cost discrepancies.
+Reports, per-case/domain CSVs and all three PDF figures are generated under
+`runs/journal_icaps_comparison/2026-10-09T12-40-33Z-smoke-b21d4e06/comparison/`.
+The sampler observes all 28 planner processes, at most four concurrently, with
+at least 27.980 GiB available RAM. Controller status/logs and preflight evidence
+remain in ignored outputs. The full published BOAND bw inventory is 124/196
+completed searches and 118/196 cases with incumbents (historical policies
+unverified); parse issues: zero. This is the comparison baseline, not a claim
+of 118 independently validated solved problems.
