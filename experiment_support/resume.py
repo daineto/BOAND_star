@@ -84,6 +84,8 @@ def validate_resume(directory, manifest, current):
         if old_command[:4] + old_command[5:] != new_command[:4] + new_command[5:]:
             raise ValueError("Resume planner command differs")
     runtime = current["execution_settings"]
+    if manifest["execution_settings"].get("native_backend") != runtime.get("native_backend"):
+        raise ValueError("Resume native backend build differs")
     for field in ("python", "python_version", "pythonhashseed", "versions"):
         if manifest["execution_settings"][field] != runtime[field]:
             raise ValueError(f"Resume runtime differs: {field}")

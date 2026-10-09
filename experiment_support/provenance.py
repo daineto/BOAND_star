@@ -63,9 +63,11 @@ def runtime_information():
             "pythonhashseed": os.environ.get("PYTHONHASHSEED", "unset"), "versions": versions}
 
 
-def save_snapshot(directory, campaign, instances):
+def save_snapshot(directory, campaign, instances, native_backend=None):
     snapshots = directory / "provenance"
     snapshots.mkdir()
+    if native_backend is not None:
+        (snapshots / "native-backend.json").write_text(json.dumps(native_backend, indent=2) + "\n")
     (snapshots / "campaign.json").write_text(json.dumps(resolved_definition(campaign), indent=2) + "\n")
     (snapshots / "instances.json").write_text(json.dumps(instances, indent=2) + "\n")
     migration_file = campaign.instance_manifest.with_name("manifest-migrations.json")

@@ -173,6 +173,10 @@ Journal definition version 2 uses BFS best bounds on cyclic and acyclic graphs;
 version 1 and the original baseline can overestimate best costs on cyclic graphs.
 Journal definition version 4 adds the fixed performance profile while keeping
 version-3 planner semantics and smoke costs unchanged.
+Journal definition version 5 adds explicit native-backend and LM-cut comparison
+profiles, preserving the version-4 selections, default configuration, expected
+numerical costs and resource limits. The native prototype retains Pyperplan
+grounding and fact-set states at the search boundary.
 Journal definition version 3 additionally uses reverse goal reachability for
 closed-policy properness, correcting false rejections by the trajectory checker.
 Future equivalence checks must compare against the corrected parent or an

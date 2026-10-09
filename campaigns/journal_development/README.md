@@ -183,3 +183,17 @@ counts. The largest median sampled peak planner RSS is **489,868 KB**.
 Baseline measurements, source provenance and per-instance CSV are under
 `outputs/performance/profile-calibration/performance-baseline/`. Use this
 profile's own baseline when evaluating future changes.
+
+## Native backend prototype (definition 5)
+
+Definition 5 adds opt-in Fast Downward and Pyperplan LM-cut comparison profiles.
+The original `smoke` and `performance` profiles retain their input selection,
+configuration and resource limits. Expected numerical costs are unchanged.
+
+Use `smoke-downward-hmax`, `smoke-downward-lmcut` or `smoke-pyperplan-lmcut`
+with the dedicated smoke command; their corresponding timing profiles start
+with `performance-`. Each contains one configuration and enforces the same
+suite deadline. Native profiles require the pinned module to be built first.
+See [the backend migration guide](../../docs/fast-downward-backend.md) for build,
+validation, provenance and the distinction between native execution and the
+future grounding/translation migration.

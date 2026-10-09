@@ -2121,3 +2121,50 @@ and resource snapshots. Keep every noisy sample and every rejected attempt.
 
 Retained per-instance median regressions versus fresh start:
 - `mod_first_responders/p_2_2`: 0.095264 to 0.097036 s (1.9%, 1.8 ms).
+
+## Fast Downward migration stage 1 — native execution prototype (attempt 56)
+
+Hypothesis: replacing Python heuristic evaluation, applicability and effect
+application with upstream Fast Downward C++ can improve BOAND* without changing
+objectives or requiring a complete search rewrite. This is a requested migration
+batch, not evidence for individual component gains. Parent: `0cdb224` (planner
+identical to `c937f43`); fixed original performance baseline: `c7cd597`.
+
+The opt-in `downward-strips` backend retains existing compilation/grounding and
+uses a Boolean SAS encoding, native state registry, successor generator and
+hmax/LM-cut. Upstream release 26.6.0 is pinned to
+`7ea2755269ff9398279b30f5c848e32ba6047c9c`. The first integer-state candidate
+failed the correctness gate: ST Tires `p09` exceeded 30 seconds after changed
+set iteration affected the historical selector. Its failed run is preserved
+under `runs/journal_development/2026-10-09T07-32-12Z-smoke-downward-hmax-2c886abf/`.
+It was not timed as a successful candidate. The revised fact-set boundary keeps
+native IDs internal and preserves Python state/operator hashes and ordering.
+
+Journal definition 5 versions the new comparison profiles; existing default
+configuration, selections, numerical cost sets and limits are unchanged. The
+statistics writer additionally normalizes integral Pyperplan LM-cut floating
+costs to the existing integer text format; an initial Pyperplan LM-cut smoke
+run completed all searches but failed result parsing before this fix.
+
+Preliminary validation: both revised native heuristics passed 14/14 searches,
+12/12 solvable cases and 14 policy replays against the old backend. Pyperplan
+LM-cut passed after its statistics-format fix. Tests check 120 random classical
+tasks against transitions and exact shortest distances, and all policies on
+60 tiny FOND tasks with both backends and heuristics. Domain sampling compares
+1,378 states / 9,218 transitions across all 23 distinct fixed-profile inputs;
+only three of those sampled graphs are exhaustive. All compiled selected tasks
+have no conditional effects or axioms, including 66 grounded no-ops. The pruning
+audit found no consistency assumption; this does not remove the requirement for
+admissible bounds and safe dead-end detection.
+
+Raw build, audit, tests, smoke and baseline evidence lives in ignored
+`outputs/fast-downward/`. The unchanged-parent smoke initially failed with an
+execution-infrastructure error and suite timeout; its retry passed in 22.95 s.
+Initial parent performance repetitions 1 and 3 passed; repetition 2 overlaps a
+build and is excluded from timing; repetition 4 used transitional default code
+and is diagnostic only. Repetition 5 restores the parent's three modified
+planner modules exactly for a third parent timing sample, using identical
+profile inputs/flags/limits under definition-5 metadata. All parent cost sets
+remain unchanged. Repeated candidate evaluation and final keep/revert assessment
+will follow this validated prototype commit. No performance win is claimed yet.
+See `docs/fast-downward-backend.md` for architecture, build and remaining scope.

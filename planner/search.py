@@ -1,5 +1,6 @@
 """BOAND* policy search with graph-based best and worst bounds."""
 import heapq
+import json
 from functools import lru_cache
 import math
 import re
@@ -216,19 +217,29 @@ def boand_star(
         use_best_case_heuristic = "MinSum",
         use_worst_case_heuristic = "MaxSum",
         use_size_heuristic = "Delta",
-        use_selector = "bounds_first"):
+        use_selector = "bounds_first",
+        backend = "pyperplan"):
 
     pname = problem_file[problem_file.rfind("/")+1:][:-5]
+    initialization_started = time.perf_counter()
 
     # Read FOND task
     domain = parse_domain(domain_file)
     problem = parse_problem(problem_file)
 
     task = get_alloutcome_determinization(domain, problem)
+    grounding_seconds = time.perf_counter() - initialization_started
+    heuristic_started = time.perf_counter()
 
     # CONFIG
 
-    if use_cp_heuristic == "hmax":
+    if backend == "downward-strips":
+        from .backends.downward import FactStateTask
+        task = FactStateTask(task, use_cp_heuristic)
+        cp_heuristic = task
+    elif backend != "pyperplan":
+        raise ValueError(f"Unknown backend: {backend}")
+    elif use_cp_heuristic == "hmax":
         cp_heuristic = hMaxHeuristic(task)
     elif use_cp_heuristic == "lmcut":
         cp_heuristic = LmCutHeuristic(task)
@@ -237,6 +248,7 @@ def boand_star(
         exit()
 
     cp_heuristic = CachedStateHeuristic(cp_heuristic)
+    heuristic_setup_seconds = time.perf_counter() - heuristic_started
     successors_for_state = lru_cache(maxsize=65_536)(lambda state: grouped_successors(task, state))
     action_has_dead_end = cached_dead_end_actions(successors_for_state, cp_heuristic)
     # Retain the deterministic-action iteration order used by graph construction.
@@ -363,7 +375,7 @@ def boand_star(
                 stats["max_open"] += [max_open]
 
 
-                write_solution(current_policy, len(pareto_frontier),pname, solution_folder)
+                write_solution(current_policy, len(pareto_frontier),pname, solution_folder, task=task)
                 write_stats(stats, pname, solution_folder)
 
             # Closed policies cannot be expanded
@@ -425,6 +437,12 @@ def boand_star(
     stats["max_open"] += [max_open]
 
     write_stats(stats, pname, solution_folder)
+    metadata = {"backend": backend, "heuristic": use_cp_heuristic,
+                "parsing_compilation_grounding_seconds": grounding_seconds,
+                "backend_heuristic_setup_seconds": heuristic_setup_seconds}
+    if backend == "downward-strips":
+        metadata["native_build"] = task.backend_provenance
+    Path(solution_folder, f"{pname}.backend.json").write_text(json.dumps(metadata, indent=2) + "\n")
 
     # print(len(closed_list))
     return pareto_frontier

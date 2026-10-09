@@ -41,13 +41,22 @@ PERFORMANCE_INSTANCES = (
 )
 CAMPAIGN = Campaign(
     campaign_id="journal_development",
-    version="4",
+    version="5",
     configurations={
         "BOAND bw": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
+        "BOAND downward hmax": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-strips"),
+        "BOAND downward lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-strips"),
+        "BOAND pyperplan lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
     },
     profiles={
         "smoke": Profile(("BOAND bw",), instances=SMOKE_INSTANCES),
         "performance": Profile(("BOAND bw",), instances=PERFORMANCE_INSTANCES),
+        "smoke-downward-hmax": Profile(("BOAND downward hmax",), instances=SMOKE_INSTANCES),
+        "performance-downward-hmax": Profile(("BOAND downward hmax",), instances=PERFORMANCE_INSTANCES),
+        "smoke-downward-lmcut": Profile(("BOAND downward lmcut",), instances=SMOKE_INSTANCES),
+        "performance-downward-lmcut": Profile(("BOAND downward lmcut",), instances=PERFORMANCE_INSTANCES),
+        "smoke-pyperplan-lmcut": Profile(("BOAND pyperplan lmcut",), instances=SMOKE_INSTANCES),
+        "performance-pyperplan-lmcut": Profile(("BOAND pyperplan lmcut",), instances=PERFORMANCE_INSTANCES),
     },
     instance_manifest=Path(__file__).with_name("instances.json"),
     timeout_seconds=30,

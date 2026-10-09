@@ -73,6 +73,10 @@ def campaign_manifest(environment, profile):
                              "problem_sha256": hashes[domain.name, name]["problem_sha256"],
                              "command": planner.get_cmd(domain_path, problem_path, "<solution_path>")})
     runtime = runtime_information()
+    if any(campaign.configurations[label].backend == "downward-strips"
+           for label in campaign.profiles[profile].configurations):
+        from planner.backends.downward import native_provenance
+        runtime["native_backend"] = native_provenance()
     return {"schema_version": 1, "campaign": resolved_definition(campaign), "profile": profile,
             "scientific_settings": {"timeout_seconds": environment.time, "memory_kb": environment.memory,
                                     "instance_manifest_sha256": campaign_manifest_hash(campaign)},
@@ -167,7 +171,8 @@ def launch(campaign_id, profile="paper", output_root=None, workers=None, dry_run
     write_manifest(file, manifest)
     print(f"Manifest: {file}", flush=True)
     with run_lock(directory):
-        manifest["provenance_files"] = save_snapshot(directory, environment.campaign, environment.instance_entries)
+        manifest["provenance_files"] = save_snapshot(directory, environment.campaign, environment.instance_entries,
+                                                    native_backend=manifest.get("native_backend"))
         execute(environment, manifest, file)
     print(f"Run directory: {directory}", flush=True)
     return manifest
