@@ -66,3 +66,33 @@ recorded source revision; then regenerate analysis:
 ```bash
 PYTHONHASHSEED=0 .venv/bin/python -m experiment_support.run journal_icaps_comparison --resume runs/journal_icaps_comparison/<run-id>
 ```
+
+To compare coverage against a local full Pyperplan/hmax run, use:
+
+```bash
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_icaps_comparison.coverage \
+  --baseline runs/icaps2025/2026-10-07T14-01-07Z-BOAND_bw-c6171249 \
+  --current runs/journal_icaps_comparison/2026-10-09T12-43-05Z-paper-05dc1b6e \
+  --output outputs/prebranch-comparison/coverage
+```
+
+This produces PDF, SVG and PNG figures, per-instance CSV data and metadata with
+selection rules and limitations. As in the paper, coverage counts completed
+searches (including unsolvable instances) at their final search time, excludes
+preprocessing, and extends each curve to the 600-second deadline. Legacy baseline
+completion uses the final statistics marker because some exit codes are missing;
+current completion additionally requires a successful execution record. The
+baseline predates both journal optimizations and migration and used 8 GB/two
+workers, versus the current 6 GB/four workers.
+
+A retrospective report of the recorded optimization rounds and migration is
+maintained in `docs/performance-report.md`. Regenerate its figures, CSV data and
+portable PDF from the preserved measurements without rerunning planners:
+
+```bash
+MPLCONFIGDIR=/tmp/boand-report-mpl PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_icaps_comparison.performance_report
+```
+
+Outputs are in `outputs/performance-report/`. The report separates the fixed
+smoke and performance selections, labels rejected/failed attempts, distinguishes
+search from setup and suite wall time, and documents correctness boundaries.

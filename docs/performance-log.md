@@ -3006,3 +3006,116 @@ historical archive also lacks completion and records a 600-second timeout.
 This is a resource/coverage failure, not an unsolvable result or a demonstrated
 new correctness bug. Available RAM remains at least 11.596 GiB with only 768 KB
 swap used during these samples. Keep all failures in the final coverage report.
+
+### Full ICAPS comparison: review of two validation discrepancies
+
+The 392 executions and bounded replay finished. FD hmax completed 145 searches
+(144 automatically validated), with 136 verified solved instances; FD LM-cut
+completed 151, with 145 verified solved. The automated comparison remains
+`needs_investigation` because 89 executions hit their individual memory limits
+and hmax Beam-walk p11 reference replay raised MemoryError. These failures remain
+in the original report; the following supplemental review does not overwrite
+its raw validation outcomes or historical costs.
+
+- **Blocksworld-ex p05:** its original PDDL initial state contains both goal
+  facts `(on-table b3)` and `(on b5 b4)`. Both native configurations emit the
+  empty policy with `(0,0)`, which independent replay already validates. The
+  historical `(1,1)` is the previously fixed initial-goal bug, addressed by
+  `046c861`; it is not a migration regression. Keep the published archive intact.
+- **Hmax Beam-walk p11:** a separate domain-specific transition oracle reads
+  forward/backward edges, ladder locations, initial position and goal from the
+  original PDDL and implements all outcomes of the three original action
+  schemas with Python operators. It bypasses Unified Planning compilation and
+  Cartesian grounding, and uses the independent NetworkX properness and cost
+  checker. All 8,192 reachable states and 8,191 policy assignments validate:
+  best cost 4,096, worst sentinel 999,999 (cycle). The oracle uses 12,286 grounded
+  outcomes and 109,500 KB peak RSS under the same 6,000,000 KB virtual limit.
+  Thus this policy is independently verified; the generic replay failure is a
+  validation infrastructure limitation, not evidence of an invalid policy.
+
+Evidence and repeatable domain-specific oracle: `outputs/full-review/review.py`
+and `outputs/full-review/findings.json`; diagnostic preprocessing logs are in
+that directory. This oracle is specific to the checked Beam-walk action schemas,
+not a replacement general validator or proof of Pareto completeness. Including
+this supplemental validation raises hmax verified solved coverage to 137 and
+validated completed searches to 145; the original automated report continues to
+show 136 and 144. No planner changes or additional campaign executions were
+needed. A general scalable independent replay preprocessing path remains future
+infrastructure work.
+
+The diagnostic stack localizes the replay bottleneck to Unified Planning's
+`negative_conditions_remover._compile`, which iterates `problem.initial_values`.
+That property materializes every grounding of every fluent, including default
+false values. Beam-walk p11 has 4,096 locations and two binary edge predicates:
+those predicates alone contribute 33,554,432 potential ground fluents, despite
+only 8,190 actual edges. The supplemental oracle keeps just actual edges.
+Diagnostic retries bounded at 35/60/120 seconds were stopped by their deadlines;
+the original full replay's MemoryError remains the recorded failure. The stack
+and dependency source establish the eager materialization bottleneck without
+requiring another long memory-exhausting run.
+
+### Comparison with the local pre-development full Pyperplan/hmax run
+
+The full local BOAND bw run is
+`runs/icaps2025/2026-10-07T14-01-07Z-BOAND_bw-c6171249`, on the preparation
+branch before the journal optimization rounds and native migration. It is a
+separate reference from the published archive. Its final statistics mark 120
+completed searches and 114 instances with incumbent policies. Only 41 completed
+searches retain explicit zero exit codes: the legacy runner did not retain exit
+codes for the other 79, which resumed execution records label
+`legacy_exit_unknown`. Count those 79 by their final search-completion marker,
+reporting this provenance limitation rather than treating them as known failures.
+Old policies have not been independently revalidated in this comparison.
+
+Against that local reference, direct FD hmax completes 145 (+25) and has 137
+independently verified solved instances (+23 over old policy-bearing coverage,
+including supplemental Beam-walk validation). Direct FD LM-cut completes 151
+(+31) and solves 145 (+31). Neither loses any previously completed or
+policy-bearing instance. Among 119 common completed instances with identical
+reported Pareto costs and validated current policies, geometric-mean search
+speedups are 41.144x for hmax and 35.602x for LM-cut. The only completed-cost
+change is the reviewed initial-goal correction for Blocksworld-ex p05.
+
+Raw reproducible comparison script, JSON and per-instance CSV are under
+`outputs/prebranch-comparison/`. These are single measurements, not repeated
+controlled estimates. Both campaigns use 600 seconds, but the old run uses
+8,000,000 KB/two workers and the current run 6,000,000 KB/four workers. Search
+semantics and all intervening journal optimizations differ; the gains cannot
+be attributed solely to migration. The old run includes resumed attempts and
+partial legacy exit provenance. Published-archive counts (124 completed,
+118 policy-bearing) remain a different comparison.
+
+The requested three-configuration coverage-over-time plot is generated by
+`campaigns.journal_icaps_comparison.coverage` with the two full local run paths
+above. Artifacts: `outputs/prebranch-comparison/coverage/coverage-over-time.*`,
+`coverage-data.csv`, and `coverage-metadata.json`. The definition follows the
+published coverage curve: completed searches, including unsolvable cases, sorted
+by final elapsed search time (preprocessing excluded), connected observations
+and a plateau to 600 seconds. All 588 per-instance records match the prior raw
+comparison; endpoints are 120/145/151. PNG inspected, PDF/SVG export generated.
+No planner runs were needed. Resource, source-revision and legacy-exit limitations
+remain documented in the metadata; this is not a migration-only speedup plot.
+
+### Retrospective report and figures
+
+At the user's request, `docs/performance-report.md` summarizes the main measured
+performance drivers through attempt 61, historical mechanisms later superseded,
+correctness fixes, rejected approaches and full-suite outcomes. Reproduction:
+`MPLCONFIGDIR=/tmp/boand-report-mpl PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_icaps_comparison.performance_report`.
+No planner runs were launched. The portable PDF and four standalone PNG/PDF/SVG
+figures are under `outputs/performance-report/`; the PDF also includes the earlier
+full-suite coverage figure when available. Inputs are retained raw summary JSONs.
+
+Figures cover wall-time medians/ranges for attempts 1–55 with smoke/performance
+panels, parent search-speedup intervals, a selected smoke milestone heatmap,
+and paired direct-compiler preprocessing/search/wall times. Attempt 34's failed
+coverage is labelled and excluded from speedup averages. Two refinement rows
+remain in the exported 58-row CSV. Migration 56–61 is explained separately rather
+than splicing one-off smoke checks into repeated timing baselines. Missing or
+incompatible range data are omitted; ranges are not confidence intervals.
+
+Validation compares all 56 numeric baseline/attempt records to their source
+summaries, all 84 heatmap cells to source per-instance medians, interval ordering,
+figure exports, and PDF/PNG rendering. All agree. Cross-session comparisons,
+correctness-version changes, different profiles, weaker legacy execution
+provenance and full-suite resource differences are explicitly documented.
