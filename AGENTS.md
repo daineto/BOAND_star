@@ -2,8 +2,10 @@
 
 ## Journal development scope
 
-This branch, `codex/journal-development`, prepares the planner for a new
-journal study. The `icaps2025` tag preserves the published implementation.
+The `codex/journal-development` branch prepares the planner for a new
+journal study. The `codex/fast-downward-backend` branch explores a native
+Fast Downward backend from that validated journal implementation. The
+`icaps2025` tag preserves the published implementation.
 Refactoring and interface changes do not need to maintain compatibility with
 that implementation. Update affected callers, tests and documentation together.
 
@@ -13,6 +15,17 @@ planning objectives, solution semantics or scientific evaluation rules must be
 explicitly documented and versioned in the new campaign.
 
 ## Environment and organization
+
+On `codex/fast-downward-backend`, retain the current backend for controlled
+comparisons until the native backend passes correctness validation and review.
+Pin the upstream Fast Downward dependency to a specific release and revision.
+Evaluate backend migration with hmax separately from switching to LM-cut.
+Check translated tasks for unsupported conditional effects and axioms, and
+audit pruning assumptions before enabling the inconsistent LM-cut heuristic.
+Compare transitions and goal tests across backends and use independent small
+task oracles for heuristic admissibility. Record preprocessing, heuristic and
+search timings separately where available. Do not merge the migration branch
+without an explicit request.
 
 Use `.venv/bin/python`; do not install packages globally.
 
@@ -189,7 +202,7 @@ timing or completion agreement is not required for a structural refactor.
 ## Git
 
 Do not rewrite history or amend existing commits.
-On `codex/journal-development`, intermediate commits are authorized without
+On `codex/journal-development` and `codex/fast-downward-backend`, intermediate commits are authorized without
 asking each time. Make coherent commits after relevant validation, describe
 what changed, and report validation limitations. Do not include unrelated user
 changes. On other branches, commit only when explicitly requested.
