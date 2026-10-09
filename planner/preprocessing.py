@@ -41,7 +41,7 @@ def explicit_empty_effects(domain_text):
     return "(" + "\n ".join(serialize(section) for section in domain) + ")\n"
 
 
-def compile_alloutcome_pddl(domain, problem):
+def get_alloutcome_determinization(domain, problem):
     # All-outcome determinization for heuristic
     detdomain = determinize(domain)
     with open("aux_domain.pddl", "w") as f:
@@ -74,14 +74,8 @@ def compile_alloutcome_pddl(domain, problem):
     if normalized != generated:
         auxiliary_domain.write_text(normalized)
 
-    return "aux_domain.pddl", "aux_problem.pddl"
-
-
-def get_alloutcome_determinization(domain, problem):
-    domain_file, problem_file = compile_alloutcome_pddl(domain, problem)
-
     # Pyperplan setup
-    parser = Parser(domain_file, problem_file)
+    parser = Parser("aux_domain.pddl", "aux_problem.pddl")
     aux_domain = parser.parse_domain()
     aux_problem = parser.parse_problem(aux_domain)
 

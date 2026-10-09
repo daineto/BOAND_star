@@ -73,14 +73,10 @@ def campaign_manifest(environment, profile):
                              "problem_sha256": hashes[domain.name, name]["problem_sha256"],
                              "command": planner.get_cmd(domain_path, problem_path, "<solution_path>")})
     runtime = runtime_information()
-    if any(campaign.configurations[label].backend in ("downward-strips", "downward-grounded")
+    if any(campaign.configurations[label].backend == "downward-strips"
            for label in campaign.profiles[profile].configurations):
         from planner.backends.downward import native_provenance
         runtime["native_backend"] = native_provenance()
-    if any(campaign.configurations[label].backend == "downward-grounded"
-           for label in campaign.profiles[profile].configurations):
-        from planner.backends.grounding import translator_provenance
-        runtime["native_backend"] = {**runtime["native_backend"], "translator": translator_provenance()}
     return {"schema_version": 1, "campaign": resolved_definition(campaign), "profile": profile,
             "scientific_settings": {"timeout_seconds": environment.time, "memory_kb": environment.memory,
                                     "instance_manifest_sha256": campaign_manifest_hash(campaign)},
