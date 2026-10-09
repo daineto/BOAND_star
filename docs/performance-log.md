@@ -2267,3 +2267,87 @@ The next useful milestone is replacing grounding/translation while preserving
 all outcomes and explicitly handling translator simplification. It should be
 assessed separately from this native execution win. No full campaign, push,
 tag or merge was performed.
+
+### Additional baseline: BOAND* bw with Pyperplan LM-cut
+
+At the user's request, record a separate three-repetition baseline for
+`BOAND pyperplan lmcut`, rather than treating it as an optimization candidate.
+This completes the four-way backend/heuristic comparison available in the
+prototype. No planner code, expected costs, profile selections or limits changed.
+The fixed original baseline remains `c7cd597`; this is an additional reference.
+
+Measurements use journal definition 5, `bw`, LM-cut, MinSum/MaxSum/Delta,
+`largestg`, `PYTHONHASHSEED=0`, four workers, 6,000,000 KB virtual memory/job,
+30 seconds/job and the unchanged 60-second suite deadline. Performance repetition
+1 reuses the previously recorded `37368cb` run; repetitions 2–3 and all three
+smoke repetitions use `0432276`. Every manifest's planner-file hashes match:
+these revisions differ only in documentation. Additional repetitions characterize
+the requested baseline after the earlier candidate evaluation stopped on failure.
+Runs were sequential, without concurrent campaigns or builds.
+
+| Profile | Completed searches, each run | Solvable cases solved, each run | Policies replayed, each run | Median wall time (range), seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Smoke | 14/14 | 12/12 | 14/14 | 24.501 (24.266–25.433), including suite replay |
+| Performance | 10/11 | 9/10 | 10/11 | 36.018 (35.911–36.067), external elapsed to failed exit |
+
+Beam-walk `p7` times out with return code 124 in **all three performance runs**.
+It is a coverage failure, not unsolvability. The performance command exits before
+its normal validation report, so an independent collector checks the unchanged
+expected cost sets and replays all ten policies from the ten completed searches
+in each repetition. The unsolvable Blocksworld instance completes correctly.
+All smoke cases pass their expected costs and policy replay, including both
+unsolvable instances. Collector replay after the failed command is additional
+validation and is not included in its external wall time.
+
+The following search medians exclude preprocessing and replay. The other three
+columns reuse the three current-control/native repetitions at `37368cb` with
+equivalent inputs and settings; measurements are sequential, not simultaneous.
+
+| Performance instance | Pyperplan hmax (s) | Pyperplan LM-cut (s) | Native hmax (s) | Native LM-cut (s) |
+| --- | ---: | ---: | ---: | ---: |
+| Beam-walk p7 | 0.1911 | timeout | 0.0193 | 0.8755 |
+| Blocksworld p13, unsolvable | 0.1752 | 2.4658 | 0.0111 | 0.0456 |
+| Chain of Rooms p24 | 0.3604 | 1.5138 | 0.2060 | 0.2299 |
+| Doors p8 | 0.1722 | 0.2690 | 0.1368 | 0.1378 |
+| Elevators p04 | 2.3125 | 0.0566 | 2.2549 | 0.0143 |
+| FrozenLake p19 | 0.6940 | 0.7148 | 0.6223 | 0.6267 |
+| Islands p16 | 2.2911 | 3.2682 | 2.0210 | 1.9995 |
+| Modified First Responders p_2_2 | 0.1076 | 0.0958 | 0.1129 | 0.0721 |
+| ST Tires p08 | 0.1216 | 0.5026 | 0.0138 | 0.0237 |
+| Tireworld p06 | 4.6023 | 11.6984 | 3.3861 | 3.5061 |
+| Tireworld-truck p7 | 1.1076 | 1.7037 | 0.9264 | 0.9247 |
+
+No full-profile geometric mean or total search-time comparison is reported for
+Pyperplan LM-cut because coverage is incomplete. Its ten completed performance
+cases sum to 22.289 seconds of per-case medians; that is a partial diagnostic,
+not a full-suite total. Smoke sums to 10.581 seconds, with Beam-walk p6 alone
+taking a median 6.975 seconds. A job timeout includes setup and cannot be
+substituted for a measured search time.
+
+Work counts vary on Elevators despite seed 0: performance p04 records 627 or
+669 expansions and 3,201 or 3,342 generations; smoke p05 records 29 or 33
+expansions. Other completed cases have stable recorded work counts. The source
+of this variation is not established here; preserve it as a reproducibility
+limitation and do not attribute cross-backend differences solely to evaluation
+speed. The native LM-cut Elevators result has 461 expansions. Timing samples
+and all observed work counts are retained per instance, rather than suppressing
+the variability.
+
+Maximum per-instance median sampled peak RSS is 494,676 KB for performance and
+165,028 KB for smoke. The 50 ms process sampler is not a guaranteed exit-time
+peak. System samples show at least 27.636 GiB available RAM and at most 768 KB
+swap used across these six runs, with no indication of memory pressure.
+
+Raw baseline index, planner hashes, manifests, coverage, independent replay
+results, per-instance timing samples, work counts and sampled memory are in
+`outputs/baselines/pyperplan-lmcut-bw/baseline.json`; flat data are in
+`measurements.csv` and `performance-comparison.csv` beside it. The reproducible
+collector is `collect.py` in that directory. Original execution logs and resource
+samples remain in `outputs/fast-downward/measurements/{performance,smoke}-pyperplan-lmcut/`;
+each record links its run manifest under `runs/journal_development/`.
+
+Reproduce with `PYTHONHASHSEED=0 .venv/bin/python -m
+campaigns.journal_development.smoke --profile smoke-pyperplan-lmcut` or
+`--profile performance-pyperplan-lmcut`. The latter is expected to fail coverage
+under the recorded limits. Decision: **retain the baseline evidence, including
+timeouts**; no optimization is adopted or reverted. No full campaign was run.

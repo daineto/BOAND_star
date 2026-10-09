@@ -132,3 +132,11 @@ remains unchanged while both native options are available for review. Detailed
 intervals, per-case regressions, coverage and resource measurements are in
 [the performance log](performance-log.md), with raw evidence under
 `outputs/fast-downward/`.
+
+A separate three-repetition BOAND* bw Pyperplan LM-cut baseline is recorded in
+[the performance log](performance-log.md#additional-baseline-boand-bw-with-pyperplan-lm-cut).
+It passes all 14 smoke cases but completes only 10/11 performance searches:
+Beam-walk p7 times out in every repetition at the unchanged 30-second job limit.
+The log includes a four-configuration per-instance timing table; raw baseline
+data are under `outputs/baselines/pyperplan-lmcut-bw/`. Incomplete coverage
+precludes a full-profile aggregate speedup for this configuration.
