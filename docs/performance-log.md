@@ -2779,3 +2779,83 @@ six profiles (`work-equivalence.json`), including expansions, generations and
 policy sizes. Current default suite walls are 15.03 s (smoke) and 18.26 s
 (performance); these single correctness runs are not repeated timing baselines.
 Keep the consolidation and default change. No full campaign, push, merge or tag.
+
+## Attempt 60 — compact native handles preserving state hashes
+
+Hypothesis: keep native state IDs at the Python search boundary while retaining
+legacy fact-set hashes, so state selection remains unchanged and permanent
+fact-set copies/two-way ID maps can be removed. Parent: `b7b2633`; fixed original
+performance baseline: `c7cd597`. Direct Boolean SAS/negative compilation and
+scientific semantics remain unchanged. This is a focused state representation
+experiment; direct SAS-condition compilation is not part of this candidate.
+
+Profiles on current direct hmax Tireworld and Doors show decoding is small:
+Tireworld `state_facts` takes 0.043 s and successor conversion 0.112 s cumulative
+out of 6.337 s profiled execution. A large runtime benefit is unlikely; reduced
+retained Python heap may still matter. Candidate `HandleStateTask` interns
+compact task-local state objects holding an ID and the original decoded
+fact-set hash. Native goal/heuristic calls use IDs directly; decoding occurs
+once for hashing and later for output or legacy subset tie comparisons. No
+permanent decoded facts or reverse fact-set-to-ID map is retained. Operator
+hashes/order remain unchanged. Python-level state hashing is a potential cost.
+
+Raw diagnostics, before/candidate smoke logs, repeated unprofiled parent
+measurements (three runs), sampled planner RSS/system resources and tests are
+under `outputs/native-state-handles/`; planner runs are under ignored `runs/`.
+The candidate passes all 98 tests, including 40 random classical tasks with
+both native heuristics, transition/goal/value/hash equivalence, canonical handle
+identity and successor set iteration. Existing independent tiny FOND search
+oracles and initial-goal tests also pass. Smoke completes 14/14 searches,
+solves 12/12 solvable inputs and replays all 14 policies with unchanged costs;
+all intermediate/final non-time rows match the parent. Candidate timing and
+keep/revert decision are pending repeated unprofiled performance evaluation.
+
+Final evaluation: candidate `c024093` versus immediate parent `b7b2633`, three
+unprofiled repetitions per revision, fixed performance inputs/default direct
+hmax, seed 0, four workers, 6,000,000 KB/job, 30-second job timeout and the
+60-second suite deadline including replay. All runs complete 11/11 searches,
+solve 10/10 solvable cases and replay all 11 policies. All 33 paired
+intermediate/final non-time statistics comparisons are identical. The candidate
+is therefore a pure representation change, not an altered search-work tradeoff.
+
+Search geometric-mean speedup is **0.819×**, 95% whole-run bootstrap interval
+**[0.805, 0.822]** (4,000 resamples, seed 0): a clear loss. Median search sums
+increase 9.673→11.720 s and suite wall medians 18.095→19.701 s (parent external
+walls 18.40–18.59 s, candidate 20.00–22.12 s). Per-instance speedups range
+0.601× (Doors) through 0.993× (unsolvable Blocksworld); no instance improves.
+FrozenLake is 0.675×, Chain of Rooms 0.714× and Tireworld 0.724×. Largest
+per-instance median sampled peak RSS only falls 383,336→378,064 KB, about 1.4%.
+RSS is sampled every 50 ms, not a guaranteed exit-time maximum. Cumulative
+speedup versus historical `c7cd597` is 3.290× [3.228, 3.296], but this does not
+justify regressing the corrected immediate parent; cross-round timing drift
+limits that historical comparison.
+
+Post-measurement diagnostic profiles identify 41,665,705 Python state `__hash__`
+calls in Tireworld (1.366 s self time under cProfile, not an unprofiled timing
+estimate), versus the C implementation of frozenset hashing in the parent.
+Fact decoding remains about 0.042 s; avoiding ID-map lookups cannot offset
+Python hash/equality overhead. Both parent and candidate diagnostics are retained.
+Do not repeat the Python-handle approach as an inconclusive micro-optimization.
+A future handle implementation would require C-level hashing and validated
+legacy order preservation. Direct SAS condition/variable encoding should remain
+separate and can retain the existing fact-set boundary.
+
+**Revert** in `2f36f72`, preserving candidate history and all raw evidence.
+`summarize.py`, `summary.json`, `per-instance.csv`, `work-equivalence.json`,
+resource samples, tests and diagnostics are under `outputs/native-state-handles/`.
+No definition/default/cost change, full campaign, push, merge or tag. This round
+contains one evaluated attempt; no optimization is retained.
+
+Revert verification: planner, execution, campaigns and tests exactly match
+`b7b2633` (empty scoped Git diff). Restored-default smoke passes all coverage,
+cost and replay checks in 13.27 s. No additional timing comparison is inferred.
+
+SAS follow-up inspection: the direct compiler already returns an explicit
+predicate-to-complement mapping, but `GroundedTask` currently retains only the
+compiler version marker. A safe complementary-value encoding must carry that
+mapping to the native adapter, rather than infer pairs from `not_` names (which
+can also be ordinary user predicates). Preserve decoded fact labels, grounded
+operator order, add-wins alias handling and FOND reachability semantics while
+representing actual complement pairs as opposite values of one SAS variable.
+Keep this separate from handle representation and classical FD simplification.
+No SAS encoding change was implemented in this attempt.
