@@ -35,8 +35,11 @@ def main(argv, arc):
     if "-s" in argv:
         index = argv.index("-s")
         selector = argv[index+1]
+    backend = "pyperplan"
+    if "--backend" in argv:
+        backend = argv[argv.index("--backend")+1]
 
-    boand_star(domain_file, problem_file, solution_folder, use_metric=metric, use_cp_heuristic=heuristic, use_best_case_heuristic=best_heuristic, use_worst_case_heuristic=worst_heuristic, use_size_heuristic=size_heuristic, use_selector=selector)
+    boand_star(domain_file, problem_file, solution_folder, use_metric=metric, use_cp_heuristic=heuristic, use_best_case_heuristic=best_heuristic, use_worst_case_heuristic=worst_heuristic, use_size_heuristic=size_heuristic, use_selector=selector, backend=backend)
 
 
 def test():

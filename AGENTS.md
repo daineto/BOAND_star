@@ -2,8 +2,10 @@
 
 ## Journal development scope
 
-This branch, `codex/journal-development`, prepares the planner for a new
-journal study. The `icaps2025` tag preserves the published implementation.
+The `codex/journal-development` branch prepares the planner for a new
+journal study. The `codex/fast-downward-backend` branch explores a native
+Fast Downward backend from that validated journal implementation. The
+`icaps2025` tag preserves the published implementation.
 Refactoring and interface changes do not need to maintain compatibility with
 that implementation. Update affected callers, tests and documentation together.
 
@@ -13,6 +15,17 @@ planning objectives, solution semantics or scientific evaluation rules must be
 explicitly documented and versioned in the new campaign.
 
 ## Environment and organization
+
+On `codex/fast-downward-backend`, retain the current backend for controlled
+comparisons until the native backend passes correctness validation and review.
+Pin the upstream Fast Downward dependency to a specific release and revision.
+Evaluate backend migration with hmax separately from switching to LM-cut.
+Check translated tasks for unsupported conditional effects and axioms, and
+audit pruning assumptions before enabling the inconsistent LM-cut heuristic.
+Compare transitions and goal tests across backends and use independent small
+task oracles for heuristic admissibility. Record preprocessing, heuristic and
+search timings separately where available. Do not merge the migration branch
+without an explicit request.
 
 Use `.venv/bin/python`; do not install packages globally.
 
@@ -160,12 +173,38 @@ Journal definition version 2 uses BFS best bounds on cyclic and acyclic graphs;
 version 1 and the original baseline can overestimate best costs on cyclic graphs.
 Journal definition version 4 adds the fixed performance profile while keeping
 version-3 planner semantics and smoke costs unchanged.
+Journal definition version 5 adds explicit native-backend and LM-cut comparison
+profiles, preserving the version-4 selections, default configuration, expected
+numerical costs and resource limits. The native prototype retains Pyperplan
+grounding and fact-set states at the search boundary.
+Journal definition version 6 adds opt-in `downward-grounded` hmax/LM-cut profiles,
+using the pinned Fast Downward parser and relaxed-reachability grounder before
+classical SAS simplification. The common Unified Planning negative-condition
+compiler and fact-set search boundary remain. Selections, defaults, numerical
+costs and limits are unchanged; unreachable grounded operators may be omitted.
+Journal definition version 7 adds opt-in `downward-direct` profiles with a
+conjunctive dual-rail negative-condition compiler. It preserves `not_` labels
+and mirrors grounded effects after resolving aliases. Negative equality and
+complement-name collisions fail explicitly. Unified Planning imports are lazy;
+legacy preprocessing measurements now include their cold import cost, requiring
+fresh controls when comparing preprocessing. Selections and costs are unchanged.
 Journal definition version 3 additionally uses reverse goal reachability for
 closed-policy properness, correcting false rejections by the trajectory checker.
 Future equivalence checks must compare against the corrected parent or an
 independent oracle rather than preserve that historical error. Expected solution
 costs remain unchanged unless a separately justified correctness finding requires
 an explicitly documented revision.
+
+Journal definition version 8 corrects initially satisfied goals: emit the empty
+policy with zero best/worst costs without expanding the root. Compare this case
+against independent replay, not the buggy historical search. Fixed profile
+selections and expected costs remain unchanged.
+
+Journal definition version 9 selects `downward-direct` with hmax for default
+smoke/performance profiles. Build the pinned native dependency before running
+these commands; do not silently fall back. Use `smoke-pyperplan-hmax` and
+`performance-pyperplan-hmax` for legacy comparisons. Standalone CLI defaults and
+ICAPS definitions are unchanged. Backend changes need separate timing baselines.
 
 ## Resources and reproducibility
 
@@ -189,9 +228,20 @@ timing or completion agreement is not required for a structural refactor.
 ## Git
 
 Do not rewrite history or amend existing commits.
-On `codex/journal-development`, intermediate commits are authorized without
+On `codex/journal-development` and `codex/fast-downward-backend`, intermediate commits are authorized without
 asking each time. Make coherent commits after relevant validation, describe
 what changed, and report validation limitations. Do not include unrelated user
 changes. On other branches, commit only when explicitly requested.
 Tag, push, merge or publish only when explicitly requested.
 Keep generated outputs, caches and temporary files out of version control.
+
+## Authorized full ICAPS comparison
+
+`journal_icaps_comparison` definition 1 is the explicitly requested full
+pre-merge evaluation: 196 frozen ICAPS inputs, direct FD/hmax and FD/LM-cut,
+392 jobs, 600 seconds/job, 6,000,000 KB/job and four workers. Run it alone via
+`.venv/bin/python -m campaigns.journal_icaps_comparison.run`; it automatically
+replays policies and compares with the published archive. It has no 60-second
+suite deadline. Preserve the published campaign and distinguish corrected
+semantics/resource limits from historical timing comparisons. Keep planner
+source fixed until execution ends; do not merge before reviewing the report.

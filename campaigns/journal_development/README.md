@@ -9,6 +9,28 @@ without changing their paths, ordering or hashes. Only the explicitly named prof
 performance). The suite covers exactly the 11 ICAPS domains; it
 excludes `st_blocksworld` and `st_first_responders`.
 
+## Current backend (definition 9)
+
+The default `smoke` and `performance` profiles select **BOAND direct hmax**:
+FD grounding, native execution and hmax, using the direct negative-condition
+compiler. Build the pinned native dependency using the
+[backend guide](../../docs/fast-downward-backend.md) before running them.
+Unsupported syntax and missing/stale builds fail explicitly; no automatic
+fallback substitutes a different backend.
+
+`smoke-pyperplan-hmax` and `performance-pyperplan-hmax` select the retained
+**BOAND bw** Pyperplan configuration. The existing Pyperplan LM-cut, native
+STRIPS, UP-grounded and direct comparison profiles remain available. Default
+profiles reuse the existing direct-hmax configuration without duplicating its
+identifier. The hmax choice reflects mixed LM-cut guidance on the fixed profiles,
+not a claim that hmax is always preferable.
+
+Definition 9 changes backend selection, not objectives, input hashes, selected
+instances, expected costs, worker counts or limits. Use matching revision and
+explicit backend profiles for comparisons; earlier Pyperplan timing baselines
+are not measurements of the new default. Standalone CLI/API defaults and ICAPS
+campaign definitions remain unchanged.
+
 ## Definition versions
 
 Version 4 adds a fixed `performance` profile for timing the faster planner.
@@ -84,7 +106,8 @@ that command measures validation time only.
 
 ## Selected instances and calibration
 
-All runs use `bw / hmax / MinSum / MaxSum / Delta / largestg`. The first verified
+The original calibration used Pyperplan with
+`bw / hmax / MinSum / MaxSum / Delta / largestg`. The first verified
 run on this host on 2026-10-08 took **33.75 seconds**, including validation of
 14 policies; a repeat took **34.01 seconds**. Every search completed and all
 costs matched the archive in both runs.
@@ -183,3 +206,51 @@ counts. The largest median sampled peak planner RSS is **489,868 KB**.
 Baseline measurements, source provenance and per-instance CSV are under
 `outputs/performance/profile-calibration/performance-baseline/`. Use this
 profile's own baseline when evaluating future changes.
+
+## Native backend prototype (definition 5)
+
+Definition 5 adds opt-in Fast Downward and Pyperplan LM-cut comparison profiles.
+The original `smoke` and `performance` profiles retain their input selection,
+configuration and resource limits. Expected numerical costs are unchanged.
+
+Use `smoke-downward-hmax`, `smoke-downward-lmcut` or `smoke-pyperplan-lmcut`
+with the dedicated smoke command; their corresponding timing profiles start
+with `performance-`. Each contains one configuration and enforces the same
+suite deadline. Native profiles require the pinned module to be built first.
+See [the backend migration guide](../../docs/fast-downward-backend.md) for build,
+validation, provenance and the distinction between native execution and the
+future grounding/translation migration.
+
+## Fast Downward grounding prototype (definition 6)
+
+Definition 6 adds `smoke-grounded-hmax`, `smoke-grounded-lmcut` and their
+`performance-` counterparts. They use `--backend downward-grounded`: the pinned
+Fast Downward parser and grounder replace Pyperplan parsing/grounding after the
+shared negative-condition compiler. Reachable no-op outcomes are retained;
+the full classical SAS simplification pipeline is bypassed. Unsupported
+conditional effects, axioms, negative literals and action costs fail explicitly.
+Operator ordering and search work can change while reachable transitions and
+expected costs must agree. Existing profile selections, defaults and resource
+limits remain unchanged. Run manifests record translator source hashes and
+native build provenance. See the backend guide for the exact remaining scope.
+
+## Direct negative-condition compilation (definition 7)
+
+The `smoke-direct-hmax`/`smoke-direct-lmcut` profiles and corresponding
+`performance-` profiles use `--backend downward-direct`. A conjunctive dual-rail
+compiler replaces Unified Planning for this path, preserving existing `not_`
+policy labels, no-op outcomes and add-wins semantics after parameter aliasing.
+Negative equality, complement-name collisions, conditional/quantified effects,
+nonconjunctive conditions, axioms and action costs fail explicitly. The pinned
+FD grounder, Boolean SAS encoding and native engine remain unchanged.
+Defaults, profile selections, expected numerical costs and limits are unchanged.
+Legacy compiler imports are now lazy; fresh control runs are required for
+preprocessing comparisons because cold imports move into that measured phase.
+
+## Initially satisfied goals (definition 8)
+
+The root policy now treats an initially satisfied goal as terminal and emits the
+empty policy with best/worst costs `(0, 0)`. Previously search could omit this
+solution or unnecessarily execute an action. This is a correctness fix shared
+by all backends, not a performance optimization. Fixed smoke/performance inputs,
+expected cost sets, configurations and resource limits are unchanged.

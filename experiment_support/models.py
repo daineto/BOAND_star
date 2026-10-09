@@ -16,16 +16,19 @@ class Configuration:
     size: str
     selector: str
     timeout: int = 600
+    backend: str = "pyperplan"
 
     @property
     def name(self):
-        return "_".join(map(str, (self.metric, self.classical, self.best,
+        name = "_".join(map(str, (self.metric, self.classical, self.best,
                                  self.worst, self.size, self.selector, self.timeout)))
+        return name if self.backend == "pyperplan" else f"{name}_{self.backend}"
 
     @property
     def flags(self):
-        return ("-m", self.metric, "-ch", self.classical, "-bh", self.best,
-                "-wh", self.worst, "-sh", self.size, "-s", self.selector)
+        flags = ("-m", self.metric, "-ch", self.classical, "-bh", self.best,
+                 "-wh", self.worst, "-sh", self.size, "-s", self.selector)
+        return flags if self.backend == "pyperplan" else (*flags, "--backend", self.backend)
 
 
 @dataclass(frozen=True)

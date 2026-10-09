@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "campaign_version": "4",
+  "campaign_version": "9",
   "source": "Frozen current-parent BOAND bw complete searches at d1a4798, independently replayed during profile validation. Costs agree with complete ICAPS archives where available; doors/p8 and elevators/p04 have no completed archived baseline. Replay checks policy validity and costs, not Pareto completeness or unsolvability.",
   "costs": {
     "beam-walk/p7": [

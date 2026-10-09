@@ -45,17 +45,19 @@ def check_run(directory, profile="smoke"):
 
     directory = Path(directory).resolve()
     manifest = json.loads((directory / "manifest.json").read_text())
-    if profile not in ("smoke", "performance"):
+    if profile not in CAMPAIGN.profiles:
         raise ValueError(f"Unknown development validation profile: {profile}")
     if manifest["profile"] != profile:
         raise ValueError(f"Expected a {profile}-profile run")
     root, _ = resolve_dataset(CAMPAIGN, directory)
-    expected_file = "expected.json" if profile == "smoke" else "performance-expected.json"
+    expected_file = "expected.json" if profile.startswith("smoke") else "performance-expected.json"
     expected = json.loads(Path(__file__).with_name(expected_file).read_text())
     if expected["schema_version"] != 1 or expected["campaign_version"] != CAMPAIGN.version:
         raise ValueError("Expected outcomes use a different campaign version")
     entries = {f"{e['domain']}/{e['instance']}": e for e in read_instances(CAMPAIGN, profile)}
-    runs = {f"{r.domain}/{r.instance}": r for r in load_results(root, CAMPAIGN.configurations, DOMAINS).values()}
+    configurations = {label: CAMPAIGN.configurations[label]
+                      for label in CAMPAIGN.profiles[profile].configurations}
+    runs = {f"{r.domain}/{r.instance}": r for r in load_results(root, configurations, DOMAINS).values()}
     if runs.keys() != entries.keys() or runs.keys() != expected["costs"].keys():
         raise ValueError("Results, profile selection and expected outcomes must contain exactly the same instances")
     report = {"instances": len(runs), "domains": len(DOMAINS), "validated_policies": 0, "runs": {}}
@@ -92,7 +94,7 @@ def check_run(directory, profile="smoke"):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--profile", choices=("smoke", "performance"), default="smoke",
+    parser.add_argument("--profile", choices=tuple(CAMPAIGN.profiles), default="smoke",
                         help="Fixed correctness or performance selection (default: smoke)")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--dataset", type=Path, help="Validate an existing profile run without rerunning planners")

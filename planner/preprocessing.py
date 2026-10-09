@@ -2,9 +2,6 @@ from .fondutils import determinize
 from io import StringIO
 from pathlib import Path as FilePath
 
-from unified_planning.shortcuts import *
-from unified_planning.io import PDDLReader, PDDLWriter
-
 from pddl.logic.base import Not, And
 from pddl.logic.effects import AndEffect
 from pddl.logic.predicates import Predicate
@@ -41,7 +38,9 @@ def explicit_empty_effects(domain_text):
     return "(" + "\n ".join(serialize(section) for section in domain) + ")\n"
 
 
-def get_alloutcome_determinization(domain, problem):
+def compile_alloutcome_pddl(domain, problem):
+    from unified_planning.shortcuts import Compiler, CompilationKind
+    from unified_planning.io import PDDLReader, PDDLWriter
     # All-outcome determinization for heuristic
     detdomain = determinize(domain)
     with open("aux_domain.pddl", "w") as f:
@@ -74,8 +73,14 @@ def get_alloutcome_determinization(domain, problem):
     if normalized != generated:
         auxiliary_domain.write_text(normalized)
 
+    return "aux_domain.pddl", "aux_problem.pddl"
+
+
+def get_alloutcome_determinization(domain, problem):
+    domain_file, problem_file = compile_alloutcome_pddl(domain, problem)
+
     # Pyperplan setup
-    parser = Parser("aux_domain.pddl", "aux_problem.pddl")
+    parser = Parser(domain_file, problem_file)
     aux_domain = parser.parse_domain()
     aux_problem = parser.parse_problem(aux_domain)
 

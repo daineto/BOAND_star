@@ -2121,3 +2121,1001 @@ and resource snapshots. Keep every noisy sample and every rejected attempt.
 
 Retained per-instance median regressions versus fresh start:
 - `mod_first_responders/p_2_2`: 0.095264 to 0.097036 s (1.9%, 1.8 ms).
+
+## Fast Downward migration stage 1 — native execution prototype (attempt 56)
+
+Hypothesis: replacing Python heuristic evaluation, applicability and effect
+application with upstream Fast Downward C++ can improve BOAND* without changing
+objectives or requiring a complete search rewrite. This is a requested migration
+batch, not evidence for individual component gains. Parent: `0cdb224` (planner
+identical to `c937f43`); fixed original performance baseline: `c7cd597`.
+
+The opt-in `downward-strips` backend retains existing compilation/grounding and
+uses a Boolean SAS encoding, native state registry, successor generator and
+hmax/LM-cut. Upstream release 26.6.0 is pinned to
+`7ea2755269ff9398279b30f5c848e32ba6047c9c`. The first integer-state candidate
+failed the correctness gate: ST Tires `p09` exceeded 30 seconds after changed
+set iteration affected the historical selector. Its failed run is preserved
+under `runs/journal_development/2026-10-09T07-32-12Z-smoke-downward-hmax-2c886abf/`.
+It was not timed as a successful candidate. The revised fact-set boundary keeps
+native IDs internal and preserves Python state/operator hashes and ordering.
+
+Journal definition 5 versions the new comparison profiles; existing default
+configuration, selections, numerical cost sets and limits are unchanged. The
+statistics writer additionally normalizes integral Pyperplan LM-cut floating
+costs to the existing integer text format; an initial Pyperplan LM-cut smoke
+run completed all searches but failed result parsing before this fix.
+
+Preliminary validation: both revised native heuristics passed 14/14 searches,
+12/12 solvable cases and 14 policy replays against the old backend. Pyperplan
+LM-cut passed after its statistics-format fix. Tests check 120 random classical
+tasks against transitions and exact shortest distances, and all policies on
+60 tiny FOND tasks with both backends and heuristics. Domain sampling compares
+1,378 states / 9,218 transitions across all 23 distinct fixed-profile inputs;
+only three of those sampled graphs are exhaustive. All compiled selected tasks
+have no conditional effects or axioms, including 66 grounded no-ops. The pruning
+audit found no consistency assumption; this does not remove the requirement for
+admissible bounds and safe dead-end detection.
+
+Raw build, audit, tests, smoke and baseline evidence lives in ignored
+`outputs/fast-downward/`. The unchanged-parent smoke initially failed with an
+execution-infrastructure error and suite timeout; its retry passed in 22.95 s.
+Initial parent performance repetitions 1 and 3 passed; repetition 2 overlaps a
+build and is excluded from timing; repetition 4 used transitional default code
+and is diagnostic only. Repetition 5 restores the parent's three modified
+planner modules exactly for a third parent timing sample, using identical
+profile inputs/flags/limits under definition-5 metadata. All parent cost sets
+remain unchanged. Repeated candidate evaluation and final keep/revert assessment
+will follow this validated prototype commit. No performance win is claimed yet.
+See `docs/fast-downward-backend.md` for architecture, build and remaining scope.
+
+### Final evaluation of prototype `37368cb`
+
+Decision: **retain the opt-in native execution backend** on the migration
+branch. The default remains Pyperplan+hmax for review and controlled comparisons.
+Native hmax has a clear repeatable benefit with identical search work. Keep
+native LM-cut as the requested heuristic capability, with its mixed guidance
+results documented; do not select it as a universal default on this evidence.
+The integer-state search-boundary candidate remains rejected. This stage does
+not migrate grounding or claim the advantages of compact native Python-facing
+states, and it does not attribute the batch gain to separate components.
+
+All reported candidate measurements use committed revision `37368cb`, seed 0,
+the unchanged 11-instance performance selection, four workers, 6,000,000 KB/job,
+30 s/job and the 60 s suite deadline. Three exact-parent planner measurements
+use `baseline-performance-{1,3,5-parent}.log`; the fifth restores the parent
+search/CLI/output modules and leaves the version-5 profile metadata in place.
+The commands, costs, input hashes and limits are equivalent to version 4.
+A further three current-Pyperplan controls at `37368cb` interleave with three
+runs of each native configuration; there are no concurrent builds or campaigns.
+These controls check drift and include the measurement sampler used for native
+runs. Whole-run bootstrap intervals use 4,000 resamples, seed 0, and per-instance
+medians followed by the geometric mean of baseline/candidate ratios.
+
+| Configuration | Searches completed | Solvable cases solved | Policies replayed | Geomean speedup vs parent (95% bootstrap interval) | Sum of median search times (s) | Median suite wall time (s) |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Parent Pyperplan+hmax | 11/11 | 10/10 | 11/11 | 1.000 | 12.095 | 28.817 |
+| Current Pyperplan+hmax control | 11/11 | 10/10 | 11/11 | reference control | 12.136 | 28.938 |
+| Native hmax | 11/11 | 10/10 | 11/11 | 2.256 (2.229–2.310) | 9.711 | 27.595 |
+| Native LM-cut | 11/11 | 10/10 | 11/11 | 2.174 (2.042–2.211) | 8.456 | 27.206 |
+| Pyperplan LM-cut | 10/11 | 9/10 | 10/11 | **coverage failure; no aggregate** | unavailable for complete suite | 36.067 external, failed |
+
+The parent wall-time median above is the median of its suite validation reports;
+see raw artifacts for exact samples. Current-control wall range is 28.798–30.087 s;
+native hmax 27.460–27.799 s; native LM-cut 27.205–27.911 s. Suite-wall improvements
+are modest because setup and replay still dominate much of the suite; the
+geometric mean weights domains equally and does not predict total elapsed time.
+Against the interleaved current Pyperplan control, native hmax is 2.208×
+(2.142–2.301) and native LM-cut 2.127× (1.962–2.202). Relative to the fixed
+original `c7cd597` baseline, cumulative observed speedups are 3.670×
+(3.613–3.735) and 3.536× (3.309–3.575), respectively. Those original-baseline
+comparisons span rounds and retain the usual environmental-drift limitation.
+
+Native hmax improves every parent per-instance median (1.024× on Elevators
+through 15.840× on Blocksworld); all intermediate and final non-time statistics
+rows match the parent exactly, including policy sizes and work counts. Native
+LM-cut has an individual regression: Beam-walk search is 0.871 s versus the
+parent's approximately 0.191 s (0.219×). It reaches 161.077× on Elevators,
+reducing expansions from 46,819 to 461. Modified First Responders expansions
+fall from 1,959 to 1,784 and Tireworld-truck from 8,369 to 8,249. Other changes
+in generations, queue sizes and policy statistics are recorded in the raw runs.
+LM-cut versus native hmax has geomean 0.964× (0.893–0.982), while its summed
+median search time is lower. The clear gains/losses established after three
+runs do not require extending to five. No failed case enters a speedup average.
+
+Pyperplan LM-cut's first performance run timed out on Beam-walk `p7` at its
+30-second job limit; further repetitions stopped. The other ten cases completed,
+including the unsolvable case, and their ten emitted policies were independently
+replayed with matching cost sets. That partial check is not an overall pass.
+Both native configurations pass final 14-case smoke checks, with 12/12 solvable
+cases and 14/14 policies replayed. **85 tests pass**, including 120 generated
+classical tasks and exhaustive policy oracles on 60 tiny FOND tasks with all
+four backend/heuristic combinations. No numerical expected cost was changed.
+
+Diagnostic profiles confirm Beam-walk calls both native heuristics 512 times:
+hmax evaluation totals 0.00390 s, LM-cut 0.76903 s (profiled values, not timing
+baselines). All four implementations give initial h=256 there. On Elevators,
+hmax initially gives 5 while LM-cut gives 10, and the native LM-cut search uses
+133 heuristic evaluations versus hmax's 248. These two diagnostic tasks also
+show equal initial heuristic values across backends. LM-cut values need not
+agree on every task because supporter choices can differ. Profiled samples
+are excluded from all aggregate timing calculations.
+
+Per-process sampled median peak RSS is at most 480,116 KB for native hmax and
+480,356 KB for native LM-cut, versus 490,080 KB for the current Pyperplan control.
+The 50 ms sampler observed all 11 planner processes in every repetition; these
+are sampled high-water measurements rather than guaranteed exit-time peaks.
+System samples every second show at least 27.566 GiB of available RAM, at most
+768 KB of swap used, and mean aggregate CPU busy fractions of approximately
+12–14% across 24 logical CPUs. The CPU metric includes other machine activity;
+it is not per-planner CPU utilization. There is no indication of substantial
+memory pressure from this workload.
+
+Raw evidence: `outputs/fast-downward/measurements/` holds each repetition's
+full report, log, peak-RSS and system samples; `summary.json` contains medians,
+bootstraps and case-level speedups; `per-instance.csv` adds preprocessing and
+backend/heuristic setup times. `raw-work-equivalence-all.json` records the complete
+hmax statistics comparison across all six repeated control/native-hmax runs. `pyperplan-lmcut-coverage.json` and
+`pyperplan-lmcut-partial-validation.json` preserve failure/partial coverage.
+`profiles/` holds four diagnostic cProfiles and native-call totals;
+`audit/` holds domain equivalence, feature checks and initial-value diagnostics.
+Final smoke runs and their resource samples are also in `measurements/`.
+All native run manifests include the upstream revision, compiler, Python ABI,
+binding hashes and native binary hash; snapshots include `native-backend.json`.
+
+The next useful milestone is replacing grounding/translation while preserving
+all outcomes and explicitly handling translator simplification. It should be
+assessed separately from this native execution win. No full campaign, push,
+tag or merge was performed.
+
+### Additional baseline: BOAND* bw with Pyperplan LM-cut
+
+At the user's request, record a separate three-repetition baseline for
+`BOAND pyperplan lmcut`, rather than treating it as an optimization candidate.
+This completes the four-way backend/heuristic comparison available in the
+prototype. No planner code, expected costs, profile selections or limits changed.
+The fixed original baseline remains `c7cd597`; this is an additional reference.
+
+Measurements use journal definition 5, `bw`, LM-cut, MinSum/MaxSum/Delta,
+`largestg`, `PYTHONHASHSEED=0`, four workers, 6,000,000 KB virtual memory/job,
+30 seconds/job and the unchanged 60-second suite deadline. Performance repetition
+1 reuses the previously recorded `37368cb` run; repetitions 2–3 and all three
+smoke repetitions use `0432276`. Every manifest's planner-file hashes match:
+these revisions differ only in documentation. Additional repetitions characterize
+the requested baseline after the earlier candidate evaluation stopped on failure.
+Runs were sequential, without concurrent campaigns or builds.
+
+| Profile | Completed searches, each run | Solvable cases solved, each run | Policies replayed, each run | Median wall time (range), seconds |
+| --- | ---: | ---: | ---: | ---: |
+| Smoke | 14/14 | 12/12 | 14/14 | 24.501 (24.266–25.433), including suite replay |
+| Performance | 10/11 | 9/10 | 10/11 | 36.018 (35.911–36.067), external elapsed to failed exit |
+
+Beam-walk `p7` times out with return code 124 in **all three performance runs**.
+It is a coverage failure, not unsolvability. The performance command exits before
+its normal validation report, so an independent collector checks the unchanged
+expected cost sets and replays all ten policies from the ten completed searches
+in each repetition. The unsolvable Blocksworld instance completes correctly.
+All smoke cases pass their expected costs and policy replay, including both
+unsolvable instances. Collector replay after the failed command is additional
+validation and is not included in its external wall time.
+
+The following search medians exclude preprocessing and replay. The other three
+columns reuse the three current-control/native repetitions at `37368cb` with
+equivalent inputs and settings; measurements are sequential, not simultaneous.
+
+| Performance instance | Pyperplan hmax (s) | Pyperplan LM-cut (s) | Native hmax (s) | Native LM-cut (s) |
+| --- | ---: | ---: | ---: | ---: |
+| Beam-walk p7 | 0.1911 | timeout | 0.0193 | 0.8755 |
+| Blocksworld p13, unsolvable | 0.1752 | 2.4658 | 0.0111 | 0.0456 |
+| Chain of Rooms p24 | 0.3604 | 1.5138 | 0.2060 | 0.2299 |
+| Doors p8 | 0.1722 | 0.2690 | 0.1368 | 0.1378 |
+| Elevators p04 | 2.3125 | 0.0566 | 2.2549 | 0.0143 |
+| FrozenLake p19 | 0.6940 | 0.7148 | 0.6223 | 0.6267 |
+| Islands p16 | 2.2911 | 3.2682 | 2.0210 | 1.9995 |
+| Modified First Responders p_2_2 | 0.1076 | 0.0958 | 0.1129 | 0.0721 |
+| ST Tires p08 | 0.1216 | 0.5026 | 0.0138 | 0.0237 |
+| Tireworld p06 | 4.6023 | 11.6984 | 3.3861 | 3.5061 |
+| Tireworld-truck p7 | 1.1076 | 1.7037 | 0.9264 | 0.9247 |
+
+No full-profile geometric mean or total search-time comparison is reported for
+Pyperplan LM-cut because coverage is incomplete. Its ten completed performance
+cases sum to 22.289 seconds of per-case medians; that is a partial diagnostic,
+not a full-suite total. Smoke sums to 10.581 seconds, with Beam-walk p6 alone
+taking a median 6.975 seconds. A job timeout includes setup and cannot be
+substituted for a measured search time.
+
+Work counts vary on Elevators despite seed 0: performance p04 records 627 or
+669 expansions and 3,201 or 3,342 generations; smoke p05 records 29 or 33
+expansions. Other completed cases have stable recorded work counts. The source
+of this variation is not established here; preserve it as a reproducibility
+limitation and do not attribute cross-backend differences solely to evaluation
+speed. The native LM-cut Elevators result has 461 expansions. Timing samples
+and all observed work counts are retained per instance, rather than suppressing
+the variability.
+
+Maximum per-instance median sampled peak RSS is 494,676 KB for performance and
+165,028 KB for smoke. The 50 ms process sampler is not a guaranteed exit-time
+peak. System samples show at least 27.636 GiB available RAM and at most 768 KB
+swap used across these six runs, with no indication of memory pressure.
+
+Raw baseline index, planner hashes, manifests, coverage, independent replay
+results, per-instance timing samples, work counts and sampled memory are in
+`outputs/baselines/pyperplan-lmcut-bw/baseline.json`; flat data are in
+`measurements.csv` and `performance-comparison.csv` beside it. The reproducible
+collector is `collect.py` in that directory. Original execution logs and resource
+samples remain in `outputs/fast-downward/measurements/{performance,smoke}-pyperplan-lmcut/`;
+each record links its run manifest under `runs/journal_development/`.
+
+Reproduce with `PYTHONHASHSEED=0 .venv/bin/python -m
+campaigns.journal_development.smoke --profile smoke-pyperplan-lmcut` or
+`--profile performance-pyperplan-lmcut`. The latter is expected to fail coverage
+under the recorded limits. Decision: **retain the baseline evidence, including
+timeouts**; no optimization is adopted or reverted. No full campaign was run.
+
+### Attempt 57 — Fast Downward grounding migration
+
+Hypothesis: replacing Cartesian Pyperplan grounding with Fast Downward's Datalog
+relaxed-reachability grounder reduces preprocessing and the native task size,
+while preserving every reachable FOND outcome. Parent: `2f2ab06`; fixed original
+performance baseline: `c7cd597`. This is the second backend migration stage,
+evaluated separately with hmax and LM-cut. The original native profiles remain
+controls and the default stays Pyperplan+hmax.
+
+Implementation: opt-in `downward-grounded` runs the pinned upstream parser,
+normalizer and `instantiate.explore` after shared negative-condition compilation.
+Keep no-ops, original conjunctive goals and determinized action names. Encode
+its grounded positive STRIPS task using the existing Boolean SAS adapter. Reject
+unsupported effects, conditions, axioms and action costs. Bypass the full
+classical SAS pipeline and its unsolvable-task replacement/relevance pruning.
+The unchanged reachable graph can have fewer unreachable operators/facts and a
+new sorted operator order; do not presume search-work equivalence. Translator
+revision/source hashes join native build metadata in manifests, snapshots and
+resume checks. Journal definition 6 adds four comparison profiles; costs,
+fixed selections, default flags and resource limits remain unchanged.
+
+Initial validation: **90 tests pass**, including independent explicit transition
+and shortest-path checks on 80 new random classical tasks, exhaustive policy
+oracles on 30 new tiny FOND tasks with both native heuristics, typed/static
+conditions, repeated arguments, unreachable static goals and no-op outcomes.
+Both new 14-case smoke profiles pass all expected costs and 14 policy replays.
+The first prototype run exposed an incorrect FD task-name attribute; subsequent
+unit tests exposed the upstream empty-goal axiom transformation. Both adapter
+issues were corrected before timing evaluation; failed development artifacts
+are retained. No historical baseline bug or numerical-cost revision is involved.
+
+A benchmark audit checks identical initial states, goals and all applicable
+operator-labelled transitions on **1,698 sampled states / 11,447 transitions**
+across all 23 distinct selected inputs. Three graphs are exhaustive; the rest
+are bounded samples, not completeness proofs. ST Tires p08 has 1,954 reference
+operators versus 277 FD-grounded operators; p09 has 2,212 versus 288. These are
+unreachable-operator reductions, not deleted reachable outcomes. Audit timings
+are diagnostic only, excluded from repeated unprofiled comparisons.
+
+Before/after dry-run manifests confirm identical ordered inputs, hashes, limits,
+workers and commands except the explicit backend flag. Raw audit, manifests,
+failed development logs, unit-test output and resource-monitored smoke runs are
+under `outputs/fast-downward-grounding/`. The pre-change default smoke passes
+14/14 searches, 12/12 solvable cases and 14 replays in 22.94 s. A post-change
+default smoke and repeated performance comparisons follow before the final
+keep/revert decision. Candidate revision and measured outcomes are recorded
+below after committing the validated implementation. No full campaign is run.
+
+Final decision for attempt 57: **revert as inconclusive**. Candidate `aad5e03`
+was reverted in `7fc3af3`, without rewriting history. Five repetitions per native
+control and candidate all complete 11/11 searches, solve 10/10 solvable cases and
+replay 11/11 policies with unchanged costs. Three runs left uncertainty, so the
+comparison was extended to the prescribed five. All settings are as above.
+
+| Configuration at `aad5e03` | Sum of median search times (s) | Median suite wall (s) | Geomean search speedup vs matching native control (95% bootstrap interval) |
+| --- | ---: | ---: | ---: |
+| Native hmax control | 9.787 | 27.964 | reference |
+| FD-grounded hmax | 9.761 | 27.817 | 1.064 (0.987–1.096) |
+| Native LM-cut control | 8.494 | 27.451 | reference |
+| FD-grounded LM-cut | 8.438 | 27.411 | 1.073 (0.982–1.101) |
+
+Intervals resample whole runs 4,000 times with seed 0, take per-instance medians,
+then geometrically average ratios. The original `c7cd597` comparisons are 3.924×
+(3.710–3.940) and 3.824× (3.500–3.844), but do not justify keeping an inconclusive
+increment over the retained native parent. Summed median preprocessing is
+9.031→8.891 s for hmax and 9.478→8.885 s for LM-cut. There is no established
+full-suite wall-time improvement. Detailed variability, memory, per-instance
+regressions and work counts are retained in `summary.json`, `per-instance.csv`
+and `work-equivalence.json` under `outputs/fast-downward-grounding/`.
+
+Search work differs only on Modified First Responders: hmax expansions
+1,959→1,934 and generations 11,602→11,446; LM-cut expansions 1,784→1,772 and
+generations 10,598→10,533. Doors regresses from 0.136→0.161 s (hmax) and
+0.139→0.160 s (LM-cut), despite identical facts/operator fields and final work
+counts. ST Tires improves from 0.0139→0.0092 s and 0.0214→0.0113 s, respectively,
+but one candidate LM-cut repetition takes 0.0279 s. Maximum median process peak
+RSS stays near 480,000 KB for all four configurations. Post-change default smoke
+passes in 22.93 s; final new smoke runs pass in 22.93/23.34 s.
+
+Follow-up diagnosis rejects operator ordering as the established cause of the
+Doors slowdown: five isolated unprofiled runs with sorted and restored operator
+orders have similar medians (approximately 0.124–0.125 s). That diagnostic loads
+both grounders in one process and is not a campaign baseline. Fresh-process GC
+callbacks instead record a generation-2 collection during FD-grounded search:
+6,247 objects reclaimed in 0.0192 s, contributing to 0.1448 s search versus
+0.1283 s for the reference. An explicit collection before search brings the
+FD-grounded diagnostic to 0.1244 s, with no full collection during search. These
+single-task observations identify a promising follow-up; they are not aggregate
+performance evidence. Raw diagnostics are `doors-audit.json`, `doors-order/`
+and `gc-*.json` beside the rejected measurements. Expected numerical costs and
+planner semantics remain unchanged.
+
+### Attempt 58 — Reclaim FD grounding temporaries during preprocessing
+
+Hypothesis: the otherwise validated FD grounder leaves cyclic Datalog temporary
+objects for Python's collector; reclaiming them once during preprocessing avoids
+an unrelated full-heap collection in short searches and reduces timing variance.
+Reintroduce attempt 57 with this one additional cleanup. Keep normal automatic
+GC enabled and include the collection cost in measured preprocessing. Search
+speedups must therefore be interpreted alongside preprocessing and total time;
+this does not make that cleanup time disappear.
+
+Parent `7fc3af3` is planner-equivalent to `2f2ab06`. Candidate revision follows
+validation. Compare against attempt 57 to isolate cleanup effects, and the five
+recorded matching native controls at `aad5e03` to assess the complete migration.
+Those controls do not execute the new grounding/cleanup path and retain identical
+inputs, flags, native build, seed and limits. Reuse their five measurements only
+under those equivalent conditions. The fixed original baseline remains `c7cd597`.
+New raw artifacts and resource-monitored runs are under
+`outputs/fast-downward-grounding-gc/`. Repeat both fixed correctness profiles and
+relevant tests before three unprofiled timing repetitions per candidate heuristic;
+extend to five only if uncertainty remains. The architecture, definition 6 and
+unsupported-feature checks otherwise remain exactly as documented for attempt 57.
+
+Final evaluation of candidate **`290b89e`**: **retain the opt-in FD grounding
+backend on its repeatable LM-cut search benefit**. Hmax support remains available
+for correctness checks and controlled comparisons, with **no demonstrated hmax
+performance improvement**. The existing default and both original native
+configurations remain unchanged. Retention is justified by the requested LM-cut
+migration capability and its measured gain, not by treating the inconclusive
+hmax result as an improvement or invoking the code-cleanup exception. The
+adapter/cleanup is one shared implementation; no individual component gain is
+claimed from this combined follow-up.
+
+All 90 tests pass again. Both new smoke configurations complete 14/14 searches,
+solve 12/12 solvable cases and replay 14/14 policies with unchanged costs; suite
+walls are 23.121 s (hmax) and 23.377 s (LM-cut). The post-change default also
+passes, in 23.291 s. Performance completes 11/11 searches, solves 10/10 solvable
+cases and replays 11/11 policies in every measured repetition. The unchanged
+unsolvable instance completes with no policy. No failed search enters an average.
+
+Candidate hmax starts with three repetitions and extends to five because of
+noise; LM-cut stops after three with a clear search benefit. Each native control
+has five repetitions, reused from attempt 57 under the equivalent conditions
+specified above. All candidate performance manifests record `290b89e`, definition
+6, seed 0, four workers, 6,000,000 KB/job, 30 s/job and the 60 s suite deadline.
+Candidate smoke runs precede the commit and include the same source in their
+recorded patches. No builds, diagnostics or other campaigns overlap timing runs.
+
+| Configuration | Repetitions | Geomean search speedup vs matching native control (95% bootstrap interval) | Sum of median search times (s) | Median suite wall (range), s |
+| --- | ---: | ---: | ---: | ---: |
+| Native hmax control | 5 | reference | 9.787 | 27.964 (27.605–29.982) |
+| FD-grounded hmax | 5 | **inconclusive:** 1.065 (0.901–1.096) | 9.965 | 27.901 (27.822–34.687) |
+| Native LM-cut control | 5 | reference | 8.494 | 27.451 (27.213–30.808) |
+| FD-grounded LM-cut | 3 | **1.079 (1.043–1.108)** | 8.478 | 27.700 (27.412–28.272) |
+
+Bootstraps use the same 4,000 whole-run resamples and seed as attempt 57. The
+geometric mean weights each domain equally; the LM-cut gain concentrates on
+short cases and does not imply an equivalent reduction in summed search time
+or end-to-end time. Suite wall time is effectively unchanged. Do not advertise
+this as a total-runtime improvement. Hmax's summed median search time is 1.8%
+higher than its control; this also cautions against selecting it as a new default.
+
+Summed median parsing/compilation/grounding (including the explicit collection)
+is 9.031→9.185 s for hmax and 9.478→9.393 s for LM-cut. Summed native backend/
+heuristic construction is 0.345→0.303 s and 0.346→0.301 s. Some search-time
+benefit reflects moving cleanup to its appropriate setup phase; it is not all
+an improvement in search operations or heuristic evaluation. The cleanup's
+increment relative to rejected attempt 57 is itself inconclusive: geomeans
+1.001 (0.848–1.058) for hmax and 1.005 (0.974–1.095) for LM-cut. Its specific
+engineering benefit is reclaiming known translation temporaries before search,
+not a demonstrated aggregate speedup attributable to `gc.collect()` alone.
+
+Doors now has medians 0.1356 s (hmax) and 0.1361 s (LM-cut), versus controls
+0.1359/0.1387 s: the previous repeatable regression is removed. ST Tires medians
+are 0.00935/0.01173 s versus 0.01392/0.02139 s. Hmax retains a 0.05798 s
+ST Tires outlier; its exact cause is not established, and it remains in the
+bootstrap. Normal GC remains enabled and this cleanup cannot prevent all later
+collections or scheduling delays. LM-cut has small individual regressions:
+Islands 0.960×, Tireworld-truck 0.974× and Tireworld 0.993× relative to matching
+controls; these are retained and shown in the per-instance data. Expected costs
+and independent replay are unchanged. Non-time statistics differ only on
+Modified First Responders, with the same work-count reductions documented for
+attempt 57; all intermediate/final rows are preserved in `work-equivalence.json`.
+
+Relative to the fixed original `c7cd597`, observed cumulative search geomeans
+are 3.927× (3.327–3.948) for grounded hmax and 3.843× (3.703–3.863) for grounded
+LM-cut. These span rounds, with environmental-drift limitations; they are not
+substitutes for the matching native-control comparison. Hmax versus LM-cut with
+FD grounding is inconclusive (LM-cut/hmax geomean 0.979, interval 0.946–1.155).
+No universal heuristic preference follows from this small set.
+
+Largest per-instance median sampled peak RSS is 480,536 KB for candidate hmax
+and 480,340 KB for candidate LM-cut, approximately 469 MiB. The 50 ms sampler
+observes all 11 planner processes per repetition but is not an exact exit-time
+peak. Candidate samples show at least 27.515 GiB available RAM and at most 768 KB
+swap used. Mean system CPU busy fraction is approximately 12.6–12.7% across 24
+logical CPUs, including other machine activity. There is no evidence of memory
+pressure or system saturation from these runs.
+
+Raw evidence: `outputs/fast-downward-grounding-gc/measurements/` contains logs,
+reports, manifests, resource samples and revision references; `summary.json`
+contains medians, variability, speedups, bootstraps and coverage; `per-instance.csv`
+adds preprocessing/construction and work counts. `summarize.py` checks all cases
+and assembles the comparison, explicitly reusing the five original native
+controls under `outputs/fast-downward-grounding/`. `tests.log` and smoke reports
+preserve validation. Rejected attempt 57 and its diagnostics are retained in
+that earlier directory, including its three- and five-run summary logs. Runs
+remain under ignored `runs/journal_development/` and translator/binary provenance
+is captured in every new-backend manifest and snapshot.
+
+Remaining scope: the shared Unified Planning negative-condition compiler,
+Boolean SAS encoding and fact-set search boundary are still present. This
+milestone replaces Pyperplan parsing/grounding, not the complete preprocessing
+pipeline or a compact SAS translation. No full campaign, default switch, push,
+merge or tag was performed.
+
+### Attempt 59 — Direct compilation of negative conditions
+
+Hypothesis: replacing Unified Planning's negative-condition-removal round trip
+with a typed dual-rail transformation in the pinned FD AST reduces preprocessing
+and process startup while preserving reachable FOND transitions and policy labels.
+Parent: `5b966d2`; fixed original baseline: `c7cd597`. Implementation is opt-in
+`downward-direct`, evaluated separately with native hmax and LM-cut against their
+corresponding `downward-grounded` controls. Defaults remain unchanged.
+
+Complement predicates retain `not_` labels. Initial complements enumerate typed
+instances false in the original initial state. Lifted mirrored effects support
+relaxed grounding; grounded complementary effects are reconstructed after
+resolving original add/delete overlaps and parameter aliases. No-op outcomes,
+original goals and determinized names are retained. Unsupported negative equality,
+name collisions, nonconjunctive conditions, conditional/quantified effects, axioms
+and costs fail explicitly. FD grounding/Boolean SAS/native execution stay the
+same. Unified Planning imports are lazy so the direct path avoids that dependency
+at runtime; legacy controls now count cold imports inside preprocessing. This
+changes phase accounting and requires fresh controls, not reuse of older setup
+medians. Journal definition 7 records this interface/accounting change, preserving
+fixed input hashes, costs, defaults, limits and selections.
+
+Validation before candidate commit: **93 tests pass**, including 100 new random
+signed-state transition/complement checks with both heuristics, an aliased-effect
+case and 30 signed FOND tasks checked against exhaustive policy oracles. Both
+14-case direct smoke profiles pass all expected costs and 14 policy replays.
+After lazy imports, resource-monitored direct smoke commands take approximately
+13 seconds. The default before/after smoke also passes. A 23-input audit agrees
+on initial states, goals and all labelled transitions on 1,698 sampled states /
+11,447 transitions; three graphs are exhaustive. Others are bounded samples.
+
+The oracle also exposed a pre-existing search limitation: initially satisfied
+goals can fail to produce the valid zero-cost empty policy. Both retained
+Pyperplan and original native backends reproduce it on a goal-true initial state
+with a no-op action, returning no policy; independent replay gives (0,0).
+`outputs/fast-downward-direct/initial-goal-audit.py` and `.json` preserve the
+reproducer. The signed classical transition tests include initially true goals;
+the search-level FOND oracle uses initially unsatisfied goals to evaluate this
+migration independently of that historical error. Fixed profile inputs are
+unaffected. This confirmed finding needs a separate correctness fix and explicit
+semantic documentation; it is not a reason to preserve a bug in a future oracle.
+No expected costs were changed to hide it.
+
+Raw audit, test logs, initial/final smoke logs, dry-run manifests and measurement
+scripts are in `outputs/fast-downward-direct/`. Candidate revision and repeated
+unprofiled results follow. Use three fresh runs per compared configuration with
+seed 0, four workers, 6,000,000 KB/job, 30 s/job and the 60 s suite deadline.
+Collect per-instance search/setup times, work counts, completed/solved/replayed
+coverage, suite wall time, sampled memory and machine resources. No full campaign
+is requested or launched.
+
+Final decision: **retain candidate `9540574` as the opt-in direct compiler path**.
+Three fresh repetitions per configuration establish a clear setup/end-to-end
+benefit; no extension to five is needed. All twelve performance runs complete
+11/11 searches, solve 10/10 solvable cases and replay 11/11 policies with unchanged
+expected costs. Both direct smoke configurations complete 14/14 searches, solve
+12/12 solvable cases and replay all 14 policies. Resource-monitored final smoke
+walls are 13.017 s for hmax and 12.886 s for LM-cut (external command time is
+slightly higher). Default before/after smoke passes; **93 tests pass**.
+
+All performance manifests use committed `9540574`, definition 7, seed 0,
+four workers, 6,000,000 KB/job, 30 seconds/job and the 60-second suite deadline.
+Control and candidate runs are interleaved sequentially without diagnostics,
+other campaigns or builds. The earlier controls cannot replace these fresh
+controls for setup-time comparisons, because lazy imports changed phase
+accounting. Before/after dry-run checks confirm identical selected identities,
+paths, input hashes and scientific resource settings, with four workers and
+only explicitly chosen configuration/backend flags differing. Manifests and
+sidecars identify the direct compiler as `boand-dual-rail-v1`.
+
+| Configuration | Sum of median search times (s) | Sum of median preprocessing times (s) | Median suite wall (range), s | Search geomean speedup vs matching control (95% bootstrap interval) |
+| --- | ---: | ---: | ---: | ---: |
+| UP compiler + FD grounding, hmax | 9.949 | 30.601 | 27.295 (27.132–28.744) | reference |
+| Direct compiler + FD grounding, hmax | 9.618 | 1.730 | 17.969 (17.802–18.782) | 1.023 (1.015–1.086) |
+| UP compiler + FD grounding, LM-cut | 8.447 | 29.703 | 26.619 (26.595–26.690) | reference |
+| Direct compiler + FD grounding, LM-cut | 8.037 | 1.725 | 18.052 (17.910–19.324) | 1.043 (1.034–1.053) |
+
+Preprocessing includes original FOND parsing, determinization, compiler imports,
+compilation, grounding and explicit temporary-object collection. Legacy UP cold
+imports were outside this timer in definition 6; they are inside it in definition
+7. Thus the 30-second sums do not imply the retained compiler became slower than
+before. They sum eleven independent cold processes, run four at a time, and are
+not suite wall times. The direct path avoids those imports and the UP parse/
+compile/write round trip entirely. Native backend/heuristic construction sums
+are 0.301→0.307 s for hmax and 0.298→0.304 s for LM-cut. Total suite wall speedups
+are 1.52× and 1.47× (approximately 34%/32% shorter), including launch and replay.
+These real end-to-end reductions are unaffected by the phase-accounting change.
+
+Whole-run bootstrap intervals use 4,000 resamples and seed 0, followed by
+per-instance medians and a geometric mean of ratios. Every intermediate/final
+non-time statistics row matches the corresponding control in all 66 paired
+case/repetition comparisons: expansions, generations, iterations, queue sizes,
+costs and policy sizes agree. The modest search improvement is therefore not
+a search-order/guidance gain; avoiding the compiler changes the Python heap and
+runtime overhead. Hmax has small per-instance median regressions on Doors
+(0.984×), Modified First Responders (0.973×) and ST Tires (0.965×), retained in
+raw data; no substantial regression accompanies the strong setup gain. LM-cut
+improves every measured per-instance search median (1.008× through 1.134×).
+
+Observed cumulative search speedups versus fixed `c7cd597` are 4.022×
+(3.976–4.068) for hmax and 3.983× (3.925–3.997) for LM-cut. These span rounds
+and have environmental-drift limitations; the fresh matching controls are the
+primary evidence for this milestone. Comparing direct LM-cut with direct hmax
+still gives mixed domain guidance (geomean 0.990, interval 0.972–0.997) despite
+LM-cut's lower summed search time. No universal heuristic/default choice follows.
+
+Largest per-instance median sampled peak RSS drops from 480,140→383,492 KB
+(hmax) and 480,488→383,372 KB (LM-cut), approximately 469→375 MiB or 20% less.
+All planner processes are observed by the 50 ms sampler, but sampled high-water
+RSS is not a guaranteed exit-time peak. Candidate system samples show at least
+27.424 GiB available RAM and no more than 768 KB swap used. Aggregate system CPU
+busy fraction is approximately 7.9–8.3%, versus 12.8–13.1% for controls, across
+24 logical CPUs and including other machine activity. No memory pressure is
+observed; the compiler replacement also reduces machine CPU demand on this set.
+
+Raw evidence: `outputs/fast-downward-direct/measurements/` preserves all reports,
+logs, manifests, sampled RSS and system telemetry. `summary.json` holds coverage,
+medians, intervals, work counts, resource summaries and per-instance speedups;
+`per-instance.csv` includes preprocessing/construction and search variability;
+`work-equivalence.json` retains all compared statistics rows. `summarize.py` checks
+coverage, costs, execution states, definition/limits and paired raw rows before
+computing results. Audit/test logs and dry-run manifests remain beside these
+files. Planner runs and their provenance/snapshots are under ignored
+`runs/journal_development/`. The initial-goal correctness finding above remains
+a separate documented issue; neither compiler expectations nor profile costs
+were altered to suppress it.
+
+Remaining migration scope: compact SAS variables/integer states and consolidation
+of defaults/interfaces after review. This direct path still uses the shared FOND
+parser/determinizer and Boolean SAS/fact-set search boundary. It intentionally
+bypasses classical FD graph simplification and does not claim unrestricted PDDL
+support. No full campaign, default switch, push, merge or tag was performed.
+
+## Correctness fix: initially satisfied goals (journal definition 8)
+
+Parent: `3b617cc`. The search root unconditionally entered `pending`, even when
+its state satisfied the goal. A task with an initially true goal and a no-op
+could return no solution; other tasks could return positive costs. Independent
+policy replay establishes that an empty strategy is valid with `(0, 0)` costs.
+This defect predates the FD migration and is evaluated separately from attempts.
+
+Initialize the root in `goal_states` when it satisfies the goal, otherwise in
+`pending`. The existing closed-policy properness, Pareto recording, output and
+metadata paths then handle the empty solution normally. It requires no actions,
+expansions or generations. No special early return bypasses output/provenance.
+Journal definition 8 versions this corrected behavior; fixed smoke/performance
+selections, costs, resources and defaults remain unchanged.
+
+Targeted tests cover initially true and empty goals, no actions, no-ops and
+an action deleting the goal, all four metrics and both heuristics under
+Pyperplan and the native adapter. They compare with independent replay and
+check a single empty policy file, zero costs and zero expansions/generations.
+The signed random FOND direct-grounding oracle now includes initially satisfied
+goals, comparing full Pareto sets against exhaustive strategy enumeration.
+
+Raw evidence: `outputs/initial-goal-fix/` holds the parent smoke, full test log
+and after-change default/direct hmax/direct LM-cut smoke/performance logs,
+including references to raw planner runs and validation reports under `runs/`.
+This fix is retained for correctness; no timing improvement is claimed.
+
+The first targeted run also exposed Pyperplan LM-cut returning infinity for an
+empty goal. Closed empty strategies now record zero costs directly, justified
+by goal satisfaction and independent replay, rather than consulting that
+estimate. The initial failing test log is preserved as `tests-first.log`.
+
+Validation: all 94 tests pass. Parent/default smoke passes 14/14 completed,
+12/12 solvable instances and 14 policy replays. After-change default and direct
+hmax/LM-cut smoke profiles each pass the same gate; all three performance
+profiles pass 11/11 completed, 10/10 solvable and 11 policy replays. Expected
+Pareto sets remain unchanged. These are correctness runs, not repeated timing
+baselines; some test execution overlapped the early profile checks, so their
+wall times must not be interpreted as performance comparisons. No full campaign
+or backend-default change was made.
+
+## Migration consolidation: journal default backend (definition 9)
+
+Parent: `046c861`. This is an interface/campaign consolidation, not another
+performance attempt. The direct backend was retained and measured in attempt 59;
+this milestone makes it the explicit default for journal smoke/performance.
+Hmax remains the default heuristic because LM-cut guidance was mixed on the
+fixed inputs. No new timing gain is claimed.
+
+A common lightweight backend registry now selects lazy grounding factories and
+native/translator/compiler provenance requirements for search and the runner.
+The four existing pipelines retain their implementations and flags. Unknown
+names fail before parsing; unsupported inputs and missing/stale native builds
+fail explicitly without backend fallback. Legacy standalone CLI/API defaults
+remain Pyperplan to preserve ICAPS campaign command behavior. Journal default
+profiles now select the existing **BOAND direct hmax** configuration; named
+`smoke-pyperplan-hmax` and `performance-pyperplan-hmax` profiles retain the old
+**BOAND bw** selection. Configuration identifiers remain unique, and all other
+comparison profiles remain available.
+
+Journal definition 9 versions the default change. Before/after dry-run manifests
+confirm identical selected identities, paths, hashes, run counts, scientific
+settings, four workers, 6,000,000 KB/job and 30-second job limits. Each scheduled
+command only gains `--backend downward-direct` and its configuration identifier
+gains `_downward-direct`. Runtime provenance adds the verified pinned native
+build, translator file hashes and `boand-dual-rail-v1` compiler marker. Expected
+Pareto costs are unchanged. No ICAPS definitions or published inputs are edited.
+
+Raw evidence: `outputs/backend-consolidation/` retains before/after manifests,
+`manifest-comparison.json`, parent smoke, test logs and validated profile logs;
+planner runs and snapshots remain under ignored `runs/journal_development/`.
+Documentation now gives the native prerequisite build before the default
+journal commands and explains explicit comparison profiles. Compact native
+state IDs and direct SAS conditions remain an optional future migration stage.
+
+Validation: all 97 tests pass, including lazy backend dispatch, explicit failure
+propagation, unknown-name rejection before parsing, standalone CLI selection and
+campaign default/comparison contracts. Parent smoke passes. New-default direct
+hmax, explicit Pyperplan hmax and direct LM-cut each pass both fixed profiles:
+14/14 smoke searches complete, 12/12 solvable cases solved and all 14 policies
+replayed; performance has 11/11 complete, 10/10 solved and 11 policies replayed.
+All expected Pareto sets match. Raw intermediate and final non-time statistics
+are identical to the corrected parent for all 75 paired case runs across these
+six profiles (`work-equivalence.json`), including expansions, generations and
+policy sizes. Current default suite walls are 15.03 s (smoke) and 18.26 s
+(performance); these single correctness runs are not repeated timing baselines.
+Keep the consolidation and default change. No full campaign, push, merge or tag.
+
+## Attempt 60 — compact native handles preserving state hashes
+
+Hypothesis: keep native state IDs at the Python search boundary while retaining
+legacy fact-set hashes, so state selection remains unchanged and permanent
+fact-set copies/two-way ID maps can be removed. Parent: `b7b2633`; fixed original
+performance baseline: `c7cd597`. Direct Boolean SAS/negative compilation and
+scientific semantics remain unchanged. This is a focused state representation
+experiment; direct SAS-condition compilation is not part of this candidate.
+
+Profiles on current direct hmax Tireworld and Doors show decoding is small:
+Tireworld `state_facts` takes 0.043 s and successor conversion 0.112 s cumulative
+out of 6.337 s profiled execution. A large runtime benefit is unlikely; reduced
+retained Python heap may still matter. Candidate `HandleStateTask` interns
+compact task-local state objects holding an ID and the original decoded
+fact-set hash. Native goal/heuristic calls use IDs directly; decoding occurs
+once for hashing and later for output or legacy subset tie comparisons. No
+permanent decoded facts or reverse fact-set-to-ID map is retained. Operator
+hashes/order remain unchanged. Python-level state hashing is a potential cost.
+
+Raw diagnostics, before/candidate smoke logs, repeated unprofiled parent
+measurements (three runs), sampled planner RSS/system resources and tests are
+under `outputs/native-state-handles/`; planner runs are under ignored `runs/`.
+The candidate passes all 98 tests, including 40 random classical tasks with
+both native heuristics, transition/goal/value/hash equivalence, canonical handle
+identity and successor set iteration. Existing independent tiny FOND search
+oracles and initial-goal tests also pass. Smoke completes 14/14 searches,
+solves 12/12 solvable inputs and replays all 14 policies with unchanged costs;
+all intermediate/final non-time rows match the parent. Candidate timing and
+keep/revert decision are pending repeated unprofiled performance evaluation.
+
+Final evaluation: candidate `c024093` versus immediate parent `b7b2633`, three
+unprofiled repetitions per revision, fixed performance inputs/default direct
+hmax, seed 0, four workers, 6,000,000 KB/job, 30-second job timeout and the
+60-second suite deadline including replay. All runs complete 11/11 searches,
+solve 10/10 solvable cases and replay all 11 policies. All 33 paired
+intermediate/final non-time statistics comparisons are identical. The candidate
+is therefore a pure representation change, not an altered search-work tradeoff.
+
+Search geometric-mean speedup is **0.819×**, 95% whole-run bootstrap interval
+**[0.805, 0.822]** (4,000 resamples, seed 0): a clear loss. Median search sums
+increase 9.673→11.720 s and suite wall medians 18.095→19.701 s (parent external
+walls 18.40–18.59 s, candidate 20.00–22.12 s). Per-instance speedups range
+0.601× (Doors) through 0.993× (unsolvable Blocksworld); no instance improves.
+FrozenLake is 0.675×, Chain of Rooms 0.714× and Tireworld 0.724×. Largest
+per-instance median sampled peak RSS only falls 383,336→378,064 KB, about 1.4%.
+RSS is sampled every 50 ms, not a guaranteed exit-time maximum. Cumulative
+speedup versus historical `c7cd597` is 3.290× [3.228, 3.296], but this does not
+justify regressing the corrected immediate parent; cross-round timing drift
+limits that historical comparison.
+
+Post-measurement diagnostic profiles identify 41,665,705 Python state `__hash__`
+calls in Tireworld (1.366 s self time under cProfile, not an unprofiled timing
+estimate), versus the C implementation of frozenset hashing in the parent.
+Fact decoding remains about 0.042 s; avoiding ID-map lookups cannot offset
+Python hash/equality overhead. Both parent and candidate diagnostics are retained.
+Do not repeat the Python-handle approach as an inconclusive micro-optimization.
+A future handle implementation would require C-level hashing and validated
+legacy order preservation. Direct SAS condition/variable encoding should remain
+separate and can retain the existing fact-set boundary.
+
+**Revert** in `2f36f72`, preserving candidate history and all raw evidence.
+`summarize.py`, `summary.json`, `per-instance.csv`, `work-equivalence.json`,
+resource samples, tests and diagnostics are under `outputs/native-state-handles/`.
+No definition/default/cost change, full campaign, push, merge or tag. This round
+contains one evaluated attempt; no optimization is retained.
+
+Revert verification: planner, execution, campaigns and tests exactly match
+`b7b2633` (empty scoped Git diff). Restored-default smoke passes all coverage,
+cost and replay checks in 13.27 s. No additional timing comparison is inferred.
+
+SAS follow-up inspection: the direct compiler already returns an explicit
+predicate-to-complement mapping, but `GroundedTask` currently retains only the
+compiler version marker. A safe complementary-value encoding must carry that
+mapping to the native adapter, rather than infer pairs from `not_` names (which
+can also be ordinary user predicates). Preserve decoded fact labels, grounded
+operator order, add-wins alias handling and FOND reachability semantics while
+representing actual complement pairs as opposite values of one SAS variable.
+Keep this separate from handle representation and classical FD simplification.
+No SAS encoding change was implemented in this attempt.
+
+## Attempt 61 — complement pairs as opposite SAS values
+
+Hypothesis: encode explicit compiler-generated complement pairs as opposite
+values of one Boolean SAS variable, reducing native variables without changing
+the Python fact-set boundary or FOND grounding. Parent: `a51e9a4` (planner
+identical to `b7b2633`); fixed original performance baseline: `c7cd597`.
+
+The direct compiler's mapping now reaches `GroundedTask` as explicit grounded
+pairs. `paired_sas` merges eligible pairs, maps negative conditions/goals to
+value 0, combines mirrored effects after existing add-wins normalization and
+reconstructs the same positive/complement fact labels when decoding. No
+predicate-name inference, integer search states, classical SAS simplification
+or benchmark change is involved. A pair is left as separate Boolean variables
+when both values occur in a goal/precondition or its initial values are not
+exclusive. Non-direct tasks use the original Boolean encoding. Manifest and
+translation provenance identify `boand-paired-boolean-v1` for the direct path.
+This is a candidate encoding; default selections/objectives/costs are unchanged.
+
+All 100 tests pass, including 100 random signed classical graphs with native
+bounds checked against independent exact distances, hmax compared with the
+unmerged encoding, and signed FOND exhaustive-policy oracles. Targeted tests
+check declared-pair-only merging, contradictory-condition fallback, transitions,
+values, hashes and complement invariants. Hmax and LM-cut smoke both complete
+14/14 searches, solve 12/12 solvable instances and replay all 14 policies with
+unchanged costs.
+
+An audit of all 23 distinct fixed-profile tasks compares 1,698 sampled states
+and 11,447 labeled transitions per heuristic; three graphs are exhaustive,
+the others stop at 80 states. Transitions, goals and hmax/LM-cut values agree
+with the unmerged parent. Only Beam-walk p6/p7 and Tireworld-truck p6/p7 have
+eligible dynamic pairs, one each (variables 130→129, 258→257, 54→53, 64→63,
+excluding the identity auxiliary). Other complements are already static/pruned
+or absent. Thus a substantial fixed-profile benefit is unlikely; small SAS
+sizes alone do not justify this algorithmic complexity.
+
+Raw evidence: `outputs/paired-sas/` retains parent smoke, three repeated
+resource-monitored unprofiled parent runs per heuristic, tests, candidate smoke,
+`audit.py`, `audit.json` and grounding/audit logs. Runs/manifests/snapshots remain
+under ignored `runs/journal_development/`. Candidate timing/decision pending.
+
+Final evaluation: candidate `4cdfe05`, five unprofiled runs per revision **per
+heuristic**. Parent runs 1–3 use `a51e9a4`; after the candidate's runs 4–5,
+revert `0aa01e7` restores identical planner/execution/campaign/test content for
+parent runs 4–5 (`control-equivalence.json` records the empty scoped diff).
+This preserves history and provides additional controls around the candidate.
+All comparisons use fixed profiles, seed 0, four workers, 6,000,000 KB/job,
+30-second jobs and a 60-second suite deadline including cost checks/replay.
+All twenty performance runs complete 11/11 searches, solve 10/10 solvable
+instances and replay all 11 policies. All 110 paired case/repetition comparisons of intermediate/final
+non-time statistics match, including expansions/generations/queue sizes.
+
+| Heuristic | Search geomean speedup vs parent (95% bootstrap interval) | Sum of median search times, parent→candidate | Median suite wall, parent→candidate | Largest median sampled peak RSS, parent→candidate |
+| --- | --- | --- | --- | --- |
+| hmax | 0.997× [0.967, 1.008] | 9.533→9.592 s | 19.023→18.292 s | 383,420→383,520 KB |
+| LM-cut | 1.008× [1.001, 1.014] | 8.065→7.981 s | 18.271→18.637 s | 383,348→383,328 KB |
+
+The hmax result remains inconclusive after five runs. LM-cut has a small
+positive search-time bootstrap result (0.84%), strongest on Beam-walk (1.051×),
+but the second encoder and complement-consistency/fallback machinery require
+stronger evidence than this gain. Tireworld-truck's LM-cut gain is 1.009×;
+no native variables change for the other nine performance cases. Hmax on
+Beam-walk is 0.983× and Tireworld-truck 0.996×. Other individual ratios are
+retained in `per-instance.csv`/`summary.json`; largest LM-cut regression is
+Elevators 0.985×. No meaningful memory reduction is measured. Whole-suite wall
+ranges overlap substantially: hmax 18.303–20.283 s parent, 18.080–20.499 s
+candidate; LM-cut 18.134–21.292 s parent, 17.947–21.074 s candidate. Wall-time
+median changes are not evidence of a stable end-to-end improvement.
+
+Intervals use 4,000 whole-run bootstrap resamples with seed 0, per-instance
+medians and the geometric mean of ratios. Sampled VmHWM every 50 ms may miss
+exit-time peaks. Cumulative speedups versus fixed historical `c7cd597` are
+4.030× [3.906, 4.056] for hmax and 4.008× [3.967, 4.015] for LM-cut; they
+have cross-round environmental-drift and original-backend limitations and do
+not supersede the immediate-parent comparison. Three-run summaries are retained
+separately; final five-run summaries/CSV contain all samples.
+
+**Revert / do not reapply** candidate `4cdfe05`; restored parent is `0aa01e7`.
+The default remains direct FD/hmax with the established Boolean encoding,
+journal definition 9. This is an algorithmic experiment, not a code cleanup
+eligible for retention without a performance win. Restored-default smoke passes
+14/14 completed, 12/12 solvable and 14 policy replays (14.75 s). No benchmark,
+objective, expected-cost, default/profile selection or published archive change
+is retained. No full campaign, push, merge or tag.
+
+The migration's functional goals are already achieved. Further complement
+encoding work is unlikely to help these domains: FD grounding has already
+removed most static complement facts. Return to the measured policy/search
+bottlenecks rather than extending native representations without a clear
+benefit on the fixed inputs. A broader future study with many dynamic negative
+conditions could revisit this independently validated candidate.
+
+## Full ICAPS evaluation before migration merge
+
+The user requested a full pre-merge historical comparison and selected two
+configurations: direct FD/hmax and direct FD/LM-cut, both BOAND* best-worst.
+`journal_icaps_comparison` definition 1 schedules 392 jobs over the exact
+196 ICAPS dataset-version-2 input entries in its eleven domains. The user
+approved 600 seconds/job, 6,000,000 KB/job and four workers. The published
+ICAPS campaign remains unchanged (600 seconds, 8,000,000 KB/two workers).
+No migration-only causal speedup is claimed from historical-machine timings.
+
+The separate campaign driver records sampled planner VmHWM/system resources,
+checks planner-source stability, then independently replays all emitted policies
+(including partial-search incumbents) under separate per-instance resource/time
+limits. It generates per-case/domain CSVs, JSON/Markdown coverage/cost reports,
+completion/solution cactus figures and a historical-runtime scatter. Completed
+searches, verified solved cases, timeouts, errors and unresolved replay are
+separate metrics. Timing pairs require completed searches and identical cost
+sets; historical cost differences and native-heuristic cost disagreements are
+explicit review items. Replay proves policy validity/costs, not completeness.
+
+Preflight: all 103 tests pass, including fixed-input identity, resource limits,
+malformed-stat failure accounting, all-outcome cyclic replay, stale-validation
+rejection, cost-disagreement filtering and valid timeout-incumbent accounting.
+The unchanged journal smoke passes 14/14 complete, 12/12 solvable and 14 policy
+replays in 13.21 s. Dry-run manifests confirm 392 paper jobs and 28 smoke jobs;
+exact input entries, hashes, objectives and selectors match the frozen source.
+Preflight artifacts are under `outputs/journal-icaps-preflight/`. End-to-end
+comparison smoke and full execution are next. No merge or push has occurred.
+
+End-to-end comparison smoke at `5b26c34` passes: both native configurations
+complete 14/14, solve/replay all 12 solvable instances and all 14 policies each;
+there are no expected-cost, native-cost or historical-cost discrepancies.
+Reports, per-case/domain CSVs and all three PDF figures are generated under
+`runs/journal_icaps_comparison/2026-10-09T12-40-33Z-smoke-b21d4e06/comparison/`.
+The sampler observes all 28 planner processes, at most four concurrently, with
+at least 27.980 GiB available RAM. Controller status/logs and preflight evidence
+remain in ignored outputs. The full published BOAND bw inventory is 124/196
+completed searches and 118/196 cases with incumbents (historical policies
+unverified); parse issues: zero. This is the comparison baseline, not a claim
+of 118 independently validated solved problems.
+
+Full execution launched at source revision `86515c6` on the migration branch:
+`runs/journal_icaps_comparison/2026-10-09T12-43-05Z-paper-05dc1b6e/`.
+Controller status, log and live resource samples are under
+`outputs/journal_icaps_comparison/2026-10-09T12-43-03Z/`; the driver performs
+bounded replay and writes `comparison/report.md` plus raw CSV/JSON/PDF artifacts
+automatically after execution. The long campaign is still running, not yet a
+completed comparison. No merge is authorized/performed before report review.
+
+Early observations: 39/392 executions finished; Blocksworld p03 hits the
+6,000,000 KB limit while copying policy bounds (explicit MemoryError). Its
+historical archive also lacks completion and records a 600-second timeout.
+This is a resource/coverage failure, not an unsolvable result or a demonstrated
+new correctness bug. Available RAM remains at least 11.596 GiB with only 768 KB
+swap used during these samples. Keep all failures in the final coverage report.
+
+### Full ICAPS comparison: review of two validation discrepancies
+
+The 392 executions and bounded replay finished. FD hmax completed 145 searches
+(144 automatically validated), with 136 verified solved instances; FD LM-cut
+completed 151, with 145 verified solved. The automated comparison remains
+`needs_investigation` because 89 executions hit their individual memory limits
+and hmax Beam-walk p11 reference replay raised MemoryError. These failures remain
+in the original report; the following supplemental review does not overwrite
+its raw validation outcomes or historical costs.
+
+- **Blocksworld-ex p05:** its original PDDL initial state contains both goal
+  facts `(on-table b3)` and `(on b5 b4)`. Both native configurations emit the
+  empty policy with `(0,0)`, which independent replay already validates. The
+  historical `(1,1)` is the previously fixed initial-goal bug, addressed by
+  `046c861`; it is not a migration regression. Keep the published archive intact.
+- **Hmax Beam-walk p11:** a separate domain-specific transition oracle reads
+  forward/backward edges, ladder locations, initial position and goal from the
+  original PDDL and implements all outcomes of the three original action
+  schemas with Python operators. It bypasses Unified Planning compilation and
+  Cartesian grounding, and uses the independent NetworkX properness and cost
+  checker. All 8,192 reachable states and 8,191 policy assignments validate:
+  best cost 4,096, worst sentinel 999,999 (cycle). The oracle uses 12,286 grounded
+  outcomes and 109,500 KB peak RSS under the same 6,000,000 KB virtual limit.
+  Thus this policy is independently verified; the generic replay failure is a
+  validation infrastructure limitation, not evidence of an invalid policy.
+
+Evidence and repeatable domain-specific oracle: `outputs/full-review/review.py`
+and `outputs/full-review/findings.json`; diagnostic preprocessing logs are in
+that directory. This oracle is specific to the checked Beam-walk action schemas,
+not a replacement general validator or proof of Pareto completeness. Including
+this supplemental validation raises hmax verified solved coverage to 137 and
+validated completed searches to 145; the original automated report continues to
+show 136 and 144. No planner changes or additional campaign executions were
+needed. A general scalable independent replay preprocessing path remains future
+infrastructure work.
+
+The diagnostic stack localizes the replay bottleneck to Unified Planning's
+`negative_conditions_remover._compile`, which iterates `problem.initial_values`.
+That property materializes every grounding of every fluent, including default
+false values. Beam-walk p11 has 4,096 locations and two binary edge predicates:
+those predicates alone contribute 33,554,432 potential ground fluents, despite
+only 8,190 actual edges. The supplemental oracle keeps just actual edges.
+Diagnostic retries bounded at 35/60/120 seconds were stopped by their deadlines;
+the original full replay's MemoryError remains the recorded failure. The stack
+and dependency source establish the eager materialization bottleneck without
+requiring another long memory-exhausting run.
+
+### Comparison with the local pre-development full Pyperplan/hmax run
+
+The full local BOAND bw run is
+`runs/icaps2025/2026-10-07T14-01-07Z-BOAND_bw-c6171249`, on the preparation
+branch before the journal optimization rounds and native migration. It is a
+separate reference from the published archive. Its final statistics mark 120
+completed searches and 114 instances with incumbent policies. Only 41 completed
+searches retain explicit zero exit codes: the legacy runner did not retain exit
+codes for the other 79, which resumed execution records label
+`legacy_exit_unknown`. Count those 79 by their final search-completion marker,
+reporting this provenance limitation rather than treating them as known failures.
+Old policies have not been independently revalidated in this comparison.
+
+Against that local reference, direct FD hmax completes 145 (+25) and has 137
+independently verified solved instances (+23 over old policy-bearing coverage,
+including supplemental Beam-walk validation). Direct FD LM-cut completes 151
+(+31) and solves 145 (+31). Neither loses any previously completed or
+policy-bearing instance. Among 119 common completed instances with identical
+reported Pareto costs and validated current policies, geometric-mean search
+speedups are 41.144x for hmax and 35.602x for LM-cut. The only completed-cost
+change is the reviewed initial-goal correction for Blocksworld-ex p05.
+
+Raw reproducible comparison script, JSON and per-instance CSV are under
+`outputs/prebranch-comparison/`. These are single measurements, not repeated
+controlled estimates. Both campaigns use 600 seconds, but the old run uses
+8,000,000 KB/two workers and the current run 6,000,000 KB/four workers. Search
+semantics and all intervening journal optimizations differ; the gains cannot
+be attributed solely to migration. The old run includes resumed attempts and
+partial legacy exit provenance. Published-archive counts (124 completed,
+118 policy-bearing) remain a different comparison.
+
+The requested three-configuration coverage-over-time plot is generated by
+`campaigns.journal_icaps_comparison.coverage` with the two full local run paths
+above. Artifacts: `outputs/prebranch-comparison/coverage/coverage-over-time.*`,
+`coverage-data.csv`, and `coverage-metadata.json`. The definition follows the
+published coverage curve: completed searches, including unsolvable cases, sorted
+by final elapsed search time (preprocessing excluded), connected observations
+and a plateau to 600 seconds. All 588 per-instance records match the prior raw
+comparison; endpoints are 120/145/151. PNG inspected, PDF/SVG export generated.
+No planner runs were needed. Resource, source-revision and legacy-exit limitations
+remain documented in the metadata; this is not a migration-only speedup plot.
+
+### Retrospective report and figures
+
+At the user's request, `docs/performance-report.md` summarizes the main measured
+performance drivers through attempt 61, historical mechanisms later superseded,
+correctness fixes, rejected approaches and full-suite outcomes. Reproduction:
+`MPLCONFIGDIR=/tmp/boand-report-mpl PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_icaps_comparison.performance_report`.
+No planner runs were launched. The portable PDF and four standalone PNG/PDF/SVG
+figures are under `outputs/performance-report/`; the PDF also includes the earlier
+full-suite coverage figure when available. Inputs are retained raw summary JSONs.
+
+Figures cover wall-time medians/ranges for attempts 1–55 with smoke/performance
+panels, parent search-speedup intervals, a selected smoke milestone heatmap,
+and paired direct-compiler preprocessing/search/wall times. Attempt 34's failed
+coverage is labelled and excluded from speedup averages. Two refinement rows
+remain in the exported 58-row CSV. Migration 56–61 is explained separately rather
+than splicing one-off smoke checks into repeated timing baselines. Missing or
+incompatible range data are omitted; ranges are not confidence intervals.
+
+Validation compares all 56 numeric baseline/attempt records to their source
+summaries, all 84 heatmap cells to source per-instance medians, interval ordering,
+figure exports, and PDF/PNG rendering. All agree. Cross-session comparisons,
+correctness-version changes, different profiles, weaker legacy execution
+provenance and full-suite resource differences are explicitly documented.
