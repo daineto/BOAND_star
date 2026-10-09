@@ -41,12 +41,14 @@ PERFORMANCE_INSTANCES = (
 )
 CAMPAIGN = Campaign(
     campaign_id="journal_development",
-    version="5",
+    version="6",
     configurations={
         "BOAND bw": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
         "BOAND downward hmax": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-strips"),
         "BOAND downward lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-strips"),
         "BOAND pyperplan lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
+        "BOAND grounded hmax": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-grounded"),
+        "BOAND grounded lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-grounded"),
     },
     profiles={
         "smoke": Profile(("BOAND bw",), instances=SMOKE_INSTANCES),
@@ -57,6 +59,10 @@ CAMPAIGN = Campaign(
         "performance-downward-lmcut": Profile(("BOAND downward lmcut",), instances=PERFORMANCE_INSTANCES),
         "smoke-pyperplan-lmcut": Profile(("BOAND pyperplan lmcut",), instances=SMOKE_INSTANCES),
         "performance-pyperplan-lmcut": Profile(("BOAND pyperplan lmcut",), instances=PERFORMANCE_INSTANCES),
+        "smoke-grounded-hmax": Profile(("BOAND grounded hmax",), instances=SMOKE_INSTANCES),
+        "performance-grounded-hmax": Profile(("BOAND grounded hmax",), instances=PERFORMANCE_INSTANCES),
+        "smoke-grounded-lmcut": Profile(("BOAND grounded lmcut",), instances=SMOKE_INSTANCES),
+        "performance-grounded-lmcut": Profile(("BOAND grounded lmcut",), instances=PERFORMANCE_INSTANCES),
     },
     instance_manifest=Path(__file__).with_name("instances.json"),
     timeout_seconds=30,

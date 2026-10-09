@@ -177,6 +177,11 @@ Journal definition version 5 adds explicit native-backend and LM-cut comparison
 profiles, preserving the version-4 selections, default configuration, expected
 numerical costs and resource limits. The native prototype retains Pyperplan
 grounding and fact-set states at the search boundary.
+Journal definition version 6 adds opt-in `downward-grounded` hmax/LM-cut profiles,
+using the pinned Fast Downward parser and relaxed-reachability grounder before
+classical SAS simplification. The common Unified Planning negative-condition
+compiler and fact-set search boundary remain. Selections, defaults, numerical
+costs and limits are unchanged; unreachable grounded operators may be omitted.
 Journal definition version 3 additionally uses reverse goal reachability for
 closed-policy properness, correcting false rejections by the trajectory checker.
 Future equivalence checks must compare against the corrected parent or an

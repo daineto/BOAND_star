@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "campaign_version": "5",
+  "campaign_version": "6",
   "source": "ICAPS 2025 published BOAND bw completed searches; timing and search counts are not regression requirements",
   "costs": {
     "beam-walk/p6": [
