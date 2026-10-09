@@ -166,3 +166,54 @@ class FactStateTask:
 
     def __call__(self, node):
         return self.evaluate(node.state)
+
+
+class NativeState:
+    """Task-local identity with the legacy fact-set hash and tie comparison."""
+    __slots__ = ('index', '_task', '_hash')
+
+    def __init__(self, index, task, state_hash):
+        self.index, self._task, self._hash = index, task, state_hash
+
+    def __hash__(self):
+        return self._hash
+
+    def __eq__(self, other):
+        if not isinstance(other, NativeState):
+            return NotImplemented
+        return self._task is other._task and self.index == other.index
+
+    def __lt__(self, other):
+        if not isinstance(other, NativeState):
+            return NotImplemented
+        return self._task.state_facts(self) < other._task.state_facts(other)
+
+
+class HandleStateTask(FactStateTask):
+    """Retain compact identities instead of permanent Python fact-set copies."""
+
+    def __init__(self, grounded, heuristic='hmax'):
+        self.engine = DownwardTask(grounded, heuristic)
+        self.initial_state = NativeState(0, self, hash(grounded.initial_state))
+        self.states = {0: self.initial_state}
+        self.operators = tuple(NativeOperator(self, index, op)
+                               for index, op in enumerate(grounded.operators))
+        self.backend_provenance = self.engine.backend_provenance
+        self._successors = lru_cache(maxsize=65_536)(self._generate)
+
+    def _generate(self, state):
+        result = []
+        for index, child in sorted(self.engine._successors(state.index)):
+            if child not in self.states:
+                self.states[child] = NativeState(child, self, hash(self.engine.state_facts(child)))
+            result.append((index, self.states[child]))
+        return result
+
+    def state_facts(self, state):
+        return self.engine.state_facts(state.index)
+
+    def goal_reached(self, state):
+        return self.engine.goal_reached(state.index)
+
+    def evaluate(self, state):
+        return self.engine.evaluate(state.index)
