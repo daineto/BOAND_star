@@ -210,3 +210,16 @@ Operator ordering and search work can change while reachable transitions and
 expected costs must agree. Existing profile selections, defaults and resource
 limits remain unchanged. Run manifests record translator source hashes and
 native build provenance. See the backend guide for the exact remaining scope.
+
+## Direct negative-condition compilation (definition 7)
+
+The `smoke-direct-hmax`/`smoke-direct-lmcut` profiles and corresponding
+`performance-` profiles use `--backend downward-direct`. A conjunctive dual-rail
+compiler replaces Unified Planning for this path, preserving existing `not_`
+policy labels, no-op outcomes and add-wins semantics after parameter aliasing.
+Negative equality, complement-name collisions, conditional/quantified effects,
+nonconjunctive conditions, axioms and action costs fail explicitly. The pinned
+FD grounder, Boolean SAS encoding and native engine remain unchanged.
+Defaults, profile selections, expected numerical costs and limits are unchanged.
+Legacy compiler imports are now lazy; fresh control runs are required for
+preprocessing comparisons because cold imports move into that measured phase.

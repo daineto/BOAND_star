@@ -79,7 +79,7 @@ class GroundedTask:
         return [(op, op.apply(state)) for op in self.operators if op.preconditions <= state]
 
 
-def ground_compiled_pddl(domain_file, problem_file):
+def ground_compiled_pddl(domain_file, problem_file, direct=False):
     options, parser, normalize, instantiate, pddl = translator_modules()
     options.set_options([str(domain_file), str(problem_file), "--keep-no-ops"])
     # The upstream file helper leaves streams for garbage collection; close
@@ -89,6 +89,10 @@ def ground_compiled_pddl(domain_file, problem_file):
         task = parser.parsing_functions.parse_task(
             parser.lisp_parser.parse_nested_list(domain_stream),
             parser.lisp_parser.parse_nested_list(problem_stream))
+    complements = {}
+    if direct:
+        from .negative import compile_negative_conditions
+        complements = compile_negative_conditions(task, pddl, instantiate)
 
     def literals(condition):
         if isinstance(condition, pddl.Atom):
@@ -130,13 +134,29 @@ def ground_compiled_pddl(domain_file, problem_file):
         pre = frozenset(map(fact, action.precondition))
         add = frozenset(fact(atom) for _, atom in action.add_effects)
         delete = frozenset(fact(atom) for _, atom in action.del_effects) - add
+        if complements:
+            # Resolve parameter aliases on original effects before mirroring.
+            # Lifted opposite writes may alias only after grounding.
+            def mirror(value):
+                predicate, *args = value[1:-1].split()
+                return "(" + " ".join((complements[predicate], *args)) + ")"
+            mirror_names = set(complements.values())
+            add = frozenset(value for value in add if value[1:-1].split()[0] not in mirror_names)
+            delete = frozenset(value for value in delete if value[1:-1].split()[0] not in mirror_names)
+            delete -= add
+            original_add, original_delete = add, delete
+            add |= frozenset(mirror(value) for value in original_delete if value[1:-1].split()[0] in complements)
+            delete |= frozenset(mirror(value) for value in original_add if value[1:-1].split()[0] in complements)
         # Match the reference STRIPS normalization and zero-argument names.
         operators.append(GroundedOperator(action.name.replace(" )", ")"), pre, add - pre, delete))
     goals = frozenset(map(fact, goals))
     facts = frozenset().union(goals, *(op.preconditions | op.add_effects | op.del_effects
                                     for op in operators))
     initial = frozenset(fact(atom) for atom in task.init if isinstance(atom, pddl.Atom)) & facts
-    return GroundedTask(task.problem_name, facts, initial, goals, tuple(operators), translator_provenance())
+    provenance = dict(translator_provenance())
+    if direct:
+        provenance["negative_conditions"] = "boand-dual-rail-v1"
+    return GroundedTask(task.problem_name, facts, initial, goals, tuple(operators), provenance)
 
 
 def get_downward_determinization(domain, problem):
@@ -145,5 +165,15 @@ def get_downward_determinization(domain, problem):
     # FD's Datalog temporary graphs contain cycles. Reclaim them during
     # preprocessing, before a full-heap collection can interrupt search.
     # Keep normal automatic GC enabled; the elapsed cost belongs to setup.
+    gc.collect()
+    return task
+
+
+def get_direct_determinization(domain, problem):
+    from planner.fondutils import determinize
+    from pddl.formatter import domain_to_string, problem_to_string
+    Path("aux_domain.pddl").write_text(domain_to_string(determinize(domain)))
+    Path("aux_problem.pddl").write_text(problem_to_string(problem))
+    task = ground_compiled_pddl("aux_domain.pddl", "aux_problem.pddl", direct=True)
     gc.collect()
     return task

@@ -41,7 +41,7 @@ PERFORMANCE_INSTANCES = (
 )
 CAMPAIGN = Campaign(
     campaign_id="journal_development",
-    version="6",
+    version="7",
     configurations={
         "BOAND bw": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
         "BOAND downward hmax": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-strips"),
@@ -49,6 +49,8 @@ CAMPAIGN = Campaign(
         "BOAND pyperplan lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30),
         "BOAND grounded hmax": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-grounded"),
         "BOAND grounded lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-grounded"),
+        "BOAND direct hmax": Configuration("bw", "hmax", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-direct"),
+        "BOAND direct lmcut": Configuration("bw", "lmcut", "MinSum", "MaxSum", "Delta", "largestg", timeout=30, backend="downward-direct"),
     },
     profiles={
         "smoke": Profile(("BOAND bw",), instances=SMOKE_INSTANCES),
@@ -63,6 +65,10 @@ CAMPAIGN = Campaign(
         "performance-grounded-hmax": Profile(("BOAND grounded hmax",), instances=PERFORMANCE_INSTANCES),
         "smoke-grounded-lmcut": Profile(("BOAND grounded lmcut",), instances=SMOKE_INSTANCES),
         "performance-grounded-lmcut": Profile(("BOAND grounded lmcut",), instances=PERFORMANCE_INSTANCES),
+        "smoke-direct-hmax": Profile(("BOAND direct hmax",), instances=SMOKE_INSTANCES),
+        "smoke-direct-lmcut": Profile(("BOAND direct lmcut",), instances=SMOKE_INSTANCES),
+        "performance-direct-hmax": Profile(("BOAND direct hmax",), instances=PERFORMANCE_INSTANCES),
+        "performance-direct-lmcut": Profile(("BOAND direct lmcut",), instances=PERFORMANCE_INSTANCES),
     },
     instance_manifest=Path(__file__).with_name("instances.json"),
     timeout_seconds=30,

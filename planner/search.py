@@ -227,7 +227,10 @@ def boand_star(
     domain = parse_domain(domain_file)
     problem = parse_problem(problem_file)
 
-    if backend == "downward-grounded":
+    if backend == "downward-direct":
+        from .backends.grounding import get_direct_determinization
+        task = get_direct_determinization(domain, problem)
+    elif backend == "downward-grounded":
         from .backends.grounding import get_downward_determinization
         task = get_downward_determinization(domain, problem)
     else:
@@ -238,7 +241,7 @@ def boand_star(
 
     # CONFIG
 
-    if backend in ("downward-strips", "downward-grounded"):
+    if backend in ("downward-strips", "downward-grounded", "downward-direct"):
         from .backends.downward import FactStateTask
         task = FactStateTask(task, use_cp_heuristic)
         cp_heuristic = task
@@ -445,7 +448,7 @@ def boand_star(
     metadata = {"backend": backend, "heuristic": use_cp_heuristic,
                 "parsing_compilation_grounding_seconds": grounding_seconds,
                 "backend_heuristic_setup_seconds": heuristic_setup_seconds}
-    if backend in ("downward-strips", "downward-grounded"):
+    if backend in ("downward-strips", "downward-grounded", "downward-direct"):
         metadata["native_build"] = task.backend_provenance
     if translation_provenance is not None:
         metadata["translation"] = translation_provenance

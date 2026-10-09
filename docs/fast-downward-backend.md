@@ -198,3 +198,24 @@ is moving translator cleanup into preprocessing. The opt-in backend is retained
 on the LM-cut evidence; defaults remain unchanged. See attempts 57–58 in the
 [performance log](performance-log.md#attempt-58--reclaim-fd-grounding-temporaries-during-preprocessing)
 for the rejected first prototype, individual regressions and timing limitations.
+
+## Direct negative-condition compilation
+
+`--backend downward-direct` reads all-outcome PDDL directly with the pinned FD
+parser and creates `not_<predicate>` complements for negative conditions/goals.
+Typed complement instances start true exactly when their positive facts are
+false. Opposite writes are added to effects before relaxed grounding; after
+grounding the adapter reconstructs complementary effects from the resolved
+original effects, so aliased parameters obey add-wins semantics and preserve
+the complement invariant. This maintains the state labels used by independent
+policy replay against the original compiler. The existing compiler remains a
+control; this path does not import Unified Planning.
+
+The supported fragment is conjunctive signed STRIPS with unconditional effects.
+Negative equality and collisions with generated complement names are rejected
+explicitly, as are the unsupported features listed for FD grounding. These
+restrictions cover the fixed 11-domain profiles but do not claim all PDDL support.
+No classical SAS simplification or new state representation is introduced.
+Compiler identity `boand-dual-rail-v1` is recorded in manifests and sidecars.
+Lazy imports put legacy compiler cold-import time inside preprocessing; fresh
+controls must be used rather than reinterpreting earlier phase measurements.

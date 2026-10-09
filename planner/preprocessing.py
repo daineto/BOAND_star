@@ -2,9 +2,6 @@ from .fondutils import determinize
 from io import StringIO
 from pathlib import Path as FilePath
 
-from unified_planning.shortcuts import *
-from unified_planning.io import PDDLReader, PDDLWriter
-
 from pddl.logic.base import Not, And
 from pddl.logic.effects import AndEffect
 from pddl.logic.predicates import Predicate
@@ -42,6 +39,8 @@ def explicit_empty_effects(domain_text):
 
 
 def compile_alloutcome_pddl(domain, problem):
+    from unified_planning.shortcuts import Compiler, CompilationKind
+    from unified_planning.io import PDDLReader, PDDLWriter
     # All-outcome determinization for heuristic
     detdomain = determinize(domain)
     with open("aux_domain.pddl", "w") as f:

@@ -182,6 +182,12 @@ using the pinned Fast Downward parser and relaxed-reachability grounder before
 classical SAS simplification. The common Unified Planning negative-condition
 compiler and fact-set search boundary remain. Selections, defaults, numerical
 costs and limits are unchanged; unreachable grounded operators may be omitted.
+Journal definition version 7 adds opt-in `downward-direct` profiles with a
+conjunctive dual-rail negative-condition compiler. It preserves `not_` labels
+and mirrors grounded effects after resolving aliases. Negative equality and
+complement-name collisions fail explicitly. Unified Planning imports are lazy;
+legacy preprocessing measurements now include their cold import cost, requiring
+fresh controls when comparing preprocessing. Selections and costs are unchanged.
 Journal definition version 3 additionally uses reverse goal reachability for
 closed-policy properness, correcting false rejections by the trajectory checker.
 Future equivalence checks must compare against the corrected parent or an

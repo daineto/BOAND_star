@@ -16,7 +16,7 @@ class JournalSmokeTests(unittest.TestCase):
     def test_experimental_profiles_preserve_inputs_and_default_flags(self):
         for base in ("smoke", "performance"):
             reference = read_instances(CAMPAIGN, base)
-            for suffix in ("downward-hmax", "downward-lmcut", "pyperplan-lmcut", "grounded-hmax", "grounded-lmcut"):
+            for suffix in ("downward-hmax", "downward-lmcut", "pyperplan-lmcut", "grounded-hmax", "grounded-lmcut", "direct-hmax", "direct-lmcut"):
                 profile = f"{base}-{suffix}"
                 self.assertEqual(read_instances(CAMPAIGN, profile), reference)
                 self.assertEqual(len(CAMPAIGN.profiles[profile].configurations), 1)

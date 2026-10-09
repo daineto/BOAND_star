@@ -2558,3 +2558,54 @@ Boolean SAS encoding and fact-set search boundary are still present. This
 milestone replaces Pyperplan parsing/grounding, not the complete preprocessing
 pipeline or a compact SAS translation. No full campaign, default switch, push,
 merge or tag was performed.
+
+### Attempt 59 — Direct compilation of negative conditions
+
+Hypothesis: replacing Unified Planning's negative-condition-removal round trip
+with a typed dual-rail transformation in the pinned FD AST reduces preprocessing
+and process startup while preserving reachable FOND transitions and policy labels.
+Parent: `5b966d2`; fixed original baseline: `c7cd597`. Implementation is opt-in
+`downward-direct`, evaluated separately with native hmax and LM-cut against their
+corresponding `downward-grounded` controls. Defaults remain unchanged.
+
+Complement predicates retain `not_` labels. Initial complements enumerate typed
+instances false in the original initial state. Lifted mirrored effects support
+relaxed grounding; grounded complementary effects are reconstructed after
+resolving original add/delete overlaps and parameter aliases. No-op outcomes,
+original goals and determinized names are retained. Unsupported negative equality,
+name collisions, nonconjunctive conditions, conditional/quantified effects, axioms
+and costs fail explicitly. FD grounding/Boolean SAS/native execution stay the
+same. Unified Planning imports are lazy so the direct path avoids that dependency
+at runtime; legacy controls now count cold imports inside preprocessing. This
+changes phase accounting and requires fresh controls, not reuse of older setup
+medians. Journal definition 7 records this interface/accounting change, preserving
+fixed input hashes, costs, defaults, limits and selections.
+
+Validation before candidate commit: **93 tests pass**, including 100 new random
+signed-state transition/complement checks with both heuristics, an aliased-effect
+case and 30 signed FOND tasks checked against exhaustive policy oracles. Both
+14-case direct smoke profiles pass all expected costs and 14 policy replays.
+After lazy imports, resource-monitored direct smoke commands take approximately
+13 seconds. The default before/after smoke also passes. A 23-input audit agrees
+on initial states, goals and all labelled transitions on 1,698 sampled states /
+11,447 transitions; three graphs are exhaustive. Others are bounded samples.
+
+The oracle also exposed a pre-existing search limitation: initially satisfied
+goals can fail to produce the valid zero-cost empty policy. Both retained
+Pyperplan and original native backends reproduce it on a goal-true initial state
+with a no-op action, returning no policy; independent replay gives (0,0).
+`outputs/fast-downward-direct/initial-goal-audit.py` and `.json` preserve the
+reproducer. The signed classical transition tests include initially true goals;
+the search-level FOND oracle uses initially unsatisfied goals to evaluate this
+migration independently of that historical error. Fixed profile inputs are
+unaffected. This confirmed finding needs a separate correctness fix and explicit
+semantic documentation; it is not a reason to preserve a bug in a future oracle.
+No expected costs were changed to hide it.
+
+Raw audit, test logs, initial/final smoke logs, dry-run manifests and measurement
+scripts are in `outputs/fast-downward-direct/`. Candidate revision and repeated
+unprofiled results follow. Use three fresh runs per compared configuration with
+seed 0, four workers, 6,000,000 KB/job, 30 s/job and the 60 s suite deadline.
+Collect per-instance search/setup times, work counts, completed/solved/replayed
+coverage, suite wall time, sampled memory and machine resources. No full campaign
+is requested or launched.
