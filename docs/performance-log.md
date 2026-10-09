@@ -2859,3 +2859,94 @@ operator order, add-wins alias handling and FOND reachability semantics while
 representing actual complement pairs as opposite values of one SAS variable.
 Keep this separate from handle representation and classical FD simplification.
 No SAS encoding change was implemented in this attempt.
+
+## Attempt 61 — complement pairs as opposite SAS values
+
+Hypothesis: encode explicit compiler-generated complement pairs as opposite
+values of one Boolean SAS variable, reducing native variables without changing
+the Python fact-set boundary or FOND grounding. Parent: `a51e9a4` (planner
+identical to `b7b2633`); fixed original performance baseline: `c7cd597`.
+
+The direct compiler's mapping now reaches `GroundedTask` as explicit grounded
+pairs. `paired_sas` merges eligible pairs, maps negative conditions/goals to
+value 0, combines mirrored effects after existing add-wins normalization and
+reconstructs the same positive/complement fact labels when decoding. No
+predicate-name inference, integer search states, classical SAS simplification
+or benchmark change is involved. A pair is left as separate Boolean variables
+when both values occur in a goal/precondition or its initial values are not
+exclusive. Non-direct tasks use the original Boolean encoding. Manifest and
+translation provenance identify `boand-paired-boolean-v1` for the direct path.
+This is a candidate encoding; default selections/objectives/costs are unchanged.
+
+All 100 tests pass, including 100 random signed classical graphs with native
+bounds checked against independent exact distances, hmax compared with the
+unmerged encoding, and signed FOND exhaustive-policy oracles. Targeted tests
+check declared-pair-only merging, contradictory-condition fallback, transitions,
+values, hashes and complement invariants. Hmax and LM-cut smoke both complete
+14/14 searches, solve 12/12 solvable instances and replay all 14 policies with
+unchanged costs.
+
+An audit of all 23 distinct fixed-profile tasks compares 1,698 sampled states
+and 11,447 labeled transitions per heuristic; three graphs are exhaustive,
+the others stop at 80 states. Transitions, goals and hmax/LM-cut values agree
+with the unmerged parent. Only Beam-walk p6/p7 and Tireworld-truck p6/p7 have
+eligible dynamic pairs, one each (variables 130→129, 258→257, 54→53, 64→63,
+excluding the identity auxiliary). Other complements are already static/pruned
+or absent. Thus a substantial fixed-profile benefit is unlikely; small SAS
+sizes alone do not justify this algorithmic complexity.
+
+Raw evidence: `outputs/paired-sas/` retains parent smoke, three repeated
+resource-monitored unprofiled parent runs per heuristic, tests, candidate smoke,
+`audit.py`, `audit.json` and grounding/audit logs. Runs/manifests/snapshots remain
+under ignored `runs/journal_development/`. Candidate timing/decision pending.
+
+Final evaluation: candidate `4cdfe05`, five unprofiled runs per revision **per
+heuristic**. Parent runs 1–3 use `a51e9a4`; after the candidate's runs 4–5,
+revert `0aa01e7` restores identical planner/execution/campaign/test content for
+parent runs 4–5 (`control-equivalence.json` records the empty scoped diff).
+This preserves history and provides additional controls around the candidate.
+All comparisons use fixed profiles, seed 0, four workers, 6,000,000 KB/job,
+30-second jobs and a 60-second suite deadline including cost checks/replay.
+All twenty performance runs complete 11/11 searches, solve 10/10 solvable
+instances and replay all 11 policies. All 110 paired case/repetition comparisons of intermediate/final
+non-time statistics match, including expansions/generations/queue sizes.
+
+| Heuristic | Search geomean speedup vs parent (95% bootstrap interval) | Sum of median search times, parent→candidate | Median suite wall, parent→candidate | Largest median sampled peak RSS, parent→candidate |
+| --- | --- | --- | --- | --- |
+| hmax | 0.997× [0.967, 1.008] | 9.533→9.592 s | 19.023→18.292 s | 383,420→383,520 KB |
+| LM-cut | 1.008× [1.001, 1.014] | 8.065→7.981 s | 18.271→18.637 s | 383,348→383,328 KB |
+
+The hmax result remains inconclusive after five runs. LM-cut has a small
+positive search-time bootstrap result (0.84%), strongest on Beam-walk (1.051×),
+but the second encoder and complement-consistency/fallback machinery require
+stronger evidence than this gain. Tireworld-truck's LM-cut gain is 1.009×;
+no native variables change for the other nine performance cases. Hmax on
+Beam-walk is 0.983× and Tireworld-truck 0.996×. Other individual ratios are
+retained in `per-instance.csv`/`summary.json`; largest LM-cut regression is
+Elevators 0.985×. No meaningful memory reduction is measured. Whole-suite wall
+ranges overlap substantially: hmax 18.303–20.283 s parent, 18.080–20.499 s
+candidate; LM-cut 18.134–21.292 s parent, 17.947–21.074 s candidate. Wall-time
+median changes are not evidence of a stable end-to-end improvement.
+
+Intervals use 4,000 whole-run bootstrap resamples with seed 0, per-instance
+medians and the geometric mean of ratios. Sampled VmHWM every 50 ms may miss
+exit-time peaks. Cumulative speedups versus fixed historical `c7cd597` are
+4.030× [3.906, 4.056] for hmax and 4.008× [3.967, 4.015] for LM-cut; they
+have cross-round environmental-drift and original-backend limitations and do
+not supersede the immediate-parent comparison. Three-run summaries are retained
+separately; final five-run summaries/CSV contain all samples.
+
+**Revert / do not reapply** candidate `4cdfe05`; restored parent is `0aa01e7`.
+The default remains direct FD/hmax with the established Boolean encoding,
+journal definition 9. This is an algorithmic experiment, not a code cleanup
+eligible for retention without a performance win. Restored-default smoke passes
+14/14 completed, 12/12 solvable and 14 policy replays (14.75 s). No benchmark,
+objective, expected-cost, default/profile selection or published archive change
+is retained. No full campaign, push, merge or tag.
+
+The migration's functional goals are already achieved. Further complement
+encoding work is unlikely to help these domains: FD grounding has already
+removed most static complement facts. Return to the measured policy/search
+bottlenecks rather than extending native representations without a clear
+benefit on the fixed inputs. A broader future study with many dynamic negative
+conditions could revisit this independently validated candidate.

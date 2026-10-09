@@ -255,3 +255,14 @@ all other comparison profiles remain available. There is no automatic build or
 backend substitution. The standalone CLI still accepts `--backend <name>` and
 `-ch hmax|lmcut`; omitted backend selection retains Pyperplan. Native state-ID/SAS
 experiments remain future work, not part of this consolidation.
+
+## Optional representation experiments
+
+Attempts 60–61 in the [performance log](performance-log.md) tested compact
+native state handles and explicit complement pairs sharing a SAS variable.
+Both were reverted. Python handle hashing caused a clear slowdown; paired SAS
+variables removed only one variable in each of four fixed-profile tasks and
+provided no worthwhile aggregate gain after five measurements per heuristic.
+The current backend retains fact-set search states and separate Boolean facts.
+Functional migration is complete for the supported inputs; these experiments
+are not prerequisites for native hmax or LM-cut.
