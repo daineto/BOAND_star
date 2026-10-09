@@ -197,3 +197,16 @@ suite deadline. Native profiles require the pinned module to be built first.
 See [the backend migration guide](../../docs/fast-downward-backend.md) for build,
 validation, provenance and the distinction between native execution and the
 future grounding/translation migration.
+
+## Fast Downward grounding prototype (definition 6)
+
+Definition 6 adds `smoke-grounded-hmax`, `smoke-grounded-lmcut` and their
+`performance-` counterparts. They use `--backend downward-grounded`: the pinned
+Fast Downward parser and grounder replace Pyperplan parsing/grounding after the
+shared negative-condition compiler. Reachable no-op outcomes are retained;
+the full classical SAS simplification pipeline is bypassed. Unsupported
+conditional effects, axioms, negative literals and action costs fail explicitly.
+Operator ordering and search work can change while reachable transitions and
+expected costs must agree. Existing profile selections, defaults and resource
+limits remain unchanged. Run manifests record translator source hashes and
+native build provenance. See the backend guide for the exact remaining scope.

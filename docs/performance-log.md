@@ -2351,3 +2351,117 @@ campaigns.journal_development.smoke --profile smoke-pyperplan-lmcut` or
 `--profile performance-pyperplan-lmcut`. The latter is expected to fail coverage
 under the recorded limits. Decision: **retain the baseline evidence, including
 timeouts**; no optimization is adopted or reverted. No full campaign was run.
+
+### Attempt 57 — Fast Downward grounding migration
+
+Hypothesis: replacing Cartesian Pyperplan grounding with Fast Downward's Datalog
+relaxed-reachability grounder reduces preprocessing and the native task size,
+while preserving every reachable FOND outcome. Parent: `2f2ab06`; fixed original
+performance baseline: `c7cd597`. This is the second backend migration stage,
+evaluated separately with hmax and LM-cut. The original native profiles remain
+controls and the default stays Pyperplan+hmax.
+
+Implementation: opt-in `downward-grounded` runs the pinned upstream parser,
+normalizer and `instantiate.explore` after shared negative-condition compilation.
+Keep no-ops, original conjunctive goals and determinized action names. Encode
+its grounded positive STRIPS task using the existing Boolean SAS adapter. Reject
+unsupported effects, conditions, axioms and action costs. Bypass the full
+classical SAS pipeline and its unsolvable-task replacement/relevance pruning.
+The unchanged reachable graph can have fewer unreachable operators/facts and a
+new sorted operator order; do not presume search-work equivalence. Translator
+revision/source hashes join native build metadata in manifests, snapshots and
+resume checks. Journal definition 6 adds four comparison profiles; costs,
+fixed selections, default flags and resource limits remain unchanged.
+
+Initial validation: **90 tests pass**, including independent explicit transition
+and shortest-path checks on 80 new random classical tasks, exhaustive policy
+oracles on 30 new tiny FOND tasks with both native heuristics, typed/static
+conditions, repeated arguments, unreachable static goals and no-op outcomes.
+Both new 14-case smoke profiles pass all expected costs and 14 policy replays.
+The first prototype run exposed an incorrect FD task-name attribute; subsequent
+unit tests exposed the upstream empty-goal axiom transformation. Both adapter
+issues were corrected before timing evaluation; failed development artifacts
+are retained. No historical baseline bug or numerical-cost revision is involved.
+
+A benchmark audit checks identical initial states, goals and all applicable
+operator-labelled transitions on **1,698 sampled states / 11,447 transitions**
+across all 23 distinct selected inputs. Three graphs are exhaustive; the rest
+are bounded samples, not completeness proofs. ST Tires p08 has 1,954 reference
+operators versus 277 FD-grounded operators; p09 has 2,212 versus 288. These are
+unreachable-operator reductions, not deleted reachable outcomes. Audit timings
+are diagnostic only, excluded from repeated unprofiled comparisons.
+
+Before/after dry-run manifests confirm identical ordered inputs, hashes, limits,
+workers and commands except the explicit backend flag. Raw audit, manifests,
+failed development logs, unit-test output and resource-monitored smoke runs are
+under `outputs/fast-downward-grounding/`. The pre-change default smoke passes
+14/14 searches, 12/12 solvable cases and 14 replays in 22.94 s. A post-change
+default smoke and repeated performance comparisons follow before the final
+keep/revert decision. Candidate revision and measured outcomes are recorded
+below after committing the validated implementation. No full campaign is run.
+
+Final decision for attempt 57: **revert as inconclusive**. Candidate `aad5e03`
+was reverted in `7fc3af3`, without rewriting history. Five repetitions per native
+control and candidate all complete 11/11 searches, solve 10/10 solvable cases and
+replay 11/11 policies with unchanged costs. Three runs left uncertainty, so the
+comparison was extended to the prescribed five. All settings are as above.
+
+| Configuration at `aad5e03` | Sum of median search times (s) | Median suite wall (s) | Geomean search speedup vs matching native control (95% bootstrap interval) |
+| --- | ---: | ---: | ---: |
+| Native hmax control | 9.787 | 27.964 | reference |
+| FD-grounded hmax | 9.761 | 27.817 | 1.064 (0.987–1.096) |
+| Native LM-cut control | 8.494 | 27.451 | reference |
+| FD-grounded LM-cut | 8.438 | 27.411 | 1.073 (0.982–1.101) |
+
+Intervals resample whole runs 4,000 times with seed 0, take per-instance medians,
+then geometrically average ratios. The original `c7cd597` comparisons are 3.924×
+(3.710–3.940) and 3.824× (3.500–3.844), but do not justify keeping an inconclusive
+increment over the retained native parent. Summed median preprocessing is
+9.031→8.891 s for hmax and 9.478→8.885 s for LM-cut. There is no established
+full-suite wall-time improvement. Detailed variability, memory, per-instance
+regressions and work counts are retained in `summary.json`, `per-instance.csv`
+and `work-equivalence.json` under `outputs/fast-downward-grounding/`.
+
+Search work differs only on Modified First Responders: hmax expansions
+1,959→1,934 and generations 11,602→11,446; LM-cut expansions 1,784→1,772 and
+generations 10,598→10,533. Doors regresses from 0.136→0.161 s (hmax) and
+0.139→0.160 s (LM-cut), despite identical facts/operator fields and final work
+counts. ST Tires improves from 0.0139→0.0092 s and 0.0214→0.0113 s, respectively,
+but one candidate LM-cut repetition takes 0.0279 s. Maximum median process peak
+RSS stays near 480,000 KB for all four configurations. Post-change default smoke
+passes in 22.93 s; final new smoke runs pass in 22.93/23.34 s.
+
+Follow-up diagnosis rejects operator ordering as the established cause of the
+Doors slowdown: five isolated unprofiled runs with sorted and restored operator
+orders have similar medians (approximately 0.124–0.125 s). That diagnostic loads
+both grounders in one process and is not a campaign baseline. Fresh-process GC
+callbacks instead record a generation-2 collection during FD-grounded search:
+6,247 objects reclaimed in 0.0192 s, contributing to 0.1448 s search versus
+0.1283 s for the reference. An explicit collection before search brings the
+FD-grounded diagnostic to 0.1244 s, with no full collection during search. These
+single-task observations identify a promising follow-up; they are not aggregate
+performance evidence. Raw diagnostics are `doors-audit.json`, `doors-order/`
+and `gc-*.json` beside the rejected measurements. Expected numerical costs and
+planner semantics remain unchanged.
+
+### Attempt 58 — Reclaim FD grounding temporaries during preprocessing
+
+Hypothesis: the otherwise validated FD grounder leaves cyclic Datalog temporary
+objects for Python's collector; reclaiming them once during preprocessing avoids
+an unrelated full-heap collection in short searches and reduces timing variance.
+Reintroduce attempt 57 with this one additional cleanup. Keep normal automatic
+GC enabled and include the collection cost in measured preprocessing. Search
+speedups must therefore be interpreted alongside preprocessing and total time;
+this does not make that cleanup time disappear.
+
+Parent `7fc3af3` is planner-equivalent to `2f2ab06`. Candidate revision follows
+validation. Compare against attempt 57 to isolate cleanup effects, and the five
+recorded matching native controls at `aad5e03` to assess the complete migration.
+Those controls do not execute the new grounding/cleanup path and retain identical
+inputs, flags, native build, seed and limits. Reuse their five measurements only
+under those equivalent conditions. The fixed original baseline remains `c7cd597`.
+New raw artifacts and resource-monitored runs are under
+`outputs/fast-downward-grounding-gc/`. Repeat both fixed correctness profiles and
+relevant tests before three unprofiled timing repetitions per candidate heuristic;
+extend to five only if uncertainty remains. The architecture, definition 6 and
+unsupported-feature checks otherwise remain exactly as documented for attempt 57.

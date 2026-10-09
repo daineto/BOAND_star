@@ -140,3 +140,51 @@ Beam-walk p7 times out in every repetition at the unchanged 30-second job limit.
 The log includes a four-configuration per-instance timing table; raw baseline
 data are under `outputs/baselines/pyperplan-lmcut-bw/`. Incomplete coverage
 precludes a full-profile aggregate speedup for this configuration.
+
+## Fast Downward grounding path
+
+`--backend downward-grounded` additionally uses the pinned upstream Python
+PDDL parser and Datalog grounder. It accepts the shared all-outcome PDDL after
+Unified Planning removes negative conditions. It does not use Pyperplan's
+parser or grounder on that path; the small common empty-effect repair still
+uses Pyperplan's S-expression reader. FOND parsing/determinization and the
+negative-condition compiler remain shared infrastructure.
+
+The adapter calls `instantiate.explore` with `--keep-no-ops`, before the
+classical `main.pddl_to_sas` pipeline. It retains original conjunctive goals
+even when relaxed reachability declares them impossible. It rejects axioms,
+conditional/quantified effects, remaining negative conditions, nonconjunctive
+conditions and action costs. Empty goals stay empty rather than introducing
+an FD goal axiom. Grounded operators retain `_detdup_` names for outcome grouping
+and pass through the same Boolean SAS encoding and native execution engine.
+
+Positive STRIPS delete relaxation overapproximates real reachability: an
+operator applicable along a real trajectory cannot be omitted by relaxed
+exploration. Unreachable operators and their facts may be omitted. Every
+applicable outcome must survive, including no-ops, deletes and effects unrelated
+to the goal. Static conditions are evaluated by the grounder. Add effects win
+over deletes, and redundant adds of preconditions are removed as in the reference
+encoding. Operator names are sorted for reproducible translation order, which
+can change search order and work counts relative to the original grounder.
+
+After grounding, reclaim cyclic translator temporaries once with `gc.collect()`
+during preprocessing. Normal automatic collection remains enabled. This avoids
+letting leftover grounding graphs trigger a full collection in search; its
+elapsed cost is included in preprocessing, not omitted from total runtime.
+
+No invariant-based finite-domain compression, goal-relevance pruning, variable
+reordering, SAS simplification or replacement of unsolvable tasks is enabled.
+The source checkout must be clean at the pinned revision. Provenance records
+hashes of its translator Python files, and resume checks include those hashes.
+Tests requiring this dependency are skipped when the native build is absent.
+
+```bash
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profile smoke-grounded-hmax
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke --profile performance-grounded-lmcut
+.venv/bin/python -m unittest tests.test_downward_grounding
+```
+
+The remaining migration scope is replacing the shared negative-condition
+compiler and evaluating a compact SAS representation while preserving FOND
+semantics and independent policy replay. This path isolates grounding from
+those changes and keeps the original native/Pyperplan-grounded profiles available.
