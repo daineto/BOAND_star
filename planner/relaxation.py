@@ -4,12 +4,6 @@ from pyperplan.heuristics.relaxation import hMaxHeuristic
 
 
 class OperatorCostHMaxHeuristic(hMaxHeuristic):
-    def __init__(self, task):
-        super().__init__(task)
-        for operator in self.operators:
-            # These relaxed operators are owned by this heuristic instance.
-            operator.effect_facts = tuple(self.facts[effect] for effect in operator.add_effects)
-
     def dijkstra(self, queue):
         achieved_goals = set()
         while not self.finished(achieved_goals, queue):
@@ -25,7 +19,8 @@ class OperatorCostHMaxHeuristic(hMaxHeuristic):
                     # The last settled precondition supplies their maximum;
                     # the synthetic start entry has distance zero for empty ones.
                     operator_distance = distance + operator.cost
-                    for neighbor in operator.effect_facts:
+                    for effect in operator.add_effects:
+                        neighbor = self.facts[effect]
                         if operator_distance < neighbor.distance:
                             neighbor.distance = operator_distance
                             neighbor.sa_set = None
