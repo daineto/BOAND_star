@@ -38,3 +38,17 @@ class OperatorCostTests(unittest.TestCase):
                 expected = oracle(task, state)
                 self.assertEqual(stock(node), expected)
                 self.assertEqual(candidate(node), expected)
+
+    def test_last_settled_precondition_and_empty_preconditions(self):
+        task = Task('different distances', {'a', 'b', 'c', 'g'}, frozenset(), {'g'}, [
+            Operator('seed', set(), {'a'}, set()),
+            Operator('step1', {'a'}, {'b'}, set()),
+            Operator('step2', {'b'}, {'c'}, set()),
+            Operator('merge', {'a', 'c'}, {'g'}, set()),
+        ])
+        candidate, stock = OperatorCostHMaxHeuristic(task), hMaxHeuristic(task)
+        for state, expected in [(set(), 4), ({'a'}, 3), ({'c'}, 2), ({'a', 'c'}, 1), (set(), 4)]:
+            node = SearchNode(frozenset(state), None, None, 0)
+            self.assertEqual(candidate(node), expected)
+            self.assertEqual(stock(node), expected)
+            self.assertEqual(oracle(task, state), expected)

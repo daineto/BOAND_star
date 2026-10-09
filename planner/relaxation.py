@@ -7,7 +7,7 @@ class OperatorCostHMaxHeuristic(hMaxHeuristic):
     def dijkstra(self, queue):
         achieved_goals = set()
         while not self.finished(achieved_goals, queue):
-            _, _, fact = heapq.heappop(queue)
+            distance, _, fact = heapq.heappop(queue)
             if fact.name in self.goals:
                 achieved_goals.add(fact.name)
             if fact.expanded:
@@ -15,15 +15,16 @@ class OperatorCostHMaxHeuristic(hMaxHeuristic):
             for operator in fact.precondition_of:
                 operator.counter -= 1
                 if operator.counter <= 0:
-                    # The operator's hmax cost is independent of its add effect.
-                    # Preserve effect iteration and heap tie order.
-                    _, distance = self.get_cost(operator, fact)
+                    # Preconditions settle in nondecreasing distance order.
+                    # The last settled precondition supplies their maximum;
+                    # the synthetic start entry has distance zero for empty ones.
+                    operator_distance = distance + operator.cost
                     for effect in operator.add_effects:
                         neighbor = self.facts[effect]
-                        if distance < neighbor.distance:
-                            neighbor.distance = distance
+                        if operator_distance < neighbor.distance:
+                            neighbor.distance = operator_distance
                             neighbor.sa_set = None
                             neighbor.cheapest_achiever = operator
-                            heapq.heappush(queue, (distance, self.tie_breaker, neighbor))
+                            heapq.heappush(queue, (operator_distance, self.tie_breaker, neighbor))
                             self.tie_breaker += 1
             fact.expanded = True
