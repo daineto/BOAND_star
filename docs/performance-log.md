@@ -1913,3 +1913,211 @@ work counts/RSS, `round-summary.csv/json`, `per-instance-summary.csv/json`,
 parent/original/round references, six smoke logs, graph/escape/heuristic checks,
 `validation-performance.txt`, `validation-smoke.txt`, `source-verification.txt`,
 `tests-final.log`, `profiles-before/`, `profiles-final/` and resource snapshots.
+
+## Round 12 — hmax propagation and numeric bound hot paths (attempts 51–55)
+
+The user authorized the next round, capped at five attempts. Start at `f5de121`,
+with version-4 definitions, fixed smoke/performance inputs, seed 0, four workers,
+6,000,000 KB/job, 30 seconds/job and the 60-second suite deadline. Keep original
+performance baseline `c7cd597` separate from historical smoke selections.
+Fresh three-run baseline: `outputs/performance/round12/round12-start/`;
+initial correctness smoke passes in 22.87 seconds. No initial coverage failure.
+
+Separate diagnostic profiles on Tireworld p06, Elevators p04, Islands p16 and
+Doors p8 run with at most two jobs and the same planner resource limits.
+All complete. Tireworld has 1,761,502 operator-cost calls (0.896 seconds under
+instrumentation), 52,482 full graph passes (3.096 seconds), and 94,579 joint
+bound evaluations (1.387 seconds). These are bottleneck diagnostics, not
+unprofiled speedup estimates. Raw profiles: `profiles-before/`.
+
+### Attempt 51 — use the last settled precondition for hmax
+
+Parent `f5de121`, candidate `c911be9`. In hmax's Dijkstra traversal, the last
+precondition settled has the maximum distance because settlement order is
+nondecreasing. Use its popped heap distance plus the relaxed operator's unit
+cost instead of scanning all precondition facts. The synthetic start entry
+has popped distance zero, handling empty-precondition operators even though
+the synthetic fact's own distance may be infinite. Preserve queue ordering,
+counters, effect iteration, goal termination and repeated-state resets.
+No changes to lmcut, upstream vendored code, task costs or admissibility rules.
+
+Thirteen relevant tests pass, including 2,000 evaluations against stock hmax
+and an independent fixed-point relaxation oracle. Add explicit repeated-state
+contracts with differing precondition distances and empty preconditions.
+Smoke completes all 14 searches, solves 12 and replays 14 policies in
+22.51 seconds. Raw artifacts: `attempt51/`, `tests-attempt51.log`,
+`smoke-attempt51.log`. Campaign semantics/version and expected costs stay fixed.
+
+Three candidate and three parent runs: **1.119×**, interval
+**1.101–1.142×**. **Keep**. Every per-instance median improves; Beam Walk
+1.561×, Blocksworld 1.586× and Tireworld 1.123× are the main gains.
+Original fixed performance baseline ratio 1.657×. Every raw intermediate and
+final non-time row, expected cost set and replay outcome matches the reference.
+
+### Attempt 52 — fuse the dominated-edge test and initialization
+
+Parent `c911be9`, candidate `3bbe895`. Use numeric bound dictionaries directly,
+compute child costs once, initialize previously unseen outcomes and check known
+outcomes in one pass. Remove the temporary known-node list, generator and
+repeated worst-cost lookups. On the first violated certificate, recompute the
+full graph immediately: the strategy already contains every outcome, so the
+remaining outcomes do not need temporary initialization before replacement.
+The certificate and BFS/Kahn numerical rules remain unchanged.
+
+Twenty-three graph/copy/bound tests and 5,528 growing-graph extensions against
+full recomputation pass; smoke completes/replays unchanged in 22.89 seconds.
+Artifacts: `attempt52/`, `tests-attempt52.log`, `graph-attempt52.txt`,
+`smoke-attempt52.log`.
+
+Three-run result 1.010× spans gains/losses. Extend both revisions to five;
+parent extras restore `planner/search.py` byte-for-byte from `c911be9` under
+actual HEAD `3bbe895`, recorded in `attempt51-extra/`.
+Final **1.012×**, interval **0.975–1.057×**: timing remains inconclusive.
+**Retain as an explicit code cleanup**, not a performance win. A single pass
+removes the temporary list/generator and duplicate worst-cost lookups without
+introducing incremental propagation or a new mathematical certificate.
+Validation and all five repeated measurements show no substantial aggregate
+or per-instance regression; Mod First Responders 0.977× is the small observed
+median slowdown and remains in the comparison. Updated 51 versus fresh start
+is 1.120×, interval 1.070–1.146×; its keep decision remains supported.
+
+### Attempt 53 — start Kahn's traversal from the root only
+
+Parent `3bbe895`, candidate `b7cef3c`. All vertices discovered by the BFS are
+reachable from root; every non-root vertex therefore has a positive indegree
+before Kahn's traversal starts. Root is the only possible initial zero-indegree
+vertex. Replace the full indegree-table scan with a root check, including the
+empty-ready case when a cycle reaches root. Subsequent longest-path and cyclic
+residue calculations are unchanged. Correct the BFS comment to describe numeric
+distances rather than the removed predecessor representation.
+
+Twenty-one relevant tests, including root cycles and independent shortest/worst
+path oracles, plus 5,528 growing extensions agree with full recomputation.
+Smoke completes/replays unchanged in 25.28 seconds. Artifacts: `attempt53/`,
+`tests-attempt53.log`, `graph-attempt53.txt`, `smoke-attempt53.log`.
+
+Three-run result 1.003× is inconclusive. Five candidate runs versus five parent
+runs give **1.007×**, interval **0.982–1.045×**. **Revert** in `20429af`:
+no established benefit for the graph specialization. Original fixed performance
+baseline ratio 1.690× describes the rejected revision. Preserve all per-case
+regressions/ranges and the two additional samples. No numerical discrepancy.
+
+### Attempt 54 — direct numeric accesses in joint bound evaluation
+
+Effective parent `3bbe895` (actual `20429af` after the revert), candidate
+`9424638`. Bind the existing best/worst dictionaries locally and read them in
+the joint bound loop without per-state helper calls. Preserve numeric formulas,
+outgoing union/iteration, heuristic caching, cyclic correction, worst-cost
+default and legacy dummy-sentinel handling. This is a representation access
+optimization, not a heuristic or queue-order change.
+
+Twenty-three bound/state-cache/graph/copy tests pass, including 500 randomized
+comparisons with separate estimators and a new sentinel equivalence contract.
+Smoke completes/replays unchanged in 18.41 seconds. Artifacts: `attempt54/`,
+`tests-attempt54.log`, `smoke-attempt54.log`.
+
+Three-run result 1.018× is inconclusive. Five candidate versus five parent runs
+give **1.014×**, interval **0.999–1.057×**. **Revert** in `1d51bc3`:
+no established aggregate gain after the allowed repetitions. Doors shows
+1.185× and Tireworld 1.031×, but preserve the aggregate uncertainty and the
+individual median regressions rather than selecting only favorable cases.
+This duplicates helper semantics in a hot loop, so it has no compelling
+maintainability justification under the cleanup exception. Original fixed
+performance baseline ratio 1.701× describes this rejected candidate.
+
+### Attempt 55 — compile relaxed effect references once
+
+Effective parent `3bbe895` (actual `1d51bc3` after rejection of 54), candidate
+`d1ceb75`. A fresh retained-parent Tireworld profile (`profiles-before55/`)
+shows hmax propagation still takes 0.587 seconds cumulative under instrumentation,
+including 0.529 seconds in its traversal body. Three preceding attempts have
+not established repeatable timing benefits, but this remaining concrete hmax
+hot path is a promising low-complexity target, so proceed with the fifth
+already-authorized attempt rather than start another round.
+
+Compile an ordered tuple of effect-fact objects on each task-local relaxed
+operator. Its objects belong to the heuristic instance; no task operators,
+benchmarks or upstream code are mutated. Iterate these references rather than
+look up each effect name in the fact dictionary on every activation. Keep
+activation counters, relaxation costs, goal termination, effect order and heap
+tie order unchanged. Extra initialization/allocation is included in full suite
+wall time and sampled process RSS; do not infer a startup gain from search time.
+
+Thirteen heuristic/oracle/graph/bound tests pass, including the stock-hmax and
+independent fixed-point comparisons and empty-precondition contracts. Smoke
+completes/replays unchanged in 23.55 seconds. Artifacts: `attempt55/`,
+`tests-attempt55.log`, `smoke-attempt55.log`, `profile-before55.log`.
+
+Three-run result 0.970× is noisy, with slow Mod First Responders samples.
+Extend the candidate to five; parent already has five. Final **0.980×**,
+interval **0.801–1.035×**. **Revert** in `f840c32`: no established benefit,
+and Mod First Responders' median ratio is 0.682× (roughly 0.097 to 0.142
+seconds). ST Tires 0.965× also slows in the measured medians. Preserve all
+samples, including slow samples in both parent and candidate. Do not infer
+GC, CPU contention or reference-cycle causation from these uninstrumented
+measurements. Added cache state/allocation has no cleanup justification.
+Original fixed performance baseline ratio 1.644× describes the rejected revision.
+
+### Round 12 result
+
+Keep the last-settled-precondition hmax optimization. Retain the fused numeric
+bound update as an explicit code cleanup with unproven timing benefit. Revert
+root-only Kahn initialization, direct joint bound accesses and compiled effect
+references with separate history-preserving commits. Stop after the five
+requested attempts; no further optimization is started.
+
+| Attempt | Parent search speedup | 95% bootstrap interval | Decision |
+| --- | ---: | --- | --- |
+| 51: last settled precondition for hmax | 1.120× | 1.070–1.146× | keep |
+| 52: fused numeric bound update | 1.012× | 0.975–1.057× | cleanup |
+| 53: root-only Kahn initialization | 1.007× | 0.982–1.045× | revert |
+| 54: direct numeric bound evaluation | 1.014× | 0.999–1.057× | revert |
+| 55: compiled relaxed effect references | 0.980× | 0.801–1.035× | revert |
+
+Retained planner source matches measured `3bbe895` byte-for-byte. Five retained
+measurements versus three fresh starting measurements give **1.133×**
+search speedup, interval **1.092–1.158×**.
+This measures the retained combination; it does not establish an independent
+performance gain for cleanup 52. Versus fixed original performance baseline
+`c7cd597`, observed cumulative speedup is **1.677×**,
+interval **1.617–1.705×**, with cross-round
+timing-condition limitations. Earlier smoke inputs/baselines are not mixed in.
+
+Summed per-instance median search **12.076 s**;
+successful suite median **24.961 s**, range
+**24.548–28.204 s**,
+versus starting median **29.156 s**.
+Largest median sampled peak planner RSS **489,784 KB**.
+Resource snapshots show ample available RAM and no swap use. Memory sampling
+uses per-process VmHWM at 0.05-second intervals; continuous CPU utilization
+was not measured. Do not infer causes of timing fluctuations from load snapshots.
+
+All **28 performance runs** complete 11 searches, solve the 10 solvable cases
+and replay all 11 expected policies. All **seven smoke checks**, including
+post-revert final smoke, complete 14 searches, solve 12 and replay 14 policies.
+Every intermediate/final non-time statistics row agrees with the fresh reference.
+Final **76 tests pass**, with independent graph/path and heuristic oracles.
+No benchmark hashes, expected Pareto costs, scientific objectives, campaign
+version/definitions, seeds, commands, resource limits or published archives
+change. No full campaign is launched. Source fingerprints match the retained
+measured revision. Generated evidence remains ignored.
+
+Final diagnostic profiles complete separately on the four representative cases.
+Tireworld's full graph recomputation remains substantial (52,482 calls,
+3.060 seconds cumulative under instrumentation), followed by joint bounds
+(1.431 seconds); hmax traversal is reduced to 0.614 seconds. Policy copying
+and native heap work remain visible in Elevators/Islands. These are possible
+future targets, not timing evidence for another change or authorization to
+start another round.
+
+Artifacts: `outputs/performance/round12/`: raw baseline/candidate/rejected
+measurements, parent-restoration provenance, all per-instance medians/ranges,
+work counts and sampled peak RSS, `round-summary.csv/json`,
+`per-instance-summary.csv/json`, `retained-summary.json`, parent/original/round
+bootstrap intervals, seven smoke logs, graph/heuristic contracts,
+`validation-performance.txt`, `validation-smoke.txt`, `source-verification.txt`,
+`tests-final.log`, `profiles-before/`, `profiles-before55/`, `profiles-final/`
+and resource snapshots. Keep every noisy sample and every rejected attempt.
+
+Retained per-instance median regressions versus fresh start:
+- `mod_first_responders/p_2_2`: 0.095264 to 0.097036 s (1.9%, 1.8 ms).
