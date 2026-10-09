@@ -6,7 +6,7 @@ import re
 import time
 from pathlib import Path
 from pddl import parse_domain, parse_problem
-from pyperplan.heuristics.relaxation import hMaxHeuristic
+from .relaxation import OperatorCostHMaxHeuristic as hMaxHeuristic
 from pyperplan.heuristics.lm_cut import LmCutHeuristic
 from pyperplan.task import Task
 from pyperplan.search.searchspace import SearchNode
