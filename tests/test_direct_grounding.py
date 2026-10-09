@@ -72,7 +72,7 @@ class DirectTests(unittest.TestCase):
             d,p=Path(tmp,'d.pddl'),Path(tmp,'p.pddl')
             for case in range(30):
                 facts=('x','g'); operators=[]; clauses=[]
-                initial={f for f in ('x',) if rng.random()<.3}
+                initial={f for f in facts if rng.random()<.3}
                 encoded_initial=frozenset(f'({f})' if f in initial else f'(not_{f})' for f in facts)
                 for action in range(2):
                     pre={f for f in facts if rng.random()<.25}

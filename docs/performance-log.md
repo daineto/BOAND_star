@@ -2691,3 +2691,44 @@ of defaults/interfaces after review. This direct path still uses the shared FOND
 parser/determinizer and Boolean SAS/fact-set search boundary. It intentionally
 bypasses classical FD graph simplification and does not claim unrestricted PDDL
 support. No full campaign, default switch, push, merge or tag was performed.
+
+## Correctness fix: initially satisfied goals (journal definition 8)
+
+Parent: `3b617cc`. The search root unconditionally entered `pending`, even when
+its state satisfied the goal. A task with an initially true goal and a no-op
+could return no solution; other tasks could return positive costs. Independent
+policy replay establishes that an empty strategy is valid with `(0, 0)` costs.
+This defect predates the FD migration and is evaluated separately from attempts.
+
+Initialize the root in `goal_states` when it satisfies the goal, otherwise in
+`pending`. The existing closed-policy properness, Pareto recording, output and
+metadata paths then handle the empty solution normally. It requires no actions,
+expansions or generations. No special early return bypasses output/provenance.
+Journal definition 8 versions this corrected behavior; fixed smoke/performance
+selections, costs, resources and defaults remain unchanged.
+
+Targeted tests cover initially true and empty goals, no actions, no-ops and
+an action deleting the goal, all four metrics and both heuristics under
+Pyperplan and the native adapter. They compare with independent replay and
+check a single empty policy file, zero costs and zero expansions/generations.
+The signed random FOND direct-grounding oracle now includes initially satisfied
+goals, comparing full Pareto sets against exhaustive strategy enumeration.
+
+Raw evidence: `outputs/initial-goal-fix/` holds the parent smoke, full test log
+and after-change default/direct hmax/direct LM-cut smoke/performance logs,
+including references to raw planner runs and validation reports under `runs/`.
+This fix is retained for correctness; no timing improvement is claimed.
+
+The first targeted run also exposed Pyperplan LM-cut returning infinity for an
+empty goal. Closed empty strategies now record zero costs directly, justified
+by goal satisfaction and independent replay, rather than consulting that
+estimate. The initial failing test log is preserved as `tests-first.log`.
+
+Validation: all 94 tests pass. Parent/default smoke passes 14/14 completed,
+12/12 solvable instances and 14 policy replays. After-change default and direct
+hmax/LM-cut smoke profiles each pass the same gate; all three performance
+profiles pass 11/11 completed, 10/10 solvable and 11 policy replays. Expected
+Pareto sets remain unchanged. These are correctness runs, not repeated timing
+baselines; some test execution overlapped the early profile checks, so their
+wall times must not be interpreted as performance comparisons. No full campaign
+or backend-default change was made.

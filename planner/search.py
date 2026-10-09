@@ -327,7 +327,11 @@ def boand_star(
 
     # Generate empty policy
     empty_policy = Policy(dict(),set(), set())
-    empty_policy.pending.add(task.initial_state)
+    # Goal states terminate a policy, including when the root is already a goal.
+    if task.goal_reached(task.initial_state):
+        empty_policy.goal_states.add(task.initial_state)
+    else:
+        empty_policy.pending.add(task.initial_state)
     empty_policy.best_costs = {task.initial_state:0}
     empty_policy.worst_costs = {task.initial_state: 0}
     # Push the empty policy onto the open list
@@ -370,8 +374,13 @@ def boand_star(
 
                 elapsed_time = time.time() - start_time
 
-                f_best = best_heuristic.get_f_value(current_policy)
-                f_worst = worst_heuristic.get_f_value(current_policy)
+                if not current_policy.strategy:
+                    # The terminal root needs no action. In particular, avoid
+                    # Pyperplan LM-cut's infinite estimate for an empty goal.
+                    f_best = f_worst = 0
+                else:
+                    f_best = best_heuristic.get_f_value(current_policy)
+                    f_worst = worst_heuristic.get_f_value(current_policy)
 
                 stats["best"] += [f_best]
                 stats["worst"] += [f_worst]

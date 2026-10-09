@@ -227,4 +227,6 @@ end-to-end speedups. Search geomeans improve 1.02×/1.04× with identical record
 work; sampled peak-memory medians fall approximately 20%. The direct path is
 retained as opt-in. See [attempt 59](performance-log.md#attempt-59--direct-compilation-of-negative-conditions)
 for timing-phase accounting, variability and the separately documented legacy
-initial-goal search issue. Defaults remain unchanged.
+initial-goal search issue, subsequently corrected in journal definition 8: an
+initially satisfied goal emits an empty policy with zero costs. Defaults remain
+unchanged.

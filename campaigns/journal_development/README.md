@@ -223,3 +223,11 @@ FD grounder, Boolean SAS encoding and native engine remain unchanged.
 Defaults, profile selections, expected numerical costs and limits are unchanged.
 Legacy compiler imports are now lazy; fresh control runs are required for
 preprocessing comparisons because cold imports move into that measured phase.
+
+## Initially satisfied goals (definition 8)
+
+The root policy now treats an initially satisfied goal as terminal and emits the
+empty policy with best/worst costs `(0, 0)`. Previously search could omit this
+solution or unnecessarily execute an action. This is a correctness fix shared
+by all backends, not a performance optimization. Fixed smoke/performance inputs,
+expected cost sets, configurations and resource limits are unchanged.

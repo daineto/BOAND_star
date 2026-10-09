@@ -195,6 +195,11 @@ independent oracle rather than preserve that historical error. Expected solution
 costs remain unchanged unless a separately justified correctness finding requires
 an explicitly documented revision.
 
+Journal definition version 8 corrects initially satisfied goals: emit the empty
+policy with zero best/worst costs without expanding the root. Compare this case
+against independent replay, not the buggy historical search. Fixed profile
+selections and expected costs remain unchanged.
+
 ## Resources and reproducibility
 
 This machine has 32 GB of RAM. Journal development runs use 6,000,000 KB of
