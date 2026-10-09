@@ -25,7 +25,7 @@ class BoundEvaluationTests(unittest.TestCase):
 
     def test_overlapping_outgoing_inputs_evaluate_each_state_once(self):
         calls=[]
-        p=Policy({}, {0,1}, {1,2});p.best_costs=distances_from_parents({0:'dummy',1:0,2:1});p.worst_costs={0:0,1:1,2:2}
+        p=Policy({}, {0,1}, {1,2});p.best_costs={0: 0, 1: 1, 2: 2};p.worst_costs={0:0,1:1,2:2}
         compute_f_value(p,None,lambda node:calls.append(node.state) or 0)
         self.assertCountEqual(calls,[0,1,2])
 
@@ -38,4 +38,3 @@ def distances_from_parents(parents):
             distance += 1
         result[state] = distance
     return result
-

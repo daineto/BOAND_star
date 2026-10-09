@@ -38,7 +38,7 @@ class JointBoundTests(unittest.TestCase):
                                                     (True, False, False), (False, False, True)]:
             with self.subTest(cyclic=cyclic, ancestor_cycle=ancestor_cycle, unreachable=unreachable):
                 policy = Policy({}, {'a', 'b'}, {'g'})
-                policy.best_costs = distances_from_parents({'s': 'dummy', 'a': 's', 'b': 'a', 'g': 'b'})
+                policy.best_costs = {'s': 0, 'a': 1, 'b': 2, 'g': 3}
                 policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_costs}
                 if ancestor_cycle:
                     policy.worst_costs = dict.fromkeys(policy.best_costs, CYCLE_COST)
@@ -51,7 +51,7 @@ class JointBoundTests(unittest.TestCase):
 
     def test_closed_and_empty_frontiers_keep_default_bounds(self):
         policy = Policy({}, set(), {'s'})
-        policy.best_costs = distances_from_parents({'s': 'dummy'})
+        policy.best_costs = {'s': 0}
         policy.worst_costs = {'s': 0}
         heuristic = lambda node: 0
         self.assertEqual(compute_f_value(policy, None, heuristic), (0, 0, 0))
@@ -79,7 +79,7 @@ class SuccessorGroupingTests(unittest.TestCase):
 class PolicyCopyTests(unittest.TestCase):
     def test_copy_preserves_flags_and_isolates_mutable_fields(self):
         policy = Policy({'s': ('move', frozenset())}, {'a'}, {'g'})
-        policy.best_costs = distances_from_parents({'s': 'dummy', 'a': 's', 'g': 'a'})
+        policy.best_costs = {'s': 0, 'a': 1, 'g': 2}
         policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_costs}
         policy.closed = policy.cyclic = policy.proper = True
         clone = policy.copy()
@@ -140,4 +140,3 @@ def distances_from_parents(parents):
             distance += 1
         result[state] = distance
     return result
-

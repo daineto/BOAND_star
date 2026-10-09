@@ -9,7 +9,7 @@ from planner.search import compute_f_value
 class StateHeuristicAccessTests(unittest.TestCase):
     def policy(self):
         p=Policy({}, {'a','b'}, {'g'})
-        p.best_costs=distances_from_parents({'s':'dummy','a':'s','b':'a','g':'b'})
+        p.best_costs={'s': 0, 'a': 1, 'b': 2, 'g': 3}
         p.worst_costs={'s':0,'a':1,'b':2,'g':3}
         return p
 
@@ -30,14 +30,3 @@ class StateHeuristicAccessTests(unittest.TestCase):
         p=self.policy()
         self.assertEqual(compute_f_value(p,None,h),(3,math.inf,math.inf))
         self.assertEqual(tuple(cls(h).get_f_value(p) for cls in (MinSumBestCaseHeuristic,MaxSumWorstCaseHeuristic,DeltaSizeHeuristic)),(3,math.inf,math.inf))
-
-def distances_from_parents(parents):
-    result = {}
-    for state in parents:
-        current, distance = state, 0
-        while parents[current] != "dummy":
-            current = parents[current]
-            distance += 1
-        result[state] = distance
-    return result
-

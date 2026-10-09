@@ -11,7 +11,7 @@ from planner.search import extend_policy, update_g_brute
 def policy_for(edges, size):
     policy = Policy({state: ('move', [SimpleNamespace(apply=lambda _, child=child: child)
                                    for child in children]) for state, children in edges.items()}, set(), set())
-    policy.best_costs = distances_from_parents({0: 'dummy', **{state: state - 1 for state in range(1, size)}})
+    policy.best_costs = {state: state for state in range(size)}
     policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_costs}
     return policy
 
@@ -90,8 +90,7 @@ class PolicyGraphTests(unittest.TestCase):
         policy = Policy({labels[state]: ('move', [SimpleNamespace(apply=lambda _, child=labels[child]: child)
                                                 for child in children])
                          for state, children in edges.items()}, set(), set())
-        policy.best_costs = distances_from_parents({labels[0]: 'dummy', **{labels[state]: labels[state - 1]
-                                                     for state in range(1, 10)}})
+        policy.best_costs = {labels[state]: state for state in range(10)}
         policy.worst_costs = {labels[state]: state for state in range(10)}
         update_g_brute(policy, SimpleNamespace(initial_state=labels[0]))
         self.assertEqual(policy.get_best_g(labels[5]), 3)  # 0 -> 1 -> 3 -> 5
@@ -100,7 +99,7 @@ class PolicyGraphTests(unittest.TestCase):
 
     def test_cycle_descendants_and_independent_finite_branch(self):
         policy = policy_for({0: [1, 3], 1: [2], 2: [1, 4]}, 5)
-        policy.best_costs = distances_from_parents({0: 'dummy', 1: 0, 2: 1, 3: 0, 4: 2})
+        policy.best_costs = {0: 0, 1: 1, 2: 2, 3: 1, 4: 3}
         policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_costs}
         update_g_brute(policy, SimpleNamespace(initial_state=0))
         self.assertEqual([policy.get_worst_g(state) for state in range(5)],
@@ -115,7 +114,7 @@ class PolicyGraphTests(unittest.TestCase):
 
     def test_convergent_dag_keeps_distinct_shortest_and_longest_bounds(self):
         policy = policy_for({0: [1, 2], 1: [3], 2: [4], 4: [3], 3: [5]}, 6)
-        policy.best_costs = distances_from_parents({0: 'dummy', 1: 0, 2: 0, 3: 1, 4: 2, 5: 3})
+        policy.best_costs = {0: 0, 1: 1, 2: 1, 3: 2, 4: 2, 5: 3}
         policy.worst_costs = {state: policy.get_best_g(state) for state in policy.best_costs}
         update_g_brute(policy, SimpleNamespace(initial_state=0))
         self.assertEqual((policy.get_best_g(5), policy.get_worst_g(5)), (3, 4))
@@ -153,14 +152,3 @@ class PolicyGraphTests(unittest.TestCase):
         update_g_brute(policy, SimpleNamespace(initial_state=0))
         self.assertEqual((policy.get_best_g(0), policy.get_worst_g(0)), (0, 0))
         self.assertFalse(policy.cyclic)
-
-def distances_from_parents(parents):
-    result = {}
-    for state in parents:
-        current, distance = state, 0
-        while parents[current] != "dummy":
-            current = parents[current]
-            distance += 1
-        result[state] = distance
-    return result
-
