@@ -2991,3 +2991,18 @@ remain in ignored outputs. The full published BOAND bw inventory is 124/196
 completed searches and 118/196 cases with incumbents (historical policies
 unverified); parse issues: zero. This is the comparison baseline, not a claim
 of 118 independently validated solved problems.
+
+Full execution launched at source revision `86515c6` on the migration branch:
+`runs/journal_icaps_comparison/2026-10-09T12-43-05Z-paper-05dc1b6e/`.
+Controller status, log and live resource samples are under
+`outputs/journal_icaps_comparison/2026-10-09T12-43-03Z/`; the driver performs
+bounded replay and writes `comparison/report.md` plus raw CSV/JSON/PDF artifacts
+automatically after execution. The long campaign is still running, not yet a
+completed comparison. No merge is authorized/performed before report review.
+
+Early observations: 39/392 executions finished; Blocksworld p03 hits the
+6,000,000 KB limit while copying policy bounds (explicit MemoryError). Its
+historical archive also lacks completion and records a 600-second timeout.
+This is a resource/coverage failure, not an unsolvable result or a demonstrated
+new correctness bug. Available RAM remains at least 11.596 GiB with only 768 KB
+swap used during these samples. Keep all failures in the final coverage report.
