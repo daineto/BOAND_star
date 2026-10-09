@@ -19,14 +19,13 @@ class Policy:
     self.cyclic = False
     self.proper = False
 
-  def copy(self, *, copy_bounds=True):
+  def copy(self):
     new_policy = Policy(dict(),set(),set())
     new_policy.strategy = self.strategy.copy()
     new_policy.pending = self.pending.copy()
     new_policy.goal_states = self.goal_states.copy()
-    if copy_bounds:
-      new_policy.best_costs = self.best_costs.copy()
-      new_policy.worst_costs = self.worst_costs.copy()
+    new_policy.best_costs = self.best_costs.copy()
+    new_policy.worst_costs = self.worst_costs.copy()
     new_policy.closed = self.closed
     new_policy.cyclic = self.cyclic
     new_policy.proper = self.proper
