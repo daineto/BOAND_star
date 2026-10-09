@@ -2950,3 +2950,32 @@ removed most static complement facts. Return to the measured policy/search
 bottlenecks rather than extending native representations without a clear
 benefit on the fixed inputs. A broader future study with many dynamic negative
 conditions could revisit this independently validated candidate.
+
+## Full ICAPS evaluation before migration merge
+
+The user requested a full pre-merge historical comparison and selected two
+configurations: direct FD/hmax and direct FD/LM-cut, both BOAND* best-worst.
+`journal_icaps_comparison` definition 1 schedules 392 jobs over the exact
+196 ICAPS dataset-version-2 input entries in its eleven domains. The user
+approved 600 seconds/job, 6,000,000 KB/job and four workers. The published
+ICAPS campaign remains unchanged (600 seconds, 8,000,000 KB/two workers).
+No migration-only causal speedup is claimed from historical-machine timings.
+
+The separate campaign driver records sampled planner VmHWM/system resources,
+checks planner-source stability, then independently replays all emitted policies
+(including partial-search incumbents) under separate per-instance resource/time
+limits. It generates per-case/domain CSVs, JSON/Markdown coverage/cost reports,
+completion/solution cactus figures and a historical-runtime scatter. Completed
+searches, verified solved cases, timeouts, errors and unresolved replay are
+separate metrics. Timing pairs require completed searches and identical cost
+sets; historical cost differences and native-heuristic cost disagreements are
+explicit review items. Replay proves policy validity/costs, not completeness.
+
+Preflight: all 103 tests pass, including fixed-input identity, resource limits,
+malformed-stat failure accounting, all-outcome cyclic replay, stale-validation
+rejection, cost-disagreement filtering and valid timeout-incumbent accounting.
+The unchanged journal smoke passes 14/14 complete, 12/12 solvable and 14 policy
+replays in 13.21 s. Dry-run manifests confirm 392 paper jobs and 28 smoke jobs;
+exact input entries, hashes, objectives and selectors match the frozen source.
+Preflight artifacts are under `outputs/journal-icaps-preflight/`. End-to-end
+comparison smoke and full execution are next. No merge or push has occurred.

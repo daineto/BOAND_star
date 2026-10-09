@@ -234,3 +234,14 @@ what changed, and report validation limitations. Do not include unrelated user
 changes. On other branches, commit only when explicitly requested.
 Tag, push, merge or publish only when explicitly requested.
 Keep generated outputs, caches and temporary files out of version control.
+
+## Authorized full ICAPS comparison
+
+`journal_icaps_comparison` definition 1 is the explicitly requested full
+pre-merge evaluation: 196 frozen ICAPS inputs, direct FD/hmax and FD/LM-cut,
+392 jobs, 600 seconds/job, 6,000,000 KB/job and four workers. Run it alone via
+`.venv/bin/python -m campaigns.journal_icaps_comparison.run`; it automatically
+replays policies and compares with the published archive. It has no 60-second
+suite deadline. Preserve the published campaign and distinguish corrected
+semantics/resource limits from historical timing comparisons. Keep planner
+source fixed until execution ends; do not merge before reviewing the report.
