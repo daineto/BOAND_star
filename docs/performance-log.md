@@ -3139,3 +3139,48 @@ Evidence: `outputs/merge-validation/merge.json`, `tests.log`, `smoke.log` and
 and performance `2026-10-09T14-29-00Z-performance-55511a99`. Earlier tests cover
 identical merged source; no redundant full test repetition was needed.
 No push, tag or branch deletion was requested or performed.
+
+## Authorized PRP satisficing comparison (campaign 1)
+
+The user requests PRP on all 196 frozen ICAPS instances under the native campaign
+constraints (600 seconds per instance, 6,000,000 KB virtual memory per process,
+four jobs) and a first-policy coverage plot with the earlier local Pyperplan/hmax
+and current direct FD/hmax/LM-cut runs, plus solution-quality comparisons.
+This is a new evaluation campaign, not an optimization attempt or a change to
+BOAND objectives. Definitions and commands: `campaigns/journal_prp_comparison/`.
+Published archives, benchmark hashes and earlier comparison definitions remain
+unchanged. No new BOAND full runs are requested or launched.
+
+PRP installed source revision `7466c606ab8cb53e772c7798e02fab6bc24aec25`
+resides outside the repo at `/media/datos/aineto/planners/`; wrappers, built
+binaries and translator hashes plus untracked build products are recorded in
+run provenance. Use its FF/lazy-greedy repair configuration with random seed 0,
+600-second JIC budget, human-readable policy dump and zero final simulator
+trials. Source inspection confirms the trials option controls only post-planning
+simulation, not internal 1,000-trial policy scoring or repair. Do not time an
+all-outcome classical plan as a valid nondeterministic policy. The PRP wall timer
+starts at search-stage launch and ends at the post-construction simulator marker;
+this conservatively records the first final closed policy, excluding translation.
+Extra wall timings include the complete pipeline. BOAND uses its internal first
+incumbent search timer; document the launch/measurement distinction.
+
+Independent replay reads original PDDL and exported PRP rule/forbidden-action
+priorities, grounding only the selected action and sharing static facts. It
+checks all outcomes, applicability, reverse goal reachability, shortest best
+cost and longest acyclic/cyclic worst cost. Policy variables map through the
+preprocessed `output`, not `output.sas`. Initial integration caught case-sensitive
+constant comparison against PRP's lowercase PDDL labels; normalize case as PDDL
+requires and preserve the before/after validator outputs. No planner or benchmark
+changes are involved. Partial policies on unsolvable cases correctly fail replay.
+Cyclic worst cost is infinity; do not average the numeric display sentinel.
+
+Preflight: 110 tests pass, including new independent cyclic, forbidden-action,
+case normalization, inapplicable-action, initial-goal and Pareto/infinity tests.
+Dry-run manifests validate 196 full and 14 smoke identities, exact frozen hashes,
+seed/configuration and resource limits. Evidence is in
+`outputs/prp-comparison-preflight/`. PRP smoke run
+`runs/journal_prp_comparison/2026-10-10T06-22-10Z-smoke` has 13 executions finished
+and 11 independently valid policies; Tireworld-truck p6 is still running at this
+entry. Its two known unsolvable cases export incomplete rules which do not count
+as solutions. Do not tune PRP to hide noncompletion or use incomplete BOAND fronts
+for optimality claims. Full launch follows completion and analysis of preflight.

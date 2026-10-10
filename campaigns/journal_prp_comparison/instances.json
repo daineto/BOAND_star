@@ -1,0 +1,1576 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_prp_comparison",
+  "dataset_version": "2",
+  "instances": [
+    {
+      "domain": "beam-walk",
+      "instance": "p1",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p1.pddl",
+      "problem_sha256": "71eb7c43cfa100a4ff19aa30ce5eb053d3e737ebb858b1e8a78ee231bf0e365a"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p10",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p10.pddl",
+      "problem_sha256": "b4cf787ce37296707584e4ffb7110077de462387a82b21094bae2231406a0ea6"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p11",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p11.pddl",
+      "problem_sha256": "493187fb7ca1be5b868e5bdd30279a8ff2ba9412942a4528f9dc0ca6ca2aef17"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p2",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p2.pddl",
+      "problem_sha256": "4752c6389643947ae25e2f3d753bcecdaba08ad8dd45c1a75c35b9964e3f4d55"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p3",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p3.pddl",
+      "problem_sha256": "8c8e5b16671b56d7af149078e62cb48adb05b22a19ff042f167dfd458850a320"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p4",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p4.pddl",
+      "problem_sha256": "b4301cf48034a19297a52e9e607a21b6092c63aa6ecf699a4abab44729355a38"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p5",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p5.pddl",
+      "problem_sha256": "0528f6286ee230e1155f7513c2aa069def1ca468a499664d5e0d7ba48ea37df4"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p6",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p6.pddl",
+      "problem_sha256": "9b90d10422a002871528927be7017efda11d440cf0d5206f8ef3e16cb1f8d3fe"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p7",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p7.pddl",
+      "problem_sha256": "585b5ce87d34d623927359c531bd17a230616c0702d5e1dabb87b14c0cb52d89"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p8",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p8.pddl",
+      "problem_sha256": "da748a142dcefec924caf18614688d7761f4f1556556279b1673fc34f62950b3"
+    },
+    {
+      "domain": "beam-walk",
+      "instance": "p9",
+      "domain_path": "benchmarks/beam-walk/domain.pddl",
+      "domain_sha256": "7822d52ac32c969bbd1e280cfb7490a0e989e7eb0eed4e6532617b1ffef1710b",
+      "problem_path": "benchmarks/beam-walk/p9.pddl",
+      "problem_sha256": "b3b0ff488c75b4c096ba3054d4e88223eb5d1e56229730e22194a6cf1184b76b"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p01",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p01.pddl",
+      "problem_sha256": "5f58ab0551a45fdbec61cc73405d0e1348fedda6ec50e8bb6d6f28508cbf5576"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p02",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p02.pddl",
+      "problem_sha256": "06b9e7ad86c4546000f2c78a02440a4f3aaed83cb42dd90b3dbd449f78914b5a"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p03",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p03.pddl",
+      "problem_sha256": "d128cc6ecb433a812f1d0d02e6f4e67cb072846746299171c0b39e9cd28e61b2"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p04",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p04.pddl",
+      "problem_sha256": "5a5596e82afe5c0a9f0dcd89109350f5d35dec05bfb08048ccf80232005ea936"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p05",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p05.pddl",
+      "problem_sha256": "2309b6e46879d7c747a737e1803d3a9361aa89a12e84359436f5967d135060fd"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p06",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p06.pddl",
+      "problem_sha256": "1c4a266e67e4d16508e80af2f1aaaeb9cac675e0effcb21e7d6e7e974b0bcfe3"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p07",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p07.pddl",
+      "problem_sha256": "c4a4e1a20fe6b72434aeeb83a3beb96eef44249e30040fd513740403bfad0ee2"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p08",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p08.pddl",
+      "problem_sha256": "5c9021b23c2172e1eee4d59890e2296e3e760ac1ec00885321dca7d6996511b9"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p09",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p09.pddl",
+      "problem_sha256": "0a7adddea68cd64515d482e1ca021ff9e5dfca32dea5afd8c21131bfa9110f5b"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p10",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p10.pddl",
+      "problem_sha256": "8b5c152ea1cca493352c8d04e58253d2d8625e8ad5fe0cda7db2a138f18d27cb"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p11",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p11.pddl",
+      "problem_sha256": "5426e8937e866fa4af431b9ba40c13c5f863d994cc6c81f3b1035116ce802e2c"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p12",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p12.pddl",
+      "problem_sha256": "64cb483ade7ebe160219b1802d7cea1986b9e485ac671cf4755cfbeaba16267f"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p13",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p13.pddl",
+      "problem_sha256": "7f3f3a1a3ec2d81758be76edc41772c39c7585413088392a7294df363a15f7df"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p14",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p14.pddl",
+      "problem_sha256": "c0b35624765a6b1cfa117c944fd0859e4b9589680444ab26b9a34d5839928e73"
+    },
+    {
+      "domain": "blocksworld-ex",
+      "instance": "p15",
+      "domain_path": "benchmarks/blocksworld-ex/domain.pddl",
+      "domain_sha256": "1efae110596f47939f28c0a036cf7bf1c2e518b7ff1378da5fd537bc4670585b",
+      "problem_path": "benchmarks/blocksworld-ex/p15.pddl",
+      "problem_sha256": "a70caa9652c4c4391bbcc9b6e9c36e42ba1de9b638dd637f554917507e3d4a42"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p10",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p10.pddl",
+      "problem_sha256": "813d9167574ca1458b7de8424907b203a4ac3b5eea79dd762de8c5d3fd7fd664"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p12",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p12.pddl",
+      "problem_sha256": "3ee02d3c8317daa248d84598e90b08783caf64d8c644b436e8220c866246034e"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p14",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p14.pddl",
+      "problem_sha256": "fcf4eed0cfcf0b266c457b4c29cba989faac4226a6358623f081adf19ebe0f2d"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p16",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p16.pddl",
+      "problem_sha256": "6bdfa7f5ddf47ee8b74915c9ad646552e8e03a36c450d14f04c92da904465085"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p18",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p18.pddl",
+      "problem_sha256": "67d991d857bd023cba8488f8742ce419e63a1b140d8d52872cbf76dcd3fee53d"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p20",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p20.pddl",
+      "problem_sha256": "2dc882a6d6bc2ee1977a4d1baa2fc72f86263a25a5b819d4b53e6a34bd5dfe88"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p22",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p22.pddl",
+      "problem_sha256": "ad5cc5065c9db0a520c15333b25a87dccbb77427396287950563660a6f69f72f"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p24",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p24.pddl",
+      "problem_sha256": "05cb095e319c588be1f5b651e0edcd2d1cb6343ee8d41d248057863fde840983"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p26",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p26.pddl",
+      "problem_sha256": "370316b67ac34264172518aa4eebc2183ff633ed968f5a571736bb352a453d5d"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p28",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p28.pddl",
+      "problem_sha256": "24b5355c0b96a2f6812be68fb5637babd5b1b009cd1a1930474477e9be475e2e"
+    },
+    {
+      "domain": "chain-of-rooms",
+      "instance": "p30",
+      "domain_path": "benchmarks/chain-of-rooms/domain.pddl",
+      "domain_sha256": "242b8e244349c7b26c914c1a4303d1ba41512f61d026a1301d043bba763ece96",
+      "problem_path": "benchmarks/chain-of-rooms/p30.pddl",
+      "problem_sha256": "e96f5aef92da037398f207311c0d45937a66815eb4394373a14fda1e9b844e60"
+    },
+    {
+      "domain": "doors",
+      "instance": "p1",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p1.pddl",
+      "problem_sha256": "8da6fe7a0da13d9821f0325ed53148fa45f91080c3565d97548115225a9dfb82"
+    },
+    {
+      "domain": "doors",
+      "instance": "p10",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p10.pddl",
+      "problem_sha256": "521a0acb4f05b17f94f371fc5f0b06607f743b21630de60d411a1494d219904d"
+    },
+    {
+      "domain": "doors",
+      "instance": "p11",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p11.pddl",
+      "problem_sha256": "57ffad2eda7544a050c5d237881635b671efd7361da65b7c0c0db4cdafb57526"
+    },
+    {
+      "domain": "doors",
+      "instance": "p12",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p12.pddl",
+      "problem_sha256": "9efef508e9abeafe719a737afc64c58211d1206a0e85e576153dd5faf0ed1a17"
+    },
+    {
+      "domain": "doors",
+      "instance": "p13",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p13.pddl",
+      "problem_sha256": "fd58f1e843cc004c0627b121f9ab65e926ffe7f30d90f7eedd41dffdcac4c430"
+    },
+    {
+      "domain": "doors",
+      "instance": "p14",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p14.pddl",
+      "problem_sha256": "f102aead57fb9af35db34ffde7b9bdf20eb694ce8bcfe629fba9b6a270a09927"
+    },
+    {
+      "domain": "doors",
+      "instance": "p15",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p15.pddl",
+      "problem_sha256": "908829c0a723a1fd44f72dcb6b8cac94ebe3c90cba99c048f72746084cb9f3de"
+    },
+    {
+      "domain": "doors",
+      "instance": "p2",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p2.pddl",
+      "problem_sha256": "6126b397ad738966b88559dbe9b3dc669c4e8d491369ca7692156ec3220cf2fe"
+    },
+    {
+      "domain": "doors",
+      "instance": "p3",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p3.pddl",
+      "problem_sha256": "ccd6a827cd0602a4b10e5639b25296717e25aa5bafddddaf02db890a55e6a453"
+    },
+    {
+      "domain": "doors",
+      "instance": "p4",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p4.pddl",
+      "problem_sha256": "eee386e6acb1e631c2330f1bf29eb198715892ad094dda698e605d91e1d009b2"
+    },
+    {
+      "domain": "doors",
+      "instance": "p5",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p5.pddl",
+      "problem_sha256": "a75560da47d896a5f7a5aa71a30c2defede90df572d77e8e249307e3384187ce"
+    },
+    {
+      "domain": "doors",
+      "instance": "p6",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p6.pddl",
+      "problem_sha256": "33f4810a385a3b5a82be82c559ca70fa1b8be9480b48a4b952c0c5d04fb02905"
+    },
+    {
+      "domain": "doors",
+      "instance": "p7",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p7.pddl",
+      "problem_sha256": "0028fce2681544670d4a8756ffaa47e528f8182891d806850c4a71e2a65d3fce"
+    },
+    {
+      "domain": "doors",
+      "instance": "p8",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p8.pddl",
+      "problem_sha256": "21999bc2b8a21b195c1b49348fa67488712039dbc601df3bcc04874baa218408"
+    },
+    {
+      "domain": "doors",
+      "instance": "p9",
+      "domain_path": "benchmarks/doors/domain.pddl",
+      "domain_sha256": "c9e29bcf2ba18155973aac415df6d00c4d911b0ddbb053465f9743270f8281e3",
+      "problem_path": "benchmarks/doors/p9.pddl",
+      "problem_sha256": "632a5c1cfa1b1c8d72d9fc26f01be35fd436dbe1d38de0e2afcec60207a02238"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p01",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p01.pddl",
+      "problem_sha256": "a38bc944669f07dad8f7e8a10325dcca44b44af76cc5c886dd36fadf8bb780b6"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p02",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p02.pddl",
+      "problem_sha256": "6124e65ec3cb49ea3f1ff06c2ec956c48878765951ef1520b46cccaa399bdf1b"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p03",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p03.pddl",
+      "problem_sha256": "ed37a5b424ee3f904a8e7e6439a2eef72b4a8bfab414d5c5fb60e5fee74a5a2c"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p04",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p04.pddl",
+      "problem_sha256": "d6cc3d980b5e2e7006391e043d5f3bdf37f9ca295bcfcc6d694d1bbc99e2a91e"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p05",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p05.pddl",
+      "problem_sha256": "f61dbfc138a5fcb0bf14f59c829807cba3b1f403e61c4894320caa1caf41a865"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p06",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p06.pddl",
+      "problem_sha256": "9444b16bde0980cb7d0a007b6db54bfea061776cc9ed35baf696005ca81416d3"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p07",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p07.pddl",
+      "problem_sha256": "17f1d56fe9c59945c96241db149a7addaeab2ee83627bffabb4008690345ecc8"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p08",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p08.pddl",
+      "problem_sha256": "474ec37074cb472ef5c9ab5f23045f91258eda147548828a3a25f2365145d621"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p09",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p09.pddl",
+      "problem_sha256": "2654dba7a0acf7ca30e95420cd172733c932970003055446c633b424236334fd"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p10",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p10.pddl",
+      "problem_sha256": "3c6cc9d0f0033684f65346e019641b9b91e4cd58081ed7c18cfe601cf499701d"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p11",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p11.pddl",
+      "problem_sha256": "b63a702fae4ca2fc4823d35612f50e7cfe09c8176450eb10043a2fda93119600"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p12",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p12.pddl",
+      "problem_sha256": "b8175912eb66cb9043de7a66de25f7ee7b618ebc736fd3a84980bc3fa7c9d42e"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p13",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p13.pddl",
+      "problem_sha256": "b00a3520f0fdd1f97eeef0edcfdf06d10592ad45079538f44db3befb2576f479"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p14",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p14.pddl",
+      "problem_sha256": "e691cccddc6d04ce39b22190db8d537a31a35501d633d4a26299689e255e090d"
+    },
+    {
+      "domain": "elevators",
+      "instance": "p15",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/p15.pddl",
+      "problem_sha256": "97a2dae2c59fd7626b27a2b85b373b42377b43d879e94c6cea40069c41c7aeb8"
+    },
+    {
+      "domain": "elevators",
+      "instance": "sample",
+      "domain_path": "benchmarks/elevators/domain.pddl",
+      "domain_sha256": "4aa1b697eada90a26ba42f2348195c763234e72dc9c4145bd6442cf298cfb7ef",
+      "problem_path": "benchmarks/elevators/sample.pddl",
+      "problem_sha256": "79011f931217c71a20aa8f3961b728d671d409e726496dc6c4df513ae453d734"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "motivating",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/motivating.pddl",
+      "problem_sha256": "17b92b37bc4baff683b4fa03a46e2f74a2ac33eef8147820b1b92219ac078ab6"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p01",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p01.pddl",
+      "problem_sha256": "d6d69ac4a773a4625582434d60c331be6dad0816a081e5ab5509547a53a27ee0"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p02",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p02.pddl",
+      "problem_sha256": "772db22bdf0e26a98c50d8b87781330d647d53b4b9730d5e883c516579edf9f6"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p03",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p03.pddl",
+      "problem_sha256": "eca43a329283a0544e668325e437033ea8f61c196fd8f474916d8f04bd74dd6e"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p04",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p04.pddl",
+      "problem_sha256": "03916748b4a0a3f0eb92a067c2e7ed61a9d316ba4828dbeddb8e38f46b5057c0"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p05",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p05.pddl",
+      "problem_sha256": "dc66f297a86e4665bca57f99b77f8817e817fd0084594887dbf90f69e7786689"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p06",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p06.pddl",
+      "problem_sha256": "6f3ed812abc9f397adec362f7c4ba7e2baf2ee5ade9db948865a6d17e2b66f70"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p07",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p07.pddl",
+      "problem_sha256": "8e8177bfbc40c69f47750eabeb302e3d83a86b7358e07e569bd7f9505aa0bb93"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p08",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p08.pddl",
+      "problem_sha256": "bbf2d8088b9df88f84390083a111f8492603c5b06462de5f284727cc3ded2e2a"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p09",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p09.pddl",
+      "problem_sha256": "a7cfb077cb8392e5dbed95fcd82ea7c1ed0279ed4d258d78d756b168ed838eef"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p10",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p10.pddl",
+      "problem_sha256": "73a1aaaa56ad8670739b154ec681e3da995dddfcc3683d3a2b043f579db110a8"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p11",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p11.pddl",
+      "problem_sha256": "1bdff09ee4b6fa1e18c799b07e667610dfb7e1b972058755afbb66cfb12c03b3"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p12",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p12.pddl",
+      "problem_sha256": "99ec30e73f1397c7e357d0af96764674a5d914c7da1a726dd21cb5d436af265e"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p13",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p13.pddl",
+      "problem_sha256": "5e3c1bf57feae0b21899c213e310a564c304fb5d177482142f6261c6c0055637"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p14",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p14.pddl",
+      "problem_sha256": "4c8b7b87eaf49c35000ebfc18f9124b12fc3ab38ca2b6fff635bb6fa92c88c1b"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p15",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p15.pddl",
+      "problem_sha256": "4b6ebdab303001d3d83f77af21c6cdd7ebd2ce6a759a9e61cb16c1e70bfae701"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p16",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p16.pddl",
+      "problem_sha256": "7e58e3098aa2569462f0b35b6728f25a99561f042e3b3ed7ffa3d6902b1dbde8"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p17",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p17.pddl",
+      "problem_sha256": "a48e5cbd7ad77c990e122c73eafe4833359795214e4da00364b06e3626660856"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p18",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p18.pddl",
+      "problem_sha256": "c869bc9b0e98e78a9bcee922774166d4664ea36108ed89c2c1b3f66f4904417b"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p19",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p19.pddl",
+      "problem_sha256": "948d604a17b76f71b24efcb787f104bf9b85d076da617d5e92609f9d0b35a9cd"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p20",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p20.pddl",
+      "problem_sha256": "3d96b34eab813a4897764bb4cd5b4e66c8b4573d21febfabc89f6d7ae1bb1822"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p21",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p21.pddl",
+      "problem_sha256": "c04a3f2ecaa3e82d1b63b23af1a759d76116c444f1e3332886c03920801dcdd7"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p22",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p22.pddl",
+      "problem_sha256": "4c35e11728bde7e52c66776880cd4ac163e86012bfbb42b4a5df01ce1d81887c"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p23",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p23.pddl",
+      "problem_sha256": "2cf417a08332805c05d7c1e4b0c68b8867a3445ceeb24f1d27012792ff39affd"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p24",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p24.pddl",
+      "problem_sha256": "1cf697cc7bcb098c337562a557ab5deb608814a2179266e94f0ee7877ad89e86"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p25",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p25.pddl",
+      "problem_sha256": "a0b7604516fa6d8bd0097818f34005eedfefaff1076efd285208bafef11b58a3"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p26",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p26.pddl",
+      "problem_sha256": "e0a98545598f2ffeaec4c92fac4695946fd872f5d797789b186561f626647324"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p27",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p27.pddl",
+      "problem_sha256": "b681ea927fed45b5e32de2f9fc1fd838ba8eef63747702806fdbc6bd42bd9edc"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p28",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p28.pddl",
+      "problem_sha256": "bcde12f75c0cf33f699c0265d3af9b7240ad6d8f2c4cbe4afbb045eceaa51684"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p29",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p29.pddl",
+      "problem_sha256": "7784c2dfd0292e1dc8472aef67cff19af826529f3ea6d6d56937bb979da75670"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "p30",
+      "domain_path": "benchmarks/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/frozenlake/p30.pddl",
+      "problem_sha256": "d9680c37289fe86b184e85844d2519435c2e6d1f3e3be48498476bf9fb528617"
+    },
+    {
+      "domain": "islands",
+      "instance": "p1",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p1.pddl",
+      "problem_sha256": "f8c390de77216e4e72160e15300245645484dbae4d41165ae77d46384bb811f1"
+    },
+    {
+      "domain": "islands",
+      "instance": "p10",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p10.pddl",
+      "problem_sha256": "95bbfe980384c4f2d339dabacbe5bb258cd79b9d126994ff5570209e8209f4ca"
+    },
+    {
+      "domain": "islands",
+      "instance": "p11",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p11.pddl",
+      "problem_sha256": "462f506b9e345d917016b1d0b71e159593a7cc2d4a0de491093b94f770e9f9e3"
+    },
+    {
+      "domain": "islands",
+      "instance": "p12",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p12.pddl",
+      "problem_sha256": "8aad810768bbaf1edb0504e9388f07dbaebe2a8288f2e6c304bc97c4ef05202e"
+    },
+    {
+      "domain": "islands",
+      "instance": "p13",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p13.pddl",
+      "problem_sha256": "2161a612de5fe55a3ea2a586309a1b8f29239f46a8cf9eaaa9dfef50812bd812"
+    },
+    {
+      "domain": "islands",
+      "instance": "p14",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p14.pddl",
+      "problem_sha256": "3c80e889e72b7af99cc665c799fca8a54aad2d7f232e5465ddd804242340d17d"
+    },
+    {
+      "domain": "islands",
+      "instance": "p15",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p15.pddl",
+      "problem_sha256": "f1de527af49a12f7d339050dea212a703caa8f2659dcf1595f8a726eda600d35"
+    },
+    {
+      "domain": "islands",
+      "instance": "p16",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p16.pddl",
+      "problem_sha256": "2f8703e5b4ed099cf40d7ad28d24a4321e25b667beab83ecb0ed7c0295768931"
+    },
+    {
+      "domain": "islands",
+      "instance": "p17",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p17.pddl",
+      "problem_sha256": "bb6f78a5d363982e2282dab9f48bcb11fe04c661fdef5f3233e376a1ca224cd4"
+    },
+    {
+      "domain": "islands",
+      "instance": "p18",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p18.pddl",
+      "problem_sha256": "1805cd8355479ff7911456bbeffcf44b8fabf8852fdd2002023428da5fb9007a"
+    },
+    {
+      "domain": "islands",
+      "instance": "p19",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p19.pddl",
+      "problem_sha256": "a428a0ba57fd3ff04adea360295d1c59d5029909150fc4c362464a42e3e6a71d"
+    },
+    {
+      "domain": "islands",
+      "instance": "p2",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p2.pddl",
+      "problem_sha256": "531e6501bf80016084e96a35b8fb8b0d28c8beb0ca716e7ce8ac87178fa0c900"
+    },
+    {
+      "domain": "islands",
+      "instance": "p20",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p20.pddl",
+      "problem_sha256": "c6e9ef7f095926158187e3d8c744d551dc03e547ea5deb33480ef8a454cf774a"
+    },
+    {
+      "domain": "islands",
+      "instance": "p21",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p21.pddl",
+      "problem_sha256": "6554c97bbb985feb3118f8814e892302445129731c8a34af6044689e7198f0dd"
+    },
+    {
+      "domain": "islands",
+      "instance": "p22",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p22.pddl",
+      "problem_sha256": "28e5d09d483260034f066f89b1f3162fd3f9941d9b758a68596be12c2bc65201"
+    },
+    {
+      "domain": "islands",
+      "instance": "p23",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p23.pddl",
+      "problem_sha256": "d651d51d3bc34d927c95f86f956e89f6bb259470b0152ecb8c45dc48e3de80f5"
+    },
+    {
+      "domain": "islands",
+      "instance": "p24",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p24.pddl",
+      "problem_sha256": "620ff257fb07074636422d76d4978497e5c8a55dc13ec6e8e24decf8e8d4fd7e"
+    },
+    {
+      "domain": "islands",
+      "instance": "p25",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p25.pddl",
+      "problem_sha256": "9960dd6a82405d6b056bede2a81096e5e70652014141b7c76e2771f802f5c9bf"
+    },
+    {
+      "domain": "islands",
+      "instance": "p26",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p26.pddl",
+      "problem_sha256": "e7a2a5c2aa29735af4a767c01de07e1005903f18e1768a61feee40b99b4fcb1f"
+    },
+    {
+      "domain": "islands",
+      "instance": "p27",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p27.pddl",
+      "problem_sha256": "f57cc5fc6ba173896f98a0a50613c6f4e111601a1d6eda2fdcdcd2987b33ed43"
+    },
+    {
+      "domain": "islands",
+      "instance": "p28",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p28.pddl",
+      "problem_sha256": "77eece70a6d75904ac142fb69714078943f7d72691a56742fb0d168aa5549820"
+    },
+    {
+      "domain": "islands",
+      "instance": "p29",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p29.pddl",
+      "problem_sha256": "2c21763b44369cc3238c2d4be67428152ca7b248481629539b7f6c8dec89b136"
+    },
+    {
+      "domain": "islands",
+      "instance": "p3",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p3.pddl",
+      "problem_sha256": "a22d198d0ad3fbefef8cc52c233acb315a1c9e3384aaa0af3882bf97acf35237"
+    },
+    {
+      "domain": "islands",
+      "instance": "p30",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p30.pddl",
+      "problem_sha256": "23f22279fba335617f772d530539ee7dcda1eef5c14d3d561af659bc3b0d95b1"
+    },
+    {
+      "domain": "islands",
+      "instance": "p4",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p4.pddl",
+      "problem_sha256": "e17e1a17197db9b719283d9add229b53f9379053557ded4d8aec543f758bb46b"
+    },
+    {
+      "domain": "islands",
+      "instance": "p5",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p5.pddl",
+      "problem_sha256": "c6c62f990ee1dadd5e151bbfa85e5ec24bfb36cba3080764f3618d1083bc493d"
+    },
+    {
+      "domain": "islands",
+      "instance": "p6",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p6.pddl",
+      "problem_sha256": "f30ca6b45158aa7af010bbe6138e5faee6965b43d9321cd50f3b09c60ae64481"
+    },
+    {
+      "domain": "islands",
+      "instance": "p7",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p7.pddl",
+      "problem_sha256": "de8b1f7a68722eadf9620f9090dfd27fd4530a9f38f5f79d2ff94367c8517462"
+    },
+    {
+      "domain": "islands",
+      "instance": "p8",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p8.pddl",
+      "problem_sha256": "862d40d238666cd67ee8f35118725323032581917ef5a03db03d1a080b394fd9"
+    },
+    {
+      "domain": "islands",
+      "instance": "p9",
+      "domain_path": "benchmarks/islands/domain.pddl",
+      "domain_sha256": "07fd0f9b315da0ffd1f0b48dece6182a3cb3853baa2ccbe5122c318481fde8a3",
+      "problem_path": "benchmarks/islands/p9.pddl",
+      "problem_sha256": "f4c423ac9958c44f2c651a48565059816ae6813bfbd616bbef18acaac5a682a6"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_2_2",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_2_2.pddl",
+      "problem_sha256": "e4ee0ae19f06f8768ca4e79d1d79f4dff947c6ccb6d3ee6ee64cd6f070007d03"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_2_3",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_2_3.pddl",
+      "problem_sha256": "5db1749f2483cf8cd4cca99ff3a86b3671a65c5e8943a5759b697c7c863c3be3"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_2_4",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_2_4.pddl",
+      "problem_sha256": "1a465176429e9b59d8e4c6cdfbd914ba31ad083e067ac0bc3f7c623b843a7f43"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_3_1",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_3_1.pddl",
+      "problem_sha256": "a027042c4c3cb76b95aff26a23c4b1756a46f772dd84908f2df20b916b3c0326"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_3_2",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_3_2.pddl",
+      "problem_sha256": "23d3bd4d3d4098bfcfee028cbab949229efc9fd7c8303c30546d8db8662843b0"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_4_1",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_4_1.pddl",
+      "problem_sha256": "b776ca6759b6e4fae304ff519597d6569a5a147af21241948dee770e7c0cd2af"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_4_2",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_4_2.pddl",
+      "problem_sha256": "ce865a21bd104bd76acf490111ee614d2f8233ffd8a70f771abfec287ebdde41"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_4_3",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_4_3.pddl",
+      "problem_sha256": "5565f183043a5a5d5fd33ca38310d6e47e7b6f65252461ad534a413ea793ce01"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_4_4",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_4_4.pddl",
+      "problem_sha256": "41a86d379a6cdc0843846874a4a48623fd15c1d194b005dc6f1f2a78ac04efab"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_5_1",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_5_1.pddl",
+      "problem_sha256": "6b766c10bc374a5c79197ef2c071cd6f6c693e8f1bdb7e5dd410a6d3143b126e"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_5_2",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_5_2.pddl",
+      "problem_sha256": "5c9cfe78fcde03b2aa496d0ede4db63df0f3dc10a6a34213f08da5c1c99e3889"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_5_3",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_5_3.pddl",
+      "problem_sha256": "1a502a005973a018431373c82a87e63df824102dff10305a5bbf1c4eb6583d1e"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_5_4",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_5_4.pddl",
+      "problem_sha256": "d0d85569943faed325505157257c23b502d7532a4181458f6a3848643696b145"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_6_1",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_6_1.pddl",
+      "problem_sha256": "0e2b6364845f82d7409e354ef69b7621611206879f706b66629ff74e0bd91c9a"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_6_2",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_6_2.pddl",
+      "problem_sha256": "616104029a6c61d3fd03a69cebb679d0d2705b61864e9f2320caa08f3beda134"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_6_3",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_6_3.pddl",
+      "problem_sha256": "363f836dc555bf0542a318bd34cec11ea89d33aaea3258206dc68fedb9988cc3"
+    },
+    {
+      "domain": "mod_first_responders",
+      "instance": "p_6_4",
+      "domain_path": "benchmarks/mod_first_responders/domain.pddl",
+      "domain_sha256": "b17c7801610419192916fbdf59aabb192752053a1719c2bc523d771f4b88782c",
+      "problem_path": "benchmarks/mod_first_responders/p_6_4.pddl",
+      "problem_sha256": "53a570af99024f5b29001be6d13cbc0787af2ba3b4b9b603af9c0fef49899567"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p02",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p02.pddl",
+      "problem_sha256": "835bda5f11ca666f5eaa7aa0a174953dcb2d2ffe56987e27b8b734c7320a740f"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p03",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p03.pddl",
+      "problem_sha256": "d120c55aa0d8d377a054c571952f82dbecb5f90dd4095ec7f9fa0a5bc8328726"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p04",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p04.pddl",
+      "problem_sha256": "4fedfe4eacd14031051b5ad29e9dbefae013ecf4c1db3c01d8487524f6d3a00e"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p05",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p05.pddl",
+      "problem_sha256": "de196fbd7aa594679a8843747e5255760719338c8e86d9eb2efacb82f62b1a76"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p06",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p06.pddl",
+      "problem_sha256": "6f3cd204b070296587e56231c77a1df3d0e017242a2d28accb3df55a55f0b143"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p07",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p07.pddl",
+      "problem_sha256": "7bec09c18979c1df722a30d1849ae272457fdd4e3ccf04c51e2eda4c2dd78a16"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p08",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p08.pddl",
+      "problem_sha256": "5408d03dd22b0676c4c325bcaab1344e6987b3ec55ad04ba5f19d9f2e4f4ca19"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p09",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p09.pddl",
+      "problem_sha256": "73623e920080d4876534844d1459ed42375cb4bc607e3c2b9a0955ccebe7b98f"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p10",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p10.pddl",
+      "problem_sha256": "af57345f25ed5a94395a8c6adab39d4557bf82f449d0a9c2b4d3ee9cfb51e70e"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p11",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p11.pddl",
+      "problem_sha256": "6ee929c1f76d42a692ccd0c6949a9db9f9d602493b801e00e65e741b24be997b"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p12",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p12.pddl",
+      "problem_sha256": "30f37cddabde06e89aeed2747283099db9b0d79d5413729b478023e23839ad45"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p13",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p13.pddl",
+      "problem_sha256": "ab22b098800c2e00836c1c4f67688069b25c42325f3bbbe20eb3dee3505071b4"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p14",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p14.pddl",
+      "problem_sha256": "9ce717ab457745255e11fc017237fcd9fb68fe231df6c3a8a372a6bbee2168b2"
+    },
+    {
+      "domain": "st_tires",
+      "instance": "p15",
+      "domain_path": "benchmarks/st_tires/domain.pddl",
+      "domain_sha256": "5286bed4b1a0df03717d7832589645aa99c751d25283b0403ebdb07330b5df0b",
+      "problem_path": "benchmarks/st_tires/p15.pddl",
+      "problem_sha256": "eaff61e177658e2952363a5d04a3945292e26358b90322fb1f86ed8c0a82a3ab"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p01",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p01.pddl",
+      "problem_sha256": "525396060dd1fa366158626de7ebdb5594e3174b1997439dece6e2b239067ad4"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p02",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p02.pddl",
+      "problem_sha256": "91be9fb798057c63ba9a21caf8dba9100c45312be348d4002c69b59ca3167582"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p03",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p03.pddl",
+      "problem_sha256": "9d4b2e3b7c1748d02d2218221afcbcd608337f38d967487f015898e775a3010a"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p04",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p04.pddl",
+      "problem_sha256": "55780a35541f0b34d3624a5183a0c8f7d80f5570ed7233aaf9eb756e4dc6d1df"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p05",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p05.pddl",
+      "problem_sha256": "4895682a046fc5b86ccb5700f1d6ad41ceea45677cce983d4625380e26defac9"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p06",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p06.pddl",
+      "problem_sha256": "0a33ffd1967a8a276a5a4ea7455c13be5d7783f8a5270d4a87fc7fa617abac92"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p07",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p07.pddl",
+      "problem_sha256": "843b17a59d96f4c1df1e4091ea1552975ab0a49d61eef91925749c7c732ab90e"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p08",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p08.pddl",
+      "problem_sha256": "d3c4f99a8f74210fc2818279b1209973e914b417b565e673e2bb3e3eab8a5a7e"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p09",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p09.pddl",
+      "problem_sha256": "527ea51df6eed20bf132fe47f4cc7e963a387bcf0187f14250c07ef59796be40"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p10",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p10.pddl",
+      "problem_sha256": "a261f0893c5b3d7fd35303f5f8b63a4932c6b8d702f14bdf3a6dcae60f1d4a5b"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p11",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p11.pddl",
+      "problem_sha256": "3eaf769ae703a223691033e582ecb88c22651010e055f8e06252f6aeec787223"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p12",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p12.pddl",
+      "problem_sha256": "66d44d18cdf1da5202840611f4e66ba0aa047f2c94cf1774158a9cf4bfbb4a69"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p13",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p13.pddl",
+      "problem_sha256": "1025a2ac010101b5ec6c1eacdf7974681ad24323cbbd3678531fae277d4d392c"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p14",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p14.pddl",
+      "problem_sha256": "beb3b027d213f89017f2775ee425bbd895e8eb1d8b5d16645f700d5ac00a37d5"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "p15",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/p15.pddl",
+      "problem_sha256": "989afb1e2a0df11760868367685468221452e0e1c7b235c2571d926c4aef9224"
+    },
+    {
+      "domain": "tireworld",
+      "instance": "sample",
+      "domain_path": "benchmarks/tireworld/domain.pddl",
+      "domain_sha256": "67892403b8cc5dee7fe892d91f63b3e40d57c9989fc67a1b4430d9c019ef1b02",
+      "problem_path": "benchmarks/tireworld/sample.pddl",
+      "problem_sha256": "b3cec523b9ac755318b0502e441578678420c41cb02ebb5b132a1252ad147197"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p1",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p1.pddl",
+      "problem_sha256": "dc10e9b31d32ba0edb8f1e3dfc20f020a1755d963dc635973321bbccf7e6b8e9"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p10",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p10.pddl",
+      "problem_sha256": "f2befe77632b4ff8250a99cf9f6086fb8253fc79c4b3613fcce682fc6a5ecdec"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p11",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p11.pddl",
+      "problem_sha256": "19eba885bc5240af11b73da5177f710ad9d2d69ab851399f26d5bb96d87dbae4"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p12",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p12.pddl",
+      "problem_sha256": "62323ef8814d7cfdc231cbf0bc66b819be5043ceb23a74d9f25f3af313a4b9d5"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p13",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p13.pddl",
+      "problem_sha256": "f4b438184691e6af89d20b8d7678e78f060d97c5f8c87b4d1d1ff44c36af5d3a"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p14",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p14.pddl",
+      "problem_sha256": "bc5b5140341ed307d6d7e192feb6166f1f64a2f2a25610274ad373c56ad36e63"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p15",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p15.pddl",
+      "problem_sha256": "7bc555e6eada286fe56c51bf3cf42b603eddf8e086f0bf37bf83acb5444b8cb5"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p16",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p16.pddl",
+      "problem_sha256": "f8b68819a0434e1c247738e3e45cd968bd32dca1bd34117afc7d9c135f020e79"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p17",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p17.pddl",
+      "problem_sha256": "7dea08ca312883a2fe6eac487cbf5877217fb75fa714ad62fa9097b26f340e6e"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p18",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p18.pddl",
+      "problem_sha256": "cbcd4586041d1b6d44b8ad327d4564669a6beb780cc43f78604d3fa58ab49f52"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p19",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p19.pddl",
+      "problem_sha256": "d50ea9e8987037756251bba07e8a25a8c7ac168f251d4442afd62b70512cdcee"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p2",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p2.pddl",
+      "problem_sha256": "33c5566fd315b68671a866fc641428e3a714e62ae6745ba9639907992d6d80d1"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p20",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p20.pddl",
+      "problem_sha256": "dcbcc7e50c7d04c77fa99b5707360b622113001eb6422eed9b2b1e01833a0fea"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p3",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p3.pddl",
+      "problem_sha256": "cf40fead0fc00e5e1cd1adc1c3d25f1e9fe436101cce608e533defa84a3ce67b"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p4",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p4.pddl",
+      "problem_sha256": "dd35d137ce6e53e56794d2e36a3ac20ff06ef01dc4032ba5e71fcb7937597c5e"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p5",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p5.pddl",
+      "problem_sha256": "5184199f4f46334c48a5381bd5581d5b4679e5236963d6e8682556ed57a08f1d"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p6",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p6.pddl",
+      "problem_sha256": "30950d719a15c21e095df697d5efba223eeacc867c459ec538e0ca64946e65d6"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p7",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p7.pddl",
+      "problem_sha256": "d1220ffce2df8a8915716d74c4bc602bfa44f92194a687f3c70fe716d0fe70dd"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p8",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p8.pddl",
+      "problem_sha256": "57062a17bfa59efbc9d154a76da24e9b73dda4d67e9d9a3d81cfab32458641c8"
+    },
+    {
+      "domain": "tireworld-truck",
+      "instance": "p9",
+      "domain_path": "benchmarks/tireworld-truck/domain.pddl",
+      "domain_sha256": "d218d0d9b0ead29cc671da859b2a99e36dcd280940f798d22c8414de99d70c80",
+      "problem_path": "benchmarks/tireworld-truck/p9.pddl",
+      "problem_sha256": "047ac89fb6d52d8f03413a8c130bbf7f1e67ed0f82fad59294062ab7b6222fff"
+    }
+  ],
+  "source": "Exact frozen ICAPS entries; PRP comparison campaign 1"
+}
