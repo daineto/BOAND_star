@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_development",
+  "campaign_version": "9",
+  "migrations": [
+    {
+      "from_sha256": "56e2e7892274ab450cfb35e856aedbd49cb50d1b2a0def48eeed95cc2ee399f0",
+      "to_sha256": "1374af42023096de4611ec901ce9d53b8ce7e9cf34c6d13da714541f31f2f5b5",
+      "reason": "Verified relocation to benchmarks/icaps2025: input bytes, hashes, instance identities, order, profiles and scientific settings unchanged."
+    }
+  ]
+}

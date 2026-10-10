@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_icaps_comparison",
+  "campaign_version": "1",
+  "migrations": [
+    {
+      "from_sha256": "aaec5b23ff6809ae7dcaaf620dde7c3aa3777d02c36515e5756e19a32457f2c1",
+      "to_sha256": "05c8aa75f1247dec3dd42d146c62de246d531464b4c0cf46b19501e099ec8b56",
+      "reason": "Verified relocation to benchmarks/icaps2025: input bytes, hashes, instance identities, order, profiles and scientific settings unchanged."
+    }
+  ]
+}

@@ -80,8 +80,8 @@ class FullComparisonTests(unittest.TestCase):
                     complete=not(partial and label=='FD hmax'),code=124 if partial and label=='FD hmax' else 0)
                  for label in CAMPAIGN.configurations}
         old={(HISTORY,'beam-walk','p1'):fixture_run(root/'history',HISTORY,(1,1) if partial else (3,3))}
-        entries=[{'domain':'beam-walk','instance':'p1','domain_path':'benchmarks/beam-walk/domain.pddl',
-                  'problem_path':'benchmarks/beam-walk/p1.pddl'}]
+        entries=[{'domain':'beam-walk','instance':'p1','domain_path':'benchmarks/icaps2025/beam-walk/domain.pddl',
+                  'problem_path':'benchmarks/icaps2025/beam-walk/p1.pddl'}]
         with patch('campaigns.journal_icaps_comparison.analysis.resolve_dataset',return_value=(root,{})), \
              patch('campaigns.journal_icaps_comparison.analysis.read_instances',return_value=entries), \
              patch('campaigns.journal_icaps_comparison.analysis.selected_results',side_effect=[(current,{}),(old,{})]), \

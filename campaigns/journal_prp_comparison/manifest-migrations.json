@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_prp_comparison",
+  "campaign_version": "1",
+  "migrations": [
+    {
+      "from_sha256": "e3066ca06ba59d6ad8c9dc4378c4896cbb82103ae04e4643143da2fa91bcd1d3",
+      "to_sha256": "081bc74213abc1ff1f5129b6bfa9ce35af6d254df2b3c213a49f59d0f40eda64",
+      "reason": "Verified relocation to benchmarks/icaps2025: input bytes, hashes, instance identities, order, profiles and scientific settings unchanged."
+    }
+  ]
+}

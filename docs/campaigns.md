@@ -58,10 +58,18 @@ A verified metadata-only input-manifest migration may be declared in
 `manifest-migrations.json`, next to `instances.json`. The ledger declares
 `schema_version`, `campaign_id`, `campaign_version`, and a `migrations` list
 with exact `from_sha256`, `to_sha256` and `reason` fields. Verify that selected
-input paths, hashes and order are unchanged before recording a migration.
+input contents, hashes, identities and order are unchanged before recording a
+migration. A structural relocation may change paths after verifying every
+old-to-new file mapping. Record a direct migration for each supported historical
+manifest hash; the loader does not infer transitive migrations.
 Dataset resolution accepts only the recorded hash pair and reports its use;
 new run provenance includes the ledger. Changes to inputs or scientific
 settings require a scientific revision rather than a metadata migration.
+
+Historical run manifests and request files retain their original paths as
+provenance. Migration records allow analysis to load their results; they do not
+authorize resuming old executions under changed paths. Resume checks remain
+strict. Start a new run using the current campaign paths when necessary.
 
 The external executor has one global timeout per environment; configurations
 with mixed timeouts are rejected. Use separate campaign definitions when

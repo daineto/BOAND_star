@@ -58,7 +58,7 @@ def test():
     domain_file = "fond-domains/benchmarks/{}/domain.pddl".format(domain)
     problem_file = "fond-domains/benchmarks/{}/p_1_3.pddl".format(domain)
 
-    domain_file = "benchmarks/{}/domain.pddl".format(domain)
-    problem_file = "benchmarks/{}/motivating.pddl".format(domain)
+    domain_file = "benchmarks/icaps2025/{}/domain.pddl".format(domain)
+    problem_file = "benchmarks/icaps2025/{}/motivating.pddl".format(domain)
 
     solution = boand_star(domain_file, problem_file, problem_file[:problem_file.rfind("/")], use_metric="bw", use_cp_heuristic="hmax", use_best_case_heuristic="MinSum", use_worst_case_heuristic="MaxSum", use_size_heuristic="Zero", use_selector="random")

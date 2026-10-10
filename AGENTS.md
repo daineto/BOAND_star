@@ -33,6 +33,13 @@ Keep shared planner, execution and analysis code in `planner/`,
 `experiment_support/` and `analysis/`. Keep paper-specific definitions,
 analysis rules in `campaigns/<campaign-id>/`.
 
+Keep the preserved 11-domain ICAPS input collection in
+`benchmarks/icaps2025/`. The existing unselected `st_blocksworld` and
+`st_first_responders` inputs belong in `benchmarks/legacy_extras/`.
+New benchmark collections must be separate from the frozen ICAPS inputs.
+Keep historical run paths intact as provenance; verified manifest migration
+records support result analysis, not resuming executions under changed paths.
+
 Published archives belong in `results/<campaign-id>/published/`.
 Generated runs and analysis belong in ignored `runs/` and `outputs/`.
 

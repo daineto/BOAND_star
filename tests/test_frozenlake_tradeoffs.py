@@ -23,7 +23,7 @@ class FrozenLakeTradeoffTests(unittest.TestCase):
         records = json.loads((folder / 'grids.json').read_text())['instances']
         for number, item in enumerate(records, 1):
             task = OriginalTask.__new__(OriginalTask)
-            task.domain = parse_domain(str(root / 'benchmarks/frozenlake/domain.pddl'))
+            task.domain = parse_domain(str(root / 'benchmarks/icaps2025/frozenlake/domain.pddl'))
             task.problem = parse_problem(str(folder / f'tradeoff-{number:02d}.pddl'))
             task.actions = {action.name: action for action in task.domain.actions}
             task.static = frozenset(ground(fact, {}) for fact in task.problem.init if fact.name != 'at')

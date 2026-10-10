@@ -48,8 +48,8 @@ class EmptyEffectTests(unittest.TestCase):
 
     def test_tireworld_preprocessing_retains_grounded_noop(self):
         root = Path(__file__).resolve().parents[1]
-        domain = parse_domain(str(root / "benchmarks/tireworld/domain.pddl"))
-        problem = parse_problem(str(root / "benchmarks/tireworld/p01.pddl"))
+        domain = parse_domain(str(root / "benchmarks/icaps2025/tireworld/domain.pddl"))
+        problem = parse_problem(str(root / "benchmarks/icaps2025/tireworld/p01.pddl"))
         previous = Path.cwd()
         with tempfile.TemporaryDirectory() as temporary:
             try:

@@ -78,12 +78,12 @@ def validate_run(root):
     with tempfile.TemporaryDirectory(prefix="boand-policy-check-") as temporary:
         try:
             os.chdir(temporary)  # Preprocessing's auxiliary files stay outside the repository.
-            domain = parse_domain(str(REPOSITORY_ROOT / "benchmarks" / "frozenlake" / "domain.pddl"))
+            domain = parse_domain(str(REPOSITORY_ROOT / "benchmarks" / "icaps2025" / "frozenlake" / "domain.pddl"))
             for run in runs.values():
                 policies = sorted(run.directory.rglob("*.boand.*.out"))
                 if not policies:
                     continue
-                problem = parse_problem(str(REPOSITORY_ROOT / "benchmarks" / "frozenlake" / f"{run.instance}.pddl"))
+                problem = parse_problem(str(REPOSITORY_ROOT / "benchmarks" / "icaps2025" / "frozenlake" / f"{run.instance}.pddl"))
                 task = get_alloutcome_determinization(domain, problem)
                 solutions = [row for row in run.stats if row["best"] != -1]
                 if len(policies) != len(solutions):

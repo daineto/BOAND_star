@@ -9,6 +9,16 @@
       "reason": "Correct Beam Walk domain labels; selected input paths, hashes and order are unchanged.",
       "from_dataset_version": "1",
       "to_dataset_version": "2"
+    },
+    {
+      "from_sha256": "297c027644fd48351186f7ab079ad382e43e42b61ee444ec5816ff4b6ac801b9",
+      "to_sha256": "8f217abfb43ddcc4f0074c9c2a517f6bb4e92543ef4cced944a6a6e2541fc775",
+      "reason": "Verified relocation to benchmarks/icaps2025: input bytes, hashes, instance identities, order, profiles and scientific settings unchanged."
+    },
+    {
+      "from_sha256": "2e48fc2648636111a0eb513e3ffcde010f6dbee6877fd5b74c0ce2cf36668ca0",
+      "to_sha256": "8f217abfb43ddcc4f0074c9c2a517f6bb4e92543ef4cced944a6a6e2541fc775",
+      "reason": "Verified relocation to benchmarks/icaps2025: input bytes, hashes, instance identities, order, profiles and scientific settings unchanged. Includes the previously verified domain-label metadata correction."
     }
   ]
 }

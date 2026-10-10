@@ -19,9 +19,9 @@ class TemplateTests(unittest.TestCase):
             for source in (REPOSITORY_ROOT / "docs" / "campaign-template").glob("*.py"):
                 (folder / source.name).write_text(source.read_text().replace("new_paper", identifier))
             manifest = folder / "instances.json"
-            freeze(identifier, [("frozenlake", "benchmarks/frozenlake")], manifest)
+            freeze(identifier, [("frozenlake", "benchmarks/icaps2025/frozenlake")], manifest)
             with self.assertRaises(FileExistsError):
-                freeze(identifier, [("frozenlake", "benchmarks/frozenlake")], manifest)
+                freeze(identifier, [("frozenlake", "benchmarks/icaps2025/frozenlake")], manifest)
             result = subprocess.run([sys.executable, "-B", "-m", "experiment_support.run", identifier,
                                      "--profile", "smoke", "--dry-run"], cwd=REPOSITORY_ROOT,
                                     capture_output=True, text=True)

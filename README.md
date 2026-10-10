@@ -187,8 +187,8 @@ directory. Published archives are kept separate from newly generated results.
 ## Run the planner on one problem
 
 ```bash
-python planner/planner.py benchmarks/frozenlake/domain.pddl \
-  benchmarks/frozenlake/motivating.pddl outputs/example \
+python planner/planner.py benchmarks/icaps2025/frozenlake/domain.pddl \
+  benchmarks/icaps2025/frozenlake/motivating.pddl outputs/example \
   -m bw -ch hmax -bh MinSum -wh MaxSum -sh Delta -s bounds
 ```
 
@@ -219,7 +219,8 @@ planner calls. Campaign execution isolates the working directory for each job.
 ## Repository organization
 
 - `planner/`: planner implementation and dependency submodules.
-- `benchmarks/`: PDDL domains and problem instances.
+- `benchmarks/icaps2025/`: the preserved 11-domain ICAPS input collection.
+- `benchmarks/legacy_extras/`: existing domains outside the ICAPS selection.
 - `campaigns/<campaign-id>/`: paper-specific configurations, input manifests,
   analysis commands.
 - `experiment_support/` and `analysis/`: shared execution and analysis tools.

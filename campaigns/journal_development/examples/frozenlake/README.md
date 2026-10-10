@@ -1,7 +1,7 @@
 # FrozenLake examples with non-singleton Pareto fronts
 
 These three exploratory problems use the original
-`benchmarks/frozenlake/domain.pddl` without modifications. They are separate
+`benchmarks/icaps2025/frozenlake/domain.pddl` without modifications. They are separate
 from the frozen ICAPS inputs and journal smoke/performance profiles.
 Coordinates increase right/up, and each grid is surrounded by walls.
 
@@ -48,7 +48,7 @@ From the repository root:
   campaigns/journal_development/examples/frozenlake/grids.json
 
 PYTHONHASHSEED=0 .venv/bin/python planner/planner.py \
-  benchmarks/frozenlake/domain.pddl \
+  benchmarks/icaps2025/frozenlake/domain.pddl \
   campaigns/journal_development/examples/frozenlake/tradeoff-01.pddl \
   outputs/frozenlake-tradeoffs/example --backend downward-direct -ch lmcut
 ```
