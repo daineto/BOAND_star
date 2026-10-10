@@ -253,7 +253,9 @@ The requested `journal_prp_comparison` campaign 1 runs the installed PRP on the
 workers and seed 0. Use its dedicated `.run` module, not the BOAND-only executor.
 PRP installation lives outside the repository; pin its revision and executable
 hashes. Replay exported policies against original PDDL. First-policy coverage
-includes valid timeout incumbents; compare costs to BOAND first policies and to
+counts only proper strong or strong-cyclic policies; weak/incomplete exports
+contribute zero and do not establish unsolvability. It includes valid timeout
+incumbents; compare costs to BOAND first policies and to
 completed Pareto fronts separately. Treat cyclic worst costs as infinity, never
 as a finite ratio. PRP satisficing output carries no BOAND optimality guarantee.
 Keep the older run's resource/timing/validation limitations explicit. Do not run

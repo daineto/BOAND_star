@@ -7,7 +7,7 @@ import math
 from pathlib import Path
 import statistics
 from analysis.comparison_support import selected_results,cost_set,search_complete
-from experiment_support.campaigns import read_instances,resolve_dataset
+from experiment_support.campaigns import read_instances,resolve_dataset,digest
 from experiment_support.configurations import PAPER_CONFIGURATIONS
 from campaigns.icaps2025.campaign import CAMPAIGN as HISTORICAL
 from campaigns.journal_icaps_comparison.campaign import CAMPAIGN as NATIVE
@@ -41,6 +41,8 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
     old,old_errors=selected_results(resolve_dataset(HISTORICAL,old_path)[0],{'Pyperplan hmax':PAPER_CONFIGURATIONS['BOAND bw']},ids)
     if errors or old_errors:raise ValueError(f'Malformed BOAND stats: {errors}, {old_errors}')
     checks=json.loads((Path(native_path)/'comparison/policy-validation.json').read_text())
+    supplemental_file=ROOT/'outputs/full-review/findings.json'
+    supplemental_check=json.loads(supplemental_file.read_text()).get('beam_walk_p11',{}) if supplemental_file.exists() else {}
     rows=[];prp_rows={};quality=[]
     for entry in entries:
         domain,instance=entry['domain'],entry['instance'];folder=prp_path/domain/instance
@@ -48,6 +50,8 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
         valid=validation['status']=='valid';timed=execution.get('first_policy_search_seconds')
         row={'configuration':'PRP','domain':domain,'instance':instance,'has_policy':(folder/'policy.out').exists(),
              'validated':valid,'validation_status':validation['status'],'termination':execution['termination'],
+             'returncode':execution.get('returncode'),
+             'policy_kind':('strong_cyclic' if validation['cyclic'] else 'strong') if valid else 'nonproper' if validation['status']=='invalid' else validation['status'],
              'first_seconds':timed if valid else None,'first_wall_seconds':execution.get('policy_available_wall_seconds') if valid else None,
              'best':validation.get('best') if valid else None,'worst':validation.get('worst') if valid else None,
              'peak_planner_rss_kb':execution.get('peak_child_rss_kb'),'reachable_states':validation.get('reachable_states'),
@@ -57,7 +61,7 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
         for domain,instance in sorted(ids):
             run=runs[label,domain,instance];first=run.first_solution;legacy=label=='Pyperplan hmax'
             check=checks.get('/'.join((label,domain,instance)),{})
-            supplemental=(label,domain,instance)==('FD hmax','beam-walk','p11') and (ROOT/'outputs/full-review/findings.json').exists()
+            supplemental=bool((label,domain,instance)==('FD hmax','beam-walk','p11') and first and supplemental_check.get('status')=='valid' and (supplemental_check.get('best'),supplemental_check.get('worst'))==(first['best'],first['worst']))
             verified=legacy or check.get('status')=='valid' or supplemental
             row={'configuration':label,'domain':domain,'instance':instance,'has_policy':bool(first),'validated':bool(first) and verified,
                  'validation_status':'legacy_unchecked' if legacy else 'valid_supplemental' if supplemental else check.get('status'),
@@ -77,7 +81,8 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
                 quality.append(q)
     counts={label:{'with_policy':sum(r['has_policy'] for r in rows if r['configuration']==label),
                    'validated_or_legacy_reported':sum(r['validated'] for r in rows if r['configuration']==label),
-                   'timed_coverage':sum(r['first_seconds'] is not None for r in rows if r['configuration']==label)}
+                   'timed_coverage':sum(r['first_seconds'] is not None for r in rows if r['configuration']==label),
+                   'coverage_at_seconds':{str(t):sum(r['first_seconds'] is not None and r['first_seconds']<=t for r in rows if r['configuration']==label) for t in (.01,.1,1,10,60,600)}}
             for label in ('Pyperplan hmax','FD hmax','FD lmcut','PRP')}
     summary={}
     for label in NATIVE.configurations:
@@ -97,10 +102,27 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
         ratios_t=[a/b for a,b in timing if a is not None and b is not None and a>0 and b>0]
         summary[label]['boand_to_prp_first_search_time_geomean_ratio']=gm(ratios_t)
         summary[label]['positive_first_time_pairs']=len(ratios_t)
+        same_cost=[a/b for q,(a,b) in zip(paired,timing) if q['first_relation']=='on_front' and a is not None and b is not None and a>0 and b>0]
+        measurable=[a/b for a,b in timing if a is not None and b is not None and a>=.1 and b>0]
+        summary[label]['equal_first_cost_time_pairs']=len(same_cost)
+        summary[label]['equal_first_cost_boand_to_prp_time_geomean_ratio']=gm(same_cost)
+        summary[label]['boand_first_at_least_100ms_time_pairs']=len(measurable)
+        summary[label]['boand_first_at_least_100ms_boand_to_prp_time_geomean_ratio']=gm(measurable)
+        summary[label]['completed_fronts_with_multiple_cost_pairs']=sum(len(q['front'])>1 for q in complete)
+        summary[label]['prp_cyclic_completed_front_has_finite']=sum(q['prp_worst']==CYCLE_COST and any(w!=CYCLE_COST for b,w in q['front']) for q in complete)
+        prp_ids={key for key,value in prp_rows.items() if value['validated']}
+        boand_ids={(r['domain'],r['instance']) for r in rows if r['configuration']==label and r['validated']}
+        summary[label]['prp_only_proper_instances']=sorted(prp_ids-boand_ids)
+        summary[label]['boand_only_proper_instances']=sorted(boand_ids-prp_ids)
     resources=json.loads((prp_path/'resources.json').read_text());issues=[r for r in rows if r['configuration']=='PRP' and r['has_policy'] and not r['validated']]
-    report={'campaign':CAMPAIGN.campaign_id,'version':CAMPAIGN.version,'counts':counts,'quality':summary,
+    report={'campaign':CAMPAIGN.campaign_id,'version':manifest['version'],'execution_source_revision':manifest['boand_source'],
+            'analysis_source_sha256':digest(Path(__file__)),'counts':counts,'quality':summary,
             'prp_terminations':dict(Counter(r['termination'] for r in prp_rows.values())),
             'prp_validation_status':dict(Counter(r['validation_status'] for r in prp_rows.values())),
+            'prp_policy_kinds':dict(Counter(r['policy_kind'] for r in prp_rows.values())),
+            'properness_criterion':'Only strong or strong-cyclic policies count: closed under all original outcomes, with every reachable state able to reach a goal. Weak/incomplete exports contribute zero.',
+            'completed_boand_no_policy_conflicts':[{'configuration':label,'domain':d,'instance':i} for (label,d,i),run in native.items() if search_complete(run) and not run.first_solution and prp_rows[d,i]['validated']],
+            'unexpected_completed_front_relations':[q for q in quality if q['boand_completed'] and q['front_relation'] in ('incomparable','dominates_boand_point')],
             'validation_issues':issues,'resource_summary':{'min_available_gib':min(r['available_kb'] for r in resources)/1048576,
             'max_swap_mib':max(r['swap_used_kb'] for r in resources)/1024,'max_concurrent_jobs':max(r['active_jobs'] for r in resources)},
             'limitations':['Single run per case, no timing variability estimate.',
@@ -111,7 +133,9 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
                 'Cycle sentinel 999999 is infinity, excluded from finite cost ratios. Best and worst component minima may belong to different BOAND policies.',
                 'BOAND optimal-front comparisons use only completed searches; timeout incumbents are first-solution comparisons only.']}
     (output/'report.json').write_text(json.dumps(report,indent=2)+'\n')
-    for name,data in [('instances.csv',rows),('quality.csv',quality)]:
+    domains=sorted({d for d,i in ids})
+    domain_rows=[{'configuration':label,'domain':d,'instances':sum(domain==d for domain,i in ids),'proper_coverage':sum(r['validated'] for r in rows if r['configuration']==label and r['domain']==d),'exported_or_reported_policies':sum(r['has_policy'] for r in rows if r['configuration']==label and r['domain']==d)} for label in counts for d in domains]
+    for name,data in [('instances.csv',rows),('quality.csv',quality),('domain-coverage.csv',domain_rows)]:
         if not data:continue
         with (output/name).open('w',newline='') as file:
             writer=csv.DictWriter(file,fieldnames=sorted(set().union(*(r.keys() for r in data))));writer.writeheader();writer.writerows(data)
@@ -119,8 +143,9 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
     fig,ax=plt.subplots(figsize=(7,4.5))
     for label,color,style in styles:
         times=sorted(max(1e-6,r['first_seconds']) for r in rows if r['configuration']==label and r['first_seconds'] is not None and r['first_seconds']<=600)
-        ax.step([1e-6,*times,600],[0,*range(1,len(times)+1),len(times)],where='post',color=color,ls=style,label=f'{label.replace("lmcut","LM-cut")}{", reported" if label=="Pyperplan hmax" else ""} ({len(times)})',lw=1.8)
-    ax.set(xscale='log',xlim=(1e-4,600),ylim=(0,len(entries)),xlabel='Time to first policy during search (s)',ylabel='Instances with a policy');ax.legend(loc='lower right');ax.grid(alpha=.3);fig.tight_layout()
+        display=label.replace('lmcut','LM-cut') if label=='PRP' else 'BOAND* / '+label.replace('lmcut','LM-cut')
+        ax.step([1e-6,*times,600],[0,*range(1,len(times)+1),len(times)],where='post',color=color,ls=style,label=f'{display}{", reported" if label=="Pyperplan hmax" else ""} ({len(times)})',lw=1.8)
+    ax.set(xscale='log',xlim=(1e-4,600),ylim=(0,len(entries)),xlabel='Time to first proper policy during search (s)',ylabel='Instances with a proper policy');ax.legend(loc='lower right');ax.grid(alpha=.3);fig.tight_layout()
     for ext in ('pdf','svg','png'):fig.savefig(output/f'first-solution-coverage.{ext}',dpi=200)
     plt.close(fig)
     fig,axes=plt.subplots(1,2,figsize=(10,4))
@@ -128,7 +153,7 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
         pairs=[q for q in quality if q['configuration']==label and q['prp_best']>0 and q['boand_first_best']>0]
         ax.scatter([q['boand_first_best'] for q in pairs],[q['prp_best'] for q in pairs],s=20,alpha=.7,color='#009E73')
         highest=max([q['prp_best'] for q in pairs]+[q['boand_first_best'] for q in pairs]+[1]);ax.plot([1,highest],[1,highest],'k--',lw=.8)
-        ax.set(xscale='log',yscale='log',xlabel=f'{label} first-policy best cost',ylabel='PRP best cost',title='Below diagonal: PRP lower best cost');ax.grid(alpha=.2)
+        ax.set(xscale='log',yscale='log',xlabel='BOAND* first-policy best cost',ylabel='PRP best cost',title='BOAND* / '+label.replace('lmcut','LM-cut'));ax.grid(alpha=.2)
     fig.tight_layout()
     for ext in ('pdf','svg','png'):fig.savefig(output/f'best-cost-comparison.{ext}',dpi=200)
     plt.close(fig)
@@ -137,15 +162,16 @@ def compare(prp_path,native_path=DEFAULT_NATIVE,old_path=DEFAULT_OLD,output=None
     for ax,label in zip(axes,NATIVE.configurations):
         counts_q=summary[label]['completed_front_relations'];values=[counts_q.get(c,0) for c in categories]
         ax.bar(range(4),values,color=['#009E73','#D55E00','#0072B2','#CC79A7'])
-        ax.set_xticks(range(4),['Matches front','BOAND dominates','Tradeoff','PRP dominates'],rotation=30,ha='right')
-        ax.set(title=label,ylabel='Instances with both valid policies and completed BOAND front')
+        ax.set_xticks(range(4),['On Pareto front','BOAND* dominates','Incomparable','PRP dominates'],rotation=30,ha='right')
+        ax.set(title='BOAND* / '+label.replace('lmcut','LM-cut'),ylabel='Paired completed instances')
         for x,value in enumerate(values):ax.text(x,value+.2,str(value),ha='center')
     fig.tight_layout()
     for ext in ('pdf','svg','png'):fig.savefig(output/f'frontier-quality.{ext}',dpi=200)
     plt.close(fig)
-    lines=['# PRP versus BOAND*: first policy and quality','',f'PRP run: `{prp_path}`','', '| Planner | Policies | Validated/reported | Timed coverage |','| --- | ---: | ---: | ---: |']
+    lines=['# PRP versus BOAND*: first proper policy and quality','',f'PRP run: `{prp_path}`','',report['properness_criterion'],'', '| Planner | Exported/reported policies | Proper policies* | Timed proper coverage |','| --- | ---: | ---: | ---: |']
     for label,c in counts.items():lines.append(f"| {label} | {c['with_policy']} | {c['validated_or_legacy_reported']} | {c['timed_coverage']} |")
-    lines+=['','## Solution quality','','Comparison with completed BOAND fronts; cyclic worst cost is infinity.','',
+    lines+=['','*Legacy Pyperplan policies are historically reported proper policies, not independently revalidated. Native BOAND and PRP coverage uses replay checks. All 196 inputs remain in the accounting; weak exports add no coverage.',
+            '','![First proper-policy coverage](first-solution-coverage.png)','','## Solution quality','','Comparison with completed BOAND fronts; cyclic worst cost is infinity.','',
             '| BOAND reference | Paired first policies | Completed fronts | PRP on front | BOAND dominates PRP | Incomparable | PRP dominates a front point |',
             '| --- | ---: | ---: | ---: | ---: | ---: | ---: |']
     for label,q in summary.items():

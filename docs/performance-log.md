@@ -3184,3 +3184,77 @@ and 11 independently valid policies; Tireworld-truck p6 is still running at this
 entry. Its two known unsolvable cases export incomplete rules which do not count
 as solutions. Do not tune PRP to hide noncompletion or use incomplete BOAND fronts
 for optimality claims. Full launch follows completion and analysis of preflight.
+
+Preflight finished: 14/14 executions, 11 independently valid policies, two
+incomplete policies on the known unsolvable cases, and a 600-second timeout on
+Tireworld-truck p6. All 11 valid policies have independently computed best/worst
+costs. Against either native BOAND configuration, eight of these costs match the
+completed Pareto front and three are dominated. These are preflight results,
+not a full-suite coverage or quality estimate.
+
+The full 196-job run started from revision `2f134bc` in tmux session
+`prp-icaps-full`, with durable artifacts in
+`runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper`. The controller in
+`outputs/prp-comparison-preflight/drive.py` runs independent replay after all
+executions, then generates first-policy coverage and quality figures. Execution
+source, external planner hashes and frozen inputs are checked for changes.
+
+While the full run was active, the user clarified that coverage must count only
+proper (strong or strong-cyclic) policies, excluding PRP's weak outputs even when
+BOAND proves an instance unsolvable. The original-PDDL replay already enforces
+closure under every outcome and goal reachability from every reachable state;
+weak/incomplete exports do not pass. Make this criterion explicit in figures
+and distinguish rejected exports from replay resource failures. The legacy
+BOAND curve remains labelled reported, since those policies have not undergone
+the newer independent replay.
+
+Full evaluation finished: 196/196 executions in about 39.1 minutes, with 161
+PRP strong-cyclic success codes, 17 non-strong-cyclic returns, 11 wall timeouts
+and seven memory failures. Independent original-PDDL replay confirms all 161
+successes as proper: 91 strong and 70 strong cyclic. All 17 other exports are
+nonproper and excluded; 18 resource-failure jobs have no export. First proper
+policy coverage is 114 historically reported local Pyperplan/hmax, 137 verified
+FD/hmax, 145 verified FD/LM-cut and 161 verified PRP. At one search second these
+counts are 73, 123, 128 and 138. See
+`docs/prp-comparison-report.md` and the run's `comparison/` artifacts (CSV, JSON,
+PNG/PDF/SVG figures). No BOAND full searches were rerun.
+
+The last large Doors replays exposed an infrastructure bottleneck: all 122,890
+p15 forbidden-action rows share a required literal false after key pickup.
+Grouping by a required literal and deduplicating the forbidden-action union
+preserves the exact policy selection semantics. All 178 exports were replayed
+again. All 176 completed original checks retain properness status and exact
+valid costs/reachable-state counts; two original replay timeouts (p14/p15)
+resolve as valid in about 3.1/6.5 seconds. Preserve their previous timeout
+records and both checker/runner source snapshots in
+`revalidation/guard-indexed/`. The supplemental one-worker pass overlapped only
+three outstanding validators, keeping the combined count at four. The reusable
+revalidation command now requires a finished original pass. This is a validator
+fix, not a BOAND optimization attempt or a change to planner timings/exports.
+
+Quality against completed fronts: hmax has 128 paired completed searches,
+113 PRP cost pairs on its front and 15 dominated; LM-cut has 134 pairs, 116 on
+the front and 18 dominated. No incomparable or improving PRP cost pair
+contradicts a completed front; no verified proper PRP policy contradicts a
+completed BOAND unsolvability result. Relative to LM-cut's first policy, PRP's
+positive best-cost geometric mean is 1.0193, and jointly finite positive worst
+costs are 1.0190, with 13 paired cases instead having PRP infinite worst cost
+versus finite BOAND cost. Do not summarize this infinite-cost loss using the
+finite mean alone. Completed LM-cut fronts offer finite worst cost in 12 cases
+where PRP is cyclic; eight paired completed fronts have multiple cost pairs.
+
+Recorded first-search timing favors BOAND on all common pairs (hmax 3.92x,
+LM-cut 2.82x), but startup/millisecond cases dominate this aggregate. On the
+predeclared subsets where BOAND first search takes at least 0.1 s, PRP is faster
+by 6.33x over 30 hmax pairs and 11.36x over 33 LM-cut pairs. These compare first
+proper outputs, sometimes of different cost, not completed-front speedups.
+Report the whole coverage curves, the subset selection and timing boundaries.
+One run per case provides no variability estimate; legacy resources and older
+semantics differ. Minimum machine available memory during PRP execution was
+10.74 GiB, with 37.5–41.25 MiB swap. All 113 tests pass, including weak-policy
+exclusion, indexed forbidden-action equivalence and revalidation overlap guard.
+The final selection-semantics audit also checks PRP's complete-policy bypass of
+forbidden-action rules. All 178 exports retain properness and exact valid
+costs/reachable-state counts under that selection variant. Preserve the audit
+JSON in `comparison/selection-semantics-audit.json` and its script/source hash
+in `outputs/prp-comparison-preflight/`.

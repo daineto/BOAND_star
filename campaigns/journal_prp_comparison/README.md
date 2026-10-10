@@ -14,6 +14,7 @@ PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_prp_comparison.run --prof
 PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_prp_comparison.run --profile smoke
 PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_prp_comparison.run --profile paper
 PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_prp_comparison.run --profile paper --resume runs/journal_prp_comparison/RUN_ID
+PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_prp_comparison.replay runs/journal_prp_comparison/RUN_ID
 MPLCONFIGDIR=/tmp/boand-prp-mpl .venv/bin/python -m campaigns.journal_prp_comparison.analysis runs/journal_prp_comparison/RUN_ID
 ```
 
@@ -29,6 +30,13 @@ only the post-planning simulator; internal repair/quality evaluation remains
 unchanged (1,000 evaluation trials). Exit 8/9 is PRP strong cyclic/strong success.
 Policy existence or PRP's own strong-cyclic flag alone is not validation.
 
+Coverage counts only proper policies: strong or strong cyclic. A weak policy
+with a successful branch but another reachable state unable to reach a goal is
+excluded. Check every exported policy regardless of PRP's success flag; separate
+nonproper exports from cases where replay itself reaches a resource limit.
+All 196 frozen inputs remain in the accounting; a weak output contributes zero
+coverage and does not establish that the instance is unsolvable.
+
 Independent replay interprets original PDDL directly, grounding only the selected
 action. Static facts are shared rather than copied across states. Exported rules
 are sorted SC-first, then distance and creation order; forbidden-action rules and
@@ -37,6 +45,11 @@ read from preprocessed `output`, not preprocessor input `output.sas`. Replay
 checks applicability and all original outcomes, reverse goal reachability,
 shortest best cost and finite longest/cyclic worst costs; each replay has its own
 600-second/6 GB limit and at most four workers. Unsupported formulas fail explicitly.
+Forbidden-action rules are grouped by a required literal, so a false guard skips
+the whole group; duplicates do not change their union. The optional `replay`
+command requires a finished original pass, stores source snapshots and previous
+results in a separate timestamped revalidation directory, and refuses to apply
+results that disagree with completed previous checks. It reruns no planners.
 
 The first-policy coverage plot includes native BOAND hmax/LM-cut and the local
 October 7 Pyperplan hmax reference. It uses first-solution times (valid incumbents

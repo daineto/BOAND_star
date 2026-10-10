@@ -47,6 +47,13 @@ class OriginalTask:
         self.static=frozenset(f for f in facts if f[0] not in dynamic)
         self.initial=frozenset(f for f in facts if f[0] in dynamic)
         self.policy=rules(folder/'policy.out','Execute');self.fsaps=rules(folder/'policy.fsap','Forbid')
+        # Forbidden actions form a union, so duplicate rules and their order do
+        # not matter. Check a shared required literal once before scanning the
+        # rest of its group; a false guard excludes every rule in that group.
+        self.fsap_groups={}
+        for clauses,name in dict.fromkeys(self.fsaps):
+            guard=clauses[:1]
+            self.fsap_groups.setdefault(guard,[]).append((clauses[1:],name))
         if not self.policy:raise ValueError('No exported policy rules')
         self.values={}
         # Policy variable indices refer to the PREPROCESSED task, not output.sas.
@@ -99,7 +106,8 @@ class OriginalTask:
         selected=[name for clauses,name in self.policy if self.condition(clauses,state)]
         # Exported rules are sorted SC-first, distance, step id (PRP comparator).
         # PRP enables return_if_possible after repairs; emulate its fallback.
-        forbidden={name for clauses,name in self.fsaps if self.condition(clauses,state)}
+        forbidden={name for guard,items in self.fsap_groups.items() if self.condition(guard,state)
+                   for clauses,name in items if self.condition(clauses,state)}
         name=next((name for name in selected if name not in forbidden),next(iter(selected),None))
         if name is None or name=='goal':raise ValueError('Reachable nongoal has no action')
         action,binding=self.bound_action(name)
