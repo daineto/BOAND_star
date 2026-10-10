@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_tradeoffs",
+  "dataset_version": "1",
+  "instances": [
+    {
+      "domain": "frozenlake",
+      "instance": "barrier-5x5-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/barrier-5x5-s0.pddl",
+      "problem_sha256": "b0150e5c54815a41b53607169a101bc6418124724e18abfb548b4ce5f08d0faf"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "corner-3x10-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/corner-3x10-s0.pddl",
+      "problem_sha256": "7666828efd2dc3f2e084c7488caf69523a16cff712dd582c7ba01141dd3cd657"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "corner-3x4-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/corner-3x4-s0.pddl",
+      "problem_sha256": "ec61a4345dfec6143fa18bf52ec92d6cad4f4cd52715b2926a57a0ac9f55cd90"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "corner-3x5-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/corner-3x5-s0.pddl",
+      "problem_sha256": "7af02b66d5e3f360b12617442d1fee560d8299aebab87d5b329b860c5ab0c5aa"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "corner-3x6-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/corner-3x6-s0.pddl",
+      "problem_sha256": "1a9011cd433bfa6a31d57e19d22b2aad82cabfcb62219698ccc018d762ce496f"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "corner-3x8-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/corner-3x8-s0.pddl",
+      "problem_sha256": "ca55039facc072fd3cfd9cc5fad404a75fe1984624cb667c85b8468d4c369b77"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "open-3x3-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/open-3x3-s0.pddl",
+      "problem_sha256": "b40f80a055be540824ce7d27bcd2833ae39d5f7441de789bf487bb525be67ac5"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "random-4x5-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/random-4x5-s0.pddl",
+      "problem_sha256": "b38854885b4f0d6a20561eb2cb135394da59adf9e9f849d01d8280f9722bec6e"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "random-4x5-s1",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/random-4x5-s1.pddl",
+      "problem_sha256": "2ac1a23d8d48c57389ad1bd7994e97d81ef59afa90df1f08f37cf8b713b839e6"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "random-4x5-s2",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/random-4x5-s2.pddl",
+      "problem_sha256": "5e0d168a80f45680f6bd1cddf339832e9068c1db9843dd69938fbc790e367ecc"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "random-5x6-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/random-5x6-s0.pddl",
+      "problem_sha256": "c0ad115efd26b2d48624fba7c5a91eafe773f41267613998f8bf6e108e3f969d"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "random-5x6-s1",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/random-5x6-s1.pddl",
+      "problem_sha256": "3aef9d23d3a66c4a88b0659376fcb8332f7c85db209df749cb49cef6694366ba"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "random-5x6-s2",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/random-5x6-s2.pddl",
+      "problem_sha256": "bf5a441cd3a6ae3315835f69ec79e349954353a72a93ed2f156b64c5091634b9"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "staggered-4x10-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/staggered-4x10-s0.pddl",
+      "problem_sha256": "21795a8a47d5005dfabdb00e718873e6fe2c9c5e11e91bbea4ab8ecbe8b0341a"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "staggered-4x6-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/staggered-4x6-s0.pddl",
+      "problem_sha256": "8b6102a601f50da8a25dbadbf3e4ad1530342e2fbb60251b7d989a9cf90527c8"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "staggered-4x8-s0",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/staggered-4x8-s0.pddl",
+      "problem_sha256": "5fffb1ee4ed10434c2fbba51422740176df51b83d42ca265b418e4d2120db14c"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "verified-01",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/verified-01.pddl",
+      "problem_sha256": "3a84c1330e330c3e31483d69c2605b03a807085eb92dbaae7c7f1f695b0b7665"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "verified-02",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/verified-02.pddl",
+      "problem_sha256": "90428403dce80480f0f7069cb48e1820a39147e2fe987dfa850b75c3a00eacf2"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "verified-03",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake/verified-03.pddl",
+      "problem_sha256": "27b605fb4e74a4b4fc21aab2cfe999db8084c01657eec3eee92d54afee0ea805"
+    }
+  ]
+}

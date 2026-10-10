@@ -5,6 +5,9 @@
   frozen subsets by identity and content hash.
 - `legacy_extras/`: the existing `st_blocksworld` and `st_first_responders`
   inputs, which are not selected by the ICAPS campaign.
+- `journal_tradeoffs/`: reproducibly generated candidates for the new journal
+  benchmark. The FrozenLake pilot collection is exploratory; its final paper
+  selection is pending review.
 
 New journal trade-off inputs should form a separate collection. The initial
 verified FrozenLake examples currently live in
