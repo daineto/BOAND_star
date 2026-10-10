@@ -33,11 +33,19 @@ def analyze(dataset, output):
     inputs = {(e['domain'], e['instance']): {**e, 'domain_path': str(input_path(e['domain_path'])),
                'problem_path': str(input_path(e['problem_path']))} for e in entries}
     validation_file = output / 'policy-validation.json'
-    if validation_file.exists():
+    provenance_file = output / 'policy-validation-provenance.json'
+    provenance = {'run_manifest_sha256': digest(directory / 'manifest.json'),
+                  'validator_sha256': digest(ROOT / 'analysis/replay_job.py'),
+                  'policy_sha256': {str(p): digest(p) for run in runs.values()
+                                   for p in sorted(run.directory.rglob('*.boand.*.out'))}}
+    reusable = (validation_file.exists() and provenance_file.exists()
+                and json.loads(provenance_file.read_text()) == provenance)
+    if reusable:
         validations = json.loads(validation_file.read_text())
     else:
         validations = {'/'.join(k): v for k, v in replay_runs(runs, inputs, output / 'replay', workers=4).items()}
         validation_file.write_text(json.dumps(validations, indent=2) + '\n')
+        provenance_file.write_text(json.dumps(provenance, indent=2) + '\n')
     generation = json.loads((ROOT / 'benchmarks/journal_tradeoffs/frozenlake/generation.json').read_text())
     grids = {r['instance']: r for r in generation['instances']}
     rows, instances, issues = [], [], []

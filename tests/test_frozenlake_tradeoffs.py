@@ -53,3 +53,11 @@ class FrozenLakeTradeoffTests(unittest.TestCase):
         assert evaluate({0: (0, 1)}, 0, 1) == (1, float('inf'))
         assert evaluate({0: (1, 2), 1: (1,)}, 0, 2) is None
         assert evaluate({}, 0, 0) == (0, 0)
+
+    def test_exhaustive_limit_is_explicit(self):
+        path = Path(__file__).resolve().parents[1] / 'campaigns/journal_development/examples/frozenlake/grids.json'
+        item = json.loads(path.read_text())['instances'][0]
+        cells = {(x, y): kind for x, y, kind in item['cells']}
+        with self.assertRaisesRegex(ValueError, 'exhaustive limit is 100'):
+            frontier(cells, tuple(item['start']), tuple(item['goal']), max_policies=100)
+        self.assertEqual(frontier(cells, tuple(item['start']), tuple(item['goal']), max_policies=1000)[1], 384)

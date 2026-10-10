@@ -37,6 +37,12 @@ Keep the preserved 11-domain ICAPS input collection in
 `benchmarks/icaps2025/`. The existing unselected `st_blocksworld` and
 `st_first_responders` inputs belong in `benchmarks/legacy_extras/`.
 New benchmark collections must be separate from the frozen ICAPS inputs.
+`journal_tradeoffs` definition 1 is the exploratory FrozenLake benchmark pilot:
+19 fixed candidates and two native heuristics, 600 seconds/job, 6,000,000 KB/job
+and four workers. Its `smoke` profile checks the three exact examples; its
+`pilot` profile evaluates all candidates. The adaptive supplementary collection
+is outside that manifest. Neither collection is a finalized paper selection,
+and neither replaces the fixed journal development profiles.
 Keep historical run paths intact as provenance; verified manifest migration
 records support result analysis, not resuming executions under changed paths.
 

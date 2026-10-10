@@ -1,0 +1,80 @@
+(define (problem mixed-4x4-s23-a5) (:domain icylake)
+(:objects
+  tile_m1_0 - wall
+  tile_m1_1 - wall
+  tile_m1_2 - wall
+  tile_m1_3 - wall
+  tile_0_m1 - wall
+  tile_0_0 - ice
+  tile_0_1 - ice
+  tile_0_2 - ice
+  tile_0_3 - ice
+  tile_0_4 - wall
+  tile_1_m1 - wall
+  tile_1_0 - ice
+  tile_1_1 - wall
+  tile_1_2 - ice
+  tile_1_3 - ice
+  tile_1_4 - wall
+  tile_2_m1 - wall
+  tile_2_0 - wall
+  tile_2_1 - ice
+  tile_2_2 - ice
+  tile_2_3 - wall
+  tile_2_4 - wall
+  tile_3_m1 - wall
+  tile_3_0 - wall
+  tile_3_1 - wall
+  tile_3_2 - wall
+  tile_3_3 - ice
+  tile_3_4 - wall
+  tile_4_0 - wall
+  tile_4_1 - wall
+  tile_4_2 - wall
+  tile_4_3 - wall
+)
+(:init
+  (at tile_0_3)
+  (left-of tile_m1_0 tile_0_0)
+  (left-of tile_0_0 tile_1_0)
+  (left-of tile_1_0 tile_2_0)
+  (left-of tile_2_0 tile_3_0)
+  (left-of tile_3_0 tile_4_0)
+  (left-of tile_m1_1 tile_0_1)
+  (left-of tile_0_1 tile_1_1)
+  (left-of tile_1_1 tile_2_1)
+  (left-of tile_2_1 tile_3_1)
+  (left-of tile_3_1 tile_4_1)
+  (left-of tile_m1_2 tile_0_2)
+  (left-of tile_0_2 tile_1_2)
+  (left-of tile_1_2 tile_2_2)
+  (left-of tile_2_2 tile_3_2)
+  (left-of tile_3_2 tile_4_2)
+  (left-of tile_m1_3 tile_0_3)
+  (left-of tile_0_3 tile_1_3)
+  (left-of tile_1_3 tile_2_3)
+  (left-of tile_2_3 tile_3_3)
+  (left-of tile_3_3 tile_4_3)
+  (down-of tile_0_m1 tile_0_0)
+  (down-of tile_0_0 tile_0_1)
+  (down-of tile_0_1 tile_0_2)
+  (down-of tile_0_2 tile_0_3)
+  (down-of tile_0_3 tile_0_4)
+  (down-of tile_1_m1 tile_1_0)
+  (down-of tile_1_0 tile_1_1)
+  (down-of tile_1_1 tile_1_2)
+  (down-of tile_1_2 tile_1_3)
+  (down-of tile_1_3 tile_1_4)
+  (down-of tile_2_m1 tile_2_0)
+  (down-of tile_2_0 tile_2_1)
+  (down-of tile_2_1 tile_2_2)
+  (down-of tile_2_2 tile_2_3)
+  (down-of tile_2_3 tile_2_4)
+  (down-of tile_3_m1 tile_3_0)
+  (down-of tile_3_0 tile_3_1)
+  (down-of tile_3_1 tile_3_2)
+  (down-of tile_3_2 tile_3_3)
+  (down-of tile_3_3 tile_3_4)
+)
+(:goal (at tile_2_2))
+)

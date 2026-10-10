@@ -65,3 +65,9 @@ Outputs include per-instance references and their certainty, per-configuration
 completion/search work/timing records, replay evidence, figures and a report.
 Retain all candidates when reporting the pilot; selecting the final collection
 is a later scientific decision.
+
+See `docs/frozenlake-pilot-report.md` for the completed fixed pilot and adaptive
+follow-up. Supplementary inputs are in
+`benchmarks/journal_tradeoffs/frozenlake_supplemental/`; they are deliberately
+outside this pilot manifest. Wider maps were not automatically added to the
+campaign after viewing their performance.

@@ -1,0 +1,584 @@
+{
+  "generator_revision": "a3df4da",
+  "selection": "Adaptive follow-up after initial pilot: wider corners and independently enumerated mixed front. Not predeclared initial candidates.",
+  "instances": [
+    {
+      "instance": "corner-4x3-s0",
+      "family": "corner",
+      "width": 4,
+      "height": 3,
+      "seed": 0,
+      "start": [
+        3,
+        2
+      ],
+      "goal": [
+        2,
+        2
+      ],
+      "cells": [
+        [
+          0,
+          0,
+          "wall"
+        ],
+        [
+          0,
+          1,
+          "ice"
+        ],
+        [
+          0,
+          2,
+          "ice"
+        ],
+        [
+          1,
+          0,
+          "ice"
+        ],
+        [
+          1,
+          1,
+          "ice"
+        ],
+        [
+          1,
+          2,
+          "ice"
+        ],
+        [
+          2,
+          0,
+          "ice"
+        ],
+        [
+          2,
+          1,
+          "ice"
+        ],
+        [
+          2,
+          2,
+          "ice"
+        ],
+        [
+          3,
+          0,
+          "ice"
+        ],
+        [
+          3,
+          1,
+          "ice"
+        ],
+        [
+          3,
+          2,
+          "ice"
+        ]
+      ],
+      "pddl_sha256": "3622884b1733e3b0acbe540d4ed92065ef1480c3f7f06b36845846b3abc7fed5",
+      "front": [
+        [
+          1,
+          999999
+        ]
+      ],
+      "reference_certainty": "independent-exact"
+    },
+    {
+      "instance": "corner-4x4-s0",
+      "family": "corner",
+      "width": 4,
+      "height": 4,
+      "seed": 0,
+      "start": [
+        3,
+        3
+      ],
+      "goal": [
+        2,
+        3
+      ],
+      "cells": [
+        [
+          0,
+          0,
+          "wall"
+        ],
+        [
+          0,
+          1,
+          "ice"
+        ],
+        [
+          0,
+          2,
+          "ice"
+        ],
+        [
+          0,
+          3,
+          "ice"
+        ],
+        [
+          1,
+          0,
+          "ice"
+        ],
+        [
+          1,
+          1,
+          "ice"
+        ],
+        [
+          1,
+          2,
+          "ice"
+        ],
+        [
+          1,
+          3,
+          "ice"
+        ],
+        [
+          2,
+          0,
+          "ice"
+        ],
+        [
+          2,
+          1,
+          "ice"
+        ],
+        [
+          2,
+          2,
+          "ice"
+        ],
+        [
+          2,
+          3,
+          "ice"
+        ],
+        [
+          3,
+          0,
+          "ice"
+        ],
+        [
+          3,
+          1,
+          "ice"
+        ],
+        [
+          3,
+          2,
+          "ice"
+        ],
+        [
+          3,
+          3,
+          "ice"
+        ]
+      ],
+      "pddl_sha256": "09ac6f7af2cdd6ed8682e6b35d9e532e7753b656b9f383e0347ffed524f1963d",
+      "front": [
+        [
+          1,
+          999999
+        ]
+      ],
+      "reference_certainty": "independent-exact"
+    },
+    {
+      "instance": "corner-4x5-s0",
+      "family": "corner",
+      "width": 4,
+      "height": 5,
+      "seed": 0,
+      "start": [
+        3,
+        4
+      ],
+      "goal": [
+        2,
+        4
+      ],
+      "cells": [
+        [
+          0,
+          0,
+          "wall"
+        ],
+        [
+          0,
+          1,
+          "ice"
+        ],
+        [
+          0,
+          2,
+          "ice"
+        ],
+        [
+          0,
+          3,
+          "ice"
+        ],
+        [
+          0,
+          4,
+          "ice"
+        ],
+        [
+          1,
+          0,
+          "ice"
+        ],
+        [
+          1,
+          1,
+          "ice"
+        ],
+        [
+          1,
+          2,
+          "ice"
+        ],
+        [
+          1,
+          3,
+          "ice"
+        ],
+        [
+          1,
+          4,
+          "ice"
+        ],
+        [
+          2,
+          0,
+          "ice"
+        ],
+        [
+          2,
+          1,
+          "ice"
+        ],
+        [
+          2,
+          2,
+          "ice"
+        ],
+        [
+          2,
+          3,
+          "ice"
+        ],
+        [
+          2,
+          4,
+          "ice"
+        ],
+        [
+          3,
+          0,
+          "ice"
+        ],
+        [
+          3,
+          1,
+          "ice"
+        ],
+        [
+          3,
+          2,
+          "ice"
+        ],
+        [
+          3,
+          3,
+          "ice"
+        ],
+        [
+          3,
+          4,
+          "ice"
+        ]
+      ],
+      "pddl_sha256": "ae2801eafed782c6ab79a7b8c349450a6c68936c6c89e9f82a7cf2ecf5afe98f",
+      "front": [
+        [
+          1,
+          999999
+        ]
+      ],
+      "reference_certainty": "boand-complete"
+    },
+    {
+      "instance": "corner-5x5-s0",
+      "family": "corner",
+      "width": 5,
+      "height": 5,
+      "seed": 0,
+      "start": [
+        4,
+        4
+      ],
+      "goal": [
+        3,
+        4
+      ],
+      "cells": [
+        [
+          0,
+          0,
+          "wall"
+        ],
+        [
+          0,
+          1,
+          "ice"
+        ],
+        [
+          0,
+          2,
+          "ice"
+        ],
+        [
+          0,
+          3,
+          "ice"
+        ],
+        [
+          0,
+          4,
+          "ice"
+        ],
+        [
+          1,
+          0,
+          "ice"
+        ],
+        [
+          1,
+          1,
+          "ice"
+        ],
+        [
+          1,
+          2,
+          "ice"
+        ],
+        [
+          1,
+          3,
+          "ice"
+        ],
+        [
+          1,
+          4,
+          "ice"
+        ],
+        [
+          2,
+          0,
+          "ice"
+        ],
+        [
+          2,
+          1,
+          "ice"
+        ],
+        [
+          2,
+          2,
+          "ice"
+        ],
+        [
+          2,
+          3,
+          "ice"
+        ],
+        [
+          2,
+          4,
+          "ice"
+        ],
+        [
+          3,
+          0,
+          "ice"
+        ],
+        [
+          3,
+          1,
+          "ice"
+        ],
+        [
+          3,
+          2,
+          "ice"
+        ],
+        [
+          3,
+          3,
+          "ice"
+        ],
+        [
+          3,
+          4,
+          "ice"
+        ],
+        [
+          4,
+          0,
+          "ice"
+        ],
+        [
+          4,
+          1,
+          "ice"
+        ],
+        [
+          4,
+          2,
+          "ice"
+        ],
+        [
+          4,
+          3,
+          "ice"
+        ],
+        [
+          4,
+          4,
+          "ice"
+        ]
+      ],
+      "pddl_sha256": "3e57f264ed86ce6769cf4f102028e11893a39e97b7c7c951009e6fda751e72aa",
+      "front": [
+        [
+          1,
+          999999
+        ]
+      ],
+      "reference_certainty": "boand-complete"
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "cells": [
+        [
+          0,
+          0,
+          "ice"
+        ],
+        [
+          0,
+          1,
+          "ice"
+        ],
+        [
+          0,
+          2,
+          "ice"
+        ],
+        [
+          0,
+          3,
+          "ice"
+        ],
+        [
+          1,
+          0,
+          "ice"
+        ],
+        [
+          1,
+          1,
+          "wall"
+        ],
+        [
+          1,
+          2,
+          "ice"
+        ],
+        [
+          1,
+          3,
+          "ice"
+        ],
+        [
+          2,
+          0,
+          "wall"
+        ],
+        [
+          2,
+          1,
+          "ice"
+        ],
+        [
+          2,
+          2,
+          "ice"
+        ],
+        [
+          2,
+          3,
+          "wall"
+        ],
+        [
+          3,
+          0,
+          "wall"
+        ],
+        [
+          3,
+          1,
+          "wall"
+        ],
+        [
+          3,
+          2,
+          "wall"
+        ],
+        [
+          3,
+          3,
+          "ice"
+        ]
+      ],
+      "start": [
+        0,
+        3
+      ],
+      "goal": [
+        2,
+        2
+      ],
+      "front": [
+        [
+          2,
+          999999
+        ],
+        [
+          3,
+          3
+        ]
+      ],
+      "seed": 23,
+      "attempt": 5,
+      "count": 144,
+      "family": "mixed",
+      "instance": "mixed-4x4-s23-a5",
+      "pddl_sha256": "f8e14e07c8bedb0e3b8be51ce03c21bf759d446f5eee9d0b84c0c0b6533cf8ef",
+      "reference_certainty": "independent-exact"
+    }
+  ],
+  "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+  "renderer_sha256": "cf6bcc841fbbe632ee0d52cf46e145c142e0b37ab58a5d4729044a1b652a4777"
+}

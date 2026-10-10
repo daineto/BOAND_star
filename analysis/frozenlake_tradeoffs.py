@@ -32,7 +32,7 @@ def evaluate(graph,start,goal):
             if degree[t]==0:queue.append(t)
     return dist[goal],longest[goal] if n==len(dist) else float('inf')
 
-def frontier(cells,start,goal):
+def frontier(cells,start,goal,max_policies=200000):
     actions={}
     for s,kind in cells.items():
         if kind!='ice' or s==goal:continue
@@ -48,7 +48,7 @@ def frontier(cells,start,goal):
         actions[s]=opts or [(s,)]
     keys=list(actions);count=1
     for k in keys:count*=len(actions[k])
-    if count>200000:raise ValueError(f'Grid requires {count} policies; exhaustive limit is 200000')
+    if count>max_policies:raise ValueError(f'Grid requires {count} policies; exhaustive limit is {max_policies}')
     costs=set()
     for choices in itertools.product(*(actions[k] for k in keys)):
         pair=evaluate(dict(zip(keys,choices)),start,goal)
@@ -59,16 +59,17 @@ def frontier(cells,start,goal):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("grids", type=Path)
+    parser.add_argument("--max-policies", type=int, default=200000)
     args = parser.parse_args()
     records = json.loads(args.grids.read_text())["instances"]
     results = []
     for number, record in enumerate(records, 1):
         cells = {(x, y): kind for x, y, kind in record["cells"]}
-        front, count = frontier(cells, tuple(record["start"]), tuple(record["goal"]))
-        actual = [list(pair) for pair in front]
+        front, count = frontier(cells, tuple(record["start"]), tuple(record["goal"]), args.max_policies)
+        actual = [[b, 999999 if w == float('inf') else w] for b, w in front]
         if actual != record["front"]:
             raise ValueError(f"Instance {number}: {actual} != {record['front']}")
-        results.append({"instance": f"tradeoff-{number:02d}", "front": actual,
+        results.append({"instance": record.get('instance', f"tradeoff-{number:02d}"), "front": actual,
                         "policies_enumerated": count})
     print(json.dumps(results, indent=2, allow_nan=False))
 
