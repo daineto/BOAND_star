@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "description": "Reviewed report images copied byte for byte from generated artifacts.",
+  "figures": [
+    {
+      "report": "docs/frozenlake-pilot-report.md",
+      "figure": "docs/figures/frozenlake-pilot/quality-examples.png",
+      "generated_source": "outputs/frozenlake-tradeoffs/quality-examples.png",
+      "sha256": "dd5d3f542e89bdad38088837155f3600ba5fdc5ef959efb1bcfcbd1ca0c193e8"
+    },
+    {
+      "report": "docs/frozenlake-pilot-report.md",
+      "figure": "docs/figures/frozenlake-pilot/corner-scaling.png",
+      "generated_source": "outputs/frozenlake-tradeoffs/corner-scaling.png",
+      "sha256": "613adc006752e3f7a4fbd520c734f88db49d2ba1730ba37ee9e0cb511ef25761"
+    },
+    {
+      "report": "docs/performance-report.md",
+      "figure": "docs/figures/performance/attempt-wall-times.png",
+      "generated_source": "outputs/performance-report/attempt-wall-times.png",
+      "sha256": "e124cb1a09e9c9b2aacdac744e3b67808b10f279f3e2e379f3dfdf2384852e72"
+    },
+    {
+      "report": "docs/performance-report.md",
+      "figure": "docs/figures/performance/attempt-search-speedups.png",
+      "generated_source": "outputs/performance-report/attempt-search-speedups.png",
+      "sha256": "0f686202713c87ab8199d0b7bab581c81843932a7d77bc456498be6b12bc3196"
+    },
+    {
+      "report": "docs/performance-report.md",
+      "figure": "docs/figures/performance/smoke-milestone-heatmap.png",
+      "generated_source": "outputs/performance-report/smoke-milestone-heatmap.png",
+      "sha256": "6d565483cd3b29c48cb51fbf8205a516b28c85ec2734a0b7b65a1e0f64d15260"
+    },
+    {
+      "report": "docs/performance-report.md",
+      "figure": "docs/figures/performance/direct-compilation-phases.png",
+      "generated_source": "outputs/performance-report/direct-compilation-phases.png",
+      "sha256": "56b4485e3851769a1da92af67026d6de8b2a109b6b20efea50d41e6f9585646c"
+    },
+    {
+      "report": "docs/performance-report.md",
+      "figure": "docs/figures/icaps-comparison/coverage-over-time.png",
+      "generated_source": "outputs/prebranch-comparison/coverage/coverage-over-time.png",
+      "sha256": "77e6a1f90e9fa169df249601bc54d98f76e072d1407dadf9ddd093dd6a977462"
+    },
+    {
+      "report": "docs/prp-comparison-report.md",
+      "figure": "docs/figures/prp-comparison/first-solution-coverage.png",
+      "generated_source": "runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper/comparison/first-solution-coverage.png",
+      "sha256": "3806aa469e76b2aaeb9278f65fde7143e4df18aadf1c6a2dd448e9df1bc97b2b"
+    },
+    {
+      "report": "docs/prp-comparison-report.md",
+      "figure": "docs/figures/prp-comparison/frontier-quality.png",
+      "generated_source": "runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper/comparison/frontier-quality.png",
+      "sha256": "06b6cb74db2c474afd8a934c4b21488e18d2595961057eec725bfbc72b9cc3f6"
+    },
+    {
+      "report": "docs/prp-comparison-report.md",
+      "figure": "docs/figures/prp-comparison/best-cost-comparison.png",
+      "generated_source": "runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper/comparison/best-cost-comparison.png",
+      "sha256": "f7776546b85545f6134c99b7d4842feb59c9ea42a697d584d0d1ae6185c29d77"
+    }
+  ]
+}

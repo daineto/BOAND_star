@@ -48,6 +48,12 @@ records support result analysis, not resuming executions under changed paths.
 
 Published archives belong in `results/<campaign-id>/published/`.
 Generated runs and analysis belong in ignored `runs/` and `outputs/`.
+Reviewed PNG figures referenced by committed reports are an explicit exception:
+commit them in report-specific folders under `docs/figures/`, use relative
+Markdown links, and record their generated sources and hashes in the figure
+manifest. Keep raw measurements, intermediate figures and other generated
+formats in ignored artifact directories. After regenerating figures, review
+and synchronize the report copies and manifest before committing.
 
 Use campaign-aware commands. Consult `docs/campaigns.md` when adding or
 revising a campaign; use the README for setup and researcher commands.

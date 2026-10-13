@@ -58,7 +58,7 @@ or more pairs.
 | `corner-3x10-s0` | (1, 21), (11, 19) | The same choice remains, with substantially harder search. |
 | `mixed-4x4-s23-a5` | (2, ∞), (3, 3) | A shorter cyclic policy competes with a strong policy. |
 
-![Representative quality mechanisms](../outputs/frozenlake-tradeoffs/quality-examples.png)
+![Representative quality mechanisms](figures/frozenlake-pilot/quality-examples.png)
 
 The corner family scales difficulty while preserving two-point fronts. Its
 finite worst-case advantage remains only two actions as height grows, while
@@ -89,7 +89,7 @@ found in the second search and independently rechecked against BOAND.
 | 3×8 | 2.29 | 2.25 | 42,244 |
 | 3×10 | 95.96 | 95.06 | 1,165,210 |
 
-![Corner scaling](../outputs/frozenlake-tradeoffs/corner-scaling.png)
+![Corner scaling](figures/frozenlake-pilot/corner-scaling.png)
 
 The 3×10 case generated **3,187,387 policies**, with a peak open-list count of
 646,655. Its first Pareto solution appeared after about 33 seconds; the second
@@ -141,8 +141,11 @@ MPLCONFIGDIR=/tmp/frozenlake-pilot-mpl .venv/bin/python \
 ```
 
 PNG, PDF and SVG versions are retained for both design figures, alongside the
-automatic per-instance quality/difficulty figure. Generated artifacts remain
-ignored; source, input PDDL, metadata and this report are committed.
+automatic per-instance quality/difficulty figure. Reviewed PNG copies referenced
+above are committed in `docs/figures/frozenlake-pilot/`; other generated
+artifacts remain ignored. Source, input PDDL, metadata and this report are
+committed. After regeneration, review and synchronize the committed figure
+copies and `docs/figures/manifest.json`.
 
 ## Recovery-route follow-up, 2026-10-13
 

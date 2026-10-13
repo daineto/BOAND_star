@@ -14,7 +14,7 @@ representation.
 
 ## First proper-policy coverage
 
-![First proper-policy coverage](../runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper/comparison/first-solution-coverage.png)
+![First proper-policy coverage](figures/prp-comparison/first-solution-coverage.png)
 
 | Planner | Within 0.1 s | Within 1 s | Within 10 s | Within 60 s | By the 600 s limit |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -58,7 +58,7 @@ replay. It is explicitly labelled reported.
 
 ## Solution quality
 
-![PRP cost pairs versus completed BOAND fronts](../runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper/comparison/frontier-quality.png)
+![PRP cost pairs versus completed BOAND fronts](figures/prp-comparison/frontier-quality.png)
 
 | BOAND reference | Paired proper first policies | Paired completed fronts | PRP cost pair on the front | PRP dominated by BOAND |
 | --- | ---: | ---: | ---: | ---: |
@@ -71,7 +71,7 @@ not mean identical policies. None of the verified PRP cost pairs is incomparable
 with or improves a completed front, and none contradicts a completed BOAND
 unsolvability result. Partial BOAND fronts carry no completeness claim.
 
-![Best-cost comparison](../runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper/comparison/best-cost-comparison.png)
+![Best-cost comparison](figures/prp-comparison/best-cost-comparison.png)
 
 Points above the diagonal have a higher PRP best cost. Across the 137 positive
 best-cost pairs with LM-cut, PRP's geometric-mean best cost is **1.9% higher**
@@ -164,3 +164,7 @@ Measurements use one run per instance and come from different sessions. Search
 timer boundaries, the legacy resource/semantics difference, and the different
 planner architectures limit causal speedup claims. Independent replay checks
 policy validity and costs; it does not independently prove Pareto completeness.
+
+Reviewed PNG copies referenced above are committed in
+`docs/figures/prp-comparison/`. After regeneration, review and synchronize those
+copies and `docs/figures/manifest.json`.

@@ -60,7 +60,7 @@ timing and prevent interpreting old behavior as the correctness oracle.
 
 ## Recorded attempt timings
 
-![Recorded wall times](../outputs/performance-report/attempt-wall-times.png)
+![Recorded wall times](figures/performance/attempt-wall-times.png)
 
 The top panel contains attempts 1–40 on the fixed **14-instance smoke** profile;
 the bottom contains attempts 41–55 on the fixed **11-instance performance**
@@ -77,7 +77,7 @@ keep a change: setup, imports, process launch and policy replay dilute search
 improvements, and contention causes wall-time variability. Migration smoke checks
 are often single correctness runs; they are not joined onto repeated medians.
 
-![Parent search speedups](../outputs/performance-report/attempt-search-speedups.png)
+![Parent search speedups](figures/performance/attempt-search-speedups.png)
 
 Search speedup is the geometric mean of per-instance median parent/candidate
 ratios. Intervals are the recorded whole-run bootstrap intervals where available,
@@ -86,7 +86,7 @@ previous numbered attempt: a reverted experiment does not become the next
 baseline. Failed searches have no aggregate speedup. The first large caching win
 stands out; many later changes cluster around one and were reverted.
 
-![Smoke milestone heatmap](../outputs/performance-report/smoke-milestone-heatmap.png)
+![Smoke milestone heatmap](figures/performance/smoke-milestone-heatmap.png)
 
 The heatmap uses the same fourteen smoke identities at selected historical
 milestones. It shows broad improvements with especially large gains in cases
@@ -97,7 +97,7 @@ the separately reported round-8 cumulative ratio uses five retained repetitions.
 
 ## Search versus preprocessing in migration
 
-![Direct compilation phases](../outputs/performance-report/direct-compilation-phases.png)
+![Direct compilation phases](figures/performance/direct-compilation-phases.png)
 
 Attempt 59 used fresh controls and three repetitions per configuration. Summed
 median preprocessing drops from **30.601 to 1.730 s** for hmax and **29.703 to
@@ -115,7 +115,7 @@ to outweigh evaluation cost on difficult instances, without winning every case.
 
 ## Full-suite outcome
 
-![Full ICAPS coverage](../outputs/prebranch-comparison/coverage/coverage-over-time.png)
+![Full ICAPS coverage](figures/icaps-comparison/coverage-over-time.png)
 
 The local October 7 Pyperplan/hmax run completes **120/196** searches and has
 policies for **114** instances. Current FD hmax completes **145**, with **137**
@@ -168,3 +168,7 @@ review under `outputs/full-review`. Figure data: `attempts.csv`,
 `outputs/performance-report/`. Full coverage data remain in
 `outputs/prebranch-comparison/coverage/`. The performance log links the exact
 candidate/parent revisions, raw runs, work-count checks and keep/revert decisions.
+
+Reviewed PNG copies referenced by this report are committed under
+`docs/figures/performance/` and `docs/figures/icaps-comparison/`. After
+regeneration, review and synchronize those copies and `docs/figures/manifest.json`.
