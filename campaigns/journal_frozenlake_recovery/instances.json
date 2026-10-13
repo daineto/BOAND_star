@@ -1,0 +1,87 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_frozenlake_recovery",
+  "dataset_version": "1",
+  "instances": [
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x10-cyclic",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x10-cyclic.pddl",
+      "problem_sha256": "8aa46ca4a472fbf36bc08ce2ea2eb7bb924d3ad89e3441399ab7b2031ce6f108"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x10-pit",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x10-pit.pddl",
+      "problem_sha256": "d2cddf4244bbc0ff602e15d451780ffadac085c32bb6cd2f102155efbb5a2a07"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x5-cyclic",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x5-cyclic.pddl",
+      "problem_sha256": "b77abf7aeb9200e6e16f6456068d3566bf21ad0a0e290fa844c790d4033e06b9"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x5-pit",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x5-pit.pddl",
+      "problem_sha256": "9462bcc20ac7437093b6d3422a800401938c489cbcb952e25ec33476e62891ef"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x6-cyclic",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x6-cyclic.pddl",
+      "problem_sha256": "a794ebe788039d101e2d9cb3d50877ab236051f8578fe5559ba06f42574578ee"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x6-pit",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x6-pit.pddl",
+      "problem_sha256": "170dcd40a2a40a90c95e2f64aa3d28e9f68f68d0e1dc347c76baba345e81d2df"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x7-cyclic",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x7-cyclic.pddl",
+      "problem_sha256": "b4ecdef478e6bd7ae1b2845a5956c0f30e923c3ecf4e7b67d8d7246a095dc97f"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x7-pit",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x7-pit.pddl",
+      "problem_sha256": "f63f852789f7f31807de23f379ea7ba5cfb0748710013b7392c2b664d5f00029"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x8-cyclic",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x8-cyclic.pddl",
+      "problem_sha256": "4f7d03855b64965ab2826d48b4c754e9bfc2e98ef90f9524e1cf360a9ffb6682"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "recovery-3x8-pit",
+      "domain_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/frozenlake_recovery/recovery-3x8-pit.pddl",
+      "problem_sha256": "27779d27de1df67e23f5f5abf46351fa54689a600b4ee0046fc3e9bebd61c760"
+    }
+  ]
+}

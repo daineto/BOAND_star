@@ -143,3 +143,14 @@ MPLCONFIGDIR=/tmp/frozenlake-pilot-mpl .venv/bin/python \
 PNG, PDF and SVG versions are retained for both design figures, alongside the
 automatic per-instance quality/difficulty figure. Generated artifacts remain
 ignored; source, input PDDL, metadata and this report are committed.
+
+## Recovery-route follow-up, 2026-10-13
+
+An independent small-layout oracle subsequently found a three-point recovery
+construction: `(1, ∞), (3, 9), (5, 7)`. Its lower-pit variant has
+`(2, ∞), (3, 9), (5, 7)`. Both base references were independently enumerated,
+and a separate ten-input scaling collection has been prepared. No BOAND jobs
+or campaigns have been launched for that follow-up because the user requested
+no campaign execution while other experiments run. These findings do not
+change the fixed pilot's results or manifest. See
+`campaigns/journal_frozenlake_recovery/README.md` for evidence and pending checks.
