@@ -4,9 +4,39 @@ BOAND* computes Pareto-optimal policies for bi-objective fully observable
 nondeterministic (FOND) planning. It generalizes AND* to optimize best-case and
 worst-case policy costs.
 
-This repository provides the planner, benchmarks, experimental campaigns and
-published results for Aineto and Scala, **“Cost-Optimal FOND Planning as
-Bi-Objective Best-First Search,” ICAPS 2025**.
+This branch develops BOAND* for a new journal study. It also preserves the
+benchmarks, campaign definitions and published results for Aineto and Scala,
+**“Cost-Optimal FOND Planning as Bi-Objective Best-First Search,” ICAPS 2025**.
+The `icaps2025` tag preserves the original paper implementation; the current
+planner includes subsequent correctness fixes and backend improvements.
+
+## Current journal work
+
+Journal development uses direct Fast Downward/hmax for its fixed correctness
+and performance profiles. The native hmax/LM-cut migration and full ICAPS/PRP
+comparisons are documented in these reports, whose reviewed figures are
+included in the repository:
+
+- [Performance improvements and backend migration](docs/performance-report.md).
+- [PRP coverage and solution-quality comparison](docs/prp-comparison-report.md).
+- [FrozenLake benchmark pilot](docs/frozenlake-pilot-report.md).
+
+New benchmark collections are exploratory and separate from the preserved
+ICAPS inputs:
+
+| Campaign | Status | Inputs | Purpose |
+| --- | --- | ---: | --- |
+| `journal_tradeoffs` | Pilot completed | 19 fixed candidates | FrozenLake quality/difficulty evaluation with both native heuristics. |
+| Adaptive pilot follow-up | Completed | 5 additional candidates | Wider layouts and a mixed strong/strong-cyclic example; outside the fixed pilot manifest. |
+| `journal_frozenlake_recovery` | Prepared; planner runs pending | 10 candidates | Recovery-route family with independently verified three-point base fronts. |
+
+See the [trade-off pilot guide](campaigns/journal_tradeoffs/README.md) and
+[recovery-route guide](campaigns/journal_frozenlake_recovery/README.md) for
+inputs, reference certainty and commands. Larger recovery maps have no verified
+fronts or measured runtimes yet. Neither collection is a finalized paper
+benchmark, and neither replaces the journal development smoke/performance
+profiles. Recovery campaign execution is currently deferred at the user's
+request while other experiments run.
 
 ## Installation
 
@@ -17,15 +47,15 @@ commands from the repository root:
 git submodule update --init --recursive
 python3.10 -m venv .venv
 source .venv/bin/activate
-python -m pip install -r requirements-runtime.txt
-python -m pip install ./planner/pddl ./planner/pyperplan
+.venv/bin/python -m pip install -r requirements-runtime.txt
+.venv/bin/python -m pip install ./planner/pddl ./planner/pyperplan
 ```
 
 The planner's `pddl`, `pyperplan` and `fondutils` dependencies are included as
 pinned Git submodules. `fondutils` is loaded directly from its source directory.
 Use `requirements-runtime.txt` for installation.
 
-Keep the virtual environment activated for the commands below.
+The commands below use `.venv/bin/python` explicitly.
 
 ## Analyze the published results
 
@@ -34,7 +64,7 @@ its three heuristic comparisons, coverage plot, two quality comparisons and
 coverage table without running the planner:
 
 ```bash
-MPLBACKEND=Agg python -m analysis.run icaps2025 --dataset published
+MPLBACKEND=Agg .venv/bin/python -m analysis.run icaps2025 --dataset published
 ```
 
 Figures, numerical data and dataset diagnostics are written to
@@ -69,8 +99,8 @@ PYTHONHASHSEED=0 .venv/bin/python -m campaigns.journal_development.smoke
 ```
 
 It uses four workers and 6,000,000 KB of virtual memory per job, with a
-60-second deadline including policy and cost validation. The historical Pyperplan calibration took about 34 seconds;
-current FD measurements are recorded in the development log. See the [journal development campaign](campaigns/journal_development/README.md)
+60-second deadline including policy and cost validation. See the
+[journal development campaign](campaigns/journal_development/README.md)
 for the selected instances, validation rules and performance measurements.
 
 For optimization timing, use the separate fixed 11-instance performance profile:
@@ -97,31 +127,32 @@ limits. The ICAPS 2025 campaign provides four profiles:
 | `BOAND_bw_tireworld` | 1 | 1 (Tireworld) | 16 | 16 |
 | `paper` | 8 | 11 | 196 | 1,568 |
 
-Start with the mini profile to check your installation:
+For a historical-campaign check, use the mini profile:
 
 ```bash
-python -m experiment_support.run icaps2025 --profile mini --dry-run
-PYTHONHASHSEED=0 python -m experiment_support.run icaps2025 --profile mini --workers 2
+.venv/bin/python -m experiment_support.run icaps2025 --profile mini --dry-run
+PYTHONHASHSEED=0 .venv/bin/python -m experiment_support.run icaps2025 --profile mini --workers 2
 ```
 
 Then run the complete paper campaign:
 
 ```bash
-python -m experiment_support.run icaps2025 --profile paper --dry-run
-PYTHONHASHSEED=0 python -m experiment_support.run icaps2025 --profile paper --workers 2
+.venv/bin/python -m experiment_support.run icaps2025 --profile paper --dry-run
+PYTHONHASHSEED=0 .venv/bin/python -m experiment_support.run icaps2025 --profile paper --workers 2
 ```
 
 A dry run verifies the selected input hashes and prints the scheduled commands
-without executing the planner. All profiles use a 600-second limit and
+without executing the planner. ICAPS profiles use a 600-second limit and
 8,000,000 KB of virtual memory per planner run. The default is two workers;
-choose concurrency according to available memory, including any other running
-campaigns. The full campaign can take several days.
+the journal campaigns use four workers and 6,000,000 KB/job. Do not run
+campaigns concurrently on this machine. The full ICAPS paper campaign can take
+several days.
 
 Inputs are fixed by `campaigns/icaps2025/instances.json`. Use the committed
 benchmarks to reproduce this campaign. `PYTHONHASHSEED=0` controls Python hash
 ordering for comparisons; timing and completion can still vary across machines.
 
-Each new campaign creates `runs/icaps2025/<run-id>/` and prints its location.
+Each ICAPS run creates `runs/icaps2025/<run-id>/` and prints its location.
 The directory contains planner output, a run manifest, and source and environment
 provenance. Use `--output-root <directory>` to choose another parent directory.
 Keep planner code unchanged while a campaign is running.
@@ -131,9 +162,9 @@ Keep planner code unchanged while a campaign is running.
 Resume uses the recorded profile, inputs, configuration and resource limits:
 
 ```bash
-PYTHONHASHSEED=0 python -m experiment_support.run icaps2025 \
+PYTHONHASHSEED=0 .venv/bin/python -m experiment_support.run icaps2025 \
   --resume "runs/icaps2025/<run-id>" --workers 2 --dry-run
-PYTHONHASHSEED=0 python -m experiment_support.run icaps2025 \
+PYTHONHASHSEED=0 .venv/bin/python -m experiment_support.run icaps2025 \
   --resume "runs/icaps2025/<run-id>" --workers 2
 ```
 
@@ -144,6 +175,12 @@ configuration flags, resource limits and `PYTHONHASHSEED`. Worker counts may cha
 Inspection and analysis select the latest finished attempt, or the latest attempt
 if none has finished. Older runs without execution records are recovered only
 where collected metadata and a complete timing footer establish completion.
+
+The benchmark relocation to `benchmarks/icaps2025/` is recorded in exact
+manifest-migration ledgers, allowing historical result analysis. Historical
+execution records retain their original paths; those migrations do not allow
+resuming runs with changed paths. Start a new run from the current definitions
+or use the recorded source revision for an older execution.
 
 For remote campaigns, run inside `tmux` on the server so the VPN or SSH
 connection can be disconnected:
@@ -165,9 +202,9 @@ Inspect a mini run and compare it with the corresponding archived configuration:
 
 ```bash
 mkdir -p outputs
-python -m analysis.inspect_run "runs/icaps2025/<run-id>" \
+.venv/bin/python -m analysis.inspect_run "runs/icaps2025/<run-id>" \
   --reference results/icaps2025/published > outputs/mini-comparison.json
-python -m analysis.validate_policies "runs/icaps2025/<run-id>"
+.venv/bin/python -m analysis.validate_policies "runs/icaps2025/<run-id>"
 ```
 
 The inspector compares completion states, costs and non-time statistics. The
@@ -177,7 +214,7 @@ their costs.
 Generate the paper figures from a completed `paper` run:
 
 ```bash
-MPLBACKEND=Agg python -m analysis.run icaps2025 \
+MPLBACKEND=Agg .venv/bin/python -m analysis.run icaps2025 \
   --dataset "runs/icaps2025/<paper-run-id>"
 ```
 
@@ -187,7 +224,7 @@ directory. Published archives are kept separate from newly generated results.
 ## Run the planner on one problem
 
 ```bash
-python planner/planner.py benchmarks/icaps2025/frozenlake/domain.pddl \
+.venv/bin/python planner/planner.py benchmarks/icaps2025/frozenlake/domain.pddl \
   benchmarks/icaps2025/frozenlake/motivating.pddl outputs/example \
   -m bw -ch hmax -bh MinSum -wh MaxSum -sh Delta -s bounds
 ```
@@ -200,6 +237,11 @@ python planner/planner.py benchmarks/icaps2025/frozenlake/domain.pddl \
 | `-wh` | Worst-case heuristic | `Blind`, `MaxSum` |
 | `-sh` | Policy-size heuristic | `Zero`, `Delta` |
 | `-s` | State selection | `random`, `best`, `largestg`, `bounds` |
+| `--backend` | Grounding and heuristic backend | See the [backend guide](docs/fast-downward-backend.md); use `downward-direct` for the current journal backend. |
+
+The example above uses the standalone Pyperplan default. To use native grounding
+and LM-cut, add `--backend downward-direct` and replace `-ch hmax` with
+`-ch lmcut` after building the pinned dependency.
 
 The output directory contains policies (`.boand.NNN.out`) and semicolon-separated
 statistics (`.stats`):
@@ -221,13 +263,17 @@ planner calls. Campaign execution isolates the working directory for each job.
 - `planner/`: planner implementation and dependency submodules.
 - `benchmarks/icaps2025/`: the preserved 11-domain ICAPS input collection.
 - `benchmarks/legacy_extras/`: existing domains outside the ICAPS selection.
+- `benchmarks/journal_tradeoffs/`: new FrozenLake pilot, supplementary and
+  recovery-route candidates, with generation metadata.
 - `campaigns/<campaign-id>/`: paper-specific configurations, input manifests,
   analysis commands.
 - `experiment_support/` and `analysis/`: shared execution and analysis tools.
+- `experiment_support/benchmark_generators/`: reproducible benchmark generators.
 - `results/<campaign-id>/published/`: published result archives.
 - `runs/` and `outputs/`: generated experiments and analysis, excluded from Git.
 - `generators/`: benchmark-generation notebooks.
-- `tests/`: scheduling and analysis checks.
+- `docs/figures/`: reviewed, committed report figures and their source/hash manifest.
+- `tests/`: planner correctness, backend, generation, scheduling and analysis checks.
 
 To add an experimental campaign for another paper, follow
 [the campaign guide](docs/campaigns.md). New campaigns provide their own
@@ -236,5 +282,5 @@ configurations, input selection, smoke profile and analysis rules.
 Run the lightweight tests with:
 
 ```bash
-python -m unittest discover -s tests -v
+.venv/bin/python -m unittest discover -s tests -v
 ```
