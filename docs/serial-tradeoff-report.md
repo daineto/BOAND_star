@@ -4,6 +4,8 @@ The bounded study on 2026-10-15 establishes an abstract unit-cost FOND family
 with exactly `k+1` finite Pareto cost pairs for `k` stages. It does **not** yet
 establish such a family of ordinary rectangular FrozenLake maps.
 
+![Stage choices and serial composition](figures/serial-tradeoffs/stages-explained.png)
+
 ## Construction and completeness
 
 Each stage offers fast `(3, 3+6d)` or safe `(3+2d, 3+4d)` best/worst costs,
