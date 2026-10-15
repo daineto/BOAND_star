@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_frozenlake_stages",
+  "dataset_version": "1",
+  "instances": [
+    {
+      "domain": "frozenlake",
+      "instance": "staircase-k01",
+      "domain_path": "benchmarks/journal_tradeoffs/physical_stages/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/physical_stages/staircase-k01.pddl",
+      "problem_sha256": "8282268a5bc994104af037d3ad713cd6bc8d6022420832233f6325c835ee1bf2"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "staircase-k02",
+      "domain_path": "benchmarks/journal_tradeoffs/physical_stages/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/physical_stages/staircase-k02.pddl",
+      "problem_sha256": "33ea48c49f7c0c6b6383bb6aa901ed07fd23f2c75a84c9aaa2c4fe6d4106d517"
+    },
+    {
+      "domain": "frozenlake",
+      "instance": "staircase-k03",
+      "domain_path": "benchmarks/journal_tradeoffs/physical_stages/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/physical_stages/staircase-k03.pddl",
+      "problem_sha256": "42ee3e12c4c6b4687c58fc81143c42c4e307234e75fa0db0d4e88b9e2a7dd19a"
+    }
+  ]
+}
