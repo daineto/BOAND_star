@@ -9,6 +9,10 @@ This establishes the small physical embedding that the earlier abstract study
 left open. It does not prove general scaling for arbitrarily many physical
 stages, and these small cases are still easy for BOAND*.
 
+The subsequent [composition and scaling study](frozenlake-scaling-report.md)
+extends this result with a general argument and verified fronts up to nine points.
+The limitations below describe the initial bounded study.
+
 ## The actual map
 
 ![Two physical stages and their connection](figures/frozenlake-stages/physical-map.png)

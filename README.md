@@ -23,6 +23,7 @@ included in the repository:
 - [Three-point FrozenLake recovery-route evaluation](docs/frozenlake-recovery-report.md).
 - [Serial Pareto-front scaling: proof and embedding diagnostics](docs/serial-tradeoff-report.md).
 - [Physical FrozenLake stages: verified fronts of sizes 2–4](docs/frozenlake-stages-report.md).
+- [Physical composition proof and scaling to nine Pareto points](docs/frozenlake-scaling-report.md).
 
 New benchmark collections are exploratory and separate from the preserved
 ICAPS inputs:

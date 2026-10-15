@@ -30,3 +30,16 @@ outcomes, properness and costs. It avoids the legacy replay's expensive full
 Pyperplan grounding on wall-heavy maps. Its costs and reachable-state counts
 were cross-checked with all 18 earlier independently replayed policies.
 The generic replay default and all previous analyses remain unchanged.
+
+## Completed calibration
+
+All eight searches and all 52 policy replays passed. Standard 4-, 6- and 8-stage
+cases took approximately 0.1, 1.1 and 8 seconds of search, respectively, in
+single observations. The four-room size-10 control took 0.24–0.30 seconds and
+retained five Pareto pairs. See the [report and figures](../../docs/frozenlake-scaling-report.md).
+
+Regenerate the report from saved analysis:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig .venv/bin/python -m campaigns.journal_frozenlake_scaling.report --analysis-root outputs/frozenlake-scaling --previous-root outputs/frozenlake-connected --output outputs/frozenlake-scaling/report
+```

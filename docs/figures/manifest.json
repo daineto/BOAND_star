@@ -97,6 +97,18 @@
       "figure": "docs/figures/frozenlake-stages/physical-fronts.png",
       "generated_source": "outputs/frozenlake-connected/report/physical-fronts.png",
       "sha256": "36f19fe41e0bb5cde6b24542b0628abf14a735c644607a1c4f3b6b7bf50bc9d0"
+    },
+    {
+      "report": "docs/frozenlake-scaling-report.md",
+      "figure": "docs/figures/frozenlake-scaling/scaling.png",
+      "generated_source": "outputs/frozenlake-scaling/report/scaling.png",
+      "sha256": "7335d280088cac668c0c920b4b755fc6bacec64b42c8f6c14b82c5e1dd4fecd5"
+    },
+    {
+      "report": "docs/frozenlake-scaling-report.md",
+      "figure": "docs/figures/frozenlake-scaling/timing-components.png",
+      "generated_source": "outputs/frozenlake-scaling/report/timing-components.png",
+      "sha256": "26197219f7d26c68b5671cd964a594775678a5da321a6cf8736dcf9721718152"
     }
   ]
 }
