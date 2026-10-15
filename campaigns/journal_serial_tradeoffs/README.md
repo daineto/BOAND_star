@@ -78,3 +78,10 @@ Generate into a fresh destination with
 parameters, source/domain/input hashes and reference scope. No reference costs
 are assigned to physical joins before evaluation. One measurement per case
 characterizes behavior rather than establishing timing speedups.
+
+## Bounded study outcome
+
+The eight abstract planner checks completed with exact reference costs and all
+24 policies replayed. One physical port retained two finite pairs; the two-room
+trial exhausted its memory allowance without a policy. Its front remains unknown.
+See the [study report](../../docs/serial-tradeoff-report.md) for evidence and limits.

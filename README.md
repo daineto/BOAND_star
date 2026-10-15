@@ -21,6 +21,7 @@ included in the repository:
 - [PRP coverage and solution-quality comparison](docs/prp-comparison-report.md).
 - [FrozenLake benchmark pilot](docs/frozenlake-pilot-report.md).
 - [Three-point FrozenLake recovery-route evaluation](docs/frozenlake-recovery-report.md).
+- [Serial Pareto-front scaling: proof and embedding diagnostics](docs/serial-tradeoff-report.md).
 
 New benchmark collections are exploratory and separate from the preserved
 ICAPS inputs:

@@ -73,6 +73,12 @@
       "figure": "docs/figures/frozenlake-recovery/quality-over-time.png",
       "generated_source": "outputs/frozenlake-recovery-2026-10-15/report/quality-over-time.png",
       "sha256": "c7bf0a0c75e1a05655a3452ea56d83074fc8e69a4d15ca027e90c08066d40a2c"
+    },
+    {
+      "report": "docs/serial-tradeoff-report.md",
+      "figure": "docs/figures/serial-tradeoffs/finite-fronts.png",
+      "generated_source": "outputs/serial-tradeoffs/report/finite-fronts.png",
+      "sha256": "d2118d2fb99c1d660ed89e742ddc651b5ca13c4dfc0aabb82b06ba6c1aa4abea"
     }
   ]
 }
