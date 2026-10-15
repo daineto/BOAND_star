@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "campaign_id": "journal_serial_tradeoffs",
+  "dataset_version": "1",
+  "instances": [
+    {
+      "domain": "serial-topology",
+      "instance": "serial-k01-g1",
+      "domain_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/serial-k01-g1.pddl",
+      "problem_sha256": "670e5b30fd00b368e338f8abf95500121c4224ccda8dfc9269358e48aea56a7a"
+    },
+    {
+      "domain": "serial-topology",
+      "instance": "serial-k02-g1",
+      "domain_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/serial-k02-g1.pddl",
+      "problem_sha256": "1617cd58e58fc602ee7b1848f776311f0cc305f3c02b7d821611ac304bd514ff"
+    },
+    {
+      "domain": "serial-topology",
+      "instance": "serial-k02-g2",
+      "domain_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/serial-k02-g2.pddl",
+      "problem_sha256": "d865f9bd28d41c6785a011a0c3239a912778dd82985955668ef339324592c048"
+    },
+    {
+      "domain": "serial-topology",
+      "instance": "serial-k03-g1",
+      "domain_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/serial-k03-g1.pddl",
+      "problem_sha256": "da181e11d7dd4a15d859c7c850e3f8a6588bf29d758428bbb44903c74b44e45f"
+    },
+    {
+      "domain": "serial-topology",
+      "instance": "serial-k04-g1",
+      "domain_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/serial_composition/serial-topology/serial-k04-g1.pddl",
+      "problem_sha256": "13a82036e0f4817a657d63a074007c60ce632464566bbcd89c78dab4cb906eb0"
+    },
+    {
+      "domain": "physical-ports",
+      "instance": "physical-port-1",
+      "domain_path": "benchmarks/journal_tradeoffs/serial_composition/physical-ports/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/serial_composition/physical-ports/physical-port-1.pddl",
+      "problem_sha256": "0625cc3c751873d490b6a075b4cb1a4046548f97d40d4ad6899ada3db7751d3b"
+    },
+    {
+      "domain": "physical-ports",
+      "instance": "physical-port-2",
+      "domain_path": "benchmarks/journal_tradeoffs/serial_composition/physical-ports/domain.pddl",
+      "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+      "problem_path": "benchmarks/journal_tradeoffs/serial_composition/physical-ports/physical-port-2.pddl",
+      "problem_sha256": "ba566c2e6f6ed5daf6b136bcdb3cd3ee0c3987a93a8a7780d9f9e5e4e10dc3ce"
+    }
+  ]
+}

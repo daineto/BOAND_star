@@ -1,0 +1,6696 @@
+{
+  "schema_version": 1,
+  "generator_version": 1,
+  "generator_sha256": "b9c718a77ae300a74dbfee944f73b8928d3b0ac907a9a3825c5e6cc34f6ec42d",
+  "domain_sha256": "756541601e1720cf8767b50ee4b48500d4b750e269d73821be3ebda2c5ee1f96",
+  "scope": "Composition proof diagnostics, distinct from geometric FrozenLake benchmarks.",
+  "instances": [
+    {
+      "instance": "serial-k01-g1",
+      "family": "serial-topology",
+      "stages": 1,
+      "gap": 1,
+      "initial": "stage_0_entry",
+      "goal": "stage_0_exit",
+      "objects": {
+        "stage_0_entry": "ice",
+        "stage_0_exit": "ice",
+        "s0_fast_near": "ice",
+        "s0_fast_far": "ice",
+        "s0_fast_short_0": "ice",
+        "wall_v_s0_fast_short_0": "wall",
+        "wall_h_stage_0_exit": "wall",
+        "s0_fast_long_0": "ice",
+        "s0_fast_long_1": "ice",
+        "s0_fast_long_2": "ice",
+        "s0_fast_long_3": "ice",
+        "s0_fast_long_4": "ice",
+        "s0_fast_long_5": "ice",
+        "s0_fast_long_6": "ice",
+        "wall_v_s0_fast_long_0": "wall",
+        "wall_h_s0_fast_long_1": "wall",
+        "wall_v_s0_fast_long_2": "wall",
+        "wall_h_s0_fast_long_3": "wall",
+        "wall_v_s0_fast_long_4": "wall",
+        "wall_h_s0_fast_long_5": "wall",
+        "wall_v_s0_fast_long_6": "wall",
+        "s0_safe_near": "ice",
+        "s0_safe_far": "ice",
+        "s0_safe_short_0": "ice",
+        "s0_safe_short_1": "ice",
+        "s0_safe_short_2": "ice",
+        "wall_v_s0_safe_short_0": "wall",
+        "wall_h_s0_safe_short_1": "wall",
+        "wall_v_s0_safe_short_2": "wall",
+        "s0_safe_long_0": "ice",
+        "s0_safe_long_1": "ice",
+        "s0_safe_long_2": "ice",
+        "s0_safe_long_3": "ice",
+        "s0_safe_long_4": "ice",
+        "wall_v_s0_safe_long_0": "wall",
+        "wall_h_s0_safe_long_1": "wall",
+        "wall_v_s0_safe_long_2": "wall",
+        "wall_h_s0_safe_long_3": "wall",
+        "wall_v_s0_safe_long_4": "wall"
+      },
+      "relations": [
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_fast_near"
+        ],
+        [
+          "left-of",
+          "s0_fast_near",
+          "s0_fast_far"
+        ],
+        [
+          "down-of",
+          "s0_fast_near",
+          "s0_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_short_0",
+          "wall_v_s0_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_short_0",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_exit",
+          "wall_h_stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_fast_far",
+          "s0_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_0",
+          "wall_v_s0_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_0",
+          "s0_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_1",
+          "wall_h_s0_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_1",
+          "s0_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_2",
+          "wall_v_s0_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_2",
+          "s0_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_3",
+          "wall_h_s0_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_3",
+          "s0_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_4",
+          "wall_v_s0_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_4",
+          "s0_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_5",
+          "wall_h_s0_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_5",
+          "s0_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_6",
+          "wall_v_s0_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_6",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_safe_near"
+        ],
+        [
+          "left-of",
+          "s0_safe_near",
+          "s0_safe_far"
+        ],
+        [
+          "down-of",
+          "s0_safe_near",
+          "s0_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_0",
+          "wall_v_s0_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_0",
+          "s0_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_1",
+          "wall_h_s0_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_1",
+          "s0_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_2",
+          "wall_v_s0_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_2",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_safe_far",
+          "s0_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_0",
+          "wall_v_s0_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_0",
+          "s0_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_1",
+          "wall_h_s0_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_1",
+          "s0_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_2",
+          "wall_v_s0_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_2",
+          "s0_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_3",
+          "wall_h_s0_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_3",
+          "s0_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_4",
+          "wall_v_s0_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_4",
+          "stage_0_exit"
+        ]
+      ],
+      "actions": {
+        "stage_0_entry": [
+          {
+            "action": "right stage_0_entry s0_fast_near s0_fast_far",
+            "outcomes": [
+              "s0_fast_near",
+              "s0_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_0_entry s0_safe_near s0_safe_far",
+            "outcomes": [
+              "s0_safe_near",
+              "s0_safe_far"
+            ]
+          }
+        ],
+        "stage_0_exit": [],
+        "s0_fast_near": [
+          {
+            "action": "up-to-wall s0_fast_near s0_fast_short_0 wall_v_s0_fast_short_0",
+            "outcomes": [
+              "s0_fast_short_0"
+            ]
+          }
+        ],
+        "s0_fast_far": [
+          {
+            "action": "left s0_fast_far s0_fast_near stage_0_entry",
+            "outcomes": [
+              "s0_fast_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_fast_far s0_fast_long_0 wall_v_s0_fast_long_0",
+            "outcomes": [
+              "s0_fast_long_0"
+            ]
+          }
+        ],
+        "s0_fast_short_0": [
+          {
+            "action": "right-to-wall s0_fast_short_0 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_fast_long_0": [
+          {
+            "action": "right-to-wall s0_fast_long_0 s0_fast_long_1 wall_h_s0_fast_long_1",
+            "outcomes": [
+              "s0_fast_long_1"
+            ]
+          }
+        ],
+        "s0_fast_long_1": [
+          {
+            "action": "up-to-wall s0_fast_long_1 s0_fast_long_2 wall_v_s0_fast_long_2",
+            "outcomes": [
+              "s0_fast_long_2"
+            ]
+          }
+        ],
+        "s0_fast_long_2": [
+          {
+            "action": "right-to-wall s0_fast_long_2 s0_fast_long_3 wall_h_s0_fast_long_3",
+            "outcomes": [
+              "s0_fast_long_3"
+            ]
+          }
+        ],
+        "s0_fast_long_3": [
+          {
+            "action": "up-to-wall s0_fast_long_3 s0_fast_long_4 wall_v_s0_fast_long_4",
+            "outcomes": [
+              "s0_fast_long_4"
+            ]
+          }
+        ],
+        "s0_fast_long_4": [
+          {
+            "action": "right-to-wall s0_fast_long_4 s0_fast_long_5 wall_h_s0_fast_long_5",
+            "outcomes": [
+              "s0_fast_long_5"
+            ]
+          }
+        ],
+        "s0_fast_long_5": [
+          {
+            "action": "up-to-wall s0_fast_long_5 s0_fast_long_6 wall_v_s0_fast_long_6",
+            "outcomes": [
+              "s0_fast_long_6"
+            ]
+          }
+        ],
+        "s0_fast_long_6": [
+          {
+            "action": "right-to-wall s0_fast_long_6 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_near": [
+          {
+            "action": "up-to-wall s0_safe_near s0_safe_short_0 wall_v_s0_safe_short_0",
+            "outcomes": [
+              "s0_safe_short_0"
+            ]
+          }
+        ],
+        "s0_safe_far": [
+          {
+            "action": "left s0_safe_far s0_safe_near stage_0_entry",
+            "outcomes": [
+              "s0_safe_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_safe_far s0_safe_long_0 wall_v_s0_safe_long_0",
+            "outcomes": [
+              "s0_safe_long_0"
+            ]
+          }
+        ],
+        "s0_safe_short_0": [
+          {
+            "action": "right-to-wall s0_safe_short_0 s0_safe_short_1 wall_h_s0_safe_short_1",
+            "outcomes": [
+              "s0_safe_short_1"
+            ]
+          }
+        ],
+        "s0_safe_short_1": [
+          {
+            "action": "up-to-wall s0_safe_short_1 s0_safe_short_2 wall_v_s0_safe_short_2",
+            "outcomes": [
+              "s0_safe_short_2"
+            ]
+          }
+        ],
+        "s0_safe_short_2": [
+          {
+            "action": "right-to-wall s0_safe_short_2 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_long_0": [
+          {
+            "action": "right-to-wall s0_safe_long_0 s0_safe_long_1 wall_h_s0_safe_long_1",
+            "outcomes": [
+              "s0_safe_long_1"
+            ]
+          }
+        ],
+        "s0_safe_long_1": [
+          {
+            "action": "up-to-wall s0_safe_long_1 s0_safe_long_2 wall_v_s0_safe_long_2",
+            "outcomes": [
+              "s0_safe_long_2"
+            ]
+          }
+        ],
+        "s0_safe_long_2": [
+          {
+            "action": "right-to-wall s0_safe_long_2 s0_safe_long_3 wall_h_s0_safe_long_3",
+            "outcomes": [
+              "s0_safe_long_3"
+            ]
+          }
+        ],
+        "s0_safe_long_3": [
+          {
+            "action": "up-to-wall s0_safe_long_3 s0_safe_long_4 wall_v_s0_safe_long_4",
+            "outcomes": [
+              "s0_safe_long_4"
+            ]
+          }
+        ],
+        "s0_safe_long_4": [
+          {
+            "action": "right-to-wall s0_safe_long_4 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ]
+      },
+      "front": [
+        [
+          3,
+          9
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "reference": "analytic composition; independently enumerated small cases",
+      "geometry": "non-geometric diagnostic topology; not a rectangular lake",
+      "pddl_sha256": "670e5b30fd00b368e338f8abf95500121c4224ccda8dfc9269358e48aea56a7a"
+    },
+    {
+      "instance": "serial-k02-g1",
+      "family": "serial-topology",
+      "stages": 2,
+      "gap": 1,
+      "initial": "stage_0_entry",
+      "goal": "stage_1_exit",
+      "objects": {
+        "stage_0_entry": "ice",
+        "stage_1_entry": "ice",
+        "stage_0_exit": "ice",
+        "stage_1_exit": "ice",
+        "s0_fast_near": "ice",
+        "s0_fast_far": "ice",
+        "s0_fast_short_0": "ice",
+        "wall_v_s0_fast_short_0": "wall",
+        "wall_h_stage_0_exit": "wall",
+        "s0_fast_long_0": "ice",
+        "s0_fast_long_1": "ice",
+        "s0_fast_long_2": "ice",
+        "s0_fast_long_3": "ice",
+        "s0_fast_long_4": "ice",
+        "s0_fast_long_5": "ice",
+        "s0_fast_long_6": "ice",
+        "wall_v_s0_fast_long_0": "wall",
+        "wall_h_s0_fast_long_1": "wall",
+        "wall_v_s0_fast_long_2": "wall",
+        "wall_h_s0_fast_long_3": "wall",
+        "wall_v_s0_fast_long_4": "wall",
+        "wall_h_s0_fast_long_5": "wall",
+        "wall_v_s0_fast_long_6": "wall",
+        "s0_safe_near": "ice",
+        "s0_safe_far": "ice",
+        "s0_safe_short_0": "ice",
+        "s0_safe_short_1": "ice",
+        "s0_safe_short_2": "ice",
+        "wall_v_s0_safe_short_0": "wall",
+        "wall_h_s0_safe_short_1": "wall",
+        "wall_v_s0_safe_short_2": "wall",
+        "s0_safe_long_0": "ice",
+        "s0_safe_long_1": "ice",
+        "s0_safe_long_2": "ice",
+        "s0_safe_long_3": "ice",
+        "s0_safe_long_4": "ice",
+        "wall_v_s0_safe_long_0": "wall",
+        "wall_h_s0_safe_long_1": "wall",
+        "wall_v_s0_safe_long_2": "wall",
+        "wall_h_s0_safe_long_3": "wall",
+        "wall_v_s0_safe_long_4": "wall",
+        "wall_v_stage_1_entry": "wall",
+        "s1_fast_near": "ice",
+        "s1_fast_far": "ice",
+        "s1_fast_short_0": "ice",
+        "wall_v_s1_fast_short_0": "wall",
+        "wall_h_stage_1_exit": "wall",
+        "s1_fast_long_0": "ice",
+        "s1_fast_long_1": "ice",
+        "s1_fast_long_2": "ice",
+        "s1_fast_long_3": "ice",
+        "s1_fast_long_4": "ice",
+        "s1_fast_long_5": "ice",
+        "s1_fast_long_6": "ice",
+        "wall_v_s1_fast_long_0": "wall",
+        "wall_h_s1_fast_long_1": "wall",
+        "wall_v_s1_fast_long_2": "wall",
+        "wall_h_s1_fast_long_3": "wall",
+        "wall_v_s1_fast_long_4": "wall",
+        "wall_h_s1_fast_long_5": "wall",
+        "wall_v_s1_fast_long_6": "wall",
+        "s1_safe_near": "ice",
+        "s1_safe_far": "ice",
+        "s1_safe_short_0": "ice",
+        "s1_safe_short_1": "ice",
+        "s1_safe_short_2": "ice",
+        "wall_v_s1_safe_short_0": "wall",
+        "wall_h_s1_safe_short_1": "wall",
+        "wall_v_s1_safe_short_2": "wall",
+        "s1_safe_long_0": "ice",
+        "s1_safe_long_1": "ice",
+        "s1_safe_long_2": "ice",
+        "s1_safe_long_3": "ice",
+        "s1_safe_long_4": "ice",
+        "wall_v_s1_safe_long_0": "wall",
+        "wall_h_s1_safe_long_1": "wall",
+        "wall_v_s1_safe_long_2": "wall",
+        "wall_h_s1_safe_long_3": "wall",
+        "wall_v_s1_safe_long_4": "wall"
+      },
+      "relations": [
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_fast_near"
+        ],
+        [
+          "left-of",
+          "s0_fast_near",
+          "s0_fast_far"
+        ],
+        [
+          "down-of",
+          "s0_fast_near",
+          "s0_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_short_0",
+          "wall_v_s0_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_short_0",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_exit",
+          "wall_h_stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_fast_far",
+          "s0_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_0",
+          "wall_v_s0_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_0",
+          "s0_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_1",
+          "wall_h_s0_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_1",
+          "s0_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_2",
+          "wall_v_s0_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_2",
+          "s0_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_3",
+          "wall_h_s0_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_3",
+          "s0_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_4",
+          "wall_v_s0_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_4",
+          "s0_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_5",
+          "wall_h_s0_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_5",
+          "s0_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_6",
+          "wall_v_s0_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_6",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_safe_near"
+        ],
+        [
+          "left-of",
+          "s0_safe_near",
+          "s0_safe_far"
+        ],
+        [
+          "down-of",
+          "s0_safe_near",
+          "s0_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_0",
+          "wall_v_s0_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_0",
+          "s0_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_1",
+          "wall_h_s0_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_1",
+          "s0_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_2",
+          "wall_v_s0_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_2",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_safe_far",
+          "s0_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_0",
+          "wall_v_s0_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_0",
+          "s0_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_1",
+          "wall_h_s0_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_1",
+          "s0_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_2",
+          "wall_v_s0_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_2",
+          "s0_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_3",
+          "wall_h_s0_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_3",
+          "s0_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_4",
+          "wall_v_s0_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_4",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "stage_0_exit",
+          "stage_1_entry"
+        ],
+        [
+          "down-of",
+          "stage_1_entry",
+          "wall_v_stage_1_entry"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_fast_near"
+        ],
+        [
+          "left-of",
+          "s1_fast_near",
+          "s1_fast_far"
+        ],
+        [
+          "down-of",
+          "s1_fast_near",
+          "s1_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_short_0",
+          "wall_v_s1_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_short_0",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_exit",
+          "wall_h_stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_fast_far",
+          "s1_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_0",
+          "wall_v_s1_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_0",
+          "s1_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_1",
+          "wall_h_s1_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_1",
+          "s1_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_2",
+          "wall_v_s1_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_2",
+          "s1_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_3",
+          "wall_h_s1_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_3",
+          "s1_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_4",
+          "wall_v_s1_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_4",
+          "s1_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_5",
+          "wall_h_s1_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_5",
+          "s1_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_6",
+          "wall_v_s1_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_6",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_safe_near"
+        ],
+        [
+          "left-of",
+          "s1_safe_near",
+          "s1_safe_far"
+        ],
+        [
+          "down-of",
+          "s1_safe_near",
+          "s1_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_0",
+          "wall_v_s1_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_0",
+          "s1_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_1",
+          "wall_h_s1_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_1",
+          "s1_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_2",
+          "wall_v_s1_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_2",
+          "stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_safe_far",
+          "s1_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_0",
+          "wall_v_s1_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_0",
+          "s1_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_1",
+          "wall_h_s1_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_1",
+          "s1_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_2",
+          "wall_v_s1_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_2",
+          "s1_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_3",
+          "wall_h_s1_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_3",
+          "s1_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_4",
+          "wall_v_s1_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_4",
+          "stage_1_exit"
+        ]
+      ],
+      "actions": {
+        "stage_0_entry": [
+          {
+            "action": "right stage_0_entry s0_fast_near s0_fast_far",
+            "outcomes": [
+              "s0_fast_near",
+              "s0_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_0_entry s0_safe_near s0_safe_far",
+            "outcomes": [
+              "s0_safe_near",
+              "s0_safe_far"
+            ]
+          }
+        ],
+        "stage_1_entry": [
+          {
+            "action": "right stage_1_entry s1_fast_near s1_fast_far",
+            "outcomes": [
+              "s1_fast_near",
+              "s1_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_1_entry s1_safe_near s1_safe_far",
+            "outcomes": [
+              "s1_safe_near",
+              "s1_safe_far"
+            ]
+          }
+        ],
+        "stage_0_exit": [
+          {
+            "action": "up-to-wall stage_0_exit stage_1_entry wall_v_stage_1_entry",
+            "outcomes": [
+              "stage_1_entry"
+            ]
+          }
+        ],
+        "stage_1_exit": [],
+        "s0_fast_near": [
+          {
+            "action": "up-to-wall s0_fast_near s0_fast_short_0 wall_v_s0_fast_short_0",
+            "outcomes": [
+              "s0_fast_short_0"
+            ]
+          }
+        ],
+        "s0_fast_far": [
+          {
+            "action": "left s0_fast_far s0_fast_near stage_0_entry",
+            "outcomes": [
+              "s0_fast_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_fast_far s0_fast_long_0 wall_v_s0_fast_long_0",
+            "outcomes": [
+              "s0_fast_long_0"
+            ]
+          }
+        ],
+        "s0_fast_short_0": [
+          {
+            "action": "right-to-wall s0_fast_short_0 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_fast_long_0": [
+          {
+            "action": "right-to-wall s0_fast_long_0 s0_fast_long_1 wall_h_s0_fast_long_1",
+            "outcomes": [
+              "s0_fast_long_1"
+            ]
+          }
+        ],
+        "s0_fast_long_1": [
+          {
+            "action": "up-to-wall s0_fast_long_1 s0_fast_long_2 wall_v_s0_fast_long_2",
+            "outcomes": [
+              "s0_fast_long_2"
+            ]
+          }
+        ],
+        "s0_fast_long_2": [
+          {
+            "action": "right-to-wall s0_fast_long_2 s0_fast_long_3 wall_h_s0_fast_long_3",
+            "outcomes": [
+              "s0_fast_long_3"
+            ]
+          }
+        ],
+        "s0_fast_long_3": [
+          {
+            "action": "up-to-wall s0_fast_long_3 s0_fast_long_4 wall_v_s0_fast_long_4",
+            "outcomes": [
+              "s0_fast_long_4"
+            ]
+          }
+        ],
+        "s0_fast_long_4": [
+          {
+            "action": "right-to-wall s0_fast_long_4 s0_fast_long_5 wall_h_s0_fast_long_5",
+            "outcomes": [
+              "s0_fast_long_5"
+            ]
+          }
+        ],
+        "s0_fast_long_5": [
+          {
+            "action": "up-to-wall s0_fast_long_5 s0_fast_long_6 wall_v_s0_fast_long_6",
+            "outcomes": [
+              "s0_fast_long_6"
+            ]
+          }
+        ],
+        "s0_fast_long_6": [
+          {
+            "action": "right-to-wall s0_fast_long_6 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_near": [
+          {
+            "action": "up-to-wall s0_safe_near s0_safe_short_0 wall_v_s0_safe_short_0",
+            "outcomes": [
+              "s0_safe_short_0"
+            ]
+          }
+        ],
+        "s0_safe_far": [
+          {
+            "action": "left s0_safe_far s0_safe_near stage_0_entry",
+            "outcomes": [
+              "s0_safe_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_safe_far s0_safe_long_0 wall_v_s0_safe_long_0",
+            "outcomes": [
+              "s0_safe_long_0"
+            ]
+          }
+        ],
+        "s0_safe_short_0": [
+          {
+            "action": "right-to-wall s0_safe_short_0 s0_safe_short_1 wall_h_s0_safe_short_1",
+            "outcomes": [
+              "s0_safe_short_1"
+            ]
+          }
+        ],
+        "s0_safe_short_1": [
+          {
+            "action": "up-to-wall s0_safe_short_1 s0_safe_short_2 wall_v_s0_safe_short_2",
+            "outcomes": [
+              "s0_safe_short_2"
+            ]
+          }
+        ],
+        "s0_safe_short_2": [
+          {
+            "action": "right-to-wall s0_safe_short_2 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_long_0": [
+          {
+            "action": "right-to-wall s0_safe_long_0 s0_safe_long_1 wall_h_s0_safe_long_1",
+            "outcomes": [
+              "s0_safe_long_1"
+            ]
+          }
+        ],
+        "s0_safe_long_1": [
+          {
+            "action": "up-to-wall s0_safe_long_1 s0_safe_long_2 wall_v_s0_safe_long_2",
+            "outcomes": [
+              "s0_safe_long_2"
+            ]
+          }
+        ],
+        "s0_safe_long_2": [
+          {
+            "action": "right-to-wall s0_safe_long_2 s0_safe_long_3 wall_h_s0_safe_long_3",
+            "outcomes": [
+              "s0_safe_long_3"
+            ]
+          }
+        ],
+        "s0_safe_long_3": [
+          {
+            "action": "up-to-wall s0_safe_long_3 s0_safe_long_4 wall_v_s0_safe_long_4",
+            "outcomes": [
+              "s0_safe_long_4"
+            ]
+          }
+        ],
+        "s0_safe_long_4": [
+          {
+            "action": "right-to-wall s0_safe_long_4 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s1_fast_near": [
+          {
+            "action": "up-to-wall s1_fast_near s1_fast_short_0 wall_v_s1_fast_short_0",
+            "outcomes": [
+              "s1_fast_short_0"
+            ]
+          }
+        ],
+        "s1_fast_far": [
+          {
+            "action": "left s1_fast_far s1_fast_near stage_1_entry",
+            "outcomes": [
+              "s1_fast_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_fast_far s1_fast_long_0 wall_v_s1_fast_long_0",
+            "outcomes": [
+              "s1_fast_long_0"
+            ]
+          }
+        ],
+        "s1_fast_short_0": [
+          {
+            "action": "right-to-wall s1_fast_short_0 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_fast_long_0": [
+          {
+            "action": "right-to-wall s1_fast_long_0 s1_fast_long_1 wall_h_s1_fast_long_1",
+            "outcomes": [
+              "s1_fast_long_1"
+            ]
+          }
+        ],
+        "s1_fast_long_1": [
+          {
+            "action": "up-to-wall s1_fast_long_1 s1_fast_long_2 wall_v_s1_fast_long_2",
+            "outcomes": [
+              "s1_fast_long_2"
+            ]
+          }
+        ],
+        "s1_fast_long_2": [
+          {
+            "action": "right-to-wall s1_fast_long_2 s1_fast_long_3 wall_h_s1_fast_long_3",
+            "outcomes": [
+              "s1_fast_long_3"
+            ]
+          }
+        ],
+        "s1_fast_long_3": [
+          {
+            "action": "up-to-wall s1_fast_long_3 s1_fast_long_4 wall_v_s1_fast_long_4",
+            "outcomes": [
+              "s1_fast_long_4"
+            ]
+          }
+        ],
+        "s1_fast_long_4": [
+          {
+            "action": "right-to-wall s1_fast_long_4 s1_fast_long_5 wall_h_s1_fast_long_5",
+            "outcomes": [
+              "s1_fast_long_5"
+            ]
+          }
+        ],
+        "s1_fast_long_5": [
+          {
+            "action": "up-to-wall s1_fast_long_5 s1_fast_long_6 wall_v_s1_fast_long_6",
+            "outcomes": [
+              "s1_fast_long_6"
+            ]
+          }
+        ],
+        "s1_fast_long_6": [
+          {
+            "action": "right-to-wall s1_fast_long_6 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_near": [
+          {
+            "action": "up-to-wall s1_safe_near s1_safe_short_0 wall_v_s1_safe_short_0",
+            "outcomes": [
+              "s1_safe_short_0"
+            ]
+          }
+        ],
+        "s1_safe_far": [
+          {
+            "action": "left s1_safe_far s1_safe_near stage_1_entry",
+            "outcomes": [
+              "s1_safe_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_safe_far s1_safe_long_0 wall_v_s1_safe_long_0",
+            "outcomes": [
+              "s1_safe_long_0"
+            ]
+          }
+        ],
+        "s1_safe_short_0": [
+          {
+            "action": "right-to-wall s1_safe_short_0 s1_safe_short_1 wall_h_s1_safe_short_1",
+            "outcomes": [
+              "s1_safe_short_1"
+            ]
+          }
+        ],
+        "s1_safe_short_1": [
+          {
+            "action": "up-to-wall s1_safe_short_1 s1_safe_short_2 wall_v_s1_safe_short_2",
+            "outcomes": [
+              "s1_safe_short_2"
+            ]
+          }
+        ],
+        "s1_safe_short_2": [
+          {
+            "action": "right-to-wall s1_safe_short_2 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_long_0": [
+          {
+            "action": "right-to-wall s1_safe_long_0 s1_safe_long_1 wall_h_s1_safe_long_1",
+            "outcomes": [
+              "s1_safe_long_1"
+            ]
+          }
+        ],
+        "s1_safe_long_1": [
+          {
+            "action": "up-to-wall s1_safe_long_1 s1_safe_long_2 wall_v_s1_safe_long_2",
+            "outcomes": [
+              "s1_safe_long_2"
+            ]
+          }
+        ],
+        "s1_safe_long_2": [
+          {
+            "action": "right-to-wall s1_safe_long_2 s1_safe_long_3 wall_h_s1_safe_long_3",
+            "outcomes": [
+              "s1_safe_long_3"
+            ]
+          }
+        ],
+        "s1_safe_long_3": [
+          {
+            "action": "up-to-wall s1_safe_long_3 s1_safe_long_4 wall_v_s1_safe_long_4",
+            "outcomes": [
+              "s1_safe_long_4"
+            ]
+          }
+        ],
+        "s1_safe_long_4": [
+          {
+            "action": "right-to-wall s1_safe_long_4 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ]
+      },
+      "front": [
+        [
+          7,
+          19
+        ],
+        [
+          9,
+          17
+        ],
+        [
+          11,
+          15
+        ]
+      ],
+      "reference": "analytic composition; independently enumerated small cases",
+      "geometry": "non-geometric diagnostic topology; not a rectangular lake",
+      "pddl_sha256": "1617cd58e58fc602ee7b1848f776311f0cc305f3c02b7d821611ac304bd514ff"
+    },
+    {
+      "instance": "serial-k03-g1",
+      "family": "serial-topology",
+      "stages": 3,
+      "gap": 1,
+      "initial": "stage_0_entry",
+      "goal": "stage_2_exit",
+      "objects": {
+        "stage_0_entry": "ice",
+        "stage_1_entry": "ice",
+        "stage_2_entry": "ice",
+        "stage_0_exit": "ice",
+        "stage_1_exit": "ice",
+        "stage_2_exit": "ice",
+        "s0_fast_near": "ice",
+        "s0_fast_far": "ice",
+        "s0_fast_short_0": "ice",
+        "wall_v_s0_fast_short_0": "wall",
+        "wall_h_stage_0_exit": "wall",
+        "s0_fast_long_0": "ice",
+        "s0_fast_long_1": "ice",
+        "s0_fast_long_2": "ice",
+        "s0_fast_long_3": "ice",
+        "s0_fast_long_4": "ice",
+        "s0_fast_long_5": "ice",
+        "s0_fast_long_6": "ice",
+        "wall_v_s0_fast_long_0": "wall",
+        "wall_h_s0_fast_long_1": "wall",
+        "wall_v_s0_fast_long_2": "wall",
+        "wall_h_s0_fast_long_3": "wall",
+        "wall_v_s0_fast_long_4": "wall",
+        "wall_h_s0_fast_long_5": "wall",
+        "wall_v_s0_fast_long_6": "wall",
+        "s0_safe_near": "ice",
+        "s0_safe_far": "ice",
+        "s0_safe_short_0": "ice",
+        "s0_safe_short_1": "ice",
+        "s0_safe_short_2": "ice",
+        "wall_v_s0_safe_short_0": "wall",
+        "wall_h_s0_safe_short_1": "wall",
+        "wall_v_s0_safe_short_2": "wall",
+        "s0_safe_long_0": "ice",
+        "s0_safe_long_1": "ice",
+        "s0_safe_long_2": "ice",
+        "s0_safe_long_3": "ice",
+        "s0_safe_long_4": "ice",
+        "wall_v_s0_safe_long_0": "wall",
+        "wall_h_s0_safe_long_1": "wall",
+        "wall_v_s0_safe_long_2": "wall",
+        "wall_h_s0_safe_long_3": "wall",
+        "wall_v_s0_safe_long_4": "wall",
+        "wall_v_stage_1_entry": "wall",
+        "s1_fast_near": "ice",
+        "s1_fast_far": "ice",
+        "s1_fast_short_0": "ice",
+        "wall_v_s1_fast_short_0": "wall",
+        "wall_h_stage_1_exit": "wall",
+        "s1_fast_long_0": "ice",
+        "s1_fast_long_1": "ice",
+        "s1_fast_long_2": "ice",
+        "s1_fast_long_3": "ice",
+        "s1_fast_long_4": "ice",
+        "s1_fast_long_5": "ice",
+        "s1_fast_long_6": "ice",
+        "wall_v_s1_fast_long_0": "wall",
+        "wall_h_s1_fast_long_1": "wall",
+        "wall_v_s1_fast_long_2": "wall",
+        "wall_h_s1_fast_long_3": "wall",
+        "wall_v_s1_fast_long_4": "wall",
+        "wall_h_s1_fast_long_5": "wall",
+        "wall_v_s1_fast_long_6": "wall",
+        "s1_safe_near": "ice",
+        "s1_safe_far": "ice",
+        "s1_safe_short_0": "ice",
+        "s1_safe_short_1": "ice",
+        "s1_safe_short_2": "ice",
+        "wall_v_s1_safe_short_0": "wall",
+        "wall_h_s1_safe_short_1": "wall",
+        "wall_v_s1_safe_short_2": "wall",
+        "s1_safe_long_0": "ice",
+        "s1_safe_long_1": "ice",
+        "s1_safe_long_2": "ice",
+        "s1_safe_long_3": "ice",
+        "s1_safe_long_4": "ice",
+        "wall_v_s1_safe_long_0": "wall",
+        "wall_h_s1_safe_long_1": "wall",
+        "wall_v_s1_safe_long_2": "wall",
+        "wall_h_s1_safe_long_3": "wall",
+        "wall_v_s1_safe_long_4": "wall",
+        "wall_v_stage_2_entry": "wall",
+        "s2_fast_near": "ice",
+        "s2_fast_far": "ice",
+        "s2_fast_short_0": "ice",
+        "wall_v_s2_fast_short_0": "wall",
+        "wall_h_stage_2_exit": "wall",
+        "s2_fast_long_0": "ice",
+        "s2_fast_long_1": "ice",
+        "s2_fast_long_2": "ice",
+        "s2_fast_long_3": "ice",
+        "s2_fast_long_4": "ice",
+        "s2_fast_long_5": "ice",
+        "s2_fast_long_6": "ice",
+        "wall_v_s2_fast_long_0": "wall",
+        "wall_h_s2_fast_long_1": "wall",
+        "wall_v_s2_fast_long_2": "wall",
+        "wall_h_s2_fast_long_3": "wall",
+        "wall_v_s2_fast_long_4": "wall",
+        "wall_h_s2_fast_long_5": "wall",
+        "wall_v_s2_fast_long_6": "wall",
+        "s2_safe_near": "ice",
+        "s2_safe_far": "ice",
+        "s2_safe_short_0": "ice",
+        "s2_safe_short_1": "ice",
+        "s2_safe_short_2": "ice",
+        "wall_v_s2_safe_short_0": "wall",
+        "wall_h_s2_safe_short_1": "wall",
+        "wall_v_s2_safe_short_2": "wall",
+        "s2_safe_long_0": "ice",
+        "s2_safe_long_1": "ice",
+        "s2_safe_long_2": "ice",
+        "s2_safe_long_3": "ice",
+        "s2_safe_long_4": "ice",
+        "wall_v_s2_safe_long_0": "wall",
+        "wall_h_s2_safe_long_1": "wall",
+        "wall_v_s2_safe_long_2": "wall",
+        "wall_h_s2_safe_long_3": "wall",
+        "wall_v_s2_safe_long_4": "wall"
+      },
+      "relations": [
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_fast_near"
+        ],
+        [
+          "left-of",
+          "s0_fast_near",
+          "s0_fast_far"
+        ],
+        [
+          "down-of",
+          "s0_fast_near",
+          "s0_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_short_0",
+          "wall_v_s0_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_short_0",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_exit",
+          "wall_h_stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_fast_far",
+          "s0_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_0",
+          "wall_v_s0_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_0",
+          "s0_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_1",
+          "wall_h_s0_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_1",
+          "s0_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_2",
+          "wall_v_s0_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_2",
+          "s0_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_3",
+          "wall_h_s0_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_3",
+          "s0_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_4",
+          "wall_v_s0_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_4",
+          "s0_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_5",
+          "wall_h_s0_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_5",
+          "s0_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_6",
+          "wall_v_s0_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_6",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_safe_near"
+        ],
+        [
+          "left-of",
+          "s0_safe_near",
+          "s0_safe_far"
+        ],
+        [
+          "down-of",
+          "s0_safe_near",
+          "s0_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_0",
+          "wall_v_s0_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_0",
+          "s0_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_1",
+          "wall_h_s0_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_1",
+          "s0_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_2",
+          "wall_v_s0_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_2",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_safe_far",
+          "s0_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_0",
+          "wall_v_s0_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_0",
+          "s0_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_1",
+          "wall_h_s0_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_1",
+          "s0_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_2",
+          "wall_v_s0_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_2",
+          "s0_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_3",
+          "wall_h_s0_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_3",
+          "s0_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_4",
+          "wall_v_s0_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_4",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "stage_0_exit",
+          "stage_1_entry"
+        ],
+        [
+          "down-of",
+          "stage_1_entry",
+          "wall_v_stage_1_entry"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_fast_near"
+        ],
+        [
+          "left-of",
+          "s1_fast_near",
+          "s1_fast_far"
+        ],
+        [
+          "down-of",
+          "s1_fast_near",
+          "s1_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_short_0",
+          "wall_v_s1_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_short_0",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_exit",
+          "wall_h_stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_fast_far",
+          "s1_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_0",
+          "wall_v_s1_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_0",
+          "s1_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_1",
+          "wall_h_s1_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_1",
+          "s1_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_2",
+          "wall_v_s1_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_2",
+          "s1_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_3",
+          "wall_h_s1_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_3",
+          "s1_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_4",
+          "wall_v_s1_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_4",
+          "s1_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_5",
+          "wall_h_s1_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_5",
+          "s1_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_6",
+          "wall_v_s1_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_6",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_safe_near"
+        ],
+        [
+          "left-of",
+          "s1_safe_near",
+          "s1_safe_far"
+        ],
+        [
+          "down-of",
+          "s1_safe_near",
+          "s1_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_0",
+          "wall_v_s1_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_0",
+          "s1_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_1",
+          "wall_h_s1_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_1",
+          "s1_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_2",
+          "wall_v_s1_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_2",
+          "stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_safe_far",
+          "s1_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_0",
+          "wall_v_s1_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_0",
+          "s1_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_1",
+          "wall_h_s1_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_1",
+          "s1_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_2",
+          "wall_v_s1_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_2",
+          "s1_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_3",
+          "wall_h_s1_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_3",
+          "s1_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_4",
+          "wall_v_s1_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_4",
+          "stage_1_exit"
+        ],
+        [
+          "down-of",
+          "stage_1_exit",
+          "stage_2_entry"
+        ],
+        [
+          "down-of",
+          "stage_2_entry",
+          "wall_v_stage_2_entry"
+        ],
+        [
+          "left-of",
+          "stage_2_entry",
+          "s2_fast_near"
+        ],
+        [
+          "left-of",
+          "s2_fast_near",
+          "s2_fast_far"
+        ],
+        [
+          "down-of",
+          "s2_fast_near",
+          "s2_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s2_fast_short_0",
+          "wall_v_s2_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s2_fast_short_0",
+          "stage_2_exit"
+        ],
+        [
+          "left-of",
+          "stage_2_exit",
+          "wall_h_stage_2_exit"
+        ],
+        [
+          "down-of",
+          "s2_fast_far",
+          "s2_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_0",
+          "wall_v_s2_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_0",
+          "s2_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_1",
+          "wall_h_s2_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_1",
+          "s2_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_2",
+          "wall_v_s2_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_2",
+          "s2_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_3",
+          "wall_h_s2_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_3",
+          "s2_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_4",
+          "wall_v_s2_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_4",
+          "s2_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_5",
+          "wall_h_s2_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_5",
+          "s2_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_6",
+          "wall_v_s2_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_6",
+          "stage_2_exit"
+        ],
+        [
+          "left-of",
+          "stage_2_entry",
+          "s2_safe_near"
+        ],
+        [
+          "left-of",
+          "s2_safe_near",
+          "s2_safe_far"
+        ],
+        [
+          "down-of",
+          "s2_safe_near",
+          "s2_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s2_safe_short_0",
+          "wall_v_s2_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s2_safe_short_0",
+          "s2_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s2_safe_short_1",
+          "wall_h_s2_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s2_safe_short_1",
+          "s2_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s2_safe_short_2",
+          "wall_v_s2_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s2_safe_short_2",
+          "stage_2_exit"
+        ],
+        [
+          "down-of",
+          "s2_safe_far",
+          "s2_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_0",
+          "wall_v_s2_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_0",
+          "s2_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_1",
+          "wall_h_s2_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_1",
+          "s2_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_2",
+          "wall_v_s2_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_2",
+          "s2_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_3",
+          "wall_h_s2_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_3",
+          "s2_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_4",
+          "wall_v_s2_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_4",
+          "stage_2_exit"
+        ]
+      ],
+      "actions": {
+        "stage_0_entry": [
+          {
+            "action": "right stage_0_entry s0_fast_near s0_fast_far",
+            "outcomes": [
+              "s0_fast_near",
+              "s0_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_0_entry s0_safe_near s0_safe_far",
+            "outcomes": [
+              "s0_safe_near",
+              "s0_safe_far"
+            ]
+          }
+        ],
+        "stage_1_entry": [
+          {
+            "action": "right stage_1_entry s1_fast_near s1_fast_far",
+            "outcomes": [
+              "s1_fast_near",
+              "s1_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_1_entry s1_safe_near s1_safe_far",
+            "outcomes": [
+              "s1_safe_near",
+              "s1_safe_far"
+            ]
+          }
+        ],
+        "stage_2_entry": [
+          {
+            "action": "right stage_2_entry s2_fast_near s2_fast_far",
+            "outcomes": [
+              "s2_fast_near",
+              "s2_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_2_entry s2_safe_near s2_safe_far",
+            "outcomes": [
+              "s2_safe_near",
+              "s2_safe_far"
+            ]
+          }
+        ],
+        "stage_0_exit": [
+          {
+            "action": "up-to-wall stage_0_exit stage_1_entry wall_v_stage_1_entry",
+            "outcomes": [
+              "stage_1_entry"
+            ]
+          }
+        ],
+        "stage_1_exit": [
+          {
+            "action": "up-to-wall stage_1_exit stage_2_entry wall_v_stage_2_entry",
+            "outcomes": [
+              "stage_2_entry"
+            ]
+          }
+        ],
+        "stage_2_exit": [],
+        "s0_fast_near": [
+          {
+            "action": "up-to-wall s0_fast_near s0_fast_short_0 wall_v_s0_fast_short_0",
+            "outcomes": [
+              "s0_fast_short_0"
+            ]
+          }
+        ],
+        "s0_fast_far": [
+          {
+            "action": "left s0_fast_far s0_fast_near stage_0_entry",
+            "outcomes": [
+              "s0_fast_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_fast_far s0_fast_long_0 wall_v_s0_fast_long_0",
+            "outcomes": [
+              "s0_fast_long_0"
+            ]
+          }
+        ],
+        "s0_fast_short_0": [
+          {
+            "action": "right-to-wall s0_fast_short_0 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_fast_long_0": [
+          {
+            "action": "right-to-wall s0_fast_long_0 s0_fast_long_1 wall_h_s0_fast_long_1",
+            "outcomes": [
+              "s0_fast_long_1"
+            ]
+          }
+        ],
+        "s0_fast_long_1": [
+          {
+            "action": "up-to-wall s0_fast_long_1 s0_fast_long_2 wall_v_s0_fast_long_2",
+            "outcomes": [
+              "s0_fast_long_2"
+            ]
+          }
+        ],
+        "s0_fast_long_2": [
+          {
+            "action": "right-to-wall s0_fast_long_2 s0_fast_long_3 wall_h_s0_fast_long_3",
+            "outcomes": [
+              "s0_fast_long_3"
+            ]
+          }
+        ],
+        "s0_fast_long_3": [
+          {
+            "action": "up-to-wall s0_fast_long_3 s0_fast_long_4 wall_v_s0_fast_long_4",
+            "outcomes": [
+              "s0_fast_long_4"
+            ]
+          }
+        ],
+        "s0_fast_long_4": [
+          {
+            "action": "right-to-wall s0_fast_long_4 s0_fast_long_5 wall_h_s0_fast_long_5",
+            "outcomes": [
+              "s0_fast_long_5"
+            ]
+          }
+        ],
+        "s0_fast_long_5": [
+          {
+            "action": "up-to-wall s0_fast_long_5 s0_fast_long_6 wall_v_s0_fast_long_6",
+            "outcomes": [
+              "s0_fast_long_6"
+            ]
+          }
+        ],
+        "s0_fast_long_6": [
+          {
+            "action": "right-to-wall s0_fast_long_6 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_near": [
+          {
+            "action": "up-to-wall s0_safe_near s0_safe_short_0 wall_v_s0_safe_short_0",
+            "outcomes": [
+              "s0_safe_short_0"
+            ]
+          }
+        ],
+        "s0_safe_far": [
+          {
+            "action": "left s0_safe_far s0_safe_near stage_0_entry",
+            "outcomes": [
+              "s0_safe_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_safe_far s0_safe_long_0 wall_v_s0_safe_long_0",
+            "outcomes": [
+              "s0_safe_long_0"
+            ]
+          }
+        ],
+        "s0_safe_short_0": [
+          {
+            "action": "right-to-wall s0_safe_short_0 s0_safe_short_1 wall_h_s0_safe_short_1",
+            "outcomes": [
+              "s0_safe_short_1"
+            ]
+          }
+        ],
+        "s0_safe_short_1": [
+          {
+            "action": "up-to-wall s0_safe_short_1 s0_safe_short_2 wall_v_s0_safe_short_2",
+            "outcomes": [
+              "s0_safe_short_2"
+            ]
+          }
+        ],
+        "s0_safe_short_2": [
+          {
+            "action": "right-to-wall s0_safe_short_2 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_long_0": [
+          {
+            "action": "right-to-wall s0_safe_long_0 s0_safe_long_1 wall_h_s0_safe_long_1",
+            "outcomes": [
+              "s0_safe_long_1"
+            ]
+          }
+        ],
+        "s0_safe_long_1": [
+          {
+            "action": "up-to-wall s0_safe_long_1 s0_safe_long_2 wall_v_s0_safe_long_2",
+            "outcomes": [
+              "s0_safe_long_2"
+            ]
+          }
+        ],
+        "s0_safe_long_2": [
+          {
+            "action": "right-to-wall s0_safe_long_2 s0_safe_long_3 wall_h_s0_safe_long_3",
+            "outcomes": [
+              "s0_safe_long_3"
+            ]
+          }
+        ],
+        "s0_safe_long_3": [
+          {
+            "action": "up-to-wall s0_safe_long_3 s0_safe_long_4 wall_v_s0_safe_long_4",
+            "outcomes": [
+              "s0_safe_long_4"
+            ]
+          }
+        ],
+        "s0_safe_long_4": [
+          {
+            "action": "right-to-wall s0_safe_long_4 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s1_fast_near": [
+          {
+            "action": "up-to-wall s1_fast_near s1_fast_short_0 wall_v_s1_fast_short_0",
+            "outcomes": [
+              "s1_fast_short_0"
+            ]
+          }
+        ],
+        "s1_fast_far": [
+          {
+            "action": "left s1_fast_far s1_fast_near stage_1_entry",
+            "outcomes": [
+              "s1_fast_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_fast_far s1_fast_long_0 wall_v_s1_fast_long_0",
+            "outcomes": [
+              "s1_fast_long_0"
+            ]
+          }
+        ],
+        "s1_fast_short_0": [
+          {
+            "action": "right-to-wall s1_fast_short_0 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_fast_long_0": [
+          {
+            "action": "right-to-wall s1_fast_long_0 s1_fast_long_1 wall_h_s1_fast_long_1",
+            "outcomes": [
+              "s1_fast_long_1"
+            ]
+          }
+        ],
+        "s1_fast_long_1": [
+          {
+            "action": "up-to-wall s1_fast_long_1 s1_fast_long_2 wall_v_s1_fast_long_2",
+            "outcomes": [
+              "s1_fast_long_2"
+            ]
+          }
+        ],
+        "s1_fast_long_2": [
+          {
+            "action": "right-to-wall s1_fast_long_2 s1_fast_long_3 wall_h_s1_fast_long_3",
+            "outcomes": [
+              "s1_fast_long_3"
+            ]
+          }
+        ],
+        "s1_fast_long_3": [
+          {
+            "action": "up-to-wall s1_fast_long_3 s1_fast_long_4 wall_v_s1_fast_long_4",
+            "outcomes": [
+              "s1_fast_long_4"
+            ]
+          }
+        ],
+        "s1_fast_long_4": [
+          {
+            "action": "right-to-wall s1_fast_long_4 s1_fast_long_5 wall_h_s1_fast_long_5",
+            "outcomes": [
+              "s1_fast_long_5"
+            ]
+          }
+        ],
+        "s1_fast_long_5": [
+          {
+            "action": "up-to-wall s1_fast_long_5 s1_fast_long_6 wall_v_s1_fast_long_6",
+            "outcomes": [
+              "s1_fast_long_6"
+            ]
+          }
+        ],
+        "s1_fast_long_6": [
+          {
+            "action": "right-to-wall s1_fast_long_6 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_near": [
+          {
+            "action": "up-to-wall s1_safe_near s1_safe_short_0 wall_v_s1_safe_short_0",
+            "outcomes": [
+              "s1_safe_short_0"
+            ]
+          }
+        ],
+        "s1_safe_far": [
+          {
+            "action": "left s1_safe_far s1_safe_near stage_1_entry",
+            "outcomes": [
+              "s1_safe_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_safe_far s1_safe_long_0 wall_v_s1_safe_long_0",
+            "outcomes": [
+              "s1_safe_long_0"
+            ]
+          }
+        ],
+        "s1_safe_short_0": [
+          {
+            "action": "right-to-wall s1_safe_short_0 s1_safe_short_1 wall_h_s1_safe_short_1",
+            "outcomes": [
+              "s1_safe_short_1"
+            ]
+          }
+        ],
+        "s1_safe_short_1": [
+          {
+            "action": "up-to-wall s1_safe_short_1 s1_safe_short_2 wall_v_s1_safe_short_2",
+            "outcomes": [
+              "s1_safe_short_2"
+            ]
+          }
+        ],
+        "s1_safe_short_2": [
+          {
+            "action": "right-to-wall s1_safe_short_2 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_long_0": [
+          {
+            "action": "right-to-wall s1_safe_long_0 s1_safe_long_1 wall_h_s1_safe_long_1",
+            "outcomes": [
+              "s1_safe_long_1"
+            ]
+          }
+        ],
+        "s1_safe_long_1": [
+          {
+            "action": "up-to-wall s1_safe_long_1 s1_safe_long_2 wall_v_s1_safe_long_2",
+            "outcomes": [
+              "s1_safe_long_2"
+            ]
+          }
+        ],
+        "s1_safe_long_2": [
+          {
+            "action": "right-to-wall s1_safe_long_2 s1_safe_long_3 wall_h_s1_safe_long_3",
+            "outcomes": [
+              "s1_safe_long_3"
+            ]
+          }
+        ],
+        "s1_safe_long_3": [
+          {
+            "action": "up-to-wall s1_safe_long_3 s1_safe_long_4 wall_v_s1_safe_long_4",
+            "outcomes": [
+              "s1_safe_long_4"
+            ]
+          }
+        ],
+        "s1_safe_long_4": [
+          {
+            "action": "right-to-wall s1_safe_long_4 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s2_fast_near": [
+          {
+            "action": "up-to-wall s2_fast_near s2_fast_short_0 wall_v_s2_fast_short_0",
+            "outcomes": [
+              "s2_fast_short_0"
+            ]
+          }
+        ],
+        "s2_fast_far": [
+          {
+            "action": "left s2_fast_far s2_fast_near stage_2_entry",
+            "outcomes": [
+              "s2_fast_near",
+              "stage_2_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s2_fast_far s2_fast_long_0 wall_v_s2_fast_long_0",
+            "outcomes": [
+              "s2_fast_long_0"
+            ]
+          }
+        ],
+        "s2_fast_short_0": [
+          {
+            "action": "right-to-wall s2_fast_short_0 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ],
+        "s2_fast_long_0": [
+          {
+            "action": "right-to-wall s2_fast_long_0 s2_fast_long_1 wall_h_s2_fast_long_1",
+            "outcomes": [
+              "s2_fast_long_1"
+            ]
+          }
+        ],
+        "s2_fast_long_1": [
+          {
+            "action": "up-to-wall s2_fast_long_1 s2_fast_long_2 wall_v_s2_fast_long_2",
+            "outcomes": [
+              "s2_fast_long_2"
+            ]
+          }
+        ],
+        "s2_fast_long_2": [
+          {
+            "action": "right-to-wall s2_fast_long_2 s2_fast_long_3 wall_h_s2_fast_long_3",
+            "outcomes": [
+              "s2_fast_long_3"
+            ]
+          }
+        ],
+        "s2_fast_long_3": [
+          {
+            "action": "up-to-wall s2_fast_long_3 s2_fast_long_4 wall_v_s2_fast_long_4",
+            "outcomes": [
+              "s2_fast_long_4"
+            ]
+          }
+        ],
+        "s2_fast_long_4": [
+          {
+            "action": "right-to-wall s2_fast_long_4 s2_fast_long_5 wall_h_s2_fast_long_5",
+            "outcomes": [
+              "s2_fast_long_5"
+            ]
+          }
+        ],
+        "s2_fast_long_5": [
+          {
+            "action": "up-to-wall s2_fast_long_5 s2_fast_long_6 wall_v_s2_fast_long_6",
+            "outcomes": [
+              "s2_fast_long_6"
+            ]
+          }
+        ],
+        "s2_fast_long_6": [
+          {
+            "action": "right-to-wall s2_fast_long_6 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ],
+        "s2_safe_near": [
+          {
+            "action": "up-to-wall s2_safe_near s2_safe_short_0 wall_v_s2_safe_short_0",
+            "outcomes": [
+              "s2_safe_short_0"
+            ]
+          }
+        ],
+        "s2_safe_far": [
+          {
+            "action": "left s2_safe_far s2_safe_near stage_2_entry",
+            "outcomes": [
+              "s2_safe_near",
+              "stage_2_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s2_safe_far s2_safe_long_0 wall_v_s2_safe_long_0",
+            "outcomes": [
+              "s2_safe_long_0"
+            ]
+          }
+        ],
+        "s2_safe_short_0": [
+          {
+            "action": "right-to-wall s2_safe_short_0 s2_safe_short_1 wall_h_s2_safe_short_1",
+            "outcomes": [
+              "s2_safe_short_1"
+            ]
+          }
+        ],
+        "s2_safe_short_1": [
+          {
+            "action": "up-to-wall s2_safe_short_1 s2_safe_short_2 wall_v_s2_safe_short_2",
+            "outcomes": [
+              "s2_safe_short_2"
+            ]
+          }
+        ],
+        "s2_safe_short_2": [
+          {
+            "action": "right-to-wall s2_safe_short_2 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ],
+        "s2_safe_long_0": [
+          {
+            "action": "right-to-wall s2_safe_long_0 s2_safe_long_1 wall_h_s2_safe_long_1",
+            "outcomes": [
+              "s2_safe_long_1"
+            ]
+          }
+        ],
+        "s2_safe_long_1": [
+          {
+            "action": "up-to-wall s2_safe_long_1 s2_safe_long_2 wall_v_s2_safe_long_2",
+            "outcomes": [
+              "s2_safe_long_2"
+            ]
+          }
+        ],
+        "s2_safe_long_2": [
+          {
+            "action": "right-to-wall s2_safe_long_2 s2_safe_long_3 wall_h_s2_safe_long_3",
+            "outcomes": [
+              "s2_safe_long_3"
+            ]
+          }
+        ],
+        "s2_safe_long_3": [
+          {
+            "action": "up-to-wall s2_safe_long_3 s2_safe_long_4 wall_v_s2_safe_long_4",
+            "outcomes": [
+              "s2_safe_long_4"
+            ]
+          }
+        ],
+        "s2_safe_long_4": [
+          {
+            "action": "right-to-wall s2_safe_long_4 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ]
+      },
+      "front": [
+        [
+          11,
+          29
+        ],
+        [
+          13,
+          27
+        ],
+        [
+          15,
+          25
+        ],
+        [
+          17,
+          23
+        ]
+      ],
+      "reference": "analytic composition; independently enumerated small cases",
+      "geometry": "non-geometric diagnostic topology; not a rectangular lake",
+      "pddl_sha256": "da181e11d7dd4a15d859c7c850e3f8a6588bf29d758428bbb44903c74b44e45f"
+    },
+    {
+      "instance": "serial-k04-g1",
+      "family": "serial-topology",
+      "stages": 4,
+      "gap": 1,
+      "initial": "stage_0_entry",
+      "goal": "stage_3_exit",
+      "objects": {
+        "stage_0_entry": "ice",
+        "stage_1_entry": "ice",
+        "stage_2_entry": "ice",
+        "stage_3_entry": "ice",
+        "stage_0_exit": "ice",
+        "stage_1_exit": "ice",
+        "stage_2_exit": "ice",
+        "stage_3_exit": "ice",
+        "s0_fast_near": "ice",
+        "s0_fast_far": "ice",
+        "s0_fast_short_0": "ice",
+        "wall_v_s0_fast_short_0": "wall",
+        "wall_h_stage_0_exit": "wall",
+        "s0_fast_long_0": "ice",
+        "s0_fast_long_1": "ice",
+        "s0_fast_long_2": "ice",
+        "s0_fast_long_3": "ice",
+        "s0_fast_long_4": "ice",
+        "s0_fast_long_5": "ice",
+        "s0_fast_long_6": "ice",
+        "wall_v_s0_fast_long_0": "wall",
+        "wall_h_s0_fast_long_1": "wall",
+        "wall_v_s0_fast_long_2": "wall",
+        "wall_h_s0_fast_long_3": "wall",
+        "wall_v_s0_fast_long_4": "wall",
+        "wall_h_s0_fast_long_5": "wall",
+        "wall_v_s0_fast_long_6": "wall",
+        "s0_safe_near": "ice",
+        "s0_safe_far": "ice",
+        "s0_safe_short_0": "ice",
+        "s0_safe_short_1": "ice",
+        "s0_safe_short_2": "ice",
+        "wall_v_s0_safe_short_0": "wall",
+        "wall_h_s0_safe_short_1": "wall",
+        "wall_v_s0_safe_short_2": "wall",
+        "s0_safe_long_0": "ice",
+        "s0_safe_long_1": "ice",
+        "s0_safe_long_2": "ice",
+        "s0_safe_long_3": "ice",
+        "s0_safe_long_4": "ice",
+        "wall_v_s0_safe_long_0": "wall",
+        "wall_h_s0_safe_long_1": "wall",
+        "wall_v_s0_safe_long_2": "wall",
+        "wall_h_s0_safe_long_3": "wall",
+        "wall_v_s0_safe_long_4": "wall",
+        "wall_v_stage_1_entry": "wall",
+        "s1_fast_near": "ice",
+        "s1_fast_far": "ice",
+        "s1_fast_short_0": "ice",
+        "wall_v_s1_fast_short_0": "wall",
+        "wall_h_stage_1_exit": "wall",
+        "s1_fast_long_0": "ice",
+        "s1_fast_long_1": "ice",
+        "s1_fast_long_2": "ice",
+        "s1_fast_long_3": "ice",
+        "s1_fast_long_4": "ice",
+        "s1_fast_long_5": "ice",
+        "s1_fast_long_6": "ice",
+        "wall_v_s1_fast_long_0": "wall",
+        "wall_h_s1_fast_long_1": "wall",
+        "wall_v_s1_fast_long_2": "wall",
+        "wall_h_s1_fast_long_3": "wall",
+        "wall_v_s1_fast_long_4": "wall",
+        "wall_h_s1_fast_long_5": "wall",
+        "wall_v_s1_fast_long_6": "wall",
+        "s1_safe_near": "ice",
+        "s1_safe_far": "ice",
+        "s1_safe_short_0": "ice",
+        "s1_safe_short_1": "ice",
+        "s1_safe_short_2": "ice",
+        "wall_v_s1_safe_short_0": "wall",
+        "wall_h_s1_safe_short_1": "wall",
+        "wall_v_s1_safe_short_2": "wall",
+        "s1_safe_long_0": "ice",
+        "s1_safe_long_1": "ice",
+        "s1_safe_long_2": "ice",
+        "s1_safe_long_3": "ice",
+        "s1_safe_long_4": "ice",
+        "wall_v_s1_safe_long_0": "wall",
+        "wall_h_s1_safe_long_1": "wall",
+        "wall_v_s1_safe_long_2": "wall",
+        "wall_h_s1_safe_long_3": "wall",
+        "wall_v_s1_safe_long_4": "wall",
+        "wall_v_stage_2_entry": "wall",
+        "s2_fast_near": "ice",
+        "s2_fast_far": "ice",
+        "s2_fast_short_0": "ice",
+        "wall_v_s2_fast_short_0": "wall",
+        "wall_h_stage_2_exit": "wall",
+        "s2_fast_long_0": "ice",
+        "s2_fast_long_1": "ice",
+        "s2_fast_long_2": "ice",
+        "s2_fast_long_3": "ice",
+        "s2_fast_long_4": "ice",
+        "s2_fast_long_5": "ice",
+        "s2_fast_long_6": "ice",
+        "wall_v_s2_fast_long_0": "wall",
+        "wall_h_s2_fast_long_1": "wall",
+        "wall_v_s2_fast_long_2": "wall",
+        "wall_h_s2_fast_long_3": "wall",
+        "wall_v_s2_fast_long_4": "wall",
+        "wall_h_s2_fast_long_5": "wall",
+        "wall_v_s2_fast_long_6": "wall",
+        "s2_safe_near": "ice",
+        "s2_safe_far": "ice",
+        "s2_safe_short_0": "ice",
+        "s2_safe_short_1": "ice",
+        "s2_safe_short_2": "ice",
+        "wall_v_s2_safe_short_0": "wall",
+        "wall_h_s2_safe_short_1": "wall",
+        "wall_v_s2_safe_short_2": "wall",
+        "s2_safe_long_0": "ice",
+        "s2_safe_long_1": "ice",
+        "s2_safe_long_2": "ice",
+        "s2_safe_long_3": "ice",
+        "s2_safe_long_4": "ice",
+        "wall_v_s2_safe_long_0": "wall",
+        "wall_h_s2_safe_long_1": "wall",
+        "wall_v_s2_safe_long_2": "wall",
+        "wall_h_s2_safe_long_3": "wall",
+        "wall_v_s2_safe_long_4": "wall",
+        "wall_v_stage_3_entry": "wall",
+        "s3_fast_near": "ice",
+        "s3_fast_far": "ice",
+        "s3_fast_short_0": "ice",
+        "wall_v_s3_fast_short_0": "wall",
+        "wall_h_stage_3_exit": "wall",
+        "s3_fast_long_0": "ice",
+        "s3_fast_long_1": "ice",
+        "s3_fast_long_2": "ice",
+        "s3_fast_long_3": "ice",
+        "s3_fast_long_4": "ice",
+        "s3_fast_long_5": "ice",
+        "s3_fast_long_6": "ice",
+        "wall_v_s3_fast_long_0": "wall",
+        "wall_h_s3_fast_long_1": "wall",
+        "wall_v_s3_fast_long_2": "wall",
+        "wall_h_s3_fast_long_3": "wall",
+        "wall_v_s3_fast_long_4": "wall",
+        "wall_h_s3_fast_long_5": "wall",
+        "wall_v_s3_fast_long_6": "wall",
+        "s3_safe_near": "ice",
+        "s3_safe_far": "ice",
+        "s3_safe_short_0": "ice",
+        "s3_safe_short_1": "ice",
+        "s3_safe_short_2": "ice",
+        "wall_v_s3_safe_short_0": "wall",
+        "wall_h_s3_safe_short_1": "wall",
+        "wall_v_s3_safe_short_2": "wall",
+        "s3_safe_long_0": "ice",
+        "s3_safe_long_1": "ice",
+        "s3_safe_long_2": "ice",
+        "s3_safe_long_3": "ice",
+        "s3_safe_long_4": "ice",
+        "wall_v_s3_safe_long_0": "wall",
+        "wall_h_s3_safe_long_1": "wall",
+        "wall_v_s3_safe_long_2": "wall",
+        "wall_h_s3_safe_long_3": "wall",
+        "wall_v_s3_safe_long_4": "wall"
+      },
+      "relations": [
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_fast_near"
+        ],
+        [
+          "left-of",
+          "s0_fast_near",
+          "s0_fast_far"
+        ],
+        [
+          "down-of",
+          "s0_fast_near",
+          "s0_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_short_0",
+          "wall_v_s0_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_short_0",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_exit",
+          "wall_h_stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_fast_far",
+          "s0_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_0",
+          "wall_v_s0_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_0",
+          "s0_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_1",
+          "wall_h_s0_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_1",
+          "s0_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_2",
+          "wall_v_s0_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_2",
+          "s0_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_3",
+          "wall_h_s0_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_3",
+          "s0_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_4",
+          "wall_v_s0_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_4",
+          "s0_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_5",
+          "wall_h_s0_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_5",
+          "s0_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_6",
+          "wall_v_s0_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_6",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_safe_near"
+        ],
+        [
+          "left-of",
+          "s0_safe_near",
+          "s0_safe_far"
+        ],
+        [
+          "down-of",
+          "s0_safe_near",
+          "s0_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_0",
+          "wall_v_s0_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_0",
+          "s0_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_1",
+          "wall_h_s0_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_1",
+          "s0_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_2",
+          "wall_v_s0_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_2",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_safe_far",
+          "s0_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_0",
+          "wall_v_s0_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_0",
+          "s0_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_1",
+          "wall_h_s0_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_1",
+          "s0_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_2",
+          "wall_v_s0_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_2",
+          "s0_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_3",
+          "wall_h_s0_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_3",
+          "s0_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_4",
+          "wall_v_s0_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_4",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "stage_0_exit",
+          "stage_1_entry"
+        ],
+        [
+          "down-of",
+          "stage_1_entry",
+          "wall_v_stage_1_entry"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_fast_near"
+        ],
+        [
+          "left-of",
+          "s1_fast_near",
+          "s1_fast_far"
+        ],
+        [
+          "down-of",
+          "s1_fast_near",
+          "s1_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_short_0",
+          "wall_v_s1_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_short_0",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_exit",
+          "wall_h_stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_fast_far",
+          "s1_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_0",
+          "wall_v_s1_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_0",
+          "s1_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_1",
+          "wall_h_s1_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_1",
+          "s1_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_2",
+          "wall_v_s1_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_2",
+          "s1_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_3",
+          "wall_h_s1_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_3",
+          "s1_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_4",
+          "wall_v_s1_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_4",
+          "s1_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_5",
+          "wall_h_s1_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_5",
+          "s1_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_6",
+          "wall_v_s1_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_6",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_safe_near"
+        ],
+        [
+          "left-of",
+          "s1_safe_near",
+          "s1_safe_far"
+        ],
+        [
+          "down-of",
+          "s1_safe_near",
+          "s1_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_0",
+          "wall_v_s1_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_0",
+          "s1_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_1",
+          "wall_h_s1_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_1",
+          "s1_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_2",
+          "wall_v_s1_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_2",
+          "stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_safe_far",
+          "s1_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_0",
+          "wall_v_s1_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_0",
+          "s1_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_1",
+          "wall_h_s1_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_1",
+          "s1_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_2",
+          "wall_v_s1_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_2",
+          "s1_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_3",
+          "wall_h_s1_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_3",
+          "s1_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_4",
+          "wall_v_s1_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_4",
+          "stage_1_exit"
+        ],
+        [
+          "down-of",
+          "stage_1_exit",
+          "stage_2_entry"
+        ],
+        [
+          "down-of",
+          "stage_2_entry",
+          "wall_v_stage_2_entry"
+        ],
+        [
+          "left-of",
+          "stage_2_entry",
+          "s2_fast_near"
+        ],
+        [
+          "left-of",
+          "s2_fast_near",
+          "s2_fast_far"
+        ],
+        [
+          "down-of",
+          "s2_fast_near",
+          "s2_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s2_fast_short_0",
+          "wall_v_s2_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s2_fast_short_0",
+          "stage_2_exit"
+        ],
+        [
+          "left-of",
+          "stage_2_exit",
+          "wall_h_stage_2_exit"
+        ],
+        [
+          "down-of",
+          "s2_fast_far",
+          "s2_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_0",
+          "wall_v_s2_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_0",
+          "s2_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_1",
+          "wall_h_s2_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_1",
+          "s2_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_2",
+          "wall_v_s2_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_2",
+          "s2_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_3",
+          "wall_h_s2_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_3",
+          "s2_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_4",
+          "wall_v_s2_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_4",
+          "s2_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_5",
+          "wall_h_s2_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_5",
+          "s2_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s2_fast_long_6",
+          "wall_v_s2_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s2_fast_long_6",
+          "stage_2_exit"
+        ],
+        [
+          "left-of",
+          "stage_2_entry",
+          "s2_safe_near"
+        ],
+        [
+          "left-of",
+          "s2_safe_near",
+          "s2_safe_far"
+        ],
+        [
+          "down-of",
+          "s2_safe_near",
+          "s2_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s2_safe_short_0",
+          "wall_v_s2_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s2_safe_short_0",
+          "s2_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s2_safe_short_1",
+          "wall_h_s2_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s2_safe_short_1",
+          "s2_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s2_safe_short_2",
+          "wall_v_s2_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s2_safe_short_2",
+          "stage_2_exit"
+        ],
+        [
+          "down-of",
+          "s2_safe_far",
+          "s2_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_0",
+          "wall_v_s2_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_0",
+          "s2_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_1",
+          "wall_h_s2_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_1",
+          "s2_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_2",
+          "wall_v_s2_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_2",
+          "s2_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_3",
+          "wall_h_s2_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_3",
+          "s2_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s2_safe_long_4",
+          "wall_v_s2_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s2_safe_long_4",
+          "stage_2_exit"
+        ],
+        [
+          "down-of",
+          "stage_2_exit",
+          "stage_3_entry"
+        ],
+        [
+          "down-of",
+          "stage_3_entry",
+          "wall_v_stage_3_entry"
+        ],
+        [
+          "left-of",
+          "stage_3_entry",
+          "s3_fast_near"
+        ],
+        [
+          "left-of",
+          "s3_fast_near",
+          "s3_fast_far"
+        ],
+        [
+          "down-of",
+          "s3_fast_near",
+          "s3_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s3_fast_short_0",
+          "wall_v_s3_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s3_fast_short_0",
+          "stage_3_exit"
+        ],
+        [
+          "left-of",
+          "stage_3_exit",
+          "wall_h_stage_3_exit"
+        ],
+        [
+          "down-of",
+          "s3_fast_far",
+          "s3_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s3_fast_long_0",
+          "wall_v_s3_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s3_fast_long_0",
+          "s3_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s3_fast_long_1",
+          "wall_h_s3_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s3_fast_long_1",
+          "s3_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s3_fast_long_2",
+          "wall_v_s3_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s3_fast_long_2",
+          "s3_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s3_fast_long_3",
+          "wall_h_s3_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s3_fast_long_3",
+          "s3_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s3_fast_long_4",
+          "wall_v_s3_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s3_fast_long_4",
+          "s3_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s3_fast_long_5",
+          "wall_h_s3_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s3_fast_long_5",
+          "s3_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s3_fast_long_6",
+          "wall_v_s3_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s3_fast_long_6",
+          "stage_3_exit"
+        ],
+        [
+          "left-of",
+          "stage_3_entry",
+          "s3_safe_near"
+        ],
+        [
+          "left-of",
+          "s3_safe_near",
+          "s3_safe_far"
+        ],
+        [
+          "down-of",
+          "s3_safe_near",
+          "s3_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s3_safe_short_0",
+          "wall_v_s3_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s3_safe_short_0",
+          "s3_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s3_safe_short_1",
+          "wall_h_s3_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s3_safe_short_1",
+          "s3_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s3_safe_short_2",
+          "wall_v_s3_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s3_safe_short_2",
+          "stage_3_exit"
+        ],
+        [
+          "down-of",
+          "s3_safe_far",
+          "s3_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s3_safe_long_0",
+          "wall_v_s3_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s3_safe_long_0",
+          "s3_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s3_safe_long_1",
+          "wall_h_s3_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s3_safe_long_1",
+          "s3_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s3_safe_long_2",
+          "wall_v_s3_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s3_safe_long_2",
+          "s3_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s3_safe_long_3",
+          "wall_h_s3_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s3_safe_long_3",
+          "s3_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s3_safe_long_4",
+          "wall_v_s3_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s3_safe_long_4",
+          "stage_3_exit"
+        ]
+      ],
+      "actions": {
+        "stage_0_entry": [
+          {
+            "action": "right stage_0_entry s0_fast_near s0_fast_far",
+            "outcomes": [
+              "s0_fast_near",
+              "s0_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_0_entry s0_safe_near s0_safe_far",
+            "outcomes": [
+              "s0_safe_near",
+              "s0_safe_far"
+            ]
+          }
+        ],
+        "stage_1_entry": [
+          {
+            "action": "right stage_1_entry s1_fast_near s1_fast_far",
+            "outcomes": [
+              "s1_fast_near",
+              "s1_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_1_entry s1_safe_near s1_safe_far",
+            "outcomes": [
+              "s1_safe_near",
+              "s1_safe_far"
+            ]
+          }
+        ],
+        "stage_2_entry": [
+          {
+            "action": "right stage_2_entry s2_fast_near s2_fast_far",
+            "outcomes": [
+              "s2_fast_near",
+              "s2_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_2_entry s2_safe_near s2_safe_far",
+            "outcomes": [
+              "s2_safe_near",
+              "s2_safe_far"
+            ]
+          }
+        ],
+        "stage_3_entry": [
+          {
+            "action": "right stage_3_entry s3_fast_near s3_fast_far",
+            "outcomes": [
+              "s3_fast_near",
+              "s3_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_3_entry s3_safe_near s3_safe_far",
+            "outcomes": [
+              "s3_safe_near",
+              "s3_safe_far"
+            ]
+          }
+        ],
+        "stage_0_exit": [
+          {
+            "action": "up-to-wall stage_0_exit stage_1_entry wall_v_stage_1_entry",
+            "outcomes": [
+              "stage_1_entry"
+            ]
+          }
+        ],
+        "stage_1_exit": [
+          {
+            "action": "up-to-wall stage_1_exit stage_2_entry wall_v_stage_2_entry",
+            "outcomes": [
+              "stage_2_entry"
+            ]
+          }
+        ],
+        "stage_2_exit": [
+          {
+            "action": "up-to-wall stage_2_exit stage_3_entry wall_v_stage_3_entry",
+            "outcomes": [
+              "stage_3_entry"
+            ]
+          }
+        ],
+        "stage_3_exit": [],
+        "s0_fast_near": [
+          {
+            "action": "up-to-wall s0_fast_near s0_fast_short_0 wall_v_s0_fast_short_0",
+            "outcomes": [
+              "s0_fast_short_0"
+            ]
+          }
+        ],
+        "s0_fast_far": [
+          {
+            "action": "left s0_fast_far s0_fast_near stage_0_entry",
+            "outcomes": [
+              "s0_fast_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_fast_far s0_fast_long_0 wall_v_s0_fast_long_0",
+            "outcomes": [
+              "s0_fast_long_0"
+            ]
+          }
+        ],
+        "s0_fast_short_0": [
+          {
+            "action": "right-to-wall s0_fast_short_0 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_fast_long_0": [
+          {
+            "action": "right-to-wall s0_fast_long_0 s0_fast_long_1 wall_h_s0_fast_long_1",
+            "outcomes": [
+              "s0_fast_long_1"
+            ]
+          }
+        ],
+        "s0_fast_long_1": [
+          {
+            "action": "up-to-wall s0_fast_long_1 s0_fast_long_2 wall_v_s0_fast_long_2",
+            "outcomes": [
+              "s0_fast_long_2"
+            ]
+          }
+        ],
+        "s0_fast_long_2": [
+          {
+            "action": "right-to-wall s0_fast_long_2 s0_fast_long_3 wall_h_s0_fast_long_3",
+            "outcomes": [
+              "s0_fast_long_3"
+            ]
+          }
+        ],
+        "s0_fast_long_3": [
+          {
+            "action": "up-to-wall s0_fast_long_3 s0_fast_long_4 wall_v_s0_fast_long_4",
+            "outcomes": [
+              "s0_fast_long_4"
+            ]
+          }
+        ],
+        "s0_fast_long_4": [
+          {
+            "action": "right-to-wall s0_fast_long_4 s0_fast_long_5 wall_h_s0_fast_long_5",
+            "outcomes": [
+              "s0_fast_long_5"
+            ]
+          }
+        ],
+        "s0_fast_long_5": [
+          {
+            "action": "up-to-wall s0_fast_long_5 s0_fast_long_6 wall_v_s0_fast_long_6",
+            "outcomes": [
+              "s0_fast_long_6"
+            ]
+          }
+        ],
+        "s0_fast_long_6": [
+          {
+            "action": "right-to-wall s0_fast_long_6 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_near": [
+          {
+            "action": "up-to-wall s0_safe_near s0_safe_short_0 wall_v_s0_safe_short_0",
+            "outcomes": [
+              "s0_safe_short_0"
+            ]
+          }
+        ],
+        "s0_safe_far": [
+          {
+            "action": "left s0_safe_far s0_safe_near stage_0_entry",
+            "outcomes": [
+              "s0_safe_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_safe_far s0_safe_long_0 wall_v_s0_safe_long_0",
+            "outcomes": [
+              "s0_safe_long_0"
+            ]
+          }
+        ],
+        "s0_safe_short_0": [
+          {
+            "action": "right-to-wall s0_safe_short_0 s0_safe_short_1 wall_h_s0_safe_short_1",
+            "outcomes": [
+              "s0_safe_short_1"
+            ]
+          }
+        ],
+        "s0_safe_short_1": [
+          {
+            "action": "up-to-wall s0_safe_short_1 s0_safe_short_2 wall_v_s0_safe_short_2",
+            "outcomes": [
+              "s0_safe_short_2"
+            ]
+          }
+        ],
+        "s0_safe_short_2": [
+          {
+            "action": "right-to-wall s0_safe_short_2 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_long_0": [
+          {
+            "action": "right-to-wall s0_safe_long_0 s0_safe_long_1 wall_h_s0_safe_long_1",
+            "outcomes": [
+              "s0_safe_long_1"
+            ]
+          }
+        ],
+        "s0_safe_long_1": [
+          {
+            "action": "up-to-wall s0_safe_long_1 s0_safe_long_2 wall_v_s0_safe_long_2",
+            "outcomes": [
+              "s0_safe_long_2"
+            ]
+          }
+        ],
+        "s0_safe_long_2": [
+          {
+            "action": "right-to-wall s0_safe_long_2 s0_safe_long_3 wall_h_s0_safe_long_3",
+            "outcomes": [
+              "s0_safe_long_3"
+            ]
+          }
+        ],
+        "s0_safe_long_3": [
+          {
+            "action": "up-to-wall s0_safe_long_3 s0_safe_long_4 wall_v_s0_safe_long_4",
+            "outcomes": [
+              "s0_safe_long_4"
+            ]
+          }
+        ],
+        "s0_safe_long_4": [
+          {
+            "action": "right-to-wall s0_safe_long_4 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s1_fast_near": [
+          {
+            "action": "up-to-wall s1_fast_near s1_fast_short_0 wall_v_s1_fast_short_0",
+            "outcomes": [
+              "s1_fast_short_0"
+            ]
+          }
+        ],
+        "s1_fast_far": [
+          {
+            "action": "left s1_fast_far s1_fast_near stage_1_entry",
+            "outcomes": [
+              "s1_fast_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_fast_far s1_fast_long_0 wall_v_s1_fast_long_0",
+            "outcomes": [
+              "s1_fast_long_0"
+            ]
+          }
+        ],
+        "s1_fast_short_0": [
+          {
+            "action": "right-to-wall s1_fast_short_0 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_fast_long_0": [
+          {
+            "action": "right-to-wall s1_fast_long_0 s1_fast_long_1 wall_h_s1_fast_long_1",
+            "outcomes": [
+              "s1_fast_long_1"
+            ]
+          }
+        ],
+        "s1_fast_long_1": [
+          {
+            "action": "up-to-wall s1_fast_long_1 s1_fast_long_2 wall_v_s1_fast_long_2",
+            "outcomes": [
+              "s1_fast_long_2"
+            ]
+          }
+        ],
+        "s1_fast_long_2": [
+          {
+            "action": "right-to-wall s1_fast_long_2 s1_fast_long_3 wall_h_s1_fast_long_3",
+            "outcomes": [
+              "s1_fast_long_3"
+            ]
+          }
+        ],
+        "s1_fast_long_3": [
+          {
+            "action": "up-to-wall s1_fast_long_3 s1_fast_long_4 wall_v_s1_fast_long_4",
+            "outcomes": [
+              "s1_fast_long_4"
+            ]
+          }
+        ],
+        "s1_fast_long_4": [
+          {
+            "action": "right-to-wall s1_fast_long_4 s1_fast_long_5 wall_h_s1_fast_long_5",
+            "outcomes": [
+              "s1_fast_long_5"
+            ]
+          }
+        ],
+        "s1_fast_long_5": [
+          {
+            "action": "up-to-wall s1_fast_long_5 s1_fast_long_6 wall_v_s1_fast_long_6",
+            "outcomes": [
+              "s1_fast_long_6"
+            ]
+          }
+        ],
+        "s1_fast_long_6": [
+          {
+            "action": "right-to-wall s1_fast_long_6 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_near": [
+          {
+            "action": "up-to-wall s1_safe_near s1_safe_short_0 wall_v_s1_safe_short_0",
+            "outcomes": [
+              "s1_safe_short_0"
+            ]
+          }
+        ],
+        "s1_safe_far": [
+          {
+            "action": "left s1_safe_far s1_safe_near stage_1_entry",
+            "outcomes": [
+              "s1_safe_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_safe_far s1_safe_long_0 wall_v_s1_safe_long_0",
+            "outcomes": [
+              "s1_safe_long_0"
+            ]
+          }
+        ],
+        "s1_safe_short_0": [
+          {
+            "action": "right-to-wall s1_safe_short_0 s1_safe_short_1 wall_h_s1_safe_short_1",
+            "outcomes": [
+              "s1_safe_short_1"
+            ]
+          }
+        ],
+        "s1_safe_short_1": [
+          {
+            "action": "up-to-wall s1_safe_short_1 s1_safe_short_2 wall_v_s1_safe_short_2",
+            "outcomes": [
+              "s1_safe_short_2"
+            ]
+          }
+        ],
+        "s1_safe_short_2": [
+          {
+            "action": "right-to-wall s1_safe_short_2 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_long_0": [
+          {
+            "action": "right-to-wall s1_safe_long_0 s1_safe_long_1 wall_h_s1_safe_long_1",
+            "outcomes": [
+              "s1_safe_long_1"
+            ]
+          }
+        ],
+        "s1_safe_long_1": [
+          {
+            "action": "up-to-wall s1_safe_long_1 s1_safe_long_2 wall_v_s1_safe_long_2",
+            "outcomes": [
+              "s1_safe_long_2"
+            ]
+          }
+        ],
+        "s1_safe_long_2": [
+          {
+            "action": "right-to-wall s1_safe_long_2 s1_safe_long_3 wall_h_s1_safe_long_3",
+            "outcomes": [
+              "s1_safe_long_3"
+            ]
+          }
+        ],
+        "s1_safe_long_3": [
+          {
+            "action": "up-to-wall s1_safe_long_3 s1_safe_long_4 wall_v_s1_safe_long_4",
+            "outcomes": [
+              "s1_safe_long_4"
+            ]
+          }
+        ],
+        "s1_safe_long_4": [
+          {
+            "action": "right-to-wall s1_safe_long_4 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s2_fast_near": [
+          {
+            "action": "up-to-wall s2_fast_near s2_fast_short_0 wall_v_s2_fast_short_0",
+            "outcomes": [
+              "s2_fast_short_0"
+            ]
+          }
+        ],
+        "s2_fast_far": [
+          {
+            "action": "left s2_fast_far s2_fast_near stage_2_entry",
+            "outcomes": [
+              "s2_fast_near",
+              "stage_2_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s2_fast_far s2_fast_long_0 wall_v_s2_fast_long_0",
+            "outcomes": [
+              "s2_fast_long_0"
+            ]
+          }
+        ],
+        "s2_fast_short_0": [
+          {
+            "action": "right-to-wall s2_fast_short_0 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ],
+        "s2_fast_long_0": [
+          {
+            "action": "right-to-wall s2_fast_long_0 s2_fast_long_1 wall_h_s2_fast_long_1",
+            "outcomes": [
+              "s2_fast_long_1"
+            ]
+          }
+        ],
+        "s2_fast_long_1": [
+          {
+            "action": "up-to-wall s2_fast_long_1 s2_fast_long_2 wall_v_s2_fast_long_2",
+            "outcomes": [
+              "s2_fast_long_2"
+            ]
+          }
+        ],
+        "s2_fast_long_2": [
+          {
+            "action": "right-to-wall s2_fast_long_2 s2_fast_long_3 wall_h_s2_fast_long_3",
+            "outcomes": [
+              "s2_fast_long_3"
+            ]
+          }
+        ],
+        "s2_fast_long_3": [
+          {
+            "action": "up-to-wall s2_fast_long_3 s2_fast_long_4 wall_v_s2_fast_long_4",
+            "outcomes": [
+              "s2_fast_long_4"
+            ]
+          }
+        ],
+        "s2_fast_long_4": [
+          {
+            "action": "right-to-wall s2_fast_long_4 s2_fast_long_5 wall_h_s2_fast_long_5",
+            "outcomes": [
+              "s2_fast_long_5"
+            ]
+          }
+        ],
+        "s2_fast_long_5": [
+          {
+            "action": "up-to-wall s2_fast_long_5 s2_fast_long_6 wall_v_s2_fast_long_6",
+            "outcomes": [
+              "s2_fast_long_6"
+            ]
+          }
+        ],
+        "s2_fast_long_6": [
+          {
+            "action": "right-to-wall s2_fast_long_6 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ],
+        "s2_safe_near": [
+          {
+            "action": "up-to-wall s2_safe_near s2_safe_short_0 wall_v_s2_safe_short_0",
+            "outcomes": [
+              "s2_safe_short_0"
+            ]
+          }
+        ],
+        "s2_safe_far": [
+          {
+            "action": "left s2_safe_far s2_safe_near stage_2_entry",
+            "outcomes": [
+              "s2_safe_near",
+              "stage_2_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s2_safe_far s2_safe_long_0 wall_v_s2_safe_long_0",
+            "outcomes": [
+              "s2_safe_long_0"
+            ]
+          }
+        ],
+        "s2_safe_short_0": [
+          {
+            "action": "right-to-wall s2_safe_short_0 s2_safe_short_1 wall_h_s2_safe_short_1",
+            "outcomes": [
+              "s2_safe_short_1"
+            ]
+          }
+        ],
+        "s2_safe_short_1": [
+          {
+            "action": "up-to-wall s2_safe_short_1 s2_safe_short_2 wall_v_s2_safe_short_2",
+            "outcomes": [
+              "s2_safe_short_2"
+            ]
+          }
+        ],
+        "s2_safe_short_2": [
+          {
+            "action": "right-to-wall s2_safe_short_2 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ],
+        "s2_safe_long_0": [
+          {
+            "action": "right-to-wall s2_safe_long_0 s2_safe_long_1 wall_h_s2_safe_long_1",
+            "outcomes": [
+              "s2_safe_long_1"
+            ]
+          }
+        ],
+        "s2_safe_long_1": [
+          {
+            "action": "up-to-wall s2_safe_long_1 s2_safe_long_2 wall_v_s2_safe_long_2",
+            "outcomes": [
+              "s2_safe_long_2"
+            ]
+          }
+        ],
+        "s2_safe_long_2": [
+          {
+            "action": "right-to-wall s2_safe_long_2 s2_safe_long_3 wall_h_s2_safe_long_3",
+            "outcomes": [
+              "s2_safe_long_3"
+            ]
+          }
+        ],
+        "s2_safe_long_3": [
+          {
+            "action": "up-to-wall s2_safe_long_3 s2_safe_long_4 wall_v_s2_safe_long_4",
+            "outcomes": [
+              "s2_safe_long_4"
+            ]
+          }
+        ],
+        "s2_safe_long_4": [
+          {
+            "action": "right-to-wall s2_safe_long_4 stage_2_exit wall_h_stage_2_exit",
+            "outcomes": [
+              "stage_2_exit"
+            ]
+          }
+        ],
+        "s3_fast_near": [
+          {
+            "action": "up-to-wall s3_fast_near s3_fast_short_0 wall_v_s3_fast_short_0",
+            "outcomes": [
+              "s3_fast_short_0"
+            ]
+          }
+        ],
+        "s3_fast_far": [
+          {
+            "action": "left s3_fast_far s3_fast_near stage_3_entry",
+            "outcomes": [
+              "s3_fast_near",
+              "stage_3_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s3_fast_far s3_fast_long_0 wall_v_s3_fast_long_0",
+            "outcomes": [
+              "s3_fast_long_0"
+            ]
+          }
+        ],
+        "s3_fast_short_0": [
+          {
+            "action": "right-to-wall s3_fast_short_0 stage_3_exit wall_h_stage_3_exit",
+            "outcomes": [
+              "stage_3_exit"
+            ]
+          }
+        ],
+        "s3_fast_long_0": [
+          {
+            "action": "right-to-wall s3_fast_long_0 s3_fast_long_1 wall_h_s3_fast_long_1",
+            "outcomes": [
+              "s3_fast_long_1"
+            ]
+          }
+        ],
+        "s3_fast_long_1": [
+          {
+            "action": "up-to-wall s3_fast_long_1 s3_fast_long_2 wall_v_s3_fast_long_2",
+            "outcomes": [
+              "s3_fast_long_2"
+            ]
+          }
+        ],
+        "s3_fast_long_2": [
+          {
+            "action": "right-to-wall s3_fast_long_2 s3_fast_long_3 wall_h_s3_fast_long_3",
+            "outcomes": [
+              "s3_fast_long_3"
+            ]
+          }
+        ],
+        "s3_fast_long_3": [
+          {
+            "action": "up-to-wall s3_fast_long_3 s3_fast_long_4 wall_v_s3_fast_long_4",
+            "outcomes": [
+              "s3_fast_long_4"
+            ]
+          }
+        ],
+        "s3_fast_long_4": [
+          {
+            "action": "right-to-wall s3_fast_long_4 s3_fast_long_5 wall_h_s3_fast_long_5",
+            "outcomes": [
+              "s3_fast_long_5"
+            ]
+          }
+        ],
+        "s3_fast_long_5": [
+          {
+            "action": "up-to-wall s3_fast_long_5 s3_fast_long_6 wall_v_s3_fast_long_6",
+            "outcomes": [
+              "s3_fast_long_6"
+            ]
+          }
+        ],
+        "s3_fast_long_6": [
+          {
+            "action": "right-to-wall s3_fast_long_6 stage_3_exit wall_h_stage_3_exit",
+            "outcomes": [
+              "stage_3_exit"
+            ]
+          }
+        ],
+        "s3_safe_near": [
+          {
+            "action": "up-to-wall s3_safe_near s3_safe_short_0 wall_v_s3_safe_short_0",
+            "outcomes": [
+              "s3_safe_short_0"
+            ]
+          }
+        ],
+        "s3_safe_far": [
+          {
+            "action": "left s3_safe_far s3_safe_near stage_3_entry",
+            "outcomes": [
+              "s3_safe_near",
+              "stage_3_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s3_safe_far s3_safe_long_0 wall_v_s3_safe_long_0",
+            "outcomes": [
+              "s3_safe_long_0"
+            ]
+          }
+        ],
+        "s3_safe_short_0": [
+          {
+            "action": "right-to-wall s3_safe_short_0 s3_safe_short_1 wall_h_s3_safe_short_1",
+            "outcomes": [
+              "s3_safe_short_1"
+            ]
+          }
+        ],
+        "s3_safe_short_1": [
+          {
+            "action": "up-to-wall s3_safe_short_1 s3_safe_short_2 wall_v_s3_safe_short_2",
+            "outcomes": [
+              "s3_safe_short_2"
+            ]
+          }
+        ],
+        "s3_safe_short_2": [
+          {
+            "action": "right-to-wall s3_safe_short_2 stage_3_exit wall_h_stage_3_exit",
+            "outcomes": [
+              "stage_3_exit"
+            ]
+          }
+        ],
+        "s3_safe_long_0": [
+          {
+            "action": "right-to-wall s3_safe_long_0 s3_safe_long_1 wall_h_s3_safe_long_1",
+            "outcomes": [
+              "s3_safe_long_1"
+            ]
+          }
+        ],
+        "s3_safe_long_1": [
+          {
+            "action": "up-to-wall s3_safe_long_1 s3_safe_long_2 wall_v_s3_safe_long_2",
+            "outcomes": [
+              "s3_safe_long_2"
+            ]
+          }
+        ],
+        "s3_safe_long_2": [
+          {
+            "action": "right-to-wall s3_safe_long_2 s3_safe_long_3 wall_h_s3_safe_long_3",
+            "outcomes": [
+              "s3_safe_long_3"
+            ]
+          }
+        ],
+        "s3_safe_long_3": [
+          {
+            "action": "up-to-wall s3_safe_long_3 s3_safe_long_4 wall_v_s3_safe_long_4",
+            "outcomes": [
+              "s3_safe_long_4"
+            ]
+          }
+        ],
+        "s3_safe_long_4": [
+          {
+            "action": "right-to-wall s3_safe_long_4 stage_3_exit wall_h_stage_3_exit",
+            "outcomes": [
+              "stage_3_exit"
+            ]
+          }
+        ]
+      },
+      "front": [
+        [
+          15,
+          39
+        ],
+        [
+          17,
+          37
+        ],
+        [
+          19,
+          35
+        ],
+        [
+          21,
+          33
+        ],
+        [
+          23,
+          31
+        ]
+      ],
+      "reference": "analytic composition; independently enumerated small cases",
+      "geometry": "non-geometric diagnostic topology; not a rectangular lake",
+      "pddl_sha256": "13a82036e0f4817a657d63a074007c60ce632464566bbcd89c78dab4cb906eb0"
+    },
+    {
+      "instance": "serial-k02-g2",
+      "family": "serial-topology",
+      "stages": 2,
+      "gap": 2,
+      "initial": "stage_0_entry",
+      "goal": "stage_1_exit",
+      "objects": {
+        "stage_0_entry": "ice",
+        "stage_1_entry": "ice",
+        "stage_0_exit": "ice",
+        "stage_1_exit": "ice",
+        "s0_fast_near": "ice",
+        "s0_fast_far": "ice",
+        "s0_fast_short_0": "ice",
+        "wall_v_s0_fast_short_0": "wall",
+        "wall_h_stage_0_exit": "wall",
+        "s0_fast_long_0": "ice",
+        "s0_fast_long_1": "ice",
+        "s0_fast_long_2": "ice",
+        "s0_fast_long_3": "ice",
+        "s0_fast_long_4": "ice",
+        "s0_fast_long_5": "ice",
+        "s0_fast_long_6": "ice",
+        "s0_fast_long_7": "ice",
+        "s0_fast_long_8": "ice",
+        "s0_fast_long_9": "ice",
+        "s0_fast_long_10": "ice",
+        "s0_fast_long_11": "ice",
+        "s0_fast_long_12": "ice",
+        "wall_v_s0_fast_long_0": "wall",
+        "wall_h_s0_fast_long_1": "wall",
+        "wall_v_s0_fast_long_2": "wall",
+        "wall_h_s0_fast_long_3": "wall",
+        "wall_v_s0_fast_long_4": "wall",
+        "wall_h_s0_fast_long_5": "wall",
+        "wall_v_s0_fast_long_6": "wall",
+        "wall_h_s0_fast_long_7": "wall",
+        "wall_v_s0_fast_long_8": "wall",
+        "wall_h_s0_fast_long_9": "wall",
+        "wall_v_s0_fast_long_10": "wall",
+        "wall_h_s0_fast_long_11": "wall",
+        "wall_v_s0_fast_long_12": "wall",
+        "s0_safe_near": "ice",
+        "s0_safe_far": "ice",
+        "s0_safe_short_0": "ice",
+        "s0_safe_short_1": "ice",
+        "s0_safe_short_2": "ice",
+        "s0_safe_short_3": "ice",
+        "s0_safe_short_4": "ice",
+        "wall_v_s0_safe_short_0": "wall",
+        "wall_h_s0_safe_short_1": "wall",
+        "wall_v_s0_safe_short_2": "wall",
+        "wall_h_s0_safe_short_3": "wall",
+        "wall_v_s0_safe_short_4": "wall",
+        "s0_safe_long_0": "ice",
+        "s0_safe_long_1": "ice",
+        "s0_safe_long_2": "ice",
+        "s0_safe_long_3": "ice",
+        "s0_safe_long_4": "ice",
+        "s0_safe_long_5": "ice",
+        "s0_safe_long_6": "ice",
+        "s0_safe_long_7": "ice",
+        "s0_safe_long_8": "ice",
+        "wall_v_s0_safe_long_0": "wall",
+        "wall_h_s0_safe_long_1": "wall",
+        "wall_v_s0_safe_long_2": "wall",
+        "wall_h_s0_safe_long_3": "wall",
+        "wall_v_s0_safe_long_4": "wall",
+        "wall_h_s0_safe_long_5": "wall",
+        "wall_v_s0_safe_long_6": "wall",
+        "wall_h_s0_safe_long_7": "wall",
+        "wall_v_s0_safe_long_8": "wall",
+        "wall_v_stage_1_entry": "wall",
+        "s1_fast_near": "ice",
+        "s1_fast_far": "ice",
+        "s1_fast_short_0": "ice",
+        "wall_v_s1_fast_short_0": "wall",
+        "wall_h_stage_1_exit": "wall",
+        "s1_fast_long_0": "ice",
+        "s1_fast_long_1": "ice",
+        "s1_fast_long_2": "ice",
+        "s1_fast_long_3": "ice",
+        "s1_fast_long_4": "ice",
+        "s1_fast_long_5": "ice",
+        "s1_fast_long_6": "ice",
+        "s1_fast_long_7": "ice",
+        "s1_fast_long_8": "ice",
+        "s1_fast_long_9": "ice",
+        "s1_fast_long_10": "ice",
+        "s1_fast_long_11": "ice",
+        "s1_fast_long_12": "ice",
+        "wall_v_s1_fast_long_0": "wall",
+        "wall_h_s1_fast_long_1": "wall",
+        "wall_v_s1_fast_long_2": "wall",
+        "wall_h_s1_fast_long_3": "wall",
+        "wall_v_s1_fast_long_4": "wall",
+        "wall_h_s1_fast_long_5": "wall",
+        "wall_v_s1_fast_long_6": "wall",
+        "wall_h_s1_fast_long_7": "wall",
+        "wall_v_s1_fast_long_8": "wall",
+        "wall_h_s1_fast_long_9": "wall",
+        "wall_v_s1_fast_long_10": "wall",
+        "wall_h_s1_fast_long_11": "wall",
+        "wall_v_s1_fast_long_12": "wall",
+        "s1_safe_near": "ice",
+        "s1_safe_far": "ice",
+        "s1_safe_short_0": "ice",
+        "s1_safe_short_1": "ice",
+        "s1_safe_short_2": "ice",
+        "s1_safe_short_3": "ice",
+        "s1_safe_short_4": "ice",
+        "wall_v_s1_safe_short_0": "wall",
+        "wall_h_s1_safe_short_1": "wall",
+        "wall_v_s1_safe_short_2": "wall",
+        "wall_h_s1_safe_short_3": "wall",
+        "wall_v_s1_safe_short_4": "wall",
+        "s1_safe_long_0": "ice",
+        "s1_safe_long_1": "ice",
+        "s1_safe_long_2": "ice",
+        "s1_safe_long_3": "ice",
+        "s1_safe_long_4": "ice",
+        "s1_safe_long_5": "ice",
+        "s1_safe_long_6": "ice",
+        "s1_safe_long_7": "ice",
+        "s1_safe_long_8": "ice",
+        "wall_v_s1_safe_long_0": "wall",
+        "wall_h_s1_safe_long_1": "wall",
+        "wall_v_s1_safe_long_2": "wall",
+        "wall_h_s1_safe_long_3": "wall",
+        "wall_v_s1_safe_long_4": "wall",
+        "wall_h_s1_safe_long_5": "wall",
+        "wall_v_s1_safe_long_6": "wall",
+        "wall_h_s1_safe_long_7": "wall",
+        "wall_v_s1_safe_long_8": "wall"
+      },
+      "relations": [
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_fast_near"
+        ],
+        [
+          "left-of",
+          "s0_fast_near",
+          "s0_fast_far"
+        ],
+        [
+          "down-of",
+          "s0_fast_near",
+          "s0_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_short_0",
+          "wall_v_s0_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_short_0",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_exit",
+          "wall_h_stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_fast_far",
+          "s0_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_0",
+          "wall_v_s0_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_0",
+          "s0_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_1",
+          "wall_h_s0_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_1",
+          "s0_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_2",
+          "wall_v_s0_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_2",
+          "s0_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_3",
+          "wall_h_s0_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_3",
+          "s0_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_4",
+          "wall_v_s0_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_4",
+          "s0_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_5",
+          "wall_h_s0_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_5",
+          "s0_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_6",
+          "wall_v_s0_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_6",
+          "s0_fast_long_7"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_7",
+          "wall_h_s0_fast_long_7"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_7",
+          "s0_fast_long_8"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_8",
+          "wall_v_s0_fast_long_8"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_8",
+          "s0_fast_long_9"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_9",
+          "wall_h_s0_fast_long_9"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_9",
+          "s0_fast_long_10"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_10",
+          "wall_v_s0_fast_long_10"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_10",
+          "s0_fast_long_11"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_11",
+          "wall_h_s0_fast_long_11"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_11",
+          "s0_fast_long_12"
+        ],
+        [
+          "down-of",
+          "s0_fast_long_12",
+          "wall_v_s0_fast_long_12"
+        ],
+        [
+          "left-of",
+          "s0_fast_long_12",
+          "stage_0_exit"
+        ],
+        [
+          "left-of",
+          "stage_0_entry",
+          "s0_safe_near"
+        ],
+        [
+          "left-of",
+          "s0_safe_near",
+          "s0_safe_far"
+        ],
+        [
+          "down-of",
+          "s0_safe_near",
+          "s0_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_0",
+          "wall_v_s0_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_0",
+          "s0_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_1",
+          "wall_h_s0_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_1",
+          "s0_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_2",
+          "wall_v_s0_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_2",
+          "s0_safe_short_3"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_3",
+          "wall_h_s0_safe_short_3"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_3",
+          "s0_safe_short_4"
+        ],
+        [
+          "down-of",
+          "s0_safe_short_4",
+          "wall_v_s0_safe_short_4"
+        ],
+        [
+          "left-of",
+          "s0_safe_short_4",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "s0_safe_far",
+          "s0_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_0",
+          "wall_v_s0_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_0",
+          "s0_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_1",
+          "wall_h_s0_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_1",
+          "s0_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_2",
+          "wall_v_s0_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_2",
+          "s0_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_3",
+          "wall_h_s0_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_3",
+          "s0_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_4",
+          "wall_v_s0_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_4",
+          "s0_safe_long_5"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_5",
+          "wall_h_s0_safe_long_5"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_5",
+          "s0_safe_long_6"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_6",
+          "wall_v_s0_safe_long_6"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_6",
+          "s0_safe_long_7"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_7",
+          "wall_h_s0_safe_long_7"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_7",
+          "s0_safe_long_8"
+        ],
+        [
+          "down-of",
+          "s0_safe_long_8",
+          "wall_v_s0_safe_long_8"
+        ],
+        [
+          "left-of",
+          "s0_safe_long_8",
+          "stage_0_exit"
+        ],
+        [
+          "down-of",
+          "stage_0_exit",
+          "stage_1_entry"
+        ],
+        [
+          "down-of",
+          "stage_1_entry",
+          "wall_v_stage_1_entry"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_fast_near"
+        ],
+        [
+          "left-of",
+          "s1_fast_near",
+          "s1_fast_far"
+        ],
+        [
+          "down-of",
+          "s1_fast_near",
+          "s1_fast_short_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_short_0",
+          "wall_v_s1_fast_short_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_short_0",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_exit",
+          "wall_h_stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_fast_far",
+          "s1_fast_long_0"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_0",
+          "wall_v_s1_fast_long_0"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_0",
+          "s1_fast_long_1"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_1",
+          "wall_h_s1_fast_long_1"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_1",
+          "s1_fast_long_2"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_2",
+          "wall_v_s1_fast_long_2"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_2",
+          "s1_fast_long_3"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_3",
+          "wall_h_s1_fast_long_3"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_3",
+          "s1_fast_long_4"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_4",
+          "wall_v_s1_fast_long_4"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_4",
+          "s1_fast_long_5"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_5",
+          "wall_h_s1_fast_long_5"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_5",
+          "s1_fast_long_6"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_6",
+          "wall_v_s1_fast_long_6"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_6",
+          "s1_fast_long_7"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_7",
+          "wall_h_s1_fast_long_7"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_7",
+          "s1_fast_long_8"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_8",
+          "wall_v_s1_fast_long_8"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_8",
+          "s1_fast_long_9"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_9",
+          "wall_h_s1_fast_long_9"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_9",
+          "s1_fast_long_10"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_10",
+          "wall_v_s1_fast_long_10"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_10",
+          "s1_fast_long_11"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_11",
+          "wall_h_s1_fast_long_11"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_11",
+          "s1_fast_long_12"
+        ],
+        [
+          "down-of",
+          "s1_fast_long_12",
+          "wall_v_s1_fast_long_12"
+        ],
+        [
+          "left-of",
+          "s1_fast_long_12",
+          "stage_1_exit"
+        ],
+        [
+          "left-of",
+          "stage_1_entry",
+          "s1_safe_near"
+        ],
+        [
+          "left-of",
+          "s1_safe_near",
+          "s1_safe_far"
+        ],
+        [
+          "down-of",
+          "s1_safe_near",
+          "s1_safe_short_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_0",
+          "wall_v_s1_safe_short_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_0",
+          "s1_safe_short_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_1",
+          "wall_h_s1_safe_short_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_1",
+          "s1_safe_short_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_2",
+          "wall_v_s1_safe_short_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_2",
+          "s1_safe_short_3"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_3",
+          "wall_h_s1_safe_short_3"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_3",
+          "s1_safe_short_4"
+        ],
+        [
+          "down-of",
+          "s1_safe_short_4",
+          "wall_v_s1_safe_short_4"
+        ],
+        [
+          "left-of",
+          "s1_safe_short_4",
+          "stage_1_exit"
+        ],
+        [
+          "down-of",
+          "s1_safe_far",
+          "s1_safe_long_0"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_0",
+          "wall_v_s1_safe_long_0"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_0",
+          "s1_safe_long_1"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_1",
+          "wall_h_s1_safe_long_1"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_1",
+          "s1_safe_long_2"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_2",
+          "wall_v_s1_safe_long_2"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_2",
+          "s1_safe_long_3"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_3",
+          "wall_h_s1_safe_long_3"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_3",
+          "s1_safe_long_4"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_4",
+          "wall_v_s1_safe_long_4"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_4",
+          "s1_safe_long_5"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_5",
+          "wall_h_s1_safe_long_5"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_5",
+          "s1_safe_long_6"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_6",
+          "wall_v_s1_safe_long_6"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_6",
+          "s1_safe_long_7"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_7",
+          "wall_h_s1_safe_long_7"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_7",
+          "s1_safe_long_8"
+        ],
+        [
+          "down-of",
+          "s1_safe_long_8",
+          "wall_v_s1_safe_long_8"
+        ],
+        [
+          "left-of",
+          "s1_safe_long_8",
+          "stage_1_exit"
+        ]
+      ],
+      "actions": {
+        "stage_0_entry": [
+          {
+            "action": "right stage_0_entry s0_fast_near s0_fast_far",
+            "outcomes": [
+              "s0_fast_near",
+              "s0_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_0_entry s0_safe_near s0_safe_far",
+            "outcomes": [
+              "s0_safe_near",
+              "s0_safe_far"
+            ]
+          }
+        ],
+        "stage_1_entry": [
+          {
+            "action": "right stage_1_entry s1_fast_near s1_fast_far",
+            "outcomes": [
+              "s1_fast_near",
+              "s1_fast_far"
+            ]
+          },
+          {
+            "action": "right stage_1_entry s1_safe_near s1_safe_far",
+            "outcomes": [
+              "s1_safe_near",
+              "s1_safe_far"
+            ]
+          }
+        ],
+        "stage_0_exit": [
+          {
+            "action": "up-to-wall stage_0_exit stage_1_entry wall_v_stage_1_entry",
+            "outcomes": [
+              "stage_1_entry"
+            ]
+          }
+        ],
+        "stage_1_exit": [],
+        "s0_fast_near": [
+          {
+            "action": "up-to-wall s0_fast_near s0_fast_short_0 wall_v_s0_fast_short_0",
+            "outcomes": [
+              "s0_fast_short_0"
+            ]
+          }
+        ],
+        "s0_fast_far": [
+          {
+            "action": "left s0_fast_far s0_fast_near stage_0_entry",
+            "outcomes": [
+              "s0_fast_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_fast_far s0_fast_long_0 wall_v_s0_fast_long_0",
+            "outcomes": [
+              "s0_fast_long_0"
+            ]
+          }
+        ],
+        "s0_fast_short_0": [
+          {
+            "action": "right-to-wall s0_fast_short_0 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_fast_long_0": [
+          {
+            "action": "right-to-wall s0_fast_long_0 s0_fast_long_1 wall_h_s0_fast_long_1",
+            "outcomes": [
+              "s0_fast_long_1"
+            ]
+          }
+        ],
+        "s0_fast_long_1": [
+          {
+            "action": "up-to-wall s0_fast_long_1 s0_fast_long_2 wall_v_s0_fast_long_2",
+            "outcomes": [
+              "s0_fast_long_2"
+            ]
+          }
+        ],
+        "s0_fast_long_2": [
+          {
+            "action": "right-to-wall s0_fast_long_2 s0_fast_long_3 wall_h_s0_fast_long_3",
+            "outcomes": [
+              "s0_fast_long_3"
+            ]
+          }
+        ],
+        "s0_fast_long_3": [
+          {
+            "action": "up-to-wall s0_fast_long_3 s0_fast_long_4 wall_v_s0_fast_long_4",
+            "outcomes": [
+              "s0_fast_long_4"
+            ]
+          }
+        ],
+        "s0_fast_long_4": [
+          {
+            "action": "right-to-wall s0_fast_long_4 s0_fast_long_5 wall_h_s0_fast_long_5",
+            "outcomes": [
+              "s0_fast_long_5"
+            ]
+          }
+        ],
+        "s0_fast_long_5": [
+          {
+            "action": "up-to-wall s0_fast_long_5 s0_fast_long_6 wall_v_s0_fast_long_6",
+            "outcomes": [
+              "s0_fast_long_6"
+            ]
+          }
+        ],
+        "s0_fast_long_6": [
+          {
+            "action": "right-to-wall s0_fast_long_6 s0_fast_long_7 wall_h_s0_fast_long_7",
+            "outcomes": [
+              "s0_fast_long_7"
+            ]
+          }
+        ],
+        "s0_fast_long_7": [
+          {
+            "action": "up-to-wall s0_fast_long_7 s0_fast_long_8 wall_v_s0_fast_long_8",
+            "outcomes": [
+              "s0_fast_long_8"
+            ]
+          }
+        ],
+        "s0_fast_long_8": [
+          {
+            "action": "right-to-wall s0_fast_long_8 s0_fast_long_9 wall_h_s0_fast_long_9",
+            "outcomes": [
+              "s0_fast_long_9"
+            ]
+          }
+        ],
+        "s0_fast_long_9": [
+          {
+            "action": "up-to-wall s0_fast_long_9 s0_fast_long_10 wall_v_s0_fast_long_10",
+            "outcomes": [
+              "s0_fast_long_10"
+            ]
+          }
+        ],
+        "s0_fast_long_10": [
+          {
+            "action": "right-to-wall s0_fast_long_10 s0_fast_long_11 wall_h_s0_fast_long_11",
+            "outcomes": [
+              "s0_fast_long_11"
+            ]
+          }
+        ],
+        "s0_fast_long_11": [
+          {
+            "action": "up-to-wall s0_fast_long_11 s0_fast_long_12 wall_v_s0_fast_long_12",
+            "outcomes": [
+              "s0_fast_long_12"
+            ]
+          }
+        ],
+        "s0_fast_long_12": [
+          {
+            "action": "right-to-wall s0_fast_long_12 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_near": [
+          {
+            "action": "up-to-wall s0_safe_near s0_safe_short_0 wall_v_s0_safe_short_0",
+            "outcomes": [
+              "s0_safe_short_0"
+            ]
+          }
+        ],
+        "s0_safe_far": [
+          {
+            "action": "left s0_safe_far s0_safe_near stage_0_entry",
+            "outcomes": [
+              "s0_safe_near",
+              "stage_0_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s0_safe_far s0_safe_long_0 wall_v_s0_safe_long_0",
+            "outcomes": [
+              "s0_safe_long_0"
+            ]
+          }
+        ],
+        "s0_safe_short_0": [
+          {
+            "action": "right-to-wall s0_safe_short_0 s0_safe_short_1 wall_h_s0_safe_short_1",
+            "outcomes": [
+              "s0_safe_short_1"
+            ]
+          }
+        ],
+        "s0_safe_short_1": [
+          {
+            "action": "up-to-wall s0_safe_short_1 s0_safe_short_2 wall_v_s0_safe_short_2",
+            "outcomes": [
+              "s0_safe_short_2"
+            ]
+          }
+        ],
+        "s0_safe_short_2": [
+          {
+            "action": "right-to-wall s0_safe_short_2 s0_safe_short_3 wall_h_s0_safe_short_3",
+            "outcomes": [
+              "s0_safe_short_3"
+            ]
+          }
+        ],
+        "s0_safe_short_3": [
+          {
+            "action": "up-to-wall s0_safe_short_3 s0_safe_short_4 wall_v_s0_safe_short_4",
+            "outcomes": [
+              "s0_safe_short_4"
+            ]
+          }
+        ],
+        "s0_safe_short_4": [
+          {
+            "action": "right-to-wall s0_safe_short_4 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s0_safe_long_0": [
+          {
+            "action": "right-to-wall s0_safe_long_0 s0_safe_long_1 wall_h_s0_safe_long_1",
+            "outcomes": [
+              "s0_safe_long_1"
+            ]
+          }
+        ],
+        "s0_safe_long_1": [
+          {
+            "action": "up-to-wall s0_safe_long_1 s0_safe_long_2 wall_v_s0_safe_long_2",
+            "outcomes": [
+              "s0_safe_long_2"
+            ]
+          }
+        ],
+        "s0_safe_long_2": [
+          {
+            "action": "right-to-wall s0_safe_long_2 s0_safe_long_3 wall_h_s0_safe_long_3",
+            "outcomes": [
+              "s0_safe_long_3"
+            ]
+          }
+        ],
+        "s0_safe_long_3": [
+          {
+            "action": "up-to-wall s0_safe_long_3 s0_safe_long_4 wall_v_s0_safe_long_4",
+            "outcomes": [
+              "s0_safe_long_4"
+            ]
+          }
+        ],
+        "s0_safe_long_4": [
+          {
+            "action": "right-to-wall s0_safe_long_4 s0_safe_long_5 wall_h_s0_safe_long_5",
+            "outcomes": [
+              "s0_safe_long_5"
+            ]
+          }
+        ],
+        "s0_safe_long_5": [
+          {
+            "action": "up-to-wall s0_safe_long_5 s0_safe_long_6 wall_v_s0_safe_long_6",
+            "outcomes": [
+              "s0_safe_long_6"
+            ]
+          }
+        ],
+        "s0_safe_long_6": [
+          {
+            "action": "right-to-wall s0_safe_long_6 s0_safe_long_7 wall_h_s0_safe_long_7",
+            "outcomes": [
+              "s0_safe_long_7"
+            ]
+          }
+        ],
+        "s0_safe_long_7": [
+          {
+            "action": "up-to-wall s0_safe_long_7 s0_safe_long_8 wall_v_s0_safe_long_8",
+            "outcomes": [
+              "s0_safe_long_8"
+            ]
+          }
+        ],
+        "s0_safe_long_8": [
+          {
+            "action": "right-to-wall s0_safe_long_8 stage_0_exit wall_h_stage_0_exit",
+            "outcomes": [
+              "stage_0_exit"
+            ]
+          }
+        ],
+        "s1_fast_near": [
+          {
+            "action": "up-to-wall s1_fast_near s1_fast_short_0 wall_v_s1_fast_short_0",
+            "outcomes": [
+              "s1_fast_short_0"
+            ]
+          }
+        ],
+        "s1_fast_far": [
+          {
+            "action": "left s1_fast_far s1_fast_near stage_1_entry",
+            "outcomes": [
+              "s1_fast_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_fast_far s1_fast_long_0 wall_v_s1_fast_long_0",
+            "outcomes": [
+              "s1_fast_long_0"
+            ]
+          }
+        ],
+        "s1_fast_short_0": [
+          {
+            "action": "right-to-wall s1_fast_short_0 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_fast_long_0": [
+          {
+            "action": "right-to-wall s1_fast_long_0 s1_fast_long_1 wall_h_s1_fast_long_1",
+            "outcomes": [
+              "s1_fast_long_1"
+            ]
+          }
+        ],
+        "s1_fast_long_1": [
+          {
+            "action": "up-to-wall s1_fast_long_1 s1_fast_long_2 wall_v_s1_fast_long_2",
+            "outcomes": [
+              "s1_fast_long_2"
+            ]
+          }
+        ],
+        "s1_fast_long_2": [
+          {
+            "action": "right-to-wall s1_fast_long_2 s1_fast_long_3 wall_h_s1_fast_long_3",
+            "outcomes": [
+              "s1_fast_long_3"
+            ]
+          }
+        ],
+        "s1_fast_long_3": [
+          {
+            "action": "up-to-wall s1_fast_long_3 s1_fast_long_4 wall_v_s1_fast_long_4",
+            "outcomes": [
+              "s1_fast_long_4"
+            ]
+          }
+        ],
+        "s1_fast_long_4": [
+          {
+            "action": "right-to-wall s1_fast_long_4 s1_fast_long_5 wall_h_s1_fast_long_5",
+            "outcomes": [
+              "s1_fast_long_5"
+            ]
+          }
+        ],
+        "s1_fast_long_5": [
+          {
+            "action": "up-to-wall s1_fast_long_5 s1_fast_long_6 wall_v_s1_fast_long_6",
+            "outcomes": [
+              "s1_fast_long_6"
+            ]
+          }
+        ],
+        "s1_fast_long_6": [
+          {
+            "action": "right-to-wall s1_fast_long_6 s1_fast_long_7 wall_h_s1_fast_long_7",
+            "outcomes": [
+              "s1_fast_long_7"
+            ]
+          }
+        ],
+        "s1_fast_long_7": [
+          {
+            "action": "up-to-wall s1_fast_long_7 s1_fast_long_8 wall_v_s1_fast_long_8",
+            "outcomes": [
+              "s1_fast_long_8"
+            ]
+          }
+        ],
+        "s1_fast_long_8": [
+          {
+            "action": "right-to-wall s1_fast_long_8 s1_fast_long_9 wall_h_s1_fast_long_9",
+            "outcomes": [
+              "s1_fast_long_9"
+            ]
+          }
+        ],
+        "s1_fast_long_9": [
+          {
+            "action": "up-to-wall s1_fast_long_9 s1_fast_long_10 wall_v_s1_fast_long_10",
+            "outcomes": [
+              "s1_fast_long_10"
+            ]
+          }
+        ],
+        "s1_fast_long_10": [
+          {
+            "action": "right-to-wall s1_fast_long_10 s1_fast_long_11 wall_h_s1_fast_long_11",
+            "outcomes": [
+              "s1_fast_long_11"
+            ]
+          }
+        ],
+        "s1_fast_long_11": [
+          {
+            "action": "up-to-wall s1_fast_long_11 s1_fast_long_12 wall_v_s1_fast_long_12",
+            "outcomes": [
+              "s1_fast_long_12"
+            ]
+          }
+        ],
+        "s1_fast_long_12": [
+          {
+            "action": "right-to-wall s1_fast_long_12 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_near": [
+          {
+            "action": "up-to-wall s1_safe_near s1_safe_short_0 wall_v_s1_safe_short_0",
+            "outcomes": [
+              "s1_safe_short_0"
+            ]
+          }
+        ],
+        "s1_safe_far": [
+          {
+            "action": "left s1_safe_far s1_safe_near stage_1_entry",
+            "outcomes": [
+              "s1_safe_near",
+              "stage_1_entry"
+            ]
+          },
+          {
+            "action": "up-to-wall s1_safe_far s1_safe_long_0 wall_v_s1_safe_long_0",
+            "outcomes": [
+              "s1_safe_long_0"
+            ]
+          }
+        ],
+        "s1_safe_short_0": [
+          {
+            "action": "right-to-wall s1_safe_short_0 s1_safe_short_1 wall_h_s1_safe_short_1",
+            "outcomes": [
+              "s1_safe_short_1"
+            ]
+          }
+        ],
+        "s1_safe_short_1": [
+          {
+            "action": "up-to-wall s1_safe_short_1 s1_safe_short_2 wall_v_s1_safe_short_2",
+            "outcomes": [
+              "s1_safe_short_2"
+            ]
+          }
+        ],
+        "s1_safe_short_2": [
+          {
+            "action": "right-to-wall s1_safe_short_2 s1_safe_short_3 wall_h_s1_safe_short_3",
+            "outcomes": [
+              "s1_safe_short_3"
+            ]
+          }
+        ],
+        "s1_safe_short_3": [
+          {
+            "action": "up-to-wall s1_safe_short_3 s1_safe_short_4 wall_v_s1_safe_short_4",
+            "outcomes": [
+              "s1_safe_short_4"
+            ]
+          }
+        ],
+        "s1_safe_short_4": [
+          {
+            "action": "right-to-wall s1_safe_short_4 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ],
+        "s1_safe_long_0": [
+          {
+            "action": "right-to-wall s1_safe_long_0 s1_safe_long_1 wall_h_s1_safe_long_1",
+            "outcomes": [
+              "s1_safe_long_1"
+            ]
+          }
+        ],
+        "s1_safe_long_1": [
+          {
+            "action": "up-to-wall s1_safe_long_1 s1_safe_long_2 wall_v_s1_safe_long_2",
+            "outcomes": [
+              "s1_safe_long_2"
+            ]
+          }
+        ],
+        "s1_safe_long_2": [
+          {
+            "action": "right-to-wall s1_safe_long_2 s1_safe_long_3 wall_h_s1_safe_long_3",
+            "outcomes": [
+              "s1_safe_long_3"
+            ]
+          }
+        ],
+        "s1_safe_long_3": [
+          {
+            "action": "up-to-wall s1_safe_long_3 s1_safe_long_4 wall_v_s1_safe_long_4",
+            "outcomes": [
+              "s1_safe_long_4"
+            ]
+          }
+        ],
+        "s1_safe_long_4": [
+          {
+            "action": "right-to-wall s1_safe_long_4 s1_safe_long_5 wall_h_s1_safe_long_5",
+            "outcomes": [
+              "s1_safe_long_5"
+            ]
+          }
+        ],
+        "s1_safe_long_5": [
+          {
+            "action": "up-to-wall s1_safe_long_5 s1_safe_long_6 wall_v_s1_safe_long_6",
+            "outcomes": [
+              "s1_safe_long_6"
+            ]
+          }
+        ],
+        "s1_safe_long_6": [
+          {
+            "action": "right-to-wall s1_safe_long_6 s1_safe_long_7 wall_h_s1_safe_long_7",
+            "outcomes": [
+              "s1_safe_long_7"
+            ]
+          }
+        ],
+        "s1_safe_long_7": [
+          {
+            "action": "up-to-wall s1_safe_long_7 s1_safe_long_8 wall_v_s1_safe_long_8",
+            "outcomes": [
+              "s1_safe_long_8"
+            ]
+          }
+        ],
+        "s1_safe_long_8": [
+          {
+            "action": "right-to-wall s1_safe_long_8 stage_1_exit wall_h_stage_1_exit",
+            "outcomes": [
+              "stage_1_exit"
+            ]
+          }
+        ]
+      },
+      "front": [
+        [
+          7,
+          31
+        ],
+        [
+          11,
+          27
+        ],
+        [
+          15,
+          23
+        ]
+      ],
+      "reference": "analytic composition; independently enumerated small cases",
+      "geometry": "non-geometric diagnostic topology; not a rectangular lake",
+      "pddl_sha256": "d865f9bd28d41c6785a011a0c3239a912778dd82985955668ef339324592c048"
+    },
+    {
+      "instance": "physical-port-1",
+      "family": "physical-port-attempt",
+      "stages": 1,
+      "width": 11,
+      "height": 6,
+      "start": [
+        8,
+        3
+      ],
+      "goal": [
+        1,
+        3
+      ],
+      "cells": [
+        [
+          0,
+          0,
+          "ice"
+        ],
+        [
+          0,
+          1,
+          "ice"
+        ],
+        [
+          0,
+          2,
+          "ice"
+        ],
+        [
+          0,
+          3,
+          "ice"
+        ],
+        [
+          0,
+          4,
+          "wall"
+        ],
+        [
+          0,
+          5,
+          "wall"
+        ],
+        [
+          1,
+          0,
+          "ice"
+        ],
+        [
+          1,
+          1,
+          "wall"
+        ],
+        [
+          1,
+          2,
+          "wall"
+        ],
+        [
+          1,
+          3,
+          "ice"
+        ],
+        [
+          1,
+          4,
+          "wall"
+        ],
+        [
+          1,
+          5,
+          "wall"
+        ],
+        [
+          2,
+          0,
+          "ice"
+        ],
+        [
+          2,
+          1,
+          "wall"
+        ],
+        [
+          2,
+          2,
+          "wall"
+        ],
+        [
+          2,
+          3,
+          "wall"
+        ],
+        [
+          2,
+          4,
+          "wall"
+        ],
+        [
+          2,
+          5,
+          "wall"
+        ],
+        [
+          3,
+          0,
+          "ice"
+        ],
+        [
+          3,
+          1,
+          "wall"
+        ],
+        [
+          3,
+          2,
+          "wall"
+        ],
+        [
+          3,
+          3,
+          "wall"
+        ],
+        [
+          3,
+          4,
+          "wall"
+        ],
+        [
+          3,
+          5,
+          "wall"
+        ],
+        [
+          4,
+          0,
+          "ice"
+        ],
+        [
+          4,
+          1,
+          "wall"
+        ],
+        [
+          4,
+          2,
+          "wall"
+        ],
+        [
+          4,
+          3,
+          "wall"
+        ],
+        [
+          4,
+          4,
+          "wall"
+        ],
+        [
+          4,
+          5,
+          "wall"
+        ],
+        [
+          5,
+          0,
+          "ice"
+        ],
+        [
+          5,
+          1,
+          "wall"
+        ],
+        [
+          5,
+          2,
+          "wall"
+        ],
+        [
+          5,
+          3,
+          "wall"
+        ],
+        [
+          5,
+          4,
+          "wall"
+        ],
+        [
+          5,
+          5,
+          "wall"
+        ],
+        [
+          6,
+          0,
+          "ice"
+        ],
+        [
+          6,
+          1,
+          "wall"
+        ],
+        [
+          6,
+          2,
+          "wall"
+        ],
+        [
+          6,
+          3,
+          "wall"
+        ],
+        [
+          6,
+          4,
+          "wall"
+        ],
+        [
+          6,
+          5,
+          "wall"
+        ],
+        [
+          7,
+          0,
+          "ice"
+        ],
+        [
+          7,
+          1,
+          "ice"
+        ],
+        [
+          7,
+          2,
+          "ice"
+        ],
+        [
+          7,
+          3,
+          "wall"
+        ],
+        [
+          7,
+          4,
+          "wall"
+        ],
+        [
+          7,
+          5,
+          "wall"
+        ],
+        [
+          8,
+          0,
+          "wall"
+        ],
+        [
+          8,
+          1,
+          "pit"
+        ],
+        [
+          8,
+          2,
+          "ice"
+        ],
+        [
+          8,
+          3,
+          "ice"
+        ],
+        [
+          8,
+          4,
+          "ice"
+        ],
+        [
+          8,
+          5,
+          "ice"
+        ],
+        [
+          9,
+          0,
+          "wall"
+        ],
+        [
+          9,
+          1,
+          "wall"
+        ],
+        [
+          9,
+          2,
+          "ice"
+        ],
+        [
+          9,
+          3,
+          "ice"
+        ],
+        [
+          9,
+          4,
+          "ice"
+        ],
+        [
+          9,
+          5,
+          "ice"
+        ],
+        [
+          10,
+          0,
+          "wall"
+        ],
+        [
+          10,
+          1,
+          "wall"
+        ],
+        [
+          10,
+          2,
+          "wall"
+        ],
+        [
+          10,
+          3,
+          "ice"
+        ],
+        [
+          10,
+          4,
+          "ice"
+        ],
+        [
+          10,
+          5,
+          "wall"
+        ]
+      ],
+      "reference": "unknown; diagnostic port attachment, no additivity assumed",
+      "pddl_sha256": "0625cc3c751873d490b6a075b4cb1a4046548f97d40d4ad6899ada3db7751d3b"
+    },
+    {
+      "instance": "physical-port-2",
+      "family": "physical-port-attempt",
+      "stages": 2,
+      "width": 11,
+      "height": 6,
+      "start": [
+        8,
+        3
+      ],
+      "goal": [
+        2,
+        2
+      ],
+      "cells": [
+        [
+          0,
+          0,
+          "ice"
+        ],
+        [
+          0,
+          1,
+          "ice"
+        ],
+        [
+          0,
+          2,
+          "ice"
+        ],
+        [
+          0,
+          3,
+          "ice"
+        ],
+        [
+          0,
+          4,
+          "wall"
+        ],
+        [
+          0,
+          5,
+          "wall"
+        ],
+        [
+          1,
+          0,
+          "ice"
+        ],
+        [
+          1,
+          1,
+          "wall"
+        ],
+        [
+          1,
+          2,
+          "wall"
+        ],
+        [
+          1,
+          3,
+          "ice"
+        ],
+        [
+          1,
+          4,
+          "wall"
+        ],
+        [
+          1,
+          5,
+          "wall"
+        ],
+        [
+          2,
+          0,
+          "ice"
+        ],
+        [
+          2,
+          1,
+          "pit"
+        ],
+        [
+          2,
+          2,
+          "ice"
+        ],
+        [
+          2,
+          3,
+          "ice"
+        ],
+        [
+          2,
+          4,
+          "ice"
+        ],
+        [
+          2,
+          5,
+          "ice"
+        ],
+        [
+          3,
+          0,
+          "ice"
+        ],
+        [
+          3,
+          1,
+          "wall"
+        ],
+        [
+          3,
+          2,
+          "ice"
+        ],
+        [
+          3,
+          3,
+          "ice"
+        ],
+        [
+          3,
+          4,
+          "ice"
+        ],
+        [
+          3,
+          5,
+          "ice"
+        ],
+        [
+          4,
+          0,
+          "ice"
+        ],
+        [
+          4,
+          1,
+          "wall"
+        ],
+        [
+          4,
+          2,
+          "wall"
+        ],
+        [
+          4,
+          3,
+          "ice"
+        ],
+        [
+          4,
+          4,
+          "ice"
+        ],
+        [
+          4,
+          5,
+          "wall"
+        ],
+        [
+          5,
+          0,
+          "ice"
+        ],
+        [
+          5,
+          1,
+          "wall"
+        ],
+        [
+          5,
+          2,
+          "wall"
+        ],
+        [
+          5,
+          3,
+          "wall"
+        ],
+        [
+          5,
+          4,
+          "wall"
+        ],
+        [
+          5,
+          5,
+          "wall"
+        ],
+        [
+          6,
+          0,
+          "ice"
+        ],
+        [
+          6,
+          1,
+          "wall"
+        ],
+        [
+          6,
+          2,
+          "wall"
+        ],
+        [
+          6,
+          3,
+          "wall"
+        ],
+        [
+          6,
+          4,
+          "wall"
+        ],
+        [
+          6,
+          5,
+          "wall"
+        ],
+        [
+          7,
+          0,
+          "ice"
+        ],
+        [
+          7,
+          1,
+          "ice"
+        ],
+        [
+          7,
+          2,
+          "ice"
+        ],
+        [
+          7,
+          3,
+          "wall"
+        ],
+        [
+          7,
+          4,
+          "wall"
+        ],
+        [
+          7,
+          5,
+          "wall"
+        ],
+        [
+          8,
+          0,
+          "wall"
+        ],
+        [
+          8,
+          1,
+          "pit"
+        ],
+        [
+          8,
+          2,
+          "ice"
+        ],
+        [
+          8,
+          3,
+          "ice"
+        ],
+        [
+          8,
+          4,
+          "ice"
+        ],
+        [
+          8,
+          5,
+          "ice"
+        ],
+        [
+          9,
+          0,
+          "wall"
+        ],
+        [
+          9,
+          1,
+          "wall"
+        ],
+        [
+          9,
+          2,
+          "ice"
+        ],
+        [
+          9,
+          3,
+          "ice"
+        ],
+        [
+          9,
+          4,
+          "ice"
+        ],
+        [
+          9,
+          5,
+          "ice"
+        ],
+        [
+          10,
+          0,
+          "wall"
+        ],
+        [
+          10,
+          1,
+          "wall"
+        ],
+        [
+          10,
+          2,
+          "wall"
+        ],
+        [
+          10,
+          3,
+          "ice"
+        ],
+        [
+          10,
+          4,
+          "ice"
+        ],
+        [
+          10,
+          5,
+          "wall"
+        ]
+      ],
+      "reference": "unknown; diagnostic port attachment, no additivity assumed",
+      "pddl_sha256": "ba566c2e6f6ed5daf6b136bcdb3cd3ee0c3987a93a8a7780d9f9e5e4e10dc3ce"
+    }
+  ]
+}
