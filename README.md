@@ -22,6 +22,7 @@ included in the repository:
 - [FrozenLake benchmark pilot](docs/frozenlake-pilot-report.md).
 - [Three-point FrozenLake recovery-route evaluation](docs/frozenlake-recovery-report.md).
 - [Serial Pareto-front scaling: proof and embedding diagnostics](docs/serial-tradeoff-report.md).
+- [Physical FrozenLake stages: verified fronts of sizes 2–4](docs/frozenlake-stages-report.md).
 
 New benchmark collections are exploratory and separate from the preserved
 ICAPS inputs:

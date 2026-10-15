@@ -85,6 +85,18 @@
       "figure": "docs/figures/serial-tradeoffs/stages-explained.png",
       "generated_source": "outputs/serial-tradeoffs/report/stages-explained.png",
       "sha256": "52f5de096dec69b3f073443e7236415a78ace20a8ca68a47d8fd9c086fd07d1e"
+    },
+    {
+      "report": "docs/frozenlake-stages-report.md",
+      "figure": "docs/figures/frozenlake-stages/physical-map.png",
+      "generated_source": "outputs/frozenlake-connected/report/physical-map.png",
+      "sha256": "24d0c9692f558aa54cd196e565248c05403cf71df4065e968f98ac2ba1f81b34"
+    },
+    {
+      "report": "docs/frozenlake-stages-report.md",
+      "figure": "docs/figures/frozenlake-stages/physical-fronts.png",
+      "generated_source": "outputs/frozenlake-connected/report/physical-fronts.png",
+      "sha256": "36f19fe41e0bb5cde6b24542b0628abf14a735c644607a1c4f3b6b7bf50bc9d0"
     }
   ]
 }

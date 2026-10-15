@@ -6,6 +6,10 @@ establish such a family of ordinary rectangular FrozenLake maps.
 
 ![Stage choices and serial composition](figures/serial-tradeoffs/stages-explained.png)
 
+A later [physical staircase-stage study](frozenlake-stages-report.md) successfully
+validated one through three rectangular stages. Its route design and costs differ
+from the abstract construction below.
+
 ## Construction and completeness
 
 Each stage offers fast `(3, 3+6d)` or safe `(3+2d, 3+4d)` best/worst costs,

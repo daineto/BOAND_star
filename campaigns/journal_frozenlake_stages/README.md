@@ -46,3 +46,16 @@ For one through three stages, respectively, exact fronts contain two, three
 and four finite pairs. They fit `(17k−7+2j, 34k−14−8j)` for `j=0,...,k`.
 This is an observed formula for the checked cases; a general proof for all
 physical stage counts is not claimed.
+
+## Completed bounded checks
+
+All six searches completed with the exact independent fronts, and all 18 emitted
+policies passed original-PDDL replay. Search times were approximately 1.9–43.3 ms
+in single observations. See the [report and physical map](../../docs/frozenlake-stages-report.md).
+No larger inputs or full campaign were run.
+
+Regenerate the report figures from the saved validated analysis:
+
+```bash
+MPLCONFIGDIR=/tmp/mplconfig .venv/bin/python -m campaigns.journal_frozenlake_stages.figures --analysis-root outputs/frozenlake-connected --output outputs/frozenlake-connected/report
+```
