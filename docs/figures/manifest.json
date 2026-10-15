@@ -61,6 +61,18 @@
       "figure": "docs/figures/prp-comparison/best-cost-comparison.png",
       "generated_source": "runs/journal_prp_comparison/2026-10-10T06-32-18Z-paper/comparison/best-cost-comparison.png",
       "sha256": "f7776546b85545f6134c99b7d4842feb59c9ea42a697d584d0d1ae6185c29d77"
+    },
+    {
+      "report": "docs/frozenlake-recovery-report.md",
+      "figure": "docs/figures/frozenlake-recovery/recovery-scaling.png",
+      "generated_source": "outputs/frozenlake-recovery-2026-10-15/report/recovery-scaling.png",
+      "sha256": "193398302dfe60989c821c55f83931fc58d482d5057461d6168e38966eebb9c8"
+    },
+    {
+      "report": "docs/frozenlake-recovery-report.md",
+      "figure": "docs/figures/frozenlake-recovery/quality-over-time.png",
+      "generated_source": "outputs/frozenlake-recovery-2026-10-15/report/quality-over-time.png",
+      "sha256": "c7bf0a0c75e1a05655a3452ea56d83074fc8e69a4d15ca027e90c08066d40a2c"
     }
   ]
 }

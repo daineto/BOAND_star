@@ -20,6 +20,7 @@ included in the repository:
 - [Performance improvements and backend migration](docs/performance-report.md).
 - [PRP coverage and solution-quality comparison](docs/prp-comparison-report.md).
 - [FrozenLake benchmark pilot](docs/frozenlake-pilot-report.md).
+- [Three-point FrozenLake recovery-route evaluation](docs/frozenlake-recovery-report.md).
 
 New benchmark collections are exploratory and separate from the preserved
 ICAPS inputs:
@@ -28,15 +29,16 @@ ICAPS inputs:
 | --- | --- | ---: | --- |
 | `journal_tradeoffs` | Pilot completed | 19 fixed candidates | FrozenLake quality/difficulty evaluation with both native heuristics. |
 | Adaptive pilot follow-up | Completed | 5 additional candidates | Wider layouts and a mixed strong/strong-cyclic example; outside the fixed pilot manifest. |
-| `journal_frozenlake_recovery` | Prepared; planner runs pending | 10 candidates | Recovery-route family with independently verified three-point base fronts. |
+| `journal_frozenlake_recovery` | Smoke and pilot completed | 10 candidates | Three-point fronts at every tested height, confirmed with both native heuristics. |
 
 See the [trade-off pilot guide](campaigns/journal_tradeoffs/README.md) and
 [recovery-route guide](campaigns/journal_frozenlake_recovery/README.md) for
-inputs, reference certainty and commands. Larger recovery maps have no verified
-fronts or measured runtimes yet. Neither collection is a finalized paper
+inputs, reference certainty and commands. Recovery base fronts are independently
+exact; larger fronts rely on completed BOAND searches and policy replay. Measured
+search times range from about 0.0015 to 3.32 seconds. Neither collection is a
+finalized paper
 benchmark, and neither replaces the journal development smoke/performance
-profiles. Recovery campaign execution is currently deferred at the user's
-request while other experiments run.
+profiles.
 
 ## Installation
 

@@ -4,10 +4,12 @@ This is a separate follow-up to the 19-instance journal trade-off pilot.
 No previous manifest, input, profile, numerical reference or scientific rule
 is changed. The original FrozenLake domain is copied byte for byte.
 
-**Execution is deferred:** the user reported other experiments running and
-requested no campaign launches. No BOAND jobs, smoke executions or full runs
-have been launched for this collection. The definitions and input hashes have
-only been checked statically; campaign dry-run commands are also deferred.
+**Evaluation completed on 2026-10-15:** the user lifted the earlier resource
+constraint. Both dry runs were checked, the four-job smoke gate passed, and all
+20 pilot jobs completed successfully. Every tested instance has three Pareto
+pairs with both heuristics. All 12 smoke and 60 pilot policies passed replay.
+See [the evaluation report](../../docs/frozenlake-recovery-report.md) for fronts,
+timings, resource observations and figures.
 
 ## Independently verified base construction
 
@@ -43,25 +45,29 @@ user's resource constraint.
 Both base maps' movements were checked against the original PDDL action
 preconditions and all outcomes. The oracle tests and generation/manifest tests
 passed (six targeted tests, under a second). This establishes the independent base
-references; it is **not** BOAND validation.
+references. The completed smoke campaign additionally validates BOAND against
+those independently established costs.
 
 ## Parameterized inputs
 
 `experiment_support/benchmark_generators/frozenlake_recovery.py` deterministically
 generates width-three maps at heights 5, 6, 7, 8 and 10, with both lower-tile
 types. Increasing height extends the shared upper recovery region. It is a
-scaling hypothesis: front cardinality, quality gaps and difficulty have not
-been established for larger maps. Their references remain explicitly pending.
+scaling hypothesis that has now been evaluated at the five declared heights.
+All ten maps have three-point completed fronts. Height-five references are
+independently exact; larger references rely on completed BOAND searches and
+original-PDDL replay. Generation metadata retains its construction-time pending
+labels; subsequent observations live in the analysis artifacts and report.
 
 `benchmarks/journal_tradeoffs/frozenlake_recovery/generation.json` records full
 layouts, start/goal coordinates, parameters, generator/renderer/domain hashes,
 PDDL hashes and reference certainty. This collection remains exploratory,
 not a finalized paper benchmark. The fixed manifest contains ten instances.
 
-## Commands for when resources are available
+## Reproduce the evaluation
 
-The following commands have not been run. Use the pinned native backend and
-the project virtual environment. Both profiles use seed 0, 600 seconds/job,
+Use the pinned native backend and the project virtual environment. Both
+profiles use `PYTHONHASHSEED=0`, 600 seconds/job,
 6,000,000 KB virtual memory/job and four workers, with no suite deadline.
 
 ```bash
@@ -89,10 +95,29 @@ Run the smoke validation first: four jobs, with both heuristics on the two exact
 base maps. Only after that gate passes, evaluate the full 20-job collection.
 Analysis replays emitted policies, requires exact base costs for completed
 searches, compares completed heuristic fronts and labels partial larger fronts
-as best known. The analysis execution path remains untested until campaign
-execution is permitted. It refuses replay while campaign jobs are running.
+as best known. Both actual analysis commands passed without discrepancies.
+Analysis refuses replay while campaign jobs are running.
 
-Do not launch alongside other campaigns. The user's current no-campaign
-instruction remains in force until lifted. Independent discovery source/logs,
+Do not launch alongside other campaigns. Independent discovery source/logs,
 the original candidate and the lightweight Python verification are retained in
 ignored `outputs/frozenlake-rich-fronts/`.
+
+Execution and replay evidence for this evaluation is in
+`outputs/frozenlake-recovery-2026-10-15/`, including controller/resource logs and
+both dry-run manifests. Its `driver.py` preserves the exact staging/resource
+monitor source; the report command below requires these saved evaluation
+artifacts. The standard commands above reproduce planner and replay execution.
+The smoke run is
+`runs/journal_frozenlake_recovery/2026-10-15T08-07-16Z-smoke-1725c980/`; the pilot
+is `runs/journal_frozenlake_recovery/2026-10-15T08-08-01Z-pilot-c1e8d238/`.
+The planner revision was `67661d3` throughout.
+
+Generate phase-separated timing tables and figures from the saved evaluation
+without rerunning planners:
+
+```bash
+MPLCONFIGDIR=/tmp/boand-recovery-mpl .venv/bin/python \
+  -m campaigns.journal_frozenlake_recovery.report \
+  --evaluation outputs/frozenlake-recovery-2026-10-15 \
+  --output outputs/frozenlake-recovery-2026-10-15/report
+```

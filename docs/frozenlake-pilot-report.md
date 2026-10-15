@@ -157,3 +157,8 @@ or campaigns have been launched for that follow-up because the user requested
 no campaign execution while other experiments run. These findings do not
 change the fixed pilot's results or manifest. See
 `campaigns/journal_frozenlake_recovery/README.md` for evidence and pending checks.
+
+On 2026-10-15 the user authorized the deferred evaluation. Both native heuristics
+completed all ten recovery maps with three-point fronts, and all 60 pilot
+policies passed replay. See the [recovery evaluation](frozenlake-recovery-report.md)
+for the new results; the earlier pilot's inputs and measurements remain unchanged.
