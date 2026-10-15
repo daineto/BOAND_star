@@ -7,9 +7,11 @@ from pathlib import Path
 from .frozenlake import DOMAIN, render
 
 
-def grid(stages):
+def grid(stages, size=6):
     if not isinstance(stages, int) or isinstance(stages, bool) or stages < 1:
         raise ValueError('Stages must be a positive integer')
+    if not isinstance(size, int) or isinstance(size, bool) or size < 6 or size % 2:
+        raise ValueError('Size must be an even integer at least six')
     ice, starts, ends = set(), [], []
 
     def line(source, target):
@@ -23,19 +25,19 @@ def grid(stages):
             ice.add(source)
 
     for stage in range(stages):
-        x, y = 16 * stage, 6 * stage
+        x, y = (size + 10) * stage, size * stage
         starts.append((x, y))
-        ends.append((x + 6, y + 6))
-        # Six up/right turns: twelve deterministic steps when used in isolation.
+        ends.append((x + size, y + size))
+        # Alternating up/right turns form a deterministic staircase in isolation.
         source = (x, y)
-        for step in range(6):
+        for step in range(size):
             bend = x + step, y + step + 1
             line(source, bend)
             source = x + step + 1, y + step + 1
             line(bend, source)
-        # A twenty-edge detour with four straight runs (2, 8, 8, 2).
-        path = [(x, y), (x - 2, y), (x - 2, y + 8),
-                (x + 6, y + 8), (x + 6, y + 6)]
+        # The detour has four even straight runs (2, size+2, size+2, 2).
+        path = [(x, y), (x - 2, y), (x - 2, y + size + 2),
+                (x + size, y + size + 2), (x + size, y + size)]
         for source, target in zip(path, path[1:]):
             line(source, target)
         if stage:
@@ -52,7 +54,7 @@ def grid(stages):
     ice = {(x - min_x, y - min_y) for x, y in ice}
     width = max(x for x, y in ice) + 2
     height = max(y for x, y in ice) + 2
-    return {'instance': f'staircase-k{stages:02d}', 'family': 'physical-staircase-stages',
+    return {'instance': f'staircase-k{stages:02d}' + (f'-n{size}' if size != 6 else ''), 'family': 'physical-staircase-stages',
             'stages': stages, 'width': width, 'height': height,
             'start': [starts[0][0] - min_x, starts[0][1] - min_y],
             'goal': [ends[-1][0] - min_x, ends[-1][1] - min_y],

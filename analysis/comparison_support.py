@@ -31,7 +31,8 @@ def elapsed_time(run):
     return None
 
 
-def replay_runs(runs, entries, output, workers=4, memory_kb=6_000_000, seconds=600):
+def replay_runs(runs, entries, output, workers=4, memory_kb=6_000_000, seconds=600,
+                replay_module="analysis.replay_job"):
     """Validate every emitted incumbent, including policies from partial searches."""
     output = Path(output); output.mkdir(parents=True, exist_ok=True)
 
@@ -55,7 +56,7 @@ def replay_runs(runs, entries, output, workers=4, memory_kb=6_000_000, seconds=6
         result.unlink(missing_ok=True)
         with (folder / 'stdout.log').open('w') as stdout, (folder / 'stderr.log').open('w') as stderr:
             code = subprocess.run(['timeout', '--kill-after=5', str(seconds), sys.executable,
-                                   '-m', 'analysis.replay_job', str(file), str(result)],
+                                   '-m', replay_module, str(file), str(result)],
                                   stdout=stdout, stderr=stderr).returncode
         if result.exists():
             data = json.loads(result.read_text())

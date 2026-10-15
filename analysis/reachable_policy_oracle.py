@@ -54,51 +54,63 @@ def exact_front(actions, initial, goal, *, max_nodes=1000000, seconds=30):
     graph, costs = {}, set()
     visited_nodes = completed_policies = 0
 
-    def visit():
-        nonlocal visited_nodes, completed_policies
+    # Use explicit stacks for both policy backtracking and graph traversal.
+    # Python recursion depth must not determine which inputs can be certified.
+    assignments = []
+    while True:
         visited_nodes += 1
         if visited_nodes > max_nodes or time.monotonic() - started > seconds:
             raise RuntimeError('Independent policy enumeration limit exceeded; front is unknown')
-        active, done, pending = set(), set(), []
-        order = []
-
-        def acyclic(source):
+        colors, pending, pending_set, order = {}, [], set(), []
+        traversal = [(initial, False)]
+        cyclic = False
+        while traversal:
+            source, exiting = traversal.pop()
             if source == goal:
-                return True
-            if source in active:
-                return False
-            if source in done:
-                return True
+                continue
+            if exiting:
+                colors[source] = 2
+                order.append(source)
+                continue
+            color = colors.get(source, 0)
+            if color == 1:
+                cyclic = True
+                break
+            if color == 2:
+                continue
             if source not in graph:
-                if source not in pending:
+                if source not in pending_set:
                     pending.append(source)
-                return True
-            active.add(source)
-            if not all(acyclic(target) for target in graph[source]):
-                return False
-            active.remove(source)
-            done.add(source)
-            order.append(source)
-            return True
+                    pending_set.add(source)
+                continue
+            colors[source] = 1
+            traversal.append((source, True))
+            traversal.extend((target, False) for target in reversed(graph[source]))
 
-        if not acyclic(initial):
-            return
-        if not pending:
-            # DFS postorder permits exact shortest/longest path dynamic programs.
-            best, worst = {goal: 0}, {goal: 0}
-            for source in order:
-                best[source] = 1 + min(best[t] for t in graph[source])
-                worst[source] = 1 + max(worst[t] for t in graph[source])
-            costs.add((best[initial], worst[initial]))
-            completed_policies += 1
-            return
-        source = pending[0]
-        for outcomes in actions.get(source, ()):
-            graph[source] = outcomes
-            visit()
-        graph.pop(source, None)
+        if not cyclic:
+            if pending:
+                source = pending[0]
+                assignments.append((source, iter(actions.get(source, ()))))
+            else:
+                # DFS postorder supports exact shortest/longest path programs.
+                best, worst = {goal: 0}, {goal: 0}
+                for source in order:
+                    best[source] = 1 + min(best[t] for t in graph[source])
+                    worst[source] = 1 + max(worst[t] for t in graph[source])
+                costs.add((best[initial], worst[initial]))
+                completed_policies += 1
 
-    visit()
+        # Extend the newest undecided state, or backtrack to its next action.
+        while assignments:
+            source, choices = assignments[-1]
+            try:
+                graph[source] = next(choices)
+                break
+            except StopIteration:
+                graph.pop(source, None)
+                assignments.pop()
+        if not assignments:
+            break
     best_proper = minimum_proper_best(actions, initial, goal)
     if best_proper is not None:
         costs.add((best_proper, float('inf')))
